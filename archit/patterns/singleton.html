@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Singleton Pattern</title>
+
+  
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+</head>
+<script>
+tailwind.config = {
+  darkMode: "class"
+}
+</script>
+<script>
+hljs.highlightAll();
+</script>
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors">
+<canvas 
+  id="cursor-canvas"
+  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+</canvas>
+
+<!-- Header -->
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo / Title -->
+    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+      <img src="images/singleton-mini.png" alt="mini-cmd" class="w-8 h-8">
+      <span>Singleton Pattern</span>
+    </h1>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex gap-6 font-semibold text-sm">
+      <a href="#intent" class="hover:text-indigo-500">Intent</a>
+      <a href="#problem" class="hover:text-indigo-500">Problem</a>
+      <a href="#solution" class="hover:text-indigo-500">Solution</a>
+      <a href="#ex" class="hover:text-indigo-500">Structure</a>
+      <a href="#cpp" class="hover:text-indigo-500">C++</a>
+      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+      </nav>
+
+   <!-- Theme Toggle (Now inside header) -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger button (visible only on small screens) -->
+      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-white/95 dark:bg-slate-800/95
+           border-t border-slate-200 dark:border-slate-700">
+
+      <a href="#intent" class="hover:text-indigo-500">Intent</a>
+      <a href="#problem" class="hover:text-indigo-500">Problem</a>
+      <a href="#solution" class="hover:text-indigo-500">Solution</a>
+      <a href="#ex" class="hover:text-indigo-500">Structure</a>
+      <a href="#cpp" class="hover:text-indigo-500">C++</a>
+      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  </div>
+</header>
+
+
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+<section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
+  <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Singleton</h2>
+  <p class="text-lg font-medium text-slate-800">Singleton is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance.</p>
+  <figure class="image"><img src="images/singleton.png" alt=""></figure>
+</section>
+
+<section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
+  <h3 class="text-xl font-bold mb-4">  
+    <i class="fa fa-frown" aria-hidden="true"></i> Problem
+  </h3>
+<p>The Singleton pattern solves two problems at the same time, violating the <em>Single Responsibility Principle</em>:</p>
+<ol>
+<li>
+<p><strong>1. Ensure that a class has just a single instance</strong>. Why would anyone want to control how many instances a class has? The most common reason for this is to control access to some shared resource—for example, a database or a file.</p>
+<p>Here’s how it works: imagine that you created an object, but after a while decided to create a new one. Instead of receiving a fresh object, you’ll get the one you already created.</p>
+<p>Note that this behavior is impossible to implement with a regular constructor since a constructor call <strong>must</strong> always return a new object by design.</p>
+</li>
+</ol>
+<figure class="image"><img src="images/singleton-comic-1-en.png" alt="The global access to an object" ><figcaption>
+<p>Clients may not even realize that they’re working with the same object all the&nbsp;time.</p>
+</figcaption></figure>
+<ol start="2">
+<li>
+<p><strong>2. Provide a global access point to that instance</strong>. Remember those global variables that you (all right, me) used to store some essential objects? While they’re very handy, they’re also very unsafe since any code can potentially overwrite the contents of those variables and crash the app.</p>
+<p>Just like a global variable, the Singleton pattern lets you access some object from anywhere in the program. However, it also protects that instance from being overwritten by other code.</p>
+<p>There’s another side to this problem: you don’t want the code that solves problem #1 to be scattered all over your program. It’s much better to have it within one class, especially if the rest of your code already depends on it.</p>
+</li>
+</ol>
+<p>Nowadays, the Singleton pattern has become so popular that people may call something a <em>singleton</em> even if it solves just one of the listed problems.</p>
+</section>
+
+<section id="solution" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-green-400">
+  <h3 class="text-xl font-bold mb-4">  
+    <i class="fa fa-smile-beam" aria-hidden="true"></i> Solution
+  </h3>
+<p>All implementations of the Singleton have these two steps in common:</p>
+<ul>
+<li>Make the default constructor private, to prevent other objects from using the <code>new</code> operator with the Singleton class.</li>
+<li>Create a static creation method that acts as a constructor. Under the hood, this method calls the private constructor to create an object and saves it in a static field. All following calls to this method return the cached object.</li>
+</ul>
+<p>If your code has access to the Singleton class, then it’s able to call the Singleton’s static method. So whenever that method is called, the same object is always returned.</p>
+
+</section>
+
+<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+  <h3 class="text-xl font-bold mb-3">Structure</h3>
+  <p></p>
+  <figure class="image"><img src="images/structure-en (1).png" alt=""><figcaption></figcaption></figure>
+</section>
+<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+  <h3 class="text-xl font-bold mb-3">Structure</h3>
+  <p></p>
+  <figure class="image"><img src="images/structure-en.png" alt=""><figcaption></figcaption></figure>
+</section>
+
+<section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+    
+          <i class="fa fa-car-side text-blue-500" aria-hidden="true"></i>
+          <span class="dark:text-white"></span>
+          C++ Implementations</h3>
+        </h3>
+    </div>
+
+    <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-mono text-slate-500"></span>
+          <button
+            class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+          Copy
+          </button>
+        </div>
+      </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+    /**
+ * The Singleton class defines the `GetInstance` method that serves as an
+ * alternative to constructor and lets clients access the same instance of this
+ * class over and over.
+ */
+class Singleton
+{
+
+    /**
+     * The Singleton's constructor should always be private to prevent direct
+     * construction calls with the `new` operator.
+     */
+
+protected:
+    Singleton(const std::string value): value_(value)
+    {
+    }
+
+    static Singleton* singleton_;
+
+    std::string value_;
+
+public:
+
+    /**
+     * Singletons should not be cloneable.
+     */
+    Singleton(Singleton &other) = delete;
+    /**
+     * Singletons should not be assignable.
+     */
+    void operator=(const Singleton &) = delete;
+    /**
+     * This is the static method that controls the access to the singleton
+     * instance. On the first run, it creates a singleton object and places it
+     * into the static field. On subsequent runs, it returns the client existing
+     * object stored in the static field.
+     */
+
+    static Singleton *GetInstance(const std::string& value);
+    /**
+     * Finally, any singleton should define some business logic, which can be
+     * executed on its instance.
+     */
+    void SomeBusinessLogic()
+    {
+        // ...
+    }
+
+    std::string value() const{
+        return value_;
+    } 
+};
+
+Singleton* Singleton::singleton_= nullptr;;
+
+/**
+ * Static methods should be defined outside the class.
+ */
+Singleton *Singleton::GetInstance(const std::string& value)
+{
+    /**
+     * This is a safer way to create an instance. instance = new Singleton is
+     * dangeruous in case two instance threads wants to access at the same time
+     */
+    if(singleton_==nullptr){
+        singleton_ = new Singleton(value);
+    }
+    return singleton_;
+}
+
+void ThreadFoo(){
+    // Following code emulates slow initialization.
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    Singleton* singleton = Singleton::GetInstance("FOO");
+    std::cout << singleton->value() << "\n";
+}
+
+void ThreadBar(){
+    // Following code emulates slow initialization.
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    Singleton* singleton = Singleton::GetInstance("BAR");
+    std::cout << singleton->value() << "\n";
+}
+
+
+int main()
+{
+    std::cout <<"If you see the same value, then singleton was reused (yay!\n" <<
+                "If you see different values, then 2 singletons were created (booo!!)\n\n" <<
+                "RESULT:\n";   
+    std::thread t1(ThreadFoo);
+    std::thread t2(ThreadBar);
+    t1.join();
+    t2.join();
+
+    return 0;
+}
+</code>
+</pre>
+</div>
+</section>
+
+<section id="proscons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-600">
+    <h3 class="text-xl font-bold mb-4"> 
+  <i  aria-hidden="true"></i>⚖️ Pros & Cons
+    </h3>
+  <div class="grid md:grid-cols-2 gap-6">
+    <ul class="list-disc pl-5 space-y-2 text-green-500">
+      <li>You can be sure that a class has only a single instance.</li>
+      <li>You gain a global access point to that instance</li>
+      <li>The singleton object is initialized only when it’s requested for the first time.</li>
+      <li>Violates the Single Responsibility Principle. The pattern solves two problems at the time.</li>
+    </ul>
+    <ul class="list-disc pl-5 space-y-2 text-red-400">
+      <li>The Singleton pattern can mask bad design, for instance, when the components of the program know too much about each other.</li>
+      <li>The pattern requires special treatment in a multithreaded environment so that multiple threads won’t create a singleton object several times</li>
+      <li>It may be difficult to unit test the client code of the Singleton because many test frameworks rely on inheritance when producing mock objects. Since the constructor of the singleton class is private and overriding static methods is impossible in most languages, you will need to think of a creative way to mock the singleton. Or just don’t write the tests. Or don’t use the Singleton pattern.</li>
+    </ul>
+  </div>
+</section>
+
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+
+</main>
+<script src="js/designpatternScript.js"></script>
+</body>
+</html>

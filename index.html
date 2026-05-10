@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+
+    <title>Unmatched Board Game</title>
+  </head>
+
+  <canvas id="cursor-canvas" class="fixed inset-0 pointer-events-none z-[9999]"></canvas>
+
+  <style>
+  html { scroll-behavior: smooth; }
+
+  #navMenu.active { display: flex !important; }
+
+/* Deck slidera */
+#decks {
+  padding: 100px 10%;
+}
+
+.deck-container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.deck-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.deck-button {
+  width: 140px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.deck-button:hover {
+  transform: scale(1.08);
+}
+
+.deck-cards {
+  display: flex;
+  overflow: hidden;
+  max-width: 0;
+  transition: max-width 0.7s ease;
+}
+
+.deck-cards.open {
+  max-width: 1600px;
+}
+
+.deck-cards.overlap img {
+  margin-left: -70px;
+  transition: 0.3s;
+}
+
+.deck-cards.overlap img:first-child {
+  margin-left: 0;
+}
+
+.deck-card {
+  width: 150px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.deck-card:hover {
+  transform: translateY(-25px) scale(1.25);
+  z-index: 99;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal img {
+  width: 380px;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+.deck-cards {
+  display: flex;
+  overflow: hidden;
+}
+
+/* combat card */
+.attack-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  z-index: 10;
+}
+.attack-box {
+  width: 220px;
+  height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  background: #111;
+  z-index: 10;
+}
+
+.attack-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top,
+    rgba(150, 0, 0, 0.5),
+    rgba(80, 0, 0, 0.7) 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+  transform: scale(1);
+  filter: blur(3px);
+}
+
+.attack-box:hover {
+  transform: scale(1.05);
+  border-color: darkred;
+  box-shadow: 0 0 20px 6px rgba(200, 0, 0, 0.7);
+}
+
+.attack-box:hover::before {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.attack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.25s;
+  z-index: 10;
+}
+
+.defense-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+/* make defense card able to show overlay */
+.defense-box {
+  width: 220px;
+  height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.defense-box {
+  position: relative;
+}
+
+/* blood overlay */
+.blood-effect {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.9);
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(180, 0, 0, 0.85) 0 18%,
+      transparent 19%
+    ),
+    radial-gradient(
+      circle at 65% 35%,
+      rgba(140, 0, 0, 0.8) 0 14%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 45% 70%,
+      rgba(120, 0, 0, 0.75) 0 20%,
+      transparent 21%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(160, 0, 0, 0.7) 0 12%,
+      transparent 13%
+    );
+  filter: blur(0.4px) contrast(1.1);
+  mix-blend-mode: multiply;
+}
+
+.defense-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.25s;
+}
+
+.hero-box:hover .hero-img {
+  filter: brightness(1.25);
+  transform: scale(1.04);
+}
+.board-container {
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+  margin: auto;
+}
+
+.board-img {
+  width: 100%;
+  display: block;
+}
+
+.fighter {
+  position: absolute;
+  width: 10%;
+  transition: all 1s ease;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+section {
+  scroll-margin-top: 100px; /* adjust to your navbar height */
+}
+
+
+</style>
+
+
+  <body class="bg-[#0f1115] text-[#e6e6e6] [cursor:none]">
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full z-[1000] bg-[#11141a] border-b border-[#222] px-10 py-[18px] flex items-center justify-between max-md:px-5">
+      <h1 class="text-[20px] tracking-[2px]">UNMATCHED</h1>
+
+      <div id="menuToggle" class="hidden max-md:block text-[26px] cursor-pointer text-white">
+        ☰
+      </div>
+
+      <ul
+        id="navMenu"
+        class="list-none flex gap-[30px] max-md:absolute max-md:top-[70px] max-md:right-0 max-md:w-full max-md:flex-col max-md:items-center max-md:gap-5 max-md:py-5 max-md:bg-[#11141a] max-md:border-b max-md:border-[#222] max-md:hidden"
+      >
+        <li><a class="no-underline text-[#bbb] hover:text-white transition" href="#characters">Characters</a></li>
+        <li><a class="no-underline text-[#bbb] hover:text-white transition" href="#boards">Boards</a></li>
+        <li><a class="no-underline text-[#bbb] hover:text-white transition" href="#decks">Decks</a></li>
+        <li><a class="no-underline text-[#bbb] hover:text-white transition" href="#how">How to Play</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO / OVERVIEW -->
+    <section class="relative z-[1] h-screen flex flex-col items-center justify-center text-center px-5">
+      <div
+        class="absolute inset-0 z-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.5),rgba(0,0,0,0.8)),url('images/art1.png')] bg-center bg-cover bg-no-repeat
+               [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]
+               [-webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]"
+      ></div>
+
+      <h2
+        class="relative z-10 text-white font-extrabold tracking-[2px]
+               text-[72px] max-md:text-[50px]
+               [text-shadow:0_0_25px_rgba(255,255,255,0.35),0_0_45px_rgba(160,70,255,0.35),0_4px_10px_rgba(0,0,0,0.8)]"
+      >
+        Unmatched
+      </h2>
+
+      <p class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-10 opacity-90">
+        Tactical board game where legends battle across time and myth. Choose your fighter and outsmart your opponent.
+      </p>
+
+    <a href="#characters"
+   class="px-9 py-[14px] text-[18px] rounded-[10px] text-white bg-[rgba(255,60,60,0.75)]
+          backdrop-blur-[6px] shadow-[0_0_12px_rgba(255,70,70,0.4),inset_0_0_12px_rgba(255,150,150,0.2)]
+          transition duration-200 hover:bg-[rgba(255,80,80,0.9)] hover:scale-[1.06]
+          hover:shadow-[0_0_18px_rgba(255,100,100,0.55),inset_0_0_16px_rgba(255,180,180,0.3)]">
+    Explore Fighters
+</a>
+
+<!-- <div class="mt-12 flex justify-center">
+  <a href="#characters"
+     class="px-9 py-[14px] text-[18px] font-semibold rounded-[10px]
+            text-slate-900 bg-[rgba(34,211,238,0.8)]
+            backdrop-blur-[6px]
+            shadow-[0_0_12px_rgba(34,211,238,0.45),inset_0_0_12px_rgba(180,240,255,0.25)]
+            transition duration-200
+            hover:bg-[rgba(34,211,238,0.95)]
+            hover:scale-[1.06]
+            hover:shadow-[0_0_18px_rgba(34,211,238,0.65),inset_0_0_16px_rgba(200,250,255,0.35)]">
+    Explore Fighters
+  </a>
+</div> -->
+
+
+
+    </section>
+
+    <!-- CHARACTERS -->
+    <section id="characters" class="px-[10%] py-[100px]">
+      <div id="hero-charactars-section" class="py-10">
+        <div class="flex gap-[30px] justify-center max-md:flex-wrap">
+          <!-- Sherlock -->
+          <div class="w-[260px] bg-[#111] rounded-[14px] overflow-hidden flex flex-col text-[#eaeaea] shadow-[0_0_18px_rgba(0,0,0,0.35)] group">
+            <div class="relative w-full h-[260px] overflow-hidden">
+              <img src="images/sherArt.png" class="w-full h-full object-cover" />
+
+              <div
+  class="absolute inset-0 p-[18px] opacity-0 group-hover:opacity-100 transition duration-300
+         bg-[rgba(10,10,15,0.78)] backdrop-blur-[7px]
+         overflow-y-auto scrollbar-thin scrollbar-thumb-[#444]"
+>
+                <div class="translate-y-5 group-hover:translate-y-0 transition duration-300">
+                  <h2 class="flex items-center gap-[10px] mb-3 text-[20px]">
+                    <img src="images/melee.svg" class="w-[100px]" />
+                  </h2>
+
+                  <p class="text-[14px] opacity-90">HEALTH: 16 &nbsp;&nbsp; MOVEMENT: 2</p>
+
+                  <p class="my-3 text-[14px]">
+                    <span class="text-[#9f7aea] font-semibold">Special Ability:</span><br />
+                    Effects on HOLMES and DR. WATSON cards cannot be cancelled by an opponent.
+                  </p>
+
+                  <p class="my-3 text-[14px]">
+                    <span class="text-[#9f7aea] font-semibold">Dr.Watson:</span>
+                  </p>
+
+                  <div class="flex items-center gap-[10px] mt-4 justify-start">
+                    <img
+                      src="images/watson_20260428141027.png"
+                      class="w-[30px] h-[30px] rounded-full object-cover border border-[rgba(255,255,255,0.2)]"
+                    />
+                    <img src="images/ranged.svg" class="w-[100px] h-auto block" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-4 py-4 text-center font-bold text-[18px] bg-[#151515] border-t border-[rgba(255,255,255,0.06)] group-hover:opacity-30 transition">
+              Sherlock Holms
+            </div>
+          </div>
+
+          <!-- Dracula -->
+          <div class="w-[260px] bg-[#111] rounded-[14px] overflow-hidden flex flex-col text-[#eaeaea] shadow-[0_0_18px_rgba(0,0,0,0.35)] group">
+            <div class="relative w-full h-[260px] overflow-hidden">
+              <img src="images/DracArt.png" class="w-full h-full object-cover" />
+
+              <div
+  class="absolute inset-0 p-[18px] opacity-0 group-hover:opacity-100 transition duration-300
+         bg-[rgba(10,10,15,0.78)] backdrop-blur-[7px]
+         overflow-y-auto scrollbar-thin scrollbar-thumb-[#444]"
+>
+                <div class="translate-y-5 group-hover:translate-y-0 transition duration-300">
+                  <h2 class="flex items-center gap-[10px] mb-3 text-[20px]">
+                    <img src="images/melee.svg" class="w-[100px]" />
+                  </h2>
+
+                  <p class="text-[14px] opacity-90">HEALTH: 13 &nbsp;&nbsp; MOVEMENT: 2</p>
+
+                  <p class="my-3 text-[14px]">
+                    <span class="text-[#9f7aea] font-semibold">BLOODTHIRSTY:</span><br />
+                    At the start of your turn, deal 1 damage to adjacent fighter. If you do, draw a card.
+                  </p>
+
+                  <p class="my-3 text-[14px]">
+                    <span class="text-[#9f7aea] font-semibold">Sisters:</span>
+                  </p>
+
+                  <div class="flex items-center gap-[10px] mt-4 justify-start">
+                    <p class="flex items-center gap-2">
+                      <img
+                        src="images/sis1.webp"
+                        class="w-[30px] h-[30px] rounded-full object-cover border border-[rgba(255,255,255,0.2)]"
+                      />
+                      x3
+                    </p>
+                    <img src="images/melee.svg" class="w-[100px] h-auto block" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-4 py-4 text-center font-bold text-[18px] bg-[#151515] border-t border-[rgba(255,255,255,0.06)] group-hover:opacity-30 transition">
+              Dracula
+            </div>
+          </div>
+
+          <!-- Invisible Man -->
+          <div class="w-[260px] bg-[#111] rounded-[14px] overflow-hidden flex flex-col text-[#eaeaea] shadow-[0_0_18px_rgba(0,0,0,0.35)] group">
+            <div class="relative w-full h-[260px] overflow-hidden">
+              <img src="images/invArt.png" class="w-full h-full object-cover" />
+
+              <div
+  class="absolute inset-0 p-[18px] opacity-0 group-hover:opacity-100 transition duration-300
+         bg-[rgba(10,10,15,0.78)] backdrop-blur-[7px]
+         overflow-y-auto scrollbar-thin scrollbar-thumb-[#444]"
+>
+                <div class="translate-y-5 group-hover:translate-y-0 transition duration-300">
+                  <h2 class="flex items-center gap-[10px] mb-3 text-[20px]">
+                    <img src="images/melee.svg" class="w-[100px]" />
+                  </h2>
+
+                  <p class="text-[14px] opacity-90">HEALTH: 15 &nbsp;&nbsp; MOVEMENT: 2</p>
+
+                  <p class="my-3 text-[14px]">
+                    <span class="text-[#9f7aea] font-semibold">Special Ability:</span><br />
+                    Place 3 fog tokens in separate spaces in his zone. +1 defense while on a fog space. May move
+                    between fog spaces as if adjacent.
+                  </p>
+
+                  <p class="my-3 text-[14px]">
+                    <span class="text-[#9f7aea] font-semibold">fogs:</span>
+                  </p>
+
+                  <div class="flex items-center gap-[10px] mt-4 justify-start">
+                    <p class="flex items-center gap-2">
+                      <img
+                        src="images/fogtok.png"
+                        class="w-[30px] h-[30px] rounded-full object-cover border border-[rgba(255,255,255,0.2)]"
+                      />
+                      x3
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-4 py-4 text-center font-bold text-[18px] bg-[#151515] border-t border-[rgba(255,255,255,0.06)] group-hover:opacity-30 transition">
+              Invisible Man
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOARDS -->
+    <section id="boards" class="px-[10%] py-[100px]">
+      <h2 class="reveal text-[36px] mb-10 text-center">Game Boards</h2>
+
+      <div class="grid gap-[30px] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
+        <div class="reveal bg-[#161a22] rounded-[10px] overflow-hidden border border-[#222] transition hover:-translate-y-2 hover:border-[#444]">
+          <img src="images/board.jpeg" class="w-full h-[280px] object-cover" />
+          <div class="p-5">
+            <h3 class="mb-2.5">Soho Streets</h3>
+            <p class="text-[#aaa] text-[14px]">foggy city battlefield perfect for cunning tactics.</p>
+          </div>
+        </div>
+
+        <div class="reveal bg-[#161a22] rounded-[10px] overflow-hidden border border-[#222] transition hover:-translate-y-2 hover:border-[#444]">
+          <img src="images/board1.jpeg" class="w-full h-[280px] object-cover" />
+          <div class="p-5">
+            <h3 class="mb-2.5">Dracula's Castle</h3>
+            <p class="text-[#aaa] text-[14px]">A dark gothic castle filled with danger and ambush opportunities.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DECKS -->
+    <section id="decks" class="px-[10%] py-[100px]">
+      <h2 class="text-[36px] mb-10 text-center">Character Decks</h2>
+
+      <div class="flex flex-col gap-[60px]">
+        <!-- Invisible Man -->
+        <div class="flex items-center gap-5 relative">
+          <img
+            src="images/invBackCard.png"
+            class="w-[140px] cursor-pointer rounded-[10px] transition hover:scale-[1.08] deck-button"
+            data-deck="deck1"
+          />
+
+          <div id="deck1" class="flex overflow-hidden max-w-0 transition-[max-width] duration-700 ease-in-out deck-cards overlap">
+            <img src="images/invisibleMan/coded-notes.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-0" />
+            <img src="images/invisibleMan/confound.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/covert-preparation.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/dreaming-of-revenge.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/emerge-from-mist.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/impossible-to-see.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/into-thin-air.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/lurking.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/reign-of-terror.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/rolling-fog.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/slip-away.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/step-lightly.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/invisibleMan/vanish.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+          </div>
+        </div>
+
+        <!-- Sherlock -->
+        <div class="flex items-center gap-5 relative">
+          <img
+            src="images/sherBackCard.webp"
+            class="w-[140px] cursor-pointer rounded-[10px] transition hover:scale-[1.08] deck-button"
+            data-deck="deck2"
+          />
+
+          <div id="deck2" class="flex overflow-hidden max-w-0 transition-[max-width] duration-700 ease-in-out deck-cards overlap">
+            <img src="images/holms/administer-aid.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-0" />
+            <img src="images/holms/confirm-suspicion.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/counterpunch.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/deduce-strategy.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/education-never-ends.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/elementary.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/eliminate-the-impossible.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/feint (2).png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/fixed-point-in-a-changing-age.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/master-of-disguise.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/service-revolver.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/study-methods.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/holms/the-game-is-afoot.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+          </div>
+        </div>
+
+        <!-- Dracula -->
+        <div class="flex items-center gap-5 relative">
+          <img
+            src="images/draculaBackCard.webp"
+            class="w-[140px] cursor-pointer rounded-[10px] transition hover:scale-[1.08] deck-button"
+            data-deck="deck3"
+          />
+
+          <div id="deck3" class="flex overflow-hidden max-w-0 transition-[max-width] duration-700 ease-in-out deck-cards overlap">
+            <img src="images/dracula/ambush.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-0" />
+            <img src="images/dracula/baptism-of-blood.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/beastform.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/dash.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/do-my-bidding.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/exploit.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/feeding-frenzy.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/feint (1).png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/look-into-my-eyes.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/mistform.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/prey-upon.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/ravening-seduction.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+            <img src="images/dracula/thirst-for-sustenance.png" class="w-[150px] rounded-[10px] cursor-pointer transition deck-card ml-[-70px]" />
+          </div>
+        </div>
+
+        <div id="cardModal" class="fixed inset-0 bg-[rgba(0,0,0,0.75)] hidden items-center justify-center z-[9999]">
+          <img id="modalImage" class="w-[380px] rounded-[10px] shadow-[0_20px_40px_rgba(0,0,0,0.8)]" />
+        </div>
+      </div>
+    </section>
+
+    <!-- DECK STATS: Sherlock -->
+    <section class="px-5 py-[60px] max-w-[1200px] mx-auto">
+      <h2 class="text-white mb-5 text-[2rem]">Sherlock Holms - Deck Stats</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-white text-center bg-[#121212] text-[14px]">
+          <thead>
+            <tr>
+              <th rowspan="2" class="p-3 border border-[#333] uppercase bg-[#1a1a1a] min-w-[160px]">Character</th>
+              <th colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Unique Cards</th>
+              <th colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Total Cards</th>
+              <th colspan="4" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Total Value</th>
+            </tr>
+            <tr>
+              <th class="p-3 border border-[#333] bg-[#c62828]"> <img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /> </th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"> <img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /> </th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"> <img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /> </th>
+              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"> <img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /> </th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+
+              <th class="p-3 border border-[#333] bg-[#c62828]"> <img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /> </th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"> <img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /> </th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"> <img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /> </th>
+              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"> <img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /> </th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+
+              <th class="p-3 border border-[#333] bg-[#c62828]"> <img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /> </th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"> <img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /> </th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"> <img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /> </th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+            </tr>
+          </thead>
+
+          <tbody class="[&>tr:hover]:brightness-110">
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">HOLMES + ANY</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">5</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">10</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">13</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">7</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">24</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">10</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">36</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">6</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">52</td>
+            </tr>
+
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">DR. WATSON + ANY</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">6</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">9</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">13</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">10</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">24</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">34</td>
+            </tr>
+
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">ANY</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">3</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">7</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">7</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">18</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">18</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr class="text-white">
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444] text-left pl-5">TOTAL</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">6</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">13</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">15</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">9</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">30</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">20</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">42</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">6</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">68</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- Invisible Man Deck Stats -->
+    <section class="px-5 py-[60px] max-w-[1100px] mx-auto">
+      <h2 class="text-white mb-5 text-[2rem]">Invisible Man - Deck Stats</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-white text-center bg-[#121212] text-[14px]">
+          <thead>
+            <tr>
+              <th rowspan="2" class="p-3 border border-[#333] uppercase bg-[#1a1a1a] min-w-[160px]">Character</th>
+              <th colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Unique Cards</th>
+              <th colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Total Cards</th>
+              <th colspan="3" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Total Value</th>
+            </tr>
+            <tr>
+              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
+              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+
+              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
+              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+
+              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
+            </tr>
+          </thead>
+
+          <tbody class="[&>tr:hover]:brightness-110">
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">INVISIBLE MAN</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">14</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">7</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">9</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">6</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">8</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">30</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">25</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">22</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Dracula Deck Stats -->
+    <section class="px-5 py-[60px] max-w-[1100px] mx-auto">
+      <h2 class="text-white mb-5 text-[2rem]">Dracula - Deck Stats</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-white text-center bg-[#121212] text-[14px]">
+          <thead>
+            <tr>
+              <th rowspan="2" class="p-3 border border-[#333] uppercase bg-[#1a1a1a] min-w-[160px]">Character</th>
+              <th colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Unique cards</th>
+              <th colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Total cards</th>
+              <th colspan="3" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]">Total value</th>
+            </tr>
+            <tr>
+              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
+              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+
+              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
+              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
+              <th class="p-3 border border-[#333] bg-[#212121]">Total</th>
+
+              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
+              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
+              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
+            </tr>
+          </thead>
+
+          <tbody class="[&>tr:hover]:brightness-110">
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">DRACULA + ANY</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">11</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">6</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">8</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">6</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">24</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">20</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">23</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">8</td>
+            </tr>
+
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">SISTER + ANY</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">6</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">5</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">8</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">16</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">13</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">23</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+            </tr>
+
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-left pl-5">ANY</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">1</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">4</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">8</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">10</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">23</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444] text-left pl-5">TOTAL</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">3</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">2</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">13</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">9</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">8</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">9</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">30</td>
+
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">29</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">23</td>
+              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">8</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section id="how" class="px-[10%] py-[100px]">
+      <h2 class="reveal text-[36px] mb-10 text-center">How To Play</h2>
+
+      <div class="max-w-[900px] mx-auto flex flex-col gap-[25px]">
+        <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+          <h3>1. Select Your Hero</h3>
+
+          <div id="hero-select">
+            <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
+              <button
+                class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-invisible"
+                data-front="images/invChar.webp"
+                data-card="images/invHero.png"
+              >
+                <canvas class="absolute inset-0 w-full h-full z-[3] pointer-events-none fx-canvas"></canvas>
+                <img src="images/invChar.webp" class="relative z-[1] w-full h-full object-cover transition hero-img" />
+              </button>
+
+              <button
+                class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-sherlock"
+                data-front="images/sherChar.webp"
+                data-card="images/sherlockHerocard.png"
+              >
+                <canvas class="absolute inset-0 w-full h-full z-[3] pointer-events-none fx-canvas"></canvas>
+                <img src="images/sherChar.webp" class="relative z-[1] w-full h-full object-cover transition hero-img" />
+              </button>
+
+              <button
+                class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-dracula"
+                data-front="images/draculaChar.jpeg"
+                data-card="images/dracHero.webp"
+              >
+                <canvas class="absolute inset-0 w-full h-full z-[3] pointer-events-none fx-canvas"></canvas>
+                <img src="images/draculaChar.jpeg" class="relative z-[1] w-full h-full object-cover transition hero-img" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+       <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+  <h3>3. Play Combat Cards</h3>
+
+  <!-- Attack cards -->
+  <div id="attack-card">
+    <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
+      <div
+        class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
+               hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
+      >
+        <img src="images/dracula/beastform.png" class="attack-img w-full h-full object-cover" />
+      </div>
+
+      <div
+        class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
+               hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
+      >
+        <img src="images/invisibleMan/slip-away.png" class="attack-img w-full h-full object-cover" />
+      </div>
+
+      <div
+        class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
+               hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
+      >
+        <img src="images/holms/service-revolver.png" class="attack-img w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Defense cards -->
+  <div id="defense-card">
+    <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
+      <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
+        <img src="images/dracula/look-into-my-eyes.png" class="defense-img w-full h-full object-cover" />
+      </div>
+
+      <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
+        <img src="images/invisibleMan/lurking.png" class="defense-img w-full h-full object-cover" />
+      </div>
+
+      <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
+        <img src="images/holms/elementary.png" class="defense-img w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+          <h3>4. Defeat Your Opponent</h3>
+
+          <div class="mt-4">
+            <div id="draculaHealth" data-max="13" class="">
+              <img src="images/draculaHealth.png" alt="Dracula Health Dial" class="block" />
+            </div>
+
+            <p class="mt-4">Reduce the enemy hero's health to zero to win the match.</p>
+          </div>
+        </div>
+      </div>
+      <a href="concepts/oop.html" class="mt-12 flex justify-center">
+  <button id="forwardBtn"
+    class="px-8 py-3 rounded-xl font-semibold
+           bg-cyan-500 hover:bg-cyan-400
+           text-slate-900 shadow-lg shadow-cyan-500/30
+           transition-all duration-300
+           hover:scale-105 active:scale-95">
+    Continue to Implementation Guide →
+  </button>
+</a>
+    </section>
+
+
+    <!-- FOOTER -->
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/javascript.js"></script>
+  </body>
+</html>

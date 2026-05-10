@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Strategy Pattern</title>
+
+  
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+</head>
+<script>
+tailwind.config = {
+  darkMode: "class"
+}
+</script>
+<script>
+hljs.highlightAll();
+</script>
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors">
+<canvas 
+  id="cursor-canvas"
+  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+</canvas>
+<!-- Header -->
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo / Title -->
+    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+      <img src="images/strategy-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <span>Strategy Pattern</span>
+    </h1>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex gap-6 font-semibold text-sm">
+      <a href="#intent" class="hover:text-indigo-500">Intent</a>
+      <a href="#problem" class="hover:text-indigo-500">Problem</a>
+      <a href="#solution" class="hover:text-indigo-500">Solution</a>
+      <a href="#ex" class="hover:text-indigo-500">Example</a>
+      <a href="#cpp" class="hover:text-indigo-500">C++</a>
+      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+     </nav>
+
+   <!-- Theme Toggle (Now inside header) -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger button (visible only on small screens) -->
+      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-white/95 dark:bg-slate-800/95
+           border-t border-slate-200 dark:border-slate-700">
+
+      <a href="#intent" class="hover:text-indigo-500">Intent</a>
+      <a href="#problem" class="hover:text-indigo-500">Problem</a>
+      <a href="#solution" class="hover:text-indigo-500">Solution</a>
+      <a href="#ex" class="hover:text-indigo-500">Example</a>
+      <a href="#cpp" class="hover:text-indigo-500">C++</a>
+      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+     </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+<section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
+  <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Strategy</h2>
+  <p class="text-lg font-medium text-slate-800">is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects&nbsp;interchangeable.</p>
+  <figure class="image"><img src="images/strategy.png" alt=""></figure>
+</section>
+
+<section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
+    <h3 class="text-xl font-bold mb-4">
+  
+  <i class="fa fa-frown" aria-hidden="true"></i> Problem
+    </h3>
+  <p>One day you decided to create a navigation app for casual travelers. The app was centered around a beautiful map which helped users quickly orient themselves in any city.</p>
+<p>One of the most requested features for the app was automatic route planning. A user should be able to enter an address and see the fastest route to that destination displayed on the map.</p>
+<p>The first version of the app could only build the routes over roads. People who traveled by car were bursting with joy. But apparently, not everybody likes to drive on their vacation. So with the next update, you added an option to build walking routes. Right after that, you added another option to let people use public transport in their routes.</p>
+<p>However, that was only the beginning. Later you planned to add route building for cyclists. And even later, another option for building routes through all of a city’s tourist attractions.</p>
+<figure class="image"><img src="images/problem.png" ></figure>
+<p>The code of the navigator became&nbsp;bloated.</p>
+</figcaption></figure>
+<p>While from a business perspective the app was a success, the technical part caused you many headaches. Each time you added a new routing algorithm, the main class of the navigator doubled in size. At some point, the beast became too hard to maintain.</p>
+<p>Any change to one of the algorithms, whether it was a simple bug fix or a slight adjustment of the street score, affected the whole class, increasing the chance of creating an error in already-working code.</p>
+<p>In addition, teamwork became inefficient. Your teammates, who had been hired right after the successful release, complain that they spend too much time resolving merge conflicts. Implementing a new feature requires you to change the same huge class, conflicting with the code produced by other people.</p>
+
+</section>
+
+<section id="solution" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-green-400">
+    <h3 class="text-xl font-bold mb-4">
+    
+  <i class="fa fa-smile-beam" aria-hidden="true"></i> Solution
+    </h3>
+<p>The Strategy pattern suggests that you take a class that does something specific in a lot of different ways and extract all of these algorithms into separate classes called <em>strategies</em>.</p>
+<p>The original class, called <em>context</em>, must have a field for storing a reference to one of the strategies. The context delegates the work to a linked strategy object instead of executing it on its own.</p>
+<p>The context isn’t responsible for selecting an appropriate algorithm for the job. Instead, the client passes the desired strategy to the context. In fact, the context doesn’t know much about strategies. It works with all strategies through the same generic interface, which only exposes a single method for triggering the algorithm encapsulated within the selected strategy.</p>
+<p>This way the context becomes independent of concrete strategies, so you can add new algorithms or modify existing ones without changing the code of the context or other strategies.</p>
+<figure class="image"><img src="images/solution.png" > </figure>
+<p>Route planning&nbsp;strategies.</p>
+</figcaption></figure>
+<p>In our navigation app, each routing algorithm can be extracted to its own class with a single <code>buildRoute</code> method. The method accepts an origin and destination and returns a collection of the route’s checkpoints.</p>
+<p>Even though given the same arguments, each routing class might build a different route, the main navigator class doesn’t really care which algorithm is selected since its primary job is to render a set of checkpoints on the map. The class has a method for switching the active routing strategy, so its clients, such as the buttons in the user interface, can replace the currently selected routing behavior with another one.</p>
+
+</section>
+
+<section id="structure"class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-emerald-400">
+  <h3 class="text-xl font-bold mb-2">Structure</h3>
+    <figure class="image"><img src="images/structure (1).png" alt=""></figure>
+
+</section>
+
+<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+    <i class="fa fa-car-side" aria-hidden="true"></i>Example
+  <figure class="image"><img src="images/strategy-comic-1-en.png" alt=""><figcaption></figcaption></figure>
+  <p>Imagine that you have to get to the airport. You can catch a bus, order a cab, or get on your bicycle. These are your transportation strategies. You can pick one of the strategies depending on factors such as budget or time constraints.
+
+</p>
+</section>
+
+<section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+            <i class="fa fa-car-side text-blue-500" aria-hidden="true"></i>
+            <span class="dark:text-white"></span>
+            C++ implementation
+        </h3>
+    </div>
+
+    <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-mono text-slate-500"></span>
+          <button
+            class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+            Copy
+        </button>
+        </div>
+      </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+/**
+ * The Strategy interface declares operations common to all supported versions
+ * of some algorithm.
+ *
+ * The Context uses this interface to call the algorithm defined by Concrete
+ * Strategies.
+ */
+class Strategy
+{
+public:
+    virtual ~Strategy() = default;
+    virtual std::string doAlgorithm(std::string_view data) const = 0;
+};
+
+/**
+ * The Context defines the interface of interest to clients.
+ */
+
+class Context
+{
+    /**
+     * @var Strategy The Context maintains a reference to one of the Strategy
+     * objects. The Context does not know the concrete class of a strategy. It
+     * should work with all strategies via the Strategy interface.
+     */
+private:
+    std::unique_ptr<Strategy> strategy_;
+    /**
+     * Usually, the Context accepts a strategy through the constructor, but also
+     * provides a setter to change it at runtime.
+     */
+public:
+    explicit Context(std::unique_ptr<Strategy> &&strategy = {}) : strategy_(std::move(strategy))
+    {
+    }
+    /**
+     * Usually, the Context allows replacing a Strategy object at runtime.
+     */
+    void set_strategy(std::unique_ptr<Strategy> &&strategy)
+    {
+        strategy_ = std::move(strategy);
+    }
+    /**
+     * The Context delegates some work to the Strategy object instead of
+     * implementing +multiple versions of the algorithm on its own.
+     */
+    void doSomeBusinessLogic() const
+    {
+        if (strategy_) {
+            std::cout << "Context: Sorting data using the strategy (not sure how it'll do it)\n";
+            std::string result = strategy_->doAlgorithm("aecbd");
+            std::cout << result << "\n";
+        } else {
+            std::cout << "Context: Strategy isn't set\n";
+        }
+    }
+};
+
+/**
+ * Concrete Strategies implement the algorithm while following the base Strategy
+ * interface. The interface makes them interchangeable in the Context.
+ */
+class ConcreteStrategyA : public Strategy
+{
+public:
+    std::string doAlgorithm(std::string_view data) const override
+    {
+        std::string result(data);
+        std::sort(std::begin(result), std::end(result));
+
+        return result;
+    }
+};
+class ConcreteStrategyB : public Strategy
+{
+    std::string doAlgorithm(std::string_view data) const override
+    {
+        std::string result(data);
+        std::sort(std::begin(result), std::end(result), std::greater<>());
+
+        return result;
+    }
+};
+/**
+ * The client code picks a concrete strategy and passes it to the context. The
+ * client should be aware of the differences between strategies in order to make
+ * the right choice.
+ */
+
+void clientCode()
+{
+    Context context(std::make_unique<ConcreteStrategyA>());
+    std::cout << "Client: Strategy is set to normal sorting.\n";
+    context.doSomeBusinessLogic();
+    std::cout << "\n";
+    std::cout << "Client: Strategy is set to reverse sorting.\n";
+    context.set_strategy(std::make_unique<ConcreteStrategyB>());
+    context.doSomeBusinessLogic();
+}
+
+int main()
+{
+    clientCode();
+    return 0;
+}
+</code>
+</pre>
+</div>
+</section>
+
+<section id="proscons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-600">
+    <i  aria-hidden="true"></i>⚖️ Pros & Cons
+  <div class="grid md:grid-cols-2 gap-6">
+    <ul class="list-disc pl-5 space-y-2 text-green-500">
+ 
+ 
+ <li>       You can swap algorithms used inside an object at runtime.
+ </li>
+ <li>You can isolate the implementation details of an algorithm from the code that uses it.
+ </li>
+ <li>You can replace inheritance with composition.
+ </li>
+ <li>Open/Closed Principle. You can introduce new strategies without having to change the context.
+</li>
+    </ul>
+    <ul class="list-disc pl-5 space-y-2 text-red-400">
+
+ 
+        <li>If you only have a couple of algorithms and they rarely change, there’s no real reason to overcomplicate the program with new classes and interfaces that come along with the pattern.
+ </li>
+    <li>Clients must be aware of the differences between strategies to be able to select a proper one.
+ </li>
+    <li>A lot of modern programming languages have functional type support that lets you implement different versions of an algorithm inside a set of anonymous functions. Then you could use these functions exactly as you’d have used the strategy objects, but without bloating your code with extra classes and interfaces
+ </li>   </ul>
+  </div>
+</section>
+
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+
+</main>
+<script src="js/designpatternScript.js"></script>
+
+</body>
+</html>

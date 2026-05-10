@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Command Pattern</title>
+
+
+<script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+<link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+<script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+  };
+</script>
+
+
+<script>
+hljs.highlightAll();
+</script>
+
+
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors">
+<canvas 
+  id="cursor-canvas"
+  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+</canvas>
+
+
+<!-- Header -->
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo / Title -->
+    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+      <img src="images/command-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <span>Command Pattern</span>
+    </h1>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex gap-6 font-semibold text-sm">
+        <a href="#intent" class="hover:text-indigo-500 transition">Intent</a>
+        <a href="#problem" class="hover:text-indigo-500 transition">Problem</a>
+        <a href="#solution" class="hover:text-indigo-500 transition">Solution</a>
+        <a href="#ex" class="hover:text-indigo-500 transition">Example</a>
+        <a href="#cpp" class="hover:text-indigo-500 transition">C++</a>
+        <a href="#pros-cons" class="hover:text-indigo-500 transition">Pros/Cons</a>
+      </nav>
+
+   <!-- Theme Toggle (Now inside header) -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger button (visible only on small screens) -->
+      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-white/95 dark:bg-slate-800/95
+           border-t border-slate-200 dark:border-slate-700">
+
+    <a href="#intent" class="pt-4 hover:text-indigo-500 transition">Intent</a>
+    <a href="#problem" class="hover:text-indigo-500 transition">Problem</a>
+    <a href="#solution" class="hover:text-indigo-500 transition">Solution</a>
+    <a href="#ex" class="hover:text-indigo-500 transition">Example</a>
+    <a href="#cpp" class="hover:text-indigo-500 transition">C++</a>
+    <a href="#pros-cons" class="hover:text-indigo-500 transition">Pros/Cons</a>
+  </div>
+</header>
+
+
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+<!-- Hero -->
+<section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
+  <h2 class="text-4xl font-extrabold mb-4 text-slate-900">
+    Command Pattern
+  </h2>
+  <p class="text-lg font-medium text-slate-800">
+   <strong>Command</strong> is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as method arguments, delay or queue a request’s execution, and support undoable operations.
+  </p>
+  <figure class="image"><img src="images/" alt="Command Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
+</section>
+
+<!-- Problem -->
+<section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
+  <h3 class="text-xl font-bold mb-3">
+    <i class="fa fa-frown" aria-hidden="true"></i> Problem
+  </h3>
+<p>Imagine that you’re working on a new text-editor app. Your current task is to create a toolbar with a bunch of buttons for various operations of the editor. You created a very neat <code>Button</code> class that can be used for buttons on the toolbar, as well as for generic buttons in various dialogs.</p>
+<figure class="image"><img src="images/problem-command.png" alt="Problem with direct button subclasses" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy">
+  <p>All buttons of the app are derived from the same&nbsp;class.</p>
+  <figcaption>
+  </figcaption>
+</figure>
+<p>While all of these buttons look similar, they’re all supposed to do different things. Where would you put the code for the various click handlers of these buttons? The simplest solution is to create tons of subclasses for each place where the button is used. These subclasses would contain the code that would have to be executed on a button click.</p>
+<figure class="image"><img src="/images/patterns/diagrams/command/problem2.png?id=f0e33da1842b3a3ee3b4857de0b6ec93" alt="Lots of button subclasses" srcset="/images/patterns/diagrams/command/problem2.png?id=f0e33da1842b3a3ee3b4857de0b6ec93 400w,/images/patterns/diagrams/command/problem2-1.5x.png?id=7ae15e2b07d5d076a878d99c3ed8ac32 600w,/images/patterns/diagrams/command/problem2-2x.png?id=5eea7d0f6247da011150bb63e423f405 800w" sizes="(max-width: 720px) 100vw, 400px" width="400" style="aspect-ratio: 2.11;" loading="lazy"><figcaption>
+
+<p>Lots of button subclasses. What can go&nbsp;wrong?</p>
+<p>Before long, you realize that this approach is deeply flawed. First, you have an enormous number of subclasses, and that would be okay if you weren’t risking breaking the code in these subclasses each time you modify the base <code>Button</code> class. Put simply, your GUI code has become awkwardly dependent on the volatile code of the business logic.</p>
+<figure class="image"><img src="/images/patterns/diagrams/command/problem3-en.png?id=1fbd56ae7ba3e3dfac45cfa2de6db450" alt="Several classes implement the same functionality" srcset="/images/patterns/diagrams/command/problem3-en.png?id=1fbd56ae7ba3e3dfac45cfa2de6db450 480w,/images/patterns/diagrams/command/problem3-en-1.5x.png?id=2da629d84c7cbabbca11562a3d7d2559 720w,/images/patterns/diagrams/command/problem3-en-2x.png?id=e06878f7cfbe4131980c68db2904878e 960w" sizes="(max-width: 720px) 100vw, 480px" width="480" style="aspect-ratio: 4.36;" loading="lazy"><figcaption>
+  <p>Several classes implement the same&nbsp;functionality.</p>
+  <p>And here’s the ugliest part. Some operations, such as copying/pasting text, would need to be invoked from multiple places. For example, a user could click a small “Copy” button on the toolbar, or copy something via the context menu, or just hit <code>Ctrl+C</code> on the keyboard.</p>
+  <p>Initially, when our app only had the toolbar, it was okay to place the implementation of various operations into the button subclasses. In other words, having the code for copying text inside the <code>CopyButton</code> subclass was fine. But then, when you implement context menus, shortcuts, and other stuff, you have to either duplicate the operation’s code in many classes or make menus dependent on buttons, which is an even worse option.</p>
+  
+</section>
+
+<!-- Solution -->
+<section id="solution" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-green-400">
+  <h3 class="text-xl font-bold mb-2">
+    <i class="fa fa-smile-beam" aria-hidden="true"></i> Solution
+  </h3>
+<p>Good software design is often based on the <em>principle of separation of concerns</em>, which usually results in breaking an app into layers. The most common example: a layer for the graphical user interface and another layer for the business logic. The GUI layer is responsible for rendering a beautiful picture on the screen, capturing any input and showing results of what the user and the app are doing. However, when it comes to doing something important, like calculating the trajectory of the moon or composing an annual report, the GUI layer delegates the work to the underlying layer of business logic.</p>
+<p>In the code it might look like this: a GUI object calls a method of a business logic object, passing it some arguments. This process is usually described as one object sending another a <em>request</em>.</p>
+<figure class="image"><img src="/images/patterns/diagrams/command/solution1-en.png?id=ec37db1713fe2c1a9318886590667cfb" alt="The GUI layer may access the business logic layer directly" srcset="/images/patterns/diagrams/command/solution1-en.png?id=ec37db1713fe2c1a9318886590667cfb 470w,/images/patterns/diagrams/command/solution1-en-1.5x.png?id=e3f5d3cc9e4822419cbdc3fc54e3cac3 705w,/images/patterns/diagrams/command/solution1-en-2x.png?id=d66717631fdebf5fae4d28c6c942e5d4 940w" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.47;" loading="lazy"><figcaption>
+<p>The GUI objects may access the business logic objects&nbsp;directly.</p>
+</figcaption></figure>
+<p>The Command pattern suggests that GUI objects shouldn’t send these requests directly. Instead, you should extract all of the request details, such as the object being called, the name of the method and the list of arguments into a separate <em>command</em> class with a single method that triggers this request.</p>
+<p>Command objects serve as links between various GUI and business logic objects. From now on, the GUI object doesn’t need to know what business logic object will receive the request and how it’ll be processed. The GUI object just triggers the command, which handles all the details.</p>
+<figure class="image"><img src="/images/patterns/diagrams/command/solution2-en.png?id=63bcac5cde2ec536c3329eff4c385839" alt="Accessing the business logic layer via a command." srcset="/images/patterns/diagrams/command/solution2-en.png?id=63bcac5cde2ec536c3329eff4c385839 550w,/images/patterns/diagrams/command/solution2-en-1.5x.png?id=fec1d2c44e4011b7c44917bebc6acad0 825w,/images/patterns/diagrams/command/solution2-en-2x.png?id=b530f7b00b40ed7d3445b91c08009b10 1100w" sizes="(max-width: 720px) 100vw, 550px" width="550" style="aspect-ratio: 2.89;" loading="lazy"><figcaption>
+<p>Accessing the business logic layer via a&nbsp;command.</p>
+</figcaption></figure>
+<p>The next step is to make your commands implement the same interface. Usually it has just a single execution method that takes no parameters. This interface lets you use various commands with the same request sender, without coupling it to concrete classes of commands. As a bonus, now you can switch command objects linked to the sender, effectively changing the sender’s behavior at runtime.</p>
+<p>You might have noticed one missing piece of the puzzle, which is the request parameters. A GUI object might have supplied the business-layer object with some parameters. Since the command execution method doesn’t have any parameters, how would we pass the request details to the receiver? It turns out the command should be either pre-configured with this data, or capable of getting it on its own.</p>
+<figure class="image"><img src="/images/patterns/diagrams/command/solution3-en.png?id=c92f6874b95de46b041499d41234b00b" alt="The GUI objects delegate the work to commands" srcset="/images/patterns/diagrams/command/solution3-en.png?id=c92f6874b95de46b041499d41234b00b 440w,/images/patterns/diagrams/command/solution3-en-1.5x.png?id=580ba981ae73f0608513349ecf38ad90 660w,/images/patterns/diagrams/command/solution3-en-2x.png?id=c12bb9971d1ba4f8a3d3717bbced2859 880w" sizes="(max-width: 720px) 100vw, 440px" width="440" style="aspect-ratio: 1.83;" loading="lazy"><figcaption>
+<p>The GUI objects delegate the work to&nbsp;commands.</p>
+</figcaption></figure>
+<p>Let’s get back to our text editor. After we apply the Command pattern, we no longer need all those button subclasses to implement various click behaviors. It’s enough to put a single field into the base <code>Button</code> class that stores a reference to a command object and make the button execute that command on a click.</p>
+<p>You’ll implement a bunch of command classes for every possible operation and link them with particular buttons, depending on the buttons’ intended behavior.</p>
+<p>Other GUI elements, such as menus, shortcuts or entire dialogs, can be implemented in the same way. They’ll be linked to a command which gets executed when a user interacts with the GUI element. As you’ve probably guessed by now, the elements related to the same operations will be linked to the same commands, preventing any code duplication.</p>
+<p>As a result, commands become a convenient middle layer that reduces coupling between the GUI and business logic layers. And that’s only a fraction of the benefits that the Command pattern can offer!</p>
+
+</section>
+
+<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+
+    <h3 class="text-xl font-bold mb-4">
+    <i class="fa fa-car-side" aria-hidden="true"></i>Example
+  </h3>
+<p>In this example, the <strong>Command</strong> pattern helps to track the history of executed operations and makes it possible to revert an operation if needed.</p>
+<figure class="image"><img src="/images/patterns/diagrams/command/example.png?id=1f42c8395fe54d0e409026b91881e2a0" alt="Structure of the Command pattern example" srcset="/images/patterns/diagrams/command/example.png?id=1f42c8395fe54d0e409026b91881e2a0 640w,/images/patterns/diagrams/command/example-1.5x.png?id=435055a78a82c005eebb1bef869998ae 960w,/images/patterns/diagrams/command/example-2x.png?id=ed44dfd9b02eccf1ae7e2714d018ed36 1280w" sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.07;" loading="lazy"><figcaption>
+   </figcaption> </figure>
+</section>
+
+<section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+            <i class="fa fa-car-side text-blue-500" aria-hidden="true"></i>
+            <span class="dark:text-white">C++ Implementation</span>
+        </h3>
+    </div>
+
+  <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+      
+      <div class="flex gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-mono text-slate-500">observer.cpp</span>
+
+        <button
+          class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition"
+        >
+          Copy
+        </button>
+      </div>
+
+    </div>
+
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">/**
+ * The Command interface declares a method for executing a command.
+ */
+class Command {
+ public:
+  virtual ~Command() {}
+  virtual void Execute() const = 0;
+};
+
+/**
+ * Some commands can implement simple operations on their own.
+ */
+class SimpleCommand : public Command {
+ private:
+  std::string pay_load_;
+
+ public:
+  explicit SimpleCommand(std::string pay_load) : pay_load_(pay_load) {}
+  void Execute() const override {
+    std::cout << "SimpleCommand: See, I can do simple things like (" << this->pay_load_ << ")\n";
+  }
+};
+
+/**
+ * The Receiver classes contain some important business logic.
+ */
+class Receiver {
+ public:
+  void DoSomething(const std::string &a) {
+    std::cout << "Receiver: Working on (" << a << ".)\n";
+  }
+  void DoSomethingElse(const std::string &b) {
+    std::cout << "Receiver: Also working on (" << b << ".)\n";
+  }
+};
+
+class ComplexCommand : public Command {
+ private:
+  Receiver *receiver_;
+  std::string a_;
+  std::string b_;
+
+ public:
+  ComplexCommand(Receiver *receiver, std::string a, std::string b) 
+      : receiver_(receiver), a_(a), b_(b) {}
+  
+  void Execute() const override {
+    std::cout << "ComplexCommand: Complex stuff should be done by a receiver object.\n";
+    this->receiver_->DoSomething(this->a_);
+    this->receiver_->DoSomethingElse(this->b_);
+  }
+};
+
+class Invoker {
+ private:
+  Command *on_start_;
+  Command *on_finish_;
+
+ public:
+  ~Invoker() {
+    delete on_start_;
+    delete on_finish_;
+  }
+
+  void SetOnStart(Command *command) { this->on_start_ = command; }
+  void SetOnFinish(Command *command) { this->on_finish_ = command; }
+
+  void DoSomethingImportant() {
+    std::cout << "Invoker: Does anybody want something done before I begin?\n";
+    if (this->on_start_) this->on_start_->Execute();
+    std::cout << "Invoker: ...doing something really important...\n";
+    if (this->on_finish_) this->on_finish_->Execute();
+  }
+};
+
+int main() {
+  Invoker *invoker = new Invoker;
+  invoker->SetOnStart(new SimpleCommand("Say Hi!"));
+  Receiver *receiver = new Receiver;
+  invoker->SetOnFinish(new ComplexCommand(receiver, "Send email", "Save report"));
+  invoker->DoSomethingImportant();
+
+  delete invoker;
+  delete receiver;
+  return 0;
+}</code>
+</pre>
+
+</div>
+</section>
+
+
+
+<section id="pros-cons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+
+    <h3 class="text-xl font-bold mb-4">
+    <i  aria-hidden="true"></i>⚖️ Pros & Cons
+  </h3>
+
+   <div class="grid md:grid-cols-2 gap-6">
+
+    <ul class="list-disc pl-5 space-y-2 text-green-500">
+      <li>
+        Single Responsibility Principle. You can decouple classes that invoke operations from classes that perform these operations.
+
+      </li>
+      <li>
+        Open/Closed Principle. You can introduce new commands into the app without breaking existing client code.
+
+      </li>
+      <li>
+        You can implement undo/redo.
+
+      </li>
+      <li>
+        You can implement deferred execution of operations.
+
+      </li>
+      <li>
+        You can assemble a set of simple commands into a complex one.
+
+      </li>
+      
+
+
+    </ul>
+
+        <ul class="list-disc pl-5 space-y-2 text-red-400">
+      <li>
+The code may become more complicated since you’re introducing a whole new layer between senders and receivers.      </li>
+    </ul>
+
+
+</div>
+
+</section>
+
+
+
+</main>
+<script src="js/designpatternScript.js"></script>
+
+</body>
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+</html>

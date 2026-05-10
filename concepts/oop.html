@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OOP Concepts</title>
+
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<script>
+tailwind.config = { darkMode: "class" }
+</script>
+
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors selection:bg-indigo-300/40 dark:selection:bg-indigo-500/30">
+
+<canvas id="cursor-canvas" class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]"></canvas>
+
+
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <h1 class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+      <i class="fa-solid fa-code"></i>
+      <span>OOP in C++</span>
+    </h1>
+
+    <!-- Right Side (Desktop Nav + Buttons) -->
+    <div class="flex items-center gap-4">
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex gap-6 font-semibold text-sm mr-6">
+        <a href="#hero" class="hover:text-indigo-500 transition">Intro</a>
+        <a href="#oop" class="hover:text-indigo-500 transition">OOP</a>
+        <a href="#generic" class="hover:text-indigo-500 transition">Templates</a>
+        <a href="#stl" class="hover:text-indigo-500 transition">STL</a>
+        <a href="#modern" class="hover:text-indigo-500 transition">Modern C++</a>
+      </nav>
+
+      <!-- Theme Toggle (Now inside header) -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger button (visible only on small screens) -->
+      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base bg-white/95 dark:bg-slate-800/95 border-t border-slate-100 dark:border-slate-700">
+    <a href="#hero" class="pt-4 hover:text-indigo-500 transition">Intro</a>
+    <a href="#oop" class="hover:text-indigo-500 transition">OOP</a>
+    <a href="#generic" class="hover:text-indigo-500 transition">Templates</a>
+    <a href="#stl" class="hover:text-indigo-500 transition">STL</a>
+    <a href="#modern" class="hover:text-indigo-500 transition">Modern C++</a>
+  </div>
+</header>
+
+
+
+
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+  <!-- Hero -->
+  <section id="hero" class="relative overflow-hidden rounded-3xl border border-indigo-200 dark:border-indigo-800 bg-gradient-to-br from-indigo-500 via-blue-600 to-slate-900 text-white p-10 shadow-2xl">
+    <div class="max-w-3xl space-y-6">
+      <span class="inline-block px-4 py-1 rounded-full bg-white/10 border border-white/20 text-sm font-medium">
+        Learn the ideas behind C++ OOP
+      </span>
+      <h2 class="text-4xl md:text-5xl font-black leading-tight">
+        Understand Advanced Programming Concepts in <span>C++</span>
+      </h2>
+      <p class="text-lg text-slate-200 leading-8">
+        C++ is powerful because it combines low-level control with high-level abstractions.
+        This page explains the most important modern C++ ideas in a clear and visual way:
+        object-oriented programming, templates, STL, Modern cpp.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#oop" class="px-5 py-3 rounded-xl bg-white text-slate-900 font-bold hover:scale-105 transition">
+          Start Learning
+        </a>
+        <a href="#modern" class="px-5 py-3 rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 transition font-semibold">
+          Explore Modern Features
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OOP intro -->
+  <section id="oop" class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="fa-solid fa-cubes text-indigo-500 text-2xl"></i>
+        <h3 class="text-2xl font-bold">Object-Oriented Programming</h3>
+      </div>
+      <p class="leading-8 text-slate-600 dark:text-slate-300">
+        OOP organizes code around <strong>objects</strong>, which combine data and behavior.
+        Instead of writing everything as disconnected functions, you model real concepts:
+        a <code>Car</code>, a <code>BankAccount</code>, a <code>Student</code>, or a <code>FileManager</code>.
+      </p>
+      <div class="mt-6 grid sm:grid-cols-2 gap-4">
+        <div class="rounded-xl p-4 bg-indigo-50 dark:bg-slate-900 border border-indigo-100 dark:border-slate-700">
+          <h4 class="font-bold text-indigo-600 dark:text-indigo-300 mb-2">Why use OOP?</h4>
+          <ul class="list-disc ml-5 space-y-1 text-sm">
+            <li>Better code organization</li>
+            <li>Reusable logic</li>
+            <li>Easier maintenance</li>
+            <li>Real-world modeling</li>
+          </ul>
+        </div>
+        <div class="rounded-xl p-4 bg-blue-50 dark:bg-slate-900 border border-blue-100 dark:border-slate-700">
+          <h4 class="font-bold text-blue-600 dark:text-blue-300 mb-2">Core pillars</h4>
+          <ul class="list-disc ml-5 space-y-1 text-sm">
+            <li>Encapsulation</li>
+            <li>Abstraction</li>
+            <li>Inheritance</li>
+            <li>Polymorphism</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="fa-solid fa-box text-emerald-500 text-2xl"></i>
+        <h3 class="text-2xl font-bold">Encapsulation</h3>
+      </div>
+      <p class="leading-8 text-slate-600 dark:text-slate-300">
+        Encapsulation means hiding internal details and exposing only what the user of a class needs.
+        A class protects its state and controls how that state is changed.
+        This reduces bugs and keeps your program predictable.
+      </p>
+      <div class="mt-5 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-slate-900 p-4">
+        <p class="text-sm leading-7">
+          Example idea: a bank account should not let outside code directly set the balance to anything.
+          Instead, it should offer controlled operations like <code>deposit()</code> and <code>withdraw()</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OOP code -->
+  <section class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-indigo-500 border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold flex items-center gap-2">
+        <i class="fa-solid fa-building-columns text-indigo-500"></i>
+        <span>Encapsulation Example in C++</span>
+      </h3>
+    </div>
+
+    <div class="code-card rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-mono text-slate-500">bank_account.cpp</span>
+          <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+            Copy
+          </button>
+        </div>
+      </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class BankAccount {
+private:
+    // keeping this private
+    std::string owner;
+    double balance;
+
+public:
+    BankAccount(const std::string& name, double initialBalance)
+        : owner(name), balance(initialBalance) {}
+
+    void deposit(double amount) {
+        if (amount &gt; 0) balance += amount;
+    }
+
+    bool withdraw(double amount) {
+        if (amount &lt;= balance) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    void show() const {
+        std::cout &lt;&lt; "Owner: " &lt;&lt; owner
+                  &lt;&lt; ", Balance: " &lt;&lt; balance &lt;&lt; '\n';
+    }
+};
+
+int main() {
+    BankAccount acc("Alice", 1000);
+    acc.deposit(500);
+    acc.withdraw(200);
+    acc.show();
+}</code></pre>
+    </div>
+  </section>
+
+  <!-- Inheritance + polymorphism -->
+  <section class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="fa-solid fa-diagram-project text-purple-500 text-2xl"></i>
+        <h3 class="text-2xl font-bold">Inheritance</h3>
+      </div>
+      <p class="leading-8 text-slate-600 dark:text-slate-300">
+        Inheritance allows one class to reuse and extend another.
+        A derived class inherits common members from a base class, which helps reduce duplicated code.
+      </p>
+      <div class="mt-5 space-y-3 text-sm">
+        <div class="p-4 rounded-xl bg-purple-50 dark:bg-slate-900 border border-purple-100 dark:border-slate-700">
+          <strong>Base class:</strong> defines shared behavior
+        </div>
+        <div class="p-4 rounded-xl bg-purple-50 dark:bg-slate-900 border border-purple-100 dark:border-slate-700">
+          <strong>Derived class:</strong> adds specialized behavior
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+      <div class="flex items-center gap-3 mb-4">
+        <i class="fa-solid fa-shapes text-pink-500 text-2xl"></i>
+        <h3 class="text-2xl font-bold">Polymorphism</h3>
+      </div>
+      <p class="leading-8 text-slate-600 dark:text-slate-300">
+        Polymorphism means one interface can represent many forms.
+        With <code>virtual</code> functions, you can call the same method name on different objects,
+        and each object responds in its own way.
+      </p>
+      <div class="mt-5 rounded-xl p-4 bg-pink-50 dark:bg-slate-900 border border-pink-100 dark:border-slate-700">
+        <p class="text-sm leading-7">
+          This is essential for flexible, extensible systems like graphics engines,
+          game entities, plugin systems, and UI frameworks.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-purple-500 border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold flex items-center gap-2">
+        <i class="fa-solid fa-code-branch text-purple-500"></i>
+        <span>Inheritance + Polymorphism Example</span>
+      </h3>
+    </div>
+
+    <div class="code-card rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-mono text-slate-500">shapes.cpp</span>
+          <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+            Copy
+          </button>
+        </div>
+      </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;vector&gt;
+
+class Shape {
+public:
+    virtual void draw() const {
+        std::cout &lt;&lt; "Drawing a generic shape\n";
+    }
+
+    virtual ~Shape() = default;
+};
+
+class Circle : public Shape {
+public:
+    void draw() const override {
+        std::cout &lt;&lt; "Drawing a circle\n";
+    }
+};
+
+class Rectangle : public Shape {
+public:
+    void draw() const override {
+        std::cout &lt;&lt; "Drawing a rectangle\n";
+    }
+};
+
+int main() {
+    std::vector&lt;std::unique_ptr&lt;Shape&gt;&gt; shapes;
+    shapes.push_back(std::make_unique&lt;Circle&gt;());
+    shapes.push_back(std::make_unique&lt;Rectangle&gt;());
+
+    for (const auto& shape : shapes) {
+        shape-&gt;draw();
+    }
+}</code></pre>
+    </div>
+  </section>
+
+<!-- Templates -->
+<section id="generic" class="grid md:grid-cols-2 gap-6">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center gap-3 mb-4">
+      <i class="fa-solid fa-layer-group text-orange-500 text-2xl"></i>
+      <h3 class="text-2xl font-bold">Templates</h3>
+    </div>
+    <p class="leading-8 text-slate-600 dark:text-slate-300">
+      Templates allow you to write generic and reusable code in C++. Instead of
+      writing separate functions or classes for different data types, you can
+      define a single template that works with many types.
+    </p>
+    <div class="mt-5 rounded-xl p-4 bg-orange-50 dark:bg-slate-900 border border-orange-100 dark:border-slate-700 text-sm">
+      Templates are the foundation of the Standard Template Library (STL),
+      enabling powerful containers like <code>vector</code>, <code>map</code>,
+      and <code>array</code>.
+    </div>
+  </div>
+
+  <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center gap-3 mb-4">
+      <i class="fa-solid fa-cubes text-amber-500 text-2xl"></i>
+      <h3 class="text-2xl font-bold">Generic Programming</h3>
+    </div>
+    <p class="leading-8 text-slate-600 dark:text-slate-300">
+      With templates, algorithms can work with any compatible data type while
+      maintaining type safety and performance. The compiler generates the
+      correct implementation automatically during compilation.
+    </p>
+    <div class="mt-5 rounded-xl p-4 bg-amber-50 dark:bg-slate-900 border border-amber-100 dark:border-slate-700 text-sm">
+      Templates help eliminate code duplication while keeping programs flexible
+      and efficient.
+    </div>
+  </div>
+</section>
+
+<section class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-orange-500 border border-slate-200 dark:border-slate-700">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-xl font-bold flex items-center gap-2">
+      <i class="fa-solid fa-code text-orange-500"></i>
+      <span>Template Function Example</span>
+    </h3>
+  </div>
+
+  <div class="code-card rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+      <div class="flex gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-mono text-slate-500">template_swap.cpp</span>
+        <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+          Copy
+        </button>
+      </div>
+    </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono"><code class="language-cpp">#include &lt;iostream&gt;
+
+template &lt;typename T&gt;
+void swapValues(T& a, T& b) {
+    T temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int x = 10, y = 20;
+    swapValues(x, y);
+    std::cout &lt;&lt; "x: " &lt;&lt; x &lt;&lt; ", y: " &lt;&lt; y &lt;&lt; '\n';
+
+    double a = 1.5, b = 3.7;
+    swapValues(a, b);
+    std::cout &lt;&lt; "a: " &lt;&lt; a &lt;&lt; ", b: " &lt;&lt; b &lt;&lt; '\n';
+}</code></pre>
+  </div>
+</section>
+
+  <!-- Operator Overloading -->
+<section id="operator-overloading" class="grid md:grid-cols-2 gap-6">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center gap-3 mb-4">
+      <i class="fa-solid fa-plus text-indigo-500 text-2xl"></i>
+      <h3 class="text-2xl font-bold">Operator Overloading</h3>
+    </div>
+    <p class="leading-8 text-slate-600 dark:text-slate-300">
+      Operator overloading allows you to define how operators such as
+      <code>+</code>, <code>-</code>, <code>*</code>, <code>==</code>, and others
+      behave when applied to user-defined types like classes and structs.
+      This lets your custom objects behave more naturally and readably,
+      similar to built-in types.
+    </p>
+    <div class="mt-5 rounded-xl p-4 bg-indigo-50 dark:bg-slate-900 border border-indigo-100 dark:border-slate-700 text-sm">
+      With operator overloading, objects like vectors, matrices, or complex numbers
+      can use expressions such as <code>a + b</code> instead of verbose function calls.
+    </div>
+  </div>
+
+  <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center gap-3 mb-4">
+      <i class="fa-solid fa-cubes text-purple-500 text-2xl"></i>
+      <h3 class="text-2xl font-bold">Why It Matters</h3>
+    </div>
+    <p class="leading-8 text-slate-600 dark:text-slate-300">
+      Properly overloaded operators make C++ code cleaner and more intuitive.
+      Instead of calling methods like <code>add()</code>, developers can write
+      expressions that look like standard arithmetic operations.
+    </p>
+    <div class="mt-5 rounded-xl p-4 bg-purple-50 dark:bg-slate-900 border border-purple-100 dark:border-slate-700 text-sm">
+      Many C++ libraries rely on operator overloading to create expressive APIs,
+      especially in mathematics, graphics, and scientific computing.
+    </div>
+  </div>
+</section>
+
+<section class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-indigo-500 border border-slate-200 dark:border-slate-700">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-xl font-bold flex items-center gap-2">
+      <i class="fa-solid fa-code text-indigo-500"></i>
+      <span>Operator Overloading Example</span>
+    </h3>
+  </div>
+
+  <div class="code-card rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+      <div class="flex gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-mono text-slate-500">vector_add.cpp</span>
+        <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+          Copy
+        </button>
+      </div>
+    </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono"><code class="language-cpp">#include &lt;iostream&gt;
+
+class Vector {
+public:
+    int x, y;
+
+    Vector(int x, int y) : x(x), y(y) {}
+
+    Vector operator+(const Vector& other) const {
+        return Vector(x + other.x, y + other.y);
+    }
+};
+
+int main() {
+    Vector a(2, 3);
+    Vector b(4, 5);
+
+    Vector result = a + b;
+
+    std::cout &lt;&lt; "Result: (" &lt;&lt; result.x &lt;&lt; ", " &lt;&lt; result.y &lt;&lt; ")" &lt;&lt; '\n';
+}</code></pre>
+  </div>
+</section>
+
+
+
+<!-- STL -->
+<section id="stl" class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow border border-slate-200 dark:border-slate-700">
+  <div class="flex items-center gap-3 mb-6">
+    <i class="fa-solid fa-toolbox text-blue-500 text-2xl"></i>
+    <h3 class="text-2xl font-bold">The Standard Template Library (STL)</h3>
+  </div>
+
+  <p class="leading-8 text-slate-600 dark:text-slate-300 mb-6">
+    The Standard Template Library (STL) is one of the core strengths of modern C++.
+    It provides reusable, efficient, and well-tested tools for handling data and performing 
+    common operations. Because STL is built with templates, its components work with 
+    any data type you choose.
+  </p>
+
+  <div class="grid md:grid-cols-3 gap-4">
+
+    <!-- Containers -->
+    <div class="rounded-xl p-5 bg-blue-50 dark:bg-slate-900 border border-blue-100 dark:border-slate-700">
+      <h4 class="font-bold mb-2 text-blue-600 dark:text-blue-300">Containers</h4>
+      <p class="text-sm leading-7">
+        Containers are classes designed to store collections of elements.
+        Each container has its own strengths:
+        <br><br>
+        • <code>vector</code> — fast dynamic array<br>
+        • <code>list</code> — doubly‑linked list<br>
+        • <code>deque</code> — fast insert/remove at both ends<br>
+        • <code>set</code> — automatically sorted, no duplicates<br>
+        • <code>map</code> — key‑value pairs, sorted by key<br>
+        • <code>queue</code> / <code>stack</code> — FIFO / LIFO structures
+        <br><br>
+        Choosing the right container makes your code faster and simpler.
+      </p>
+    </div>
+
+    <!-- Algorithms -->
+    <div class="rounded-xl p-5 bg-cyan-50 dark:bg-slate-900 border border-cyan-100 dark:border-slate-700">
+      <h4 class="font-bold mb-2 text-cyan-600 dark:text-cyan-300">Algorithms</h4>
+      <p class="text-sm leading-7">
+        Algorithms are pre‑built functions that perform common tasks 
+        on container data. They work with any container through iterators.
+        Examples include:
+        <br><br>
+        • <code>sort</code> — sort elements<br>
+        • <code>find</code> — search for a value<br>
+        • <code>count</code> — count matches<br>
+        • <code>reverse</code> — reverse a range<br>
+        • <code>max_element</code> / <code>min_element</code>
+        <br><br>
+        Algorithms help you write less code while keeping it fast and safe.
+      </p>
+    </div>
+
+    <!-- Iterators -->
+    <div class="rounded-xl p-5 bg-indigo-50 dark:bg-slate-900 border border-indigo-100 dark:border-slate-700">
+      <h4 class="font-bold mb-2 text-indigo-600 dark:text-indigo-300">Iterators</h4>
+      <p class="text-sm leading-7">
+        Iterators act like smart pointers that move through container elements.
+        Algorithms use iterators instead of depending on container types.
+        <br><br>
+        Common iterator operations:<br>
+        • <code>it++</code> — move forward<br>
+        • <code>*it</code> — access element<br>
+        • <code>begin()</code> / <code>end()</code> — define a range
+        <br><br>
+        This makes STL algorithms flexible and interchangeable between containers.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-blue-500 border border-slate-200 dark:border-slate-700">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-xl font-bold flex items-center gap-2">
+      <i class="fa-solid fa-list-check text-blue-500"></i>
+      <span>STL Example (Containers + Algorithms + Iterators)</span>
+    </h3>
+  </div>
+
+  <div class="code-card rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+      <div class="flex gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-mono text-slate-500">stl_example.cpp</span>
+        <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+          Copy
+        </button>
+      </div>
+    </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono"><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+int main() {
+    std::vector<int> nums = {5, 1, 9, 3, 7};
+
+    // Sort the vector using an STL algorithm
+    std::sort(nums.begin(), nums.end());
+
+    // Print using iterators
+    for (auto it = nums.begin(); it != nums.end(); ++it) {
+        std::cout &lt;&lt; *it &lt;&lt; " ";
+    }
+}</code></pre>
+  </div>
+</section>
+
+<!-- Modern section -->
+<section id="modern" class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 text-white rounded-3xl p-10 shadow-2xl">
+  <div class="flex items-center gap-3 mb-6">
+    <i class="fa-solid fa-rocket text-cyan-300 text-2xl"></i>
+    <h3 class="text-3xl font-black">What makes C++ “modern”?</h3>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+    <a href="moderncpp.html#smart-pointers" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Smart pointers</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Safer resource ownership and fewer memory leaks.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#move-semantics" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Move semantics</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Improve performance by transferring resources instead of copying them.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#lambdas" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Lambda expressions</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Inline anonymous functions commonly used with algorithms and callbacks.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#auto" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">auto</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Lets the compiler infer types and reduces unnecessary verbosity.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#optional-variant-any" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">optional, variant, any</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Safer ways to represent optional values and flexible typed data.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#ranges" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Ranges</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Build readable data-processing pipelines with filter and transform operations.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#threads" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Threads</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Run multiple tasks concurrently using the C++ threading library.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#constexpr" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">constexpr</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Allow values and functions to be evaluated at compile time.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#templates" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Templates</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Enable generic, reusable code that works with many data types.
+      </p>
+    </a>
+
+    <a href="moderncpp.html#enum-class" class="rounded-2xl p-5 bg-white/5 border border-white/10 hover:bg-white/10 transition block">
+      <h4 class="font-bold mb-2">Strongly typed enums</h4>
+      <p class="text-sm text-slate-300 leading-7">
+        Improve type safety and keep enumerator names properly scoped.
+      </p>
+    </a>
+
+  </div>
+    <a href="moderncpp.html" class="mt-12 flex justify-center">
+    <button id="forwardBtn"
+      class="px-8 py-3 rounded-xl font-semibold
+             bg-cyan-500 hover:bg-cyan-400
+             text-slate-900 shadow-lg shadow-cyan-500/30
+             transition-all duration-300
+             hover:scale-105 active:scale-95">
+      Continue to Full Modern C++ Guide →
+    </button>
+  </a>
+
+</section>
+
+
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+
+</main>
+
+<script>
+const btn = document.getElementById("theme-toggle");
+function updateThemeButton() {
+  btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+}
+btn.onclick = () => {
+  document.documentElement.classList.toggle("dark");
+  localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+  updateThemeButton();
+};
+if (localStorage.theme === "dark") document.documentElement.classList.add("dark");
+updateThemeButton();
+
+const canvas = document.getElementById("cursor-canvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+let lastMove = Date.now();
+let particles = [];
+let hoveringClickable = false;
+
+document.addEventListener("mousemove",(e)=>{
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  lastMove = Date.now();
+
+  const style = window.getComputedStyle(e.target);
+  hoveringClickable = style.cursor === "pointer" || e.target.closest("a, button");
+
+  for(let i=0;i<4;i++){
+    particles.push(new Particle(mouse.x,mouse.y));
+  }
+});
+
+class Particle{
+  constructor(x,y){
+    this.x=x;
+    this.y=y;
+    this.size=Math.random()*3+1;
+    this.speedX=(Math.random()-0.5)*2;
+    this.speedY=(Math.random()-0.5)*2;
+    this.life=80;
+    this.hue=Math.random()*360;
+  }
+  update(){
+    this.x+=this.speedX;
+    this.y+=this.speedY;
+    this.life--;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue},100%,60%,${this.life/80})`;
+    ctx.shadowColor=`hsl(${this.hue},100%,60%)`;
+    ctx.shadowBlur=15;
+    ctx.fill();
+  }
+}
+
+function drawIdleCircles(){
+  let idleTime = Date.now() - lastMove;
+  if(idleTime < 200) return;
+  let t = Date.now()*0.002;
+  let circles = [
+    {r:18, speed:1},
+    {r:28, speed:-0.7},
+    {r:40, speed:0.5}
+  ];
+  circles.forEach((c,i)=>{
+    let angle = t * c.speed;
+    let x = mouse.x + Math.cos(angle)*c.r;
+    let y = mouse.y + Math.sin(angle)*c.r;
+
+    ctx.beginPath();
+    ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fillStyle=`hsl(${(t*80+i*90)%360},100%,65%)`;
+    ctx.shadowBlur=12;
+    ctx.shadowColor=ctx.fillStyle;
+    ctx.fill();
+  });
+
+  ctx.beginPath();
+  ctx.arc(mouse.x,mouse.y,12,0,Math.PI*2);
+  ctx.strokeStyle="rgba(255,255,255,0.6)";
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  for(let i=0;i<particles.length;i++){
+    particles[i].update();
+    particles[i].draw();
+    if(particles[i].life<=0){
+      particles.splice(i,1);
+      i--;
+    }
+  }
+
+  drawIdleCircles();
+
+  if (hoveringClickable) {
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(255,255,255,0.9)";
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = "white";
+    ctx.stroke();
+  }
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+document.addEventListener("DOMContentLoaded", () => {
+  hljs.highlightAll();
+
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const codeBlock = btn.closest(".code-card").querySelector("code");
+      const text = codeBlock.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => { btn.textContent = old; }, 1500);
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById("menuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+});
+</script>
+
+</body>
+</html>

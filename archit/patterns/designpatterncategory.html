@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design Patterns Category</title>
+
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+
+<script>
+tailwind.config = { darkMode: "class" }
+</script>
+
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors selection:bg-indigo-300/40 dark:selection:bg-indigo-500/30">
+
+<canvas id="cursor-canvas" class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]"></canvas>
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo / Title -->
+
+    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+      <i class="fa-solid fa-code"></i>
+      <span>Design Patterns Category</span>
+    </h1>
+
+        <div class="flex items-center gap-4">
+    <nav class="hidden md:flex gap-6 font-semibold text-sm">
+      <a href="#cerational" class="hover:text-indigo-500 transition">Creational</a>
+      <a href="#structure" class="hover:text-indigo-500 transition">Structural</a>
+      <a href="#behavior" class="hover:text-indigo-500 transition">Behavioral</a>
+    </nav>
+  </div>
+
+   <!-- Theme Toggle (Now inside header) -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger button (visible only on small screens) -->
+      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+  </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-white/95 dark:bg-slate-800/95
+           border-t border-slate-200 dark:border-slate-700">
+      <a href="#cerational" class="hover:text-indigo-500 transition">Creational</a>
+      <a href="#structure" class="hover:text-indigo-500 transition">Structural</a>
+      <a href="#behavior" class="hover:text-indigo-500 transition">Behavioral</a>
+   
+  </div>
+
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-16 space-y-16">
+<!-- Design Patterns -->
+<section id="patterns" class="space-y-12">
+
+  <div class="text-center">
+    <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-300">
+      C++ Design Patterns
+    </h2>
+    <p class="text-slate-600 dark:text-slate-300 mt-3 max-w-2xl mx-auto">
+      Design patterns are reusable solutions to common software design problems.
+      They are grouped into three categories: Creational, Structural, and Behavioral.
+    </p>
+  </div>
+
+  <!-- CREATIONAL -->
+  <div id="cerational">
+    <h3 class="text-2xl font-bold mb-6 text-emerald-600 dark:text-emerald-300">
+      Creational Patterns
+    </h3>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <a href="singleton.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-circle-dot text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Singleton</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Ensure a class has only one instance and provide global access.
+        </p>
+      </a>
+
+      <a href="factory.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-industry text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Factory Method</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Create objects without specifying their exact class.
+        </p>
+      </a>
+
+      <a href="abstract-factory.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-boxes-stacked text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Abstract Factory</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Produce families of related objects without specifying concrete classes.
+        </p>
+      </a>
+
+      <a href="builder.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-hammer text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Builder</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Construct complex objects step by step.
+        </p>
+      </a>
+
+      <a href="prototype.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-clone text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Prototype</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Create new objects by copying existing ones.
+        </p>
+      </a>
+
+    </div>
+  </div>
+
+
+  <!-- STRUCTURAL -->
+  <div id="structure">
+    <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-300">
+      Structural Patterns
+    </h3>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <a href="adapter.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-plug text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Adapter</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Allow incompatible interfaces to work together.
+        </p>
+      </a>
+
+      <a href="bridge.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-bridge text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Bridge</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Separate abstraction from implementation.
+        </p>
+      </a>
+
+      <a href="composite.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-layer-group text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Composite</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Treat individual objects and groups uniformly.
+        </p>
+      </a>
+
+      <a href="decorator.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-paint-roller text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Decorator</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Add responsibilities dynamically to objects.
+        </p>
+      </a>
+
+      <a href="facade.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-building text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Facade</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Provide a simplified interface to complex systems.
+        </p>
+      </a>
+
+      <a href="proxy.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-user-shield text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Proxy</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Provide a surrogate or placeholder for another object.
+        </p>
+      </a>
+
+      <a href="flyweight.html"
+  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
+  <i class="fa-solid fa-feather text-2xl mb-3"></i>
+  <h4 class="text-xl font-bold">Flyweight</h4>
+  <p class="text-sm mt-2 text-white/90">
+    Reduce memory usage by sharing common object data across many objects.
+  </p>
+</a>
+
+
+    </div>
+    
+  </div>
+
+
+  <!-- BEHAVIORAL -->
+  <div id="behavior">
+    <h3 class="text-2xl font-bold mb-6 text-purple-600 dark:text-purple-300">
+      Behavioral Patterns
+    </h3>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <a href="observer.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-eye text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Observer</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Notify multiple objects when state changes.
+        </p>
+      </a>
+
+      <a href="strategy.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-chess text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Strategy</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Define interchangeable algorithms.
+        </p>
+      </a>
+
+      <a href="command.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-terminal text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Command</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Encapsulate a request as an object.
+        </p>
+      </a>
+
+      <a href="state.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-toggle-on text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">State</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Allow an object to change behavior when its state changes.
+        </p>
+      </a>
+
+      <a href="iterator.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-forward text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Iterator</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Access collection elements sequentially without exposing structure.
+        </p>
+      </a>
+
+      <a href="mediator.html"
+        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+        <i class="fa-solid fa-handshake text-2xl mb-3"></i>
+        <h4 class="text-xl font-bold">Mediator</h4>
+        <p class="text-sm mt-2 text-white/90">
+          Reduce dependencies between objects by introducing a mediator.
+        </p>
+      </a>
+      <a href="memento.html"
+  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+  <i class="fa-solid fa-clock-rotate-left text-2xl mb-3"></i>
+  <h4 class="text-xl font-bold">Memento</h4>
+  <p class="text-sm mt-2 text-white/90">
+    Capture and restore an object's internal state without exposing its structure.
+  </p>
+</a>
+
+<a href="chain-of-responsibility.html"
+  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+  <i class="fa-solid fa-link text-2xl mb-3"></i>
+  <h4 class="text-xl font-bold">Chain of Responsibility</h4>
+  <p class="text-sm mt-2 text-white/90">
+    Pass a request along a chain of handlers until one processes it.
+  </p>
+</a>
+
+<a href="template-method.html"
+  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+  <i class="fa-solid fa-list-check text-2xl mb-3"></i>
+  <h4 class="text-xl font-bold">Template Method</h4>
+  <p class="text-sm mt-2 text-white/90">
+    Define the skeleton of an algorithm while allowing subclasses to override steps.
+  </p>
+</a>
+
+<a href="visitor.html"
+  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
+  <i class="fa-solid fa-route text-2xl mb-3"></i>
+  <h4 class="text-xl font-bold">Visitor</h4>
+  <p class="text-sm mt-2 text-white/90">
+    Add new operations to object structures without modifying the classes.
+  </p>
+</a>
+
+
+</div>
+</div>
+
+</section>
+<section class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+
+  <a href="singleton.html">
+    <button
+      class="px-8 py-3 rounded-xl font-semibold
+             bg-cyan-500 hover:bg-cyan-400
+             text-slate-900 shadow-lg shadow-cyan-500/30
+             transition-all duration-300
+             hover:scale-105 active:scale-95">
+      Singleton Guide →
+    </button>
+  </a>
+
+  <a href="observer.html">
+    <button
+      class="px-8 py-3 rounded-xl font-semibold
+             bg-cyan-500 hover:bg-cyan-400
+             text-slate-900 shadow-lg shadow-cyan-500/30
+             transition-all duration-300
+             hover:scale-105 active:scale-95">
+      Observer Guide →
+    </button>
+  </a>
+
+  <a href="strategy.html">
+    <button
+      class="px-8 py-3 rounded-xl font-semibold
+             bg-cyan-500 hover:bg-cyan-400
+             text-slate-900 shadow-lg shadow-cyan-500/30
+             transition-all duration-300
+             hover:scale-105 active:scale-95">
+      Strategy Guide →
+    </button>
+  </a>
+
+  <a href="command.html">
+    <button
+      class="px-8 py-3 rounded-xl font-semibold
+             bg-cyan-500 hover:bg-cyan-400
+             text-slate-900 shadow-lg shadow-cyan-500/30
+             transition-all duration-300
+             hover:scale-105 active:scale-95">
+      Command Guide →
+    </button>
+  </a>
+
+</section>
+
+
+</main>
+
+<script>
+const btn = document.getElementById("theme-toggle");
+function updateThemeButton() {
+  btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+}
+btn.onclick = () => {
+  document.documentElement.classList.toggle("dark");
+  localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+  updateThemeButton();
+};
+if (localStorage.theme === "dark") document.documentElement.classList.add("dark");
+updateThemeButton();
+
+const canvas = document.getElementById("cursor-canvas");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+let lastMove = Date.now();
+let particles = [];
+let hoveringClickable = false;
+
+document.addEventListener("mousemove",(e)=>{
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  lastMove = Date.now();
+
+  const style = window.getComputedStyle(e.target);
+  hoveringClickable = style.cursor === "pointer" || e.target.closest("a, button");
+
+  for(let i=0;i<4;i++){
+    particles.push(new Particle(mouse.x,mouse.y));
+  }
+});
+
+class Particle{
+  constructor(x,y){
+    this.x=x;
+    this.y=y;
+    this.size=Math.random()*3+1;
+    this.speedX=(Math.random()-0.5)*2;
+    this.speedY=(Math.random()-0.5)*2;
+    this.life=80;
+    this.hue=Math.random()*360;
+  }
+  update(){
+    this.x+=this.speedX;
+    this.y+=this.speedY;
+    this.life--;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${this.hue},100%,60%,${this.life/80})`;
+    ctx.shadowColor=`hsl(${this.hue},100%,60%)`;
+    ctx.shadowBlur=15;
+    ctx.fill();
+  }
+}
+
+function drawIdleCircles(){
+  let idleTime = Date.now() - lastMove;
+  if(idleTime < 200) return;
+  let t = Date.now()*0.002;
+  let circles = [
+    {r:18, speed:1},
+    {r:28, speed:-0.7},
+    {r:40, speed:0.5}
+  ];
+  circles.forEach((c,i)=>{
+    let angle = t * c.speed;
+    let x = mouse.x + Math.cos(angle)*c.r;
+    let y = mouse.y + Math.sin(angle)*c.r;
+
+    ctx.beginPath();
+    ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fillStyle=`hsl(${(t*80+i*90)%360},100%,65%)`;
+    ctx.shadowBlur=12;
+    ctx.shadowColor=ctx.fillStyle;
+    ctx.fill();
+  });
+
+  ctx.beginPath();
+  ctx.arc(mouse.x,mouse.y,12,0,Math.PI*2);
+  ctx.strokeStyle="rgba(255,255,255,0.6)";
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  for(let i=0;i<particles.length;i++){
+    particles[i].update();
+    particles[i].draw();
+    if(particles[i].life<=0){
+      particles.splice(i,1);
+      i--;
+    }
+  }
+
+  drawIdleCircles();
+
+  if (hoveringClickable) {
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(255,255,255,0.9)";
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = "white";
+    ctx.stroke();
+  }
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+document.addEventListener("DOMContentLoaded", () => {
+  hljs.highlightAll();
+
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const codeBlock = btn.closest(".code-card").querySelector("code");
+      const text = codeBlock.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => { btn.textContent = old; }, 1500);
+      });
+    });
+  });
+});
+
+</script>
+
+</body>
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+</html>
