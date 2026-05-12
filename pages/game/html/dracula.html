@@ -213,6 +213,7 @@ body.dracula-red {
       <!-- Desktop Navigation -->
       <nav dir="rtl"
         class="hidden md:flex gap-6 font-semibold text-sm text-slate-200">
+    <a href="#components" class="hover:text-red-400 transition">متعلقات</a>
         <a href="#hero" class="hover:text-red-400 transition">قهرمان</a>
         <a href="#sidekicks" class="hover:text-red-400 transition">همراهان</a>
         <a href="#deck" class="hover:text-red-400 transition">دِک</a>
@@ -246,7 +247,8 @@ body.dracula-red {
            bg-black/95 border-t border-red-900/70 text-slate-200"
     dir="rtl">
 
-    <a href="#hero" class="pt-4 hover:text-red-400 transition">قهرمان</a>
+    <a href="#components" class="pt-4 hover:text-red-400 transition">متعلقات</a>
+    <a href="#hero" class="hover:text-red-400 transition">قهرمان</a>
     <a href="#sidekicks" class="hover:text-red-400 transition">همراهان</a>
     <a href="#deck" class="hover:text-red-400 transition">دِک</a>
     <a href="#cards" class="hover:text-red-400 transition">کارت‌ها</a>
@@ -256,7 +258,7 @@ body.dracula-red {
 
 
           
-<section id="hero" class="relative z-10 pt-6 md:pt-10">
+<section  class="relative z-10 pt-6 md:pt-10">
   <!-- Container for centering alignment -->
   <div class="max-w-6xl mx-auto px-6 md:px-12">
     
@@ -324,7 +326,148 @@ body.dracula-red {
   </div>
 </section>
 
-      </header>
+<!-- DRACULA COMPONENTS SECTION -->
+<section id="components" class="py-24 px-6">
+
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+    <!-- Simple Header -->
+    <div dir="rtl" class="flex items-center gap-3 mb-12">
+      <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+        متعلقات دراکولا
+      </h2>
+    </div>
+
+    <!-- Components Grid -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+      <!-- Dracula Figure -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/tranDrac.png"
+          alt="فیگور دراکولا"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            فیگور دراکولا
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            فیگور اصلی قهرمان با طراحی خون‌آشامی کلاسیک.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sisters Tokens -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/3sisters.png"
+          alt="توکن خواهران"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            توکن‌های خواهران
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            همراهان وفادار دراکولا برای محاصره دشمنان.
+          </p>
+        </div>
+      </div>
+
+      <!-- Health Dial -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/draculaHealth.png"
+          alt="توکن سلامتی"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            توکن تنظیم جون
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            برای ثبت میزان سلامتی باقی‌مانده دراکولا.
+          </p>
+        </div>
+      </div>
+
+      <!-- Deck -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/draculaBackCard.webp"
+          alt="دک کارت‌ها"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            دِک 30 کارتی
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            شامل 30 کارت اختصاصی.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hero Card -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <img
+            src="../../../images/dracHero.webp"
+            alt="روی کارت قهرمان"
+            class="w-full h-56 object-contain rounded-xl"
+          >
+
+          <img
+            src="../../../images/action.png"
+            alt="پشت کارت قهرمان"
+            class="w-full h-56 object-contain rounded-xl"
+          >
+        </div>
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            کارت قهرمان
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            نمای جلو و پشت کارت رسمی شخصیت دراکولا.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       <!-- MAIN CONTENT -->
       <main
@@ -334,7 +477,7 @@ body.dracula-red {
 
 
 <!-- Dracula -->
-<section id="dracula" class="pt-16">
+<section id="hero" class="pt-16">
   <div class="max-w-6xl mx-auto px-6 md:px-12">
 
     <!-- Header -->
@@ -413,7 +556,7 @@ body.dracula-red {
 
 
 
-<!-- Sisters --><!-- Sisters -->
+<!-- Sisters -->
 <section id="sidekicks" class="pt-16">
   <div class="max-w-6xl mx-auto px-6 md:px-12">
 
@@ -511,7 +654,7 @@ body.dracula-red {
 
 
 <section id="deck" class="pt-16">
-  <div class="max-w-6xl mx-auto px-6 md:px-12 space-y-6">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
 
     <div class="flex items-center gap-3">
       <div class="h-8 w-1 bg-red-600 rounded-full"></div>
@@ -614,18 +757,18 @@ body.dracula-red {
             <img id="modalImage" class="w-[380px] rounded-xl shadow-2xl" />
           </div>
 <section id="cards" class="pt-16">
-  <div class="max-w-6xl mx-auto px-6 md:px-12 space-y-6">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3 mb-10">
       <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+
       <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
         کارت‌ها
       </h2>
     </div>
 
-    <div class="flex justify-center pt-6">
+    <div class="space-y-12">
 
-      <div class="space-y-12">
 
         <article class="relative group" id="feeding-frenzy">
           <div
