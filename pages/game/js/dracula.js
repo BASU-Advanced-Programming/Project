@@ -256,3 +256,9 @@ function spawnBloodSplash(originElement) {
     setTimeout(() => drop.remove(), 1000);
   }
 }
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
