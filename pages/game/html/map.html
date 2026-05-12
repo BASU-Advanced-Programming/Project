@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UNMATCHED - سیستم حرکت و نقشه</title>
+    <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        body {
+          font-family: "Tahoma", sans-serif;
+          background-color: #000000;
+          background-image: radial-gradient(ellipse at center, #001a00 0%, #000000 70%);
+          color: #eee;
+          margin: 0;
+          overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+          font-family: "Cinzel", serif;
+        }
+
+        .dark-box {
+          background: rgba(5, 5, 5, 0.8);
+          border: 1px solid #004400;
+          box-shadow: 0 0 10px #00aa00cc;
+          padding: 20px;
+          border-radius: 15px;
+          margin-bottom: 3rem;
+        }
+
+        button {
+          cursor: pointer;
+          font-weight: bold;
+          border-radius: 10px;
+          border: 2px solid #004400;
+          background: linear-gradient(90deg, #002200 0%, #000000 100%);
+          color: #55ff55;
+          padding: 12px 20px;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        button:hover {
+          background: linear-gradient(90deg, #006600 0%, #002200 100%);
+          color: #aaffaa;
+          border-color: #00ff00;
+        }
+
+        img {
+          border-radius: 12px;
+          border: 2px solid #003300;
+          transition: border-color 0.4s ease;
+          max-width: 100%;
+          object-fit: cover;
+          cursor: zoom-in;
+        }
+        img:hover {
+          border-color: #00ff00;
+        }
+
+        #longTextContent {
+          max-height: 24rem;
+          overflow-y: auto;
+          background-color: #0a0000;
+          border: 1px solid #003300;
+          border-radius: 10px;
+          padding: 1rem;
+          color: #66dd66;
+          font-family: "MedievalSharp", cursive;
+          line-height: 1.6;
+        }
+
+        ul, ol {
+          padding-right: 20px;
+          margin-bottom: 1rem;
+        }
+
+        .text-green-glow-static {
+          color: #00ff00;
+          font-weight: 900;
+        }
+        
+        .title-static {
+          color: #00ff00;
+          text-shadow: 0 0 5px #004400;
+        }
+
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #004400;
+          border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #006600;
+        }
+    </style>
+</head>
+
+<body class="text-gray-200 min-h-screen relative">
+  <canvas id="cursor-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50;"></canvas>
+
+
+    <audio id="themeAudio" loop>
+        <source src="../../../musics/map.mp3" type="audio/mpeg" />
+        مرورگر شما از تگ audio پشتیبانی نمی‌کند.
+    </audio>
+
+    <div class="container mx-auto px-4 py-8 relative z-10">
+        <header class="text-center mb-12">
+            <h1 class="title-static text-5xl md:text-7xl font-black mb-4">
+                UNMATCHED
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                یک بازی ترسناک مملو از رازهای تاریک و موجودات غیرقابل توصیف. جایی که هر حرکت می‌تواند آخرین حرکت تو باشد...
+            </p>
+            <div class="mt-6 flex justify-center">
+                <button id="toggleSound">
+                    <i class="fas fa-volume-up"></i>
+                    <span>تغییر وضعیت صدا</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+
+            <section class="dark-box p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold text-green-400 flex items-center gap-3">
+                        <i class="fas fa-running"></i>
+                        سیستم حرکت
+                    </h2>
+                    <span class="px-4 py-1 bg-green-900 rounded-full text-sm text-green-200">حیاتی</span>
+                </div>
+                <p class="text-gray-300 mb-6 leading-relaxed font-semibold">
+                   در بازی Unmatched، مفهوم حرکت یا Movement از بنیادی‌ترین عناصر در فرآیند بازی به‌شمار می‌رود. هر شخصیت مقدار حرکتی مشخص دارد که روی کارت شخصیت (Hero Card) درج شده است. این عدد، بیشترین تعداد خانه‌هایی را نشان می‌دهد که مبارز در یک نوبت عملکرد خود می‌تواند طی کند.
+در مرحله‌ی حرکت زمانی که بازیکن انتخاب میکند که اکشن مانور را انجام دهد، می‌تواند مبارزان خود را (یکی یکی) تا اندازه‌ای برابر یا کمتر از مقدار حرکت تعیین‌شده جابه‌جا کند.
+                </p>
+                
+                <div class="mb-6">
+                    <img src="../../../images/art1.png" alt="تصویر سیستم حرکت" />
+                </div>
+
+                <div class="space-y-4" id="movementOptions"></div>
+                <button id="showMovementOptions" class="mt-4">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>نمایش گزینه‌های حرکت</span>
+                </button>
+            </section>
+
+            <section class="dark-box p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold text-green-400 flex items-center gap-3">
+                        <i class="fas fa-map-marked-alt"></i>
+                        نقشه بازی
+                    </h2>
+                    <span class="px-4 py-1 bg-green-900 rounded-full text-sm text-green-200">مرموز</span>
+                </div>
+                <p class="text-gray-300 mb-6 leading-relaxed font-semibold">
+                   در UNMATCHED، حرکت شما تعیین‌کننده‌ی سرنوشتتان است. هر قدم در تاریکی می‌تواند شما را به هدف نزدیک‌تر یا به کام مرگ بکشاند.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <img src="../../../images/board.jpeg" alt="نقشه اصلی" class="cursor-zoom-in" />
+                    <img src="../../../images/board1.jpeg" alt="جزئیات نقشه" class="cursor-zoom-in" />
+                </div>
+
+                <div class="space-y-4" id="mapOptions"></div>
+                <button id="showMapOptions" class="mt-4">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>نمایش گزینه‌های نقشه</span>
+                </button>
+            </section>
+
+        </div>
+
+        <section class="dark-box p-6 mb-8 hidden" id="longTextContainer">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-green-400 title-static" id="longTextTitle"></h3>
+                <button id="closeLongText" class="text-gray-400 hover:text-white bg-transparent border-none p-0">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="text-gray-300 leading-relaxed max-h-96 overflow-y-auto p-4 rounded-lg" id="longTextContent">
+                
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-500 text-sm mt-12 border-t border-gray-900 pt-6">
+            <p class="mb-2">UNMATCHED &copy; 2026 - ما اصلا حقی نداریم که محفوظ باشه .ورود به این دنیا به عهده‌ی خود شماست.</p>
+            <p class="text-xs">lets play </p>
+        </footer>
+    </div>
+
+    <script src="../js/map.js"></script>
+
+</body>
+</html>
