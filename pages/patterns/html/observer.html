@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Observer Pattern</title>
+
+  
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="../js/patterns.js" defer></script>
+  
+</head>
+<script>
+tailwind.config = {
+  darkMode: "class"
+}
+</script>
+<script>
+hljs.highlightAll();
+</script>
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors">
+<canvas 
+  id="cursor-canvas"
+  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+</canvas>
+<!-- Header -->
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo / Title -->
+    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+      <img src="images/observer-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <span>Observer Pattern</span>
+    </h1>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex gap-6 font-semibold text-sm">
+      <a href="#intent" class="hover:text-indigo-500">Intent</a>
+      <a href="#problem" class="hover:text-indigo-500">Problem</a>
+      <a href="#solution" class="hover:text-indigo-500">Solution</a>
+      <a href="#ex" class="hover:text-indigo-500">Example</a>
+      <a href="#cpp" class="hover:text-indigo-500">C++</a>
+      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+      </nav>
+
+   <!-- Theme Toggle (Now inside header) -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger button (visible only on small screens) -->
+      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-white/95 dark:bg-slate-800/95
+           border-t border-slate-200 dark:border-slate-700">
+
+      <a href="#intent" class="hover:text-indigo-500">Intent</a>
+      <a href="#problem" class="hover:text-indigo-500">Problem</a>
+      <a href="#solution" class="hover:text-indigo-500">Solution</a>
+      <a href="#ex" class="hover:text-indigo-500">Example</a>
+      <a href="#cpp" class="hover:text-indigo-500">C++</a>
+      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  </div>
+</header>
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+<!-- Hero -->
+<section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
+  <h2 class="text-4xl font-extrabold mb-4 text-slate-900">
+    Observer Pattern
+  </h2>
+  <p class="text-lg font-medium text-slate-800">
+   <strong>Observer</strong> is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re&nbsp;observing.</p>
+<figure class="image"><img src="images/observer.png" alt="Observer Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
+
+  </section>
+
+<!-- Problem -->
+<section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
+    <h3 class="text-xl font-bold mb-4">
+  <i class="fa fa-frown" aria-hidden="true"></i> Problem
+</h3>
+<p>Imagine that you have two types of objects: a <code>Customer</code> and a <code>Store</code>. The customer is very interested in a particular brand of product (say, it’s a new model of the iPhone) which should become available in the store very soon.</p>
+<p>The customer could visit the store every day and check product availability. But while the product is still en route, most of these trips would be pointless.</p>
+<figure class="image"><img src="images/observer-comic-1-en.png" alt="Visiting store vs. sending spam" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy"><figcaption>
+<p>Visiting the store vs. sending&nbsp;spam</p>
+</figcaption></figure>
+<p>On the other hand, the store could send tons of emails (which might be considered spam) to all customers each time a new product becomes available. This would save some customers from endless trips to the store. At the same time, it’d upset other customers who aren’t interested in new products.</p>
+<p>It looks like we’ve got a conflict. Either the customer wastes time checking product availability or the store wastes resources notifying the wrong customers.</p>
+
+</section>
+
+<!-- Solution -->
+<section id="solution" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-green-400">
+    <h3 class="text-xl font-bold mb-4">
+  <i class="fa fa-smile-beam" aria-hidden="true"></i> Solution
+</h3>
+<p>The object that has some interesting state is often called <em>subject</em>, but since it’s also going to notify other objects about the changes to its state, we’ll call it <em>publisher</em>. All other objects that want to track changes to the publisher’s state are called <em>subscribers</em>.</p>
+<p>The Observer pattern suggests that you add a subscription mechanism to the publisher class so individual objects can subscribe to or unsubscribe from a stream of events coming from that publisher. Fear not! Everything isn’t as complicated as it sounds. In reality, this mechanism consists of 1) an array field for storing a list of references to subscriber objects and 2) several public methods which allow adding subscribers to and removing them from that list.</p>
+<figure class="image"><img src="images/solution1-en.png" alt="Subscription mechanism" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.61;" loading="lazy"><figcaption>
+<p>A subscription mechanism lets individual objects subscribe to event&nbsp;notifications.</p>
+</figcaption></figure>
+<p>Now, whenever an important event happens to the publisher, it goes over its subscribers and calls the specific notification method on their objects.</p>
+<p>Real apps might have dozens of different subscriber classes that are interested in tracking events of the same publisher class. You wouldn’t want to couple the publisher to all of those classes. Besides, you might not even know about some of them beforehand if your publisher class is supposed to be used by other people.</p>
+<p>That’s why it’s crucial that all subscribers implement the same interface and that the publisher communicates with them only via that interface. This interface should declare the notification method along with a set of parameters that the publisher can use to pass some contextual data along with the notification.</p>
+<figure class="image"><img src="images/solution2-en.png" alt="Notification methods"sizes="(max-width: 720px) 100vw, 460px" width="460" style="aspect-ratio: 1.24;" loading="lazy"><figcaption>
+<p>Publisher notifies subscribers by calling the specific notification method on their&nbsp;objects.</p>
+</figcaption></figure>
+<p>If your app has several different types of publishers and you want to make your subscribers compatible with all of them, you can go even further and make all publishers follow the same interface. This interface would only need to describe a few subscription methods. The interface would allow subscribers to observe publishers’ states without coupling to their concrete classes.</p>
+
+</section>
+<!-- example -->
+
+<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+    <h3 class="text-xl font-bold mb-4">
+  <i class="fa fa-car-side" aria-hidden="true"></i>Example
+</h3>
+
+  <p>In this example, the <strong>Observer</strong> pattern lets the text editor object notify other service objects about changes in its state.</p>
+<figure class="image"><img src="images/example (1).png" alt="Structure of the Observer pattern example" sizes="(max-width: 720px) 100vw, 510px" width="510" style="aspect-ratio: 1.19;" loading="lazy"><figcaption>
+
+</div>
+
+</section>
+
+<section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+            <i class="fa fa-car-side text-blue-500" aria-hidden="true"></i>
+            <span
+             class="dark:text-white">C++ Implementation</span>
+        </h3>
+    </div>
+
+  <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
+
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+      
+      <div class="flex gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-mono text-slate-500">observer.cpp</span>
+
+        <button
+          class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition"
+        >
+          Copy
+        </button>
+      </div>
+
+    </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">/**
+ * Observer Design Pattern
+ *
+ * Intent: Lets you define a subscription mechanism to notify multiple objects
+ * about any events that happen to the object they're observing.
+ *
+ * Note that there's a lot of different terms with similar meaning associated
+ * with this pattern. Just remember that the Subject is also called the
+ * Publisher and the Observer is often called the Subscriber and vice versa.
+ * Also the verbs "observe", "listen" or "track" usually mean the same thing.
+ */
+
+#include <iostream>
+#include <list>
+#include <string>
+
+class IObserver {
+ public:
+  virtual ~IObserver(){};
+  virtual void Update(const std::string &message_from_subject) = 0;
+};
+
+class ISubject {
+ public:
+  virtual ~ISubject(){};
+  virtual void Attach(IObserver *observer) = 0;
+  virtual void Detach(IObserver *observer) = 0;
+  virtual void Notify() = 0;
+};
+
+/**
+ * The Subject owns some important state and notifies observers when the state
+ * changes.
+ */
+
+class Subject : public ISubject {
+ public:
+  virtual ~Subject() {
+    std::cout << "Goodbye, I was the Subject.\n";
+  }
+
+  /**
+   * The subscription management methods.
+   */
+  void Attach(IObserver *observer) override {
+    list_observer_.push_back(observer);
+  }
+  void Detach(IObserver *observer) override {
+    list_observer_.remove(observer);
+  }
+  void Notify() override {
+    std::list<IObserver *>::iterator iterator = list_observer_.begin();
+    HowManyObserver();
+    while (iterator != list_observer_.end()) {
+      (*iterator)->Update(message_);
+      ++iterator;
+    }
+  }
+
+  void CreateMessage(std::string message = "Empty") {
+    this->message_ = message;
+    Notify();
+  }
+  void HowManyObserver() {
+    std::cout << "There are " << list_observer_.size() << " observers in the list.\n";
+  }
+
+  /**
+   * Usually, the subscription logic is only a fraction of what a Subject can
+   * really do. Subjects commonly hold some important business logic, that
+   * triggers a notification method whenever something important is about to
+   * happen (or after it).
+   */
+  void SomeBusinessLogic() {
+    this->message_ = "change message message";
+    Notify();
+    std::cout << "I'm about to do some thing important\n";
+  }
+
+ private:
+  std::list<IObserver *> list_observer_;
+  std::string message_;
+};
+
+class Observer : public IObserver {
+ public:
+  Observer(Subject &subject) : subject_(subject) {
+    this->subject_.Attach(this);
+    std::cout << "Hi, I'm the Observer \"" << ++Observer::static_number_ << "\".\n";
+    this->number_ = Observer::static_number_;
+  }
+  virtual ~Observer() {
+    std::cout << "Goodbye, I was the Observer \"" << this->number_ << "\".\n";
+  }
+
+  void Update(const std::string &message_from_subject) override {
+    message_from_subject_ = message_from_subject;
+    PrintInfo();
+  }
+  void RemoveMeFromTheList() {
+    subject_.Detach(this);
+    std::cout << "Observer \"" << number_ << "\" removed from the list.\n";
+  }
+  void PrintInfo() {
+    std::cout << "Observer \"" << this->number_ << "\": a new message is available --> " << this->message_from_subject_ << "\n";
+  }
+
+ private:
+  std::string message_from_subject_;
+  Subject &subject_;
+  static int static_number_;
+  int number_;
+};
+
+int Observer::static_number_ = 0;
+
+void ClientCode() {
+  Subject *subject = new Subject;
+  Observer *observer1 = new Observer(*subject);
+  Observer *observer2 = new Observer(*subject);
+  Observer *observer3 = new Observer(*subject);
+  Observer *observer4;
+  Observer *observer5;
+
+  subject->CreateMessage("Hello World! :D");
+  observer3->RemoveMeFromTheList();
+
+  subject->CreateMessage("The weather is hot today! :p");
+  observer4 = new Observer(*subject);
+
+  observer2->RemoveMeFromTheList();
+  observer5 = new Observer(*subject);
+
+  subject->CreateMessage("My new car is great! ;)");
+  observer5->RemoveMeFromTheList();
+
+  observer4->RemoveMeFromTheList();
+  observer1->RemoveMeFromTheList();
+
+  delete observer5;
+  delete observer4;
+  delete observer3;
+  delete observer2;
+  delete observer1;
+  delete subject;
+}
+
+int main() {
+  ClientCode();
+  return 0;
+}
+</code>
+</pre>
+
+</div>
+</section>
+
+
+<!-- Pros & Cons -->
+<section id="proscons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-600">
+  <h3 class="text-xl font-bold mb-4">⚖️ Pros & Cons</h3>
+
+  <div class="grid md:grid-cols-2 gap-6">
+
+    <ul class="list-disc pl-5 space-y-2 text-green-500">
+      <li>
+        <em>Open/Closed Principle : </em>. You can introduce new subscriber classes without having to change the publisher’s code (and vice versa if there’s a publisher interface).
+      </li>
+      <li>
+        You can establish relations between objects at runtime.
+      </li>
+    </ul>
+
+    <ul class="list-disc pl-5 space-y-2 text-red-400">
+      <li>
+        Subscribers are notified in random order.
+      </li>
+    </ul>
+
+  </div>
+</section>
+
+
+</main>
+</body>
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern C++ Concepts</title>
+
+  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
+  <script src="../js/moderncpp.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<script>
+tailwind.config = {
+  darkMode: "class"
+}
+</script>
+<script>
+hljs.highlightAll();
+</script>
+<body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors">
+<canvas 
+  id="cursor-canvas"
+  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+</canvas>
+
+<!-- Header -->
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo / Title -->
+    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300">
+      Modern C++
+    </h1>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <!-- Desktop Navigation (disabled) -->
+      <nav class="hidden">
+        <!-- intentionally removed for all sizes -->
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+               border-indigo-300 dark:border-indigo-600
+               hover:scale-105 transition shadow-sm">
+        🌙
+      </button>
+
+      <!-- Hamburger (now visible on ALL screen sizes) -->
+      <button id="menuBtn" class="text-2xl text-indigo-600 dark:text-indigo-300">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu (now used on ALL screen sizes) -->
+  <div id="mobileMenu"
+    class="hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-white/95 dark:bg-slate-800/95
+           border-t border-slate-200 dark:border-slate-700">
+
+    <a href="#smart-pointers" class="pt-4 hover:text-indigo-500 transition">Smart Pointers</a>
+    <a href="#move-semantics" class="hover:text-indigo-500 transition">Move Semantics</a>
+    <a href="#lambdas" class="hover:text-indigo-500 transition">Lambdas</a>
+    <a href="#auto" class="hover:text-indigo-500 transition">auto</a>
+    <a href="#optional-variant-any" class="hover:text-indigo-500 transition">optional / variant / any</a>
+    <a href="#ranges" class="hover:text-indigo-500 transition">Ranges</a>
+    <a href="#threads" class="hover:text-indigo-500 transition">Threads</a>
+    <a href="#constexpr" class="hover:text-indigo-500 transition">constexpr</a>
+    <a href="#templates" class="hover:text-indigo-500 transition">Templates</a>
+    <a href="#enum-class" class="hover:text-indigo-500 transition">Enum Class</a>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+<section class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-blue-400">
+  <h2 class="text-2xl font-bold mb-4 text-indigo-500">What Is Modern C++?</h2>
+  <p class="leading-relaxed">
+    Modern C++ refers to the style and features introduced since <b>C++11</b> and expanded in
+    <b>C++14</b>, <b>C++17</b>, <b>C++20</b>, and <b>C++23</b>.  
+    It focuses on safety, expressiveness, performance, and clean design.
+  </p>
+</section>
+
+<section id="smart-pointers" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-green-400">
+  <h2 class="text-2xl font-bold mb-3 text-green-500">Smart Pointers</h2>
+
+  <p class="mb-3">
+    Smart pointers automatically manage dynamically allocated memory.  
+    They free memory when the object is no longer needed, preventing <b>memory leaks</b> and eliminating manual <code>delete</code>.
+  </p>
+
+  <ul class="text-sm mb-4 list-disc pl-5 space-y-1">
+    <li><b>std::unique_ptr</b> — single owner, fastest and safest default choice.</li>
+    <li><b>std::shared_ptr</b> — multiple owners using reference counting.</li>
+    <li><b>std::weak_ptr</b> — non‑owning reference used with shared_ptr to avoid cycles.</li>
+  </ul>
+
+  <p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+    Prefer <b>std::unique_ptr</b> unless shared ownership is required.
+  </p>
+
+  <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+      Copy
+    </button>
+  </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;memory&gt;
+#include &lt;iostream&gt;
+
+int main() {
+    std::unique_ptr<int> ptr = std::make_unique<int>(42);
+
+    std::cout << *ptr << std::endl;
+
+} // ptr automatically deletes the memory here
+</code>
+</pre>
+
+  <p class="text-xs mt-3 text-slate-500">
+    The memory allocated by <code>make_unique</code> is automatically released when <code>ptr</code> goes out of scope.
+  </p>
+</section>
+
+
+<section  id="move-semantics" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-purple-400">
+  <h2 class="text-2xl font-bold mb-4 text-purple-500">Move Semantics</h2>
+  <p>
+    Move semantics let you transfer resources instead of copying them — essential for performance.
+  </p>
+
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-mono text-slate-500"></span>
+          <button
+            class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+            Copy
+        </button>
+        </div>
+      </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+std::vector<int> a = {1,2,3};
+std::vector<int> b = std::move(a); // moves instead of copies
+</code>
+</pre>
+</div>
+</section>
+
+
+<section id="lambdas" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-yellow-400">
+  <h2 class="text-2xl font-bold mb-3 text-yellow-500">Lambdas</h2>
+
+  <p class="mb-3">
+    A <b>lambda</b> is an anonymous inline function. They are commonly used with STL
+    algorithms, callbacks, and short operations.
+  </p>
+
+  <p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+    General syntax: <code>[capture](parameters) -> return_type { body }</code>
+  </p>
+
+  <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+      Copy
+    </button>
+  </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+int main() {
+
+    // 1. Simple lambda
+    auto hello = []() {
+        std::cout << "Hello\n";
+    };
+    hello();
+
+    // 2. Lambda with parameters
+    auto add = [](int a, int b) {
+        return a + b;
+    };
+    std::cout << add(2,3) << std::endl;
+
+    // 3. Capture by value
+    int x = 10;
+    auto show = [x]() {
+        std::cout << x << std::endl;
+    };
+
+    // 4. Capture by reference
+    auto modify = [&x]() {
+        x++;
+    };
+    modify();
+
+    // 5. Capture everything
+    auto captureAll = [=]() { std::cout << x; };  // by value
+    auto captureRef = [&]() { x++; };             // by reference
+
+    // 6. Lambda with explicit return type
+    auto divide = [](double a, double b) -> double {
+        return a / b;
+    };
+
+    // 7. Lambda used with STL
+    std::vector<int> v = {3,1,4};
+    std::sort(v.begin(), v.end(), [](int a, int b) {
+        return a < b;
+    });
+
+}
+</code>
+</pre>
+
+  <p class="text-xs mt-3 text-slate-500">
+    Lambdas are widely used with STL algorithms like <code>sort</code>, 
+    <code>for_each</code>, and <code>find_if</code>.
+  </p>
+</section>
+
+
+<section id="auto" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-red-400">
+<h2 class="text-2xl font-bold mb-3 text-red-500">Type Deduction (auto)</h2>
+
+<p class="mb-3">
+  <code>auto</code> lets the compiler automatically determine a variable’s type
+  from its initializer. It reduces verbosity and is commonly used with
+  STL containers and iterators.
+</p>
+
+<p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+  The type of <code>auto</code> is deduced at compile time from the assigned value.
+</p>
+
+<div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+  <div class="flex gap-2">
+    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+  </div>
+
+  <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+    Copy
+  </button>
+</div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+
+int main() {
+
+    // 1. Basic type deduction
+    auto x = 10;        // int
+    auto y = 3.14;      // double
+    auto name = "C++";  // const char*
+
+    // 2. With references
+    int a = 5;
+    auto b = a;   // copy (int)
+    auto& c = a;  // reference to a
+
+    // 3. With const
+    const int k = 7;
+    auto m = k;        // int (const removed)
+    const auto n = k;  // const int
+
+    // 4. Iterators (very common use)
+    std::vector<int> v = {1,2,3};
+
+    for (auto it = v.begin(); it != v.end(); ++it) {
+        std::cout << *it << std::endl;
+    }
+
+    // 5. Range-based loop
+    for (auto value : v) {
+        std::cout << value << std::endl;
+    }
+
+}
+</code>
+</pre>
+
+<p class="text-xs mt-3 text-slate-500">
+  <code>auto</code> is especially useful when working with complex STL types
+  like iterators and template return values.
+</p>
+
+</section>
+
+
+<section id="optional-variant-any" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-indigo-400">
+<h2 class="text-2xl font-bold mb-4 text-indigo-500">optional, variant, any</h2>
+
+<p>
+  Modern C++ provides safer data containers for representing absent values and type-safe unions.
+</p>
+
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-2">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+          <span class="w-3 h-3 rounded-full bg-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-mono text-slate-500"></span>
+          <button
+            class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+            Copy
+        </button>
+        </div>
+      </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+std::optional<int> find_value(bool ok) {
+    if (ok) return 42;
+    return std::nullopt;
+}
+</code>
+</pre>
+</div>
+
+</section>
+
+<section id="ranges" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-amber-400">
+<h2 class="text-2xl font-bold mb-3 text-amber-500">Ranges (C++20)</h2>
+
+<p class="mb-3">
+  The <code>ranges</code> library allows chaining operations like
+  <code>filter</code>, <code>transform</code>, and <code>take</code>
+  into readable pipelines.
+</p>
+
+<div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+  <div class="flex gap-2">
+    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+  </div>
+
+  <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+    Copy
+  </button>
+</div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;vector&gt;
+#include &lt;ranges&gt;
+
+std::vector<int> vec = {1,2,3,4,5,6};
+
+auto even = vec | std::views::filter([](int x){ return x % 2 == 0; });
+</code>
+</pre>
+
+<p class="text-xs mt-3 text-slate-500">
+  The pipeline keeps only even numbers from the vector.
+</p>
+
+</section>
+
+<section id="threads" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-emerald-400">
+  <h2 class="text-2xl font-bold mb-3 text-emerald-500">Threads (Multithreading)</h2>
+
+  <p class="mb-3">
+    A <code>thread</code> allows a program to run multiple tasks at the same time.
+    C++ provides the <code>&lt;thread&gt;</code> library to create and manage threads.
+  </p>
+
+  <p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+    Each thread runs a function independently from the main program.
+  </p>
+
+  <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+      Copy
+    </button>
+  </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;thread&gt;
+
+void worker() {
+    std::cout << "Hello from thread\n";
+}
+
+int main() {
+
+    std::thread t(worker); // start new thread
+
+    t.join(); // wait for the thread to finish
+
+}
+</code>
+</pre>
+
+<p class="text-xs mt-3 text-slate-500">
+  <code>join()</code> blocks the main thread until the worker thread finishes.
+</p>
+
+</section>
+
+<section id="constexpr" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-blue-400">
+  <h2 class="text-2xl font-bold mb-3 text-blue-500">constexpr</h2>
+
+  <p class="mb-3">
+    <code>constexpr</code> tells the compiler that a value or function can be
+    evaluated at <b>compile time</b>. This can improve performance and enable
+    constant expressions in places like array sizes and templates.
+  </p>
+
+  <p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+    If all inputs are known at compile time, the result is computed during compilation.
+  </p>
+
+  <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+      Copy
+    </button>
+  </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;iostream&gt;
+
+constexpr int square(int x) {
+    return x * x;
+}
+
+int main() {
+
+    constexpr int a = square(5); // computed at compile time
+
+    std::cout << a << std::endl;
+
+}
+</code>
+</pre>
+
+<p class="text-xs mt-3 text-slate-500">
+  Functions marked <code>constexpr</code> can run at compile time when given constant inputs.
+</p>
+
+</section>
+<!-- Templates -->
+<section id="templates" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-indigo-400">
+  <h2 class="text-2xl font-bold mb-3 text-indigo-500">Templates</h2>
+
+  <p class="mb-3">
+    Templates enable writing generic code that works with any data type.
+    Modern C++ has significantly enhanced their power and usability.
+  </p>
+
+  <ul class="text-sm mb-4 list-disc pl-5 space-y-1">
+    <li><b>Variadic Templates</b>: Functions/classes with any number of arguments.</li>
+    <li><b>Alias Templates</b>: Create type aliases for complex template types.</li>
+    <li><b>Fold Expressions (C++17)</b>: Apply binary operations across variadic packs.</li>
+    <li><b>Non-Type Template Parameters</b>: Use types like `auto` for more flexibility.</li>
+  </ul>
+
+  <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+      Copy
+    </button>
+  </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Example: Variadic Template with Fold Expression (C++17)
+template<typename... Args>
+void print(Args... args) {
+    // (std::cout << ... << args) is a fold expression
+    // It expands to: std::cout << arg1 << arg2 << ...
+    (std::cout << ... << args) << std::endl;
+}
+
+int main() {
+    print("Hello", " ", 123, " ", 3.14);
+    print("Only one argument");
+}
+</code>
+</pre>
+
+  <p class="text-xs mt-3 text-slate-500">
+    Templates are crucial for building highly generic and reusable C++ libraries.
+  </p>
+</section>
+<!-- enum -->
+<section id="enum-class" class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow border-l-4 border-purple-400">
+  <h2 class="text-2xl font-bold mb-3 text-purple-500">Strongly Typed Enums</h2>
+
+  <p class="mb-3">
+    <code>enum class</code> creates a <b>strongly typed enumeration</b>.  
+    Unlike traditional <code>enum</code>, it prevents implicit conversions
+    and keeps enumerator names scoped.
+  </p>
+
+  <p class="text-sm mb-4 text-slate-600 dark:text-slate-400">
+    This improves type safety and avoids name conflicts in larger programs.
+  </p>
+
+  <div class="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex gap-2">
+      <span class="w-3 h-3 rounded-full bg-red-500"></span>
+      <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+      <span class="w-3 h-3 rounded-full bg-green-500"></span>
+    </div>
+
+    <button class="copy-btn text-xs px-2 py-1 rounded bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition">
+      Copy
+    </button>
+  </div>
+
+<pre class="overflow-x-auto text-sm leading-relaxed bg-slate-50 dark:bg-slate-950 p-6 font-mono">
+<code class="language-cpp">
+#include &lt;iostream&gt;
+
+enum class Color { Red, Green, Blue };
+
+int main() {
+
+    Color c = Color::Red;
+
+    if (c == Color::Red) {
+        std::cout << "Red selected\n";
+    }
+
+}
+</code>
+</pre>
+
+<p class="text-xs mt-3 text-slate-500">
+  Enumerator names must be accessed with the scope operator:
+  <code>Color::Red</code>, <code>Color::Green</code>, etc.
+</p>
+
+    <a href="../../patterns/html/designpatterncategory.html" class="mt-12 flex justify-center">
+    <button id="forwardBtn"
+      class="px-8 py-3 rounded-xl font-semibold
+             bg-cyan-500 hover:bg-cyan-400
+             text-slate-900 shadow-lg shadow-cyan-500/30
+             transition-all duration-300
+             hover:scale-105 active:scale-95">
+      Continue to Design Patterns in C++ Guide →
+    </button>
+  </a>
+</section>
+
+
+</main>
+</body>
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+</footer>
+
+</html>
