@@ -32,7 +32,7 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="images/observer-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../pattern/images/observer-mini (1).png" alt="mini-cmd" class="w-8 h-8">
       <span>Observer Pattern</span>
     </h1>
 
@@ -89,7 +89,7 @@ hljs.highlightAll();
   </h2>
   <p class="text-lg font-medium text-slate-800">
    <strong>Observer</strong> is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re&nbsp;observing.</p>
-<figure class="image"><img src="images/observer.png" alt="Observer Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
+<figure class="image"><img src="../pattern/images/observer.png" alt="Observer Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
 
   </section>
 
@@ -100,7 +100,7 @@ hljs.highlightAll();
 </h3>
 <p>Imagine that you have two types of objects: a <code>Customer</code> and a <code>Store</code>. The customer is very interested in a particular brand of product (say, it’s a new model of the iPhone) which should become available in the store very soon.</p>
 <p>The customer could visit the store every day and check product availability. But while the product is still en route, most of these trips would be pointless.</p>
-<figure class="image"><img src="images/observer-comic-1-en.png" alt="Visiting store vs. sending spam" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy"><figcaption>
+<figure class="image"><img src="../pattern/images/observer-comic-1-en.png" alt="Visiting store vs. sending spam" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy"><figcaption>
 <p>Visiting the store vs. sending&nbsp;spam</p>
 </figcaption></figure>
 <p>On the other hand, the store could send tons of emails (which might be considered spam) to all customers each time a new product becomes available. This would save some customers from endless trips to the store. At the same time, it’d upset other customers who aren’t interested in new products.</p>
@@ -115,13 +115,13 @@ hljs.highlightAll();
 </h3>
 <p>The object that has some interesting state is often called <em>subject</em>, but since it’s also going to notify other objects about the changes to its state, we’ll call it <em>publisher</em>. All other objects that want to track changes to the publisher’s state are called <em>subscribers</em>.</p>
 <p>The Observer pattern suggests that you add a subscription mechanism to the publisher class so individual objects can subscribe to or unsubscribe from a stream of events coming from that publisher. Fear not! Everything isn’t as complicated as it sounds. In reality, this mechanism consists of 1) an array field for storing a list of references to subscriber objects and 2) several public methods which allow adding subscribers to and removing them from that list.</p>
-<figure class="image"><img src="images/solution1-en.png" alt="Subscription mechanism" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.61;" loading="lazy"><figcaption>
+<figure class="image"><img src="../pattern/images/solution1-en.png" alt="Subscription mechanism" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.61;" loading="lazy"><figcaption>
 <p>A subscription mechanism lets individual objects subscribe to event&nbsp;notifications.</p>
 </figcaption></figure>
 <p>Now, whenever an important event happens to the publisher, it goes over its subscribers and calls the specific notification method on their objects.</p>
 <p>Real apps might have dozens of different subscriber classes that are interested in tracking events of the same publisher class. You wouldn’t want to couple the publisher to all of those classes. Besides, you might not even know about some of them beforehand if your publisher class is supposed to be used by other people.</p>
 <p>That’s why it’s crucial that all subscribers implement the same interface and that the publisher communicates with them only via that interface. This interface should declare the notification method along with a set of parameters that the publisher can use to pass some contextual data along with the notification.</p>
-<figure class="image"><img src="images/solution2-en.png" alt="Notification methods"sizes="(max-width: 720px) 100vw, 460px" width="460" style="aspect-ratio: 1.24;" loading="lazy"><figcaption>
+<figure class="image"><img src="../pattern/images/solution2-en.png" alt="Notification methods"sizes="(max-width: 720px) 100vw, 460px" width="460" style="aspect-ratio: 1.24;" loading="lazy"><figcaption>
 <p>Publisher notifies subscribers by calling the specific notification method on their&nbsp;objects.</p>
 </figcaption></figure>
 <p>If your app has several different types of publishers and you want to make your subscribers compatible with all of them, you can go even further and make all publishers follow the same interface. This interface would only need to describe a few subscription methods. The interface would allow subscribers to observe publishers’ states without coupling to their concrete classes.</p>
@@ -135,7 +135,7 @@ hljs.highlightAll();
 </h3>
 
   <p>In this example, the <strong>Observer</strong> pattern lets the text editor object notify other service objects about changes in its state.</p>
-<figure class="image"><img src="images/example (1).png" alt="Structure of the Observer pattern example" sizes="(max-width: 720px) 100vw, 510px" width="510" style="aspect-ratio: 1.19;" loading="lazy"><figcaption>
+<figure class="image"><img src="../pattern/images/example (1).png" alt="Structure of the Observer pattern example" sizes="(max-width: 720px) 100vw, 510px" width="510" style="aspect-ratio: 1.19;" loading="lazy"><figcaption>
 
 </div>
 

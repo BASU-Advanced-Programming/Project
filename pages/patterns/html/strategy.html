@@ -32,7 +32,7 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="images/strategy-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../pattern/images/strategy-mini (1).png" alt="mini-cmd" class="w-8 h-8">
       <span>Strategy Pattern</span>
     </h1>
 
@@ -86,7 +86,7 @@ hljs.highlightAll();
 <section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
   <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Strategy</h2>
   <p class="text-lg font-medium text-slate-800">is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects&nbsp;interchangeable.</p>
-  <figure class="image"><img src="images/strategy.png" alt=""></figure>
+  <figure class="image"><img src="../pattern/images/strategy.png" alt=""></figure>
 </section>
 
 <section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
@@ -98,7 +98,7 @@ hljs.highlightAll();
 <p>One of the most requested features for the app was automatic route planning. A user should be able to enter an address and see the fastest route to that destination displayed on the map.</p>
 <p>The first version of the app could only build the routes over roads. People who traveled by car were bursting with joy. But apparently, not everybody likes to drive on their vacation. So with the next update, you added an option to build walking routes. Right after that, you added another option to let people use public transport in their routes.</p>
 <p>However, that was only the beginning. Later you planned to add route building for cyclists. And even later, another option for building routes through all of a city’s tourist attractions.</p>
-<figure class="image"><img src="images/problem.png" ></figure>
+<figure class="image"><img src="../pattern/images/problem.png" ></figure>
 <p>The code of the navigator became&nbsp;bloated.</p>
 </figcaption></figure>
 <p>While from a business perspective the app was a success, the technical part caused you many headaches. Each time you added a new routing algorithm, the main class of the navigator doubled in size. At some point, the beast became too hard to maintain.</p>
@@ -116,7 +116,7 @@ hljs.highlightAll();
 <p>The original class, called <em>context</em>, must have a field for storing a reference to one of the strategies. The context delegates the work to a linked strategy object instead of executing it on its own.</p>
 <p>The context isn’t responsible for selecting an appropriate algorithm for the job. Instead, the client passes the desired strategy to the context. In fact, the context doesn’t know much about strategies. It works with all strategies through the same generic interface, which only exposes a single method for triggering the algorithm encapsulated within the selected strategy.</p>
 <p>This way the context becomes independent of concrete strategies, so you can add new algorithms or modify existing ones without changing the code of the context or other strategies.</p>
-<figure class="image"><img src="images/solution.png" > </figure>
+<figure class="image"><img src="../pattern/images/solution.png" > </figure>
 <p>Route planning&nbsp;strategies.</p>
 </figcaption></figure>
 <p>In our navigation app, each routing algorithm can be extracted to its own class with a single <code>buildRoute</code> method. The method accepts an origin and destination and returns a collection of the route’s checkpoints.</p>
@@ -126,13 +126,13 @@ hljs.highlightAll();
 
 <section id="structure"class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-emerald-400">
   <h3 class="text-xl font-bold mb-2">Structure</h3>
-    <figure class="image"><img src="images/structure (1).png" alt=""></figure>
+    <figure class="image"><img src="../pattern/images/structure (1).png" alt=""></figure>
 
 </section>
 
 <section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
     <i class="fa fa-car-side" aria-hidden="true"></i>Example
-  <figure class="image"><img src="images/strategy-comic-1-en.png" alt=""><figcaption></figcaption></figure>
+  <figure class="image"><img src="../pattern/images/strategy-comic-1-en.png" alt=""><figcaption></figcaption></figure>
   <p>Imagine that you have to get to the airport. You can catch a bus, order a cab, or get on your bicycle. These are your transportation strategies. You can pick one of the strategies depending on factors such as budget or time constraints.
 
 </p>

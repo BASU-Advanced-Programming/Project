@@ -38,7 +38,7 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="images/command-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../../../images/pattern/images/command-mini (1).png" alt="mini-cmd" class="w-8 h-8">
       <span>Command Pattern</span>
     </h1>
 
@@ -98,8 +98,8 @@ hljs.highlightAll();
   <p class="text-lg font-medium text-slate-800">
    <strong>Command</strong> is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as method arguments, delay or queue a request’s execution, and support undoable operations.
   </p>
-  <figure class="image"><img src="images/" alt="Command Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
-</section>
+  <figure class="image"><img src="../../../"></figure>
+  </section>
 
 <!-- Problem -->
 <section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
@@ -107,17 +107,18 @@ hljs.highlightAll();
     <i class="fa fa-frown" aria-hidden="true"></i> Problem
   </h3>
 <p>Imagine that you’re working on a new text-editor app. Your current task is to create a toolbar with a bunch of buttons for various operations of the editor. You created a very neat <code>Button</code> class that can be used for buttons on the toolbar, as well as for generic buttons in various dialogs.</p>
-<figure class="image"><img src="images/problem-command.png" alt="Problem with direct button subclasses" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy">
+<figure class="image"><img src="../../../images/pattern/problem-command.png"></figure>
+
   <p>All buttons of the app are derived from the same&nbsp;class.</p>
   <figcaption>
   </figcaption>
 </figure>
 <p>While all of these buttons look similar, they’re all supposed to do different things. Where would you put the code for the various click handlers of these buttons? The simplest solution is to create tons of subclasses for each place where the button is used. These subclasses would contain the code that would have to be executed on a button click.</p>
-<figure class="image"><img src="/images/patterns/diagrams/command/problem2.png?id=f0e33da1842b3a3ee3b4857de0b6ec93" alt="Lots of button subclasses" srcset="/images/patterns/diagrams/command/problem2.png?id=f0e33da1842b3a3ee3b4857de0b6ec93 400w,/images/patterns/diagrams/command/problem2-1.5x.png?id=7ae15e2b07d5d076a878d99c3ed8ac32 600w,/images/patterns/diagrams/command/problem2-2x.png?id=5eea7d0f6247da011150bb63e423f405 800w" sizes="(max-width: 720px) 100vw, 400px" width="400" style="aspect-ratio: 2.11;" loading="lazy"><figcaption>
+<figure class="image"><img src="../../.."></figure>
 
 <p>Lots of button subclasses. What can go&nbsp;wrong?</p>
 <p>Before long, you realize that this approach is deeply flawed. First, you have an enormous number of subclasses, and that would be okay if you weren’t risking breaking the code in these subclasses each time you modify the base <code>Button</code> class. Put simply, your GUI code has become awkwardly dependent on the volatile code of the business logic.</p>
-<figure class="image"><img src="/images/patterns/diagrams/command/problem3-en.png?id=1fbd56ae7ba3e3dfac45cfa2de6db450" alt="Several classes implement the same functionality" srcset="/images/patterns/diagrams/command/problem3-en.png?id=1fbd56ae7ba3e3dfac45cfa2de6db450 480w,/images/patterns/diagrams/command/problem3-en-1.5x.png?id=2da629d84c7cbabbca11562a3d7d2559 720w,/images/patterns/diagrams/command/problem3-en-2x.png?id=e06878f7cfbe4131980c68db2904878e 960w" sizes="(max-width: 720px) 100vw, 480px" width="480" style="aspect-ratio: 4.36;" loading="lazy"><figcaption>
+<figure class="image"><img src="../../../"></figure>
   <p>Several classes implement the same&nbsp;functionality.</p>
   <p>And here’s the ugliest part. Some operations, such as copying/pasting text, would need to be invoked from multiple places. For example, a user could click a small “Copy” button on the toolbar, or copy something via the context menu, or just hit <code>Ctrl+C</code> on the keyboard.</p>
   <p>Initially, when our app only had the toolbar, it was okay to place the implementation of various operations into the button subclasses. In other words, having the code for copying text inside the <code>CopyButton</code> subclass was fine. But then, when you implement context menus, shortcuts, and other stuff, you have to either duplicate the operation’s code in many classes or make menus dependent on buttons, which is an even worse option.</p>
@@ -131,18 +132,18 @@ hljs.highlightAll();
   </h3>
 <p>Good software design is often based on the <em>principle of separation of concerns</em>, which usually results in breaking an app into layers. The most common example: a layer for the graphical user interface and another layer for the business logic. The GUI layer is responsible for rendering a beautiful picture on the screen, capturing any input and showing results of what the user and the app are doing. However, when it comes to doing something important, like calculating the trajectory of the moon or composing an annual report, the GUI layer delegates the work to the underlying layer of business logic.</p>
 <p>In the code it might look like this: a GUI object calls a method of a business logic object, passing it some arguments. This process is usually described as one object sending another a <em>request</em>.</p>
-<figure class="image"><img src="/images/patterns/diagrams/command/solution1-en.png?id=ec37db1713fe2c1a9318886590667cfb" alt="The GUI layer may access the business logic layer directly" srcset="/images/patterns/diagrams/command/solution1-en.png?id=ec37db1713fe2c1a9318886590667cfb 470w,/images/patterns/diagrams/command/solution1-en-1.5x.png?id=e3f5d3cc9e4822419cbdc3fc54e3cac3 705w,/images/patterns/diagrams/command/solution1-en-2x.png?id=d66717631fdebf5fae4d28c6c942e5d4 940w" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.47;" loading="lazy"><figcaption>
-<p>The GUI objects may access the business logic objects&nbsp;directly.</p>
+<figure class="image"><img src="../../../"></figure>
+  <p>The GUI objects may access the business logic objects&nbsp;directly.</p>
 </figcaption></figure>
 <p>The Command pattern suggests that GUI objects shouldn’t send these requests directly. Instead, you should extract all of the request details, such as the object being called, the name of the method and the list of arguments into a separate <em>command</em> class with a single method that triggers this request.</p>
 <p>Command objects serve as links between various GUI and business logic objects. From now on, the GUI object doesn’t need to know what business logic object will receive the request and how it’ll be processed. The GUI object just triggers the command, which handles all the details.</p>
-<figure class="image"><img src="/images/patterns/diagrams/command/solution2-en.png?id=63bcac5cde2ec536c3329eff4c385839" alt="Accessing the business logic layer via a command." srcset="/images/patterns/diagrams/command/solution2-en.png?id=63bcac5cde2ec536c3329eff4c385839 550w,/images/patterns/diagrams/command/solution2-en-1.5x.png?id=fec1d2c44e4011b7c44917bebc6acad0 825w,/images/patterns/diagrams/command/solution2-en-2x.png?id=b530f7b00b40ed7d3445b91c08009b10 1100w" sizes="(max-width: 720px) 100vw, 550px" width="550" style="aspect-ratio: 2.89;" loading="lazy"><figcaption>
-<p>Accessing the business logic layer via a&nbsp;command.</p>
+<figure class="image"><img src="../../../"></figure>
+  <p>Accessing the business logic layer via a&nbsp;command.</p>
 </figcaption></figure>
 <p>The next step is to make your commands implement the same interface. Usually it has just a single execution method that takes no parameters. This interface lets you use various commands with the same request sender, without coupling it to concrete classes of commands. As a bonus, now you can switch command objects linked to the sender, effectively changing the sender’s behavior at runtime.</p>
 <p>You might have noticed one missing piece of the puzzle, which is the request parameters. A GUI object might have supplied the business-layer object with some parameters. Since the command execution method doesn’t have any parameters, how would we pass the request details to the receiver? It turns out the command should be either pre-configured with this data, or capable of getting it on its own.</p>
-<figure class="image"><img src="/images/patterns/diagrams/command/solution3-en.png?id=c92f6874b95de46b041499d41234b00b" alt="The GUI objects delegate the work to commands" srcset="/images/patterns/diagrams/command/solution3-en.png?id=c92f6874b95de46b041499d41234b00b 440w,/images/patterns/diagrams/command/solution3-en-1.5x.png?id=580ba981ae73f0608513349ecf38ad90 660w,/images/patterns/diagrams/command/solution3-en-2x.png?id=c12bb9971d1ba4f8a3d3717bbced2859 880w" sizes="(max-width: 720px) 100vw, 440px" width="440" style="aspect-ratio: 1.83;" loading="lazy"><figcaption>
-<p>The GUI objects delegate the work to&nbsp;commands.</p>
+<figure class="image"><img src="../../../"></figure>
+  <p>The GUI objects delegate the work to&nbsp;commands.</p>
 </figcaption></figure>
 <p>Let’s get back to our text editor. After we apply the Command pattern, we no longer need all those button subclasses to implement various click behaviors. It’s enough to put a single field into the base <code>Button</code> class that stores a reference to a command object and make the button execute that command on a click.</p>
 <p>You’ll implement a bunch of command classes for every possible operation and link them with particular buttons, depending on the buttons’ intended behavior.</p>
@@ -157,8 +158,8 @@ hljs.highlightAll();
     <i class="fa fa-car-side" aria-hidden="true"></i>Example
   </h3>
 <p>In this example, the <strong>Command</strong> pattern helps to track the history of executed operations and makes it possible to revert an operation if needed.</p>
-<figure class="image"><img src="/images/patterns/diagrams/command/example.png?id=1f42c8395fe54d0e409026b91881e2a0" alt="Structure of the Command pattern example" srcset="/images/patterns/diagrams/command/example.png?id=1f42c8395fe54d0e409026b91881e2a0 640w,/images/patterns/diagrams/command/example-1.5x.png?id=435055a78a82c005eebb1bef869998ae 960w,/images/patterns/diagrams/command/example-2x.png?id=ed44dfd9b02eccf1ae7e2714d018ed36 1280w" sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.07;" loading="lazy"><figcaption>
-   </figcaption> </figure>
+<figure class="image"><img src="../../.."></figure>
+</figcaption> </figure>
 </section>
 
 <section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
