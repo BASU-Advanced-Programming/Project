@@ -52,16 +52,27 @@
 	  direction: rtl;
 	  text-align: right;
 	}
-	
+	html:not(.dark) body {
+	background: radial-gradient(
+		circle at top,
+    #0e688c 0%,
+    #204871 45%,
+    #2b4b76 100% 
+	);
+
+	color: #212529;
+	}
+
+      html.dark body {
+        background: radial-gradient(
+          circle at top,
+          #0b0f21 0%,
+          #08061b 45%,
+          #020205 100%
+        );
+        color: #05051d;
+      }
 	      /* Small custom touches */
-	      .blood-gradient {
-	        background: radial-gradient(
-	          circle at top,
-	          #8b0000 0,
-	          #050816 45%,
-	          #02010a 100%
-	        );
-	      }
 	      .glass {
 	        background: rgba(15, 23, 42, 0.85);
 	        backdrop-filter: blur(12px);
@@ -95,100 +106,14 @@
 	  80% { transform: translateX(3px); }
 	  100% { transform: translateX(0); }
 	}
-	
-	#sherlock-box-inner.sherlock-box-shake {
-	  animation: protest-shake 0.5s ease-in-out;
-	}
-	
-	
-	/*NEED CHANGE TO YELLOW*/
-	@keyframes yellow-pulse {
-	  0% {
-	    box-shadow: inset 0 0 0 rgba(255, 0, 0, 0);
-	    background-color: rgba(127, 0, 0, 0);
-	  }
-	  50% {
-	    box-shadow: inset 0 0 180px rgba(255, 0, 0, 0.18);
-	    background-color: rgba(127, 0, 0, 0.08);
-	  }
-	  100% {
-	    box-shadow: inset 0 0 0 rgba(255, 0, 0, 0);
-	    background-color: rgba(127, 0, 0, 0);
-	  }
-	}
-	
-	@keyframes warning-pop {
-	  0% {
-	    opacity: 0;
-	    transform: scale(0.85) translateY(20px);
-	  }
-	  100% {
-	    opacity: 1;
-	    transform: scale(1) translateY(0);
-	  }
-	}
-	#sherlock-warning .sherlock-box-shake {
-	  animation: protest-shake 0.5s ease-in-out;
-	}
-	
-	body.sherlock-rage {
-	  animation: screen-shake 0.55s ease-in-out;
-	}
-	
-	body.sherlock-yellow {
-	  animation: yellow-pulse 1s ease-out;
-	}
-	
-	#sherlock-warning.show {
-	  display: flex;
-	}
-	
-	#sherlock-warning.show > div:last-child {
-	  animation: warning-pop 0.35s ease-out;
-	}
-	/* Container that holds splattered blood droplets */
-	#blood-splatter-container {
-	  position: fixed;
-	  top: 0;
-	  left: 0;
-	  pointer-events: none;
-	  width: 100vw;
-	  height: 100vh;
-	  overflow: visible;
-	  z-index: 999999;
-	}
-	
-	/* Base blood droplet */
-	.blood-drop {
-	  position: absolute;
-	  width: 15px;
-	  height: 15px;
-	  background: radial-gradient(circle, #ff0000, #7a0000);
-	  border-radius: 50%;
-	  opacity: 0;
-	  transform: scale(0.3);
-	  animation: blood-splash 0.9s ease-out forwards;
-	}
-	
-	/* Splash animation */
-	@keyframes blood-splash {
-	  0% {
-	    opacity: 1;
-	    transform: scale(0.3) translate(0, 0);
-	  }
-	  60% {
-	    opacity: 1;
-	    transform: scale(1) translate(var(--dx), var(--dy));
-	  }
-	  100% {
-	    opacity: 0;
-	    transform: scale(1) translate(var(--dx), var(--dy));
-	  }
-	}
-	
-	
 	    </style>
 	  </head>
+
+	<script>
+	tailwind.config = {
+	darkMode: "class"
+	}
+	</script>
 	
 	  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100 font-sans">
 	    <canvas 
@@ -611,7 +536,7 @@
 	
 	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
 	            <p class="text-xs text-slate-400 mb-1">حرکت</p>
-	            <p class="text-2xl font-bold text-slate-100">?</p>
+	            <p class="text-2xl font-bold text-slate-100">2</p>
 	          </div>
 	
 	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
@@ -829,8 +754,8 @@
 	                  </p>
 	
 	                  <p class="text-sm text-slate-200">
-	                    دکتر واتسون را در خانه مجاور هولمز قرار بدهید،
-						 1 جان به هولمز اضافه کنید و یک کارت بکشید
+	                    دکتر واتسون را در خانه مجاور هلمز قرار بدهید،
+						 1 جان به هلمز اضافه کنید و یک کارت بکشید
 	                  </p>
 	
 	                </div>
@@ -963,7 +888,7 @@
 	          </p>
 	
 	          <p class="text-sm text-slate-200">
-				اگر هولمز در مجاورت مبارز حریف است، 
+				اگر هلمز در مجاورت مبارز حریف است، 
 				به آن مبارز 2 ضربه وارد کنید.
 	          </p>
 	        </div>
@@ -1322,7 +1247,7 @@
 	    </p>
 	
 	    <p class="text-sm text-slate-200">
-	اگر دکتر واتسون در مجاورت هولمز قرار دارد،
+	اگر دکتر واتسون در مجاورت هلمز قرار دارد،
 	 1 جان به هردو اضافه کنید.
 	    </p>
 	  </div>
@@ -1364,7 +1289,7 @@
 	    </p>
 	
 	    <p class="text-sm text-slate-200">
-		مکان هولمز را با حریف عوض کنید و به آن 1 ضربه وارد کنید.
+		مکان هلمز را با حریف عوض کنید و به آن 1 ضربه وارد کنید.
 	    </p>
 	  </div>
 	</div>
@@ -1413,7 +1338,7 @@
 	    </p>
 	
 	    <p class="text-sm text-slate-200">
-			هولمز را 3 خانه حرکت دهید.
+			هلمز را 3 خانه حرکت دهید.
 	    </p>
 	  </div>
 	</div>
@@ -1534,37 +1459,5 @@
 	        </div>
 	      </main>
 	    </div>
-	    <!-- Dracula jump scare / warning overlay -->
-	<div
-	  id="dracula-warning"
-	  class="fixed inset-0 hidden items-center justify-center z-[10000] pointer-events-none"
-	>
-	  <!-- yellow flash background -->
-	  <div class="absolute inset-0 bg-yellow-900/70 backdrop-blur-[2px]"></div>
-	
-	<!-- message card -->
-	<div
-	  id="dracula-box"
-	  class="relative mx-6 max-w-xl rounded-3xl border border-yellow-500/50
-	         bg-black/80 px-6 py-8 text-center shadow-2xl shadow-yellow-900/60"
-	>
-	  <div id="dracula-box-inner" dir="rtl">
-	    <p class="text-xs uppercase tracking-[0.35em] text-yellow-400 mb-3">
-	      اعتراض دراکولا
-	    </p>
-	
-	    <h2 class="text-2xl md:text-4xl font-extrabold text-yellow-200 leading-snug">
-	      من دراکولا هستم، محض رضای خدا—
-	      <span class="block text-white mt-2">
-	        نورو رو روشن نکن، سوختم!
-	      </span>
-	    </h2>
-	  </div>
-	</div>
-	
-	
-	</div>
-	<div id="blood-splatter-container"></div>
-	
 	  </body>
 	</html>

@@ -190,72 +190,28 @@
 	  requestAnimationFrame(animate);
 	}
 	animate();
-	// dracula theme toggle 
-	const themeToggle = document.getElementById("theme-toggle");
-	const draculaWarning = document.getElementById("dracula-warning");
-	const draculaBoxInner = document.getElementById("dracula-box-inner");
+
+	// theme toggle 
+	const btn = document.getElementById("theme-toggle");
 	
-	if (themeToggle && draculaWarning && draculaBoxInner) {
-	  themeToggle.addEventListener("click", () => {
-	    themeToggle.textContent = "🩸";
-	
-	    document.body.classList.remove("dracula-rage", "dracula-red");
-	    draculaBoxInner.classList.remove("dracula-box-shake");
-	
-	    void document.body.offsetWidth;
-	    void draculaBoxInner.offsetWidth;
-	
-	    document.body.classList.add("dracula-rage", "dracula-red");
-	    draculaWarning.classList.remove("hidden");
-	    draculaWarning.classList.add("show");
-	    draculaBoxInner.classList.add("dracula-box-shake");
-	    spawnBloodSplash(draculaBoxInner);
-	
-	
-	    setTimeout(() => {
-	      draculaWarning.classList.remove("show");
-	      draculaWarning.classList.add("hidden");
-	      themeToggle.textContent = "🌙";
-	    }, 2200);
-	  });
+	function updateThemeButton() {
+	  btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
 	}
-	// blood
-	function spawnBloodSplash(originElement) {
-	  const container = document.getElementById("blood-splatter-container");
-	  if (!container) return;
 	
-	  const rect = originElement.getBoundingClientRect();
-	  const centerX = rect.left + rect.width / 2;
-	  const centerY = rect.top + rect.height / 2;
+	btn.onclick = () => {
+	  document.documentElement.classList.toggle("dark");
+	  localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+	  updateThemeButton();
+	};
 	
-	  // Create 18–25 flying blood droplets
-	  const count = 18 + Math.floor(Math.random() * 8);
-	
-	  for (let i = 0; i < count; i++) {
-	    const drop = document.createElement("div");
-	    drop.classList.add("blood-drop");
-	
-	    // Start near the box center
-	    drop.style.left = centerX + "px";
-	    drop.style.top = centerY + "px";
-	
-	    // Random trajectory
-	    const angle = Math.random() * Math.PI * 2;
-	    const distance = 80 + Math.random() * 120;
-	
-	    const dx = Math.cos(angle) * distance + "px";
-	    const dy = Math.sin(angle) * distance + "px";
-	
-	    // Passing movement to CSS variable
-	    drop.style.setProperty("--dx", dx);
-	    drop.style.setProperty("--dy", dy);
-	
-	    container.appendChild(drop);
-	
-	    // Remove after animation
-	    setTimeout(() => drop.remove(), 1000);
-	  }
+	if (localStorage.theme === "dark") {
+	  document.documentElement.classList.add("dark");
+	} else if (localStorage.theme === "light") {
+	  document.documentElement.classList.remove("dark");
 	}
+	
+	updateThemeButton();
+
 	const menuBtn = document.getElementById("menuBtn");
 	const mobileMenu = document.getElementById("mobileMenu");
 	
