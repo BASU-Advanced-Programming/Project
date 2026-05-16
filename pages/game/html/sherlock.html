@@ -1,0 +1,1468 @@
+ 	<!doctype html>
+	<html lang="en" class="scroll-smooth">
+	  <head>
+	    <meta charset="UTF-8" />
+	    <title>Unmatched – Sherlock Character</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <!-- Tailwind CSS CDN -->
+	    <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+	    <script src="../js/sherlock.js" defer></script>
+	    <script>
+	      // Basic Tailwind config (optional)
+	      tailwind.config = {
+	        theme: {
+	          extend: {
+	            colors: {
+	              blood: "#8b0000",
+	              night: "#050816",
+	              card: "#151820",
+	            },
+	          },
+	        },
+	      };
+	    </script>
+	
+	    <style>
+	      html {
+	  scroll-behavior: smooth;
+	}
+	/* font */
+	/* --- Persian Font: Vazir --- */
+	@font-face {
+	  font-family: 'Vazir';
+	  src: url('/fonts/vazir-font-v16.1.0/Vazir.woff2') format('woff2'),
+	       url('/fonts/vazir-font-v16.1.0/Vazir.woff') format('woff'),
+	       u('/fonts/vazir-font-v16.1.0/Vazir.ttf') format('truetype');
+	  font-weight: 400;
+	  font-style: normal;
+	  font-display: swap;
+	}
+	
+	@font-face {
+	  font-family: 'Vazir';
+	  src: url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff2') format('woff2'),
+	       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff') format('woff'),
+	       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf') format('truetype');
+	  font-weight: 700;
+	  font-style: normal;
+	  font-display: swap;
+	}
+	body {
+	  font-family: 'Vazir', sans-serif;
+	  direction: rtl;
+	  text-align: right;
+	}
+	html:not(.dark) body {
+	background: radial-gradient(
+		circle at top,
+    #0e688c 0%,
+    #204871 45%,
+    #2b4b76 100% 
+	);
+
+	color: #212529;
+	}
+
+      html.dark body {
+        background: radial-gradient(
+          circle at top,
+          #0b0f21 0%,
+          #08061b 45%,
+          #020205 100%
+        );
+        color: #05051d;
+      }
+	      /* Small custom touches */
+	      .glass {
+	        background: rgba(15, 23, 42, 0.85);
+	        backdrop-filter: blur(12px);
+	      }
+	
+	      .deck-card:hover{
+	       z-index: 100;
+	      scale: 1.1;
+	      }
+	
+	      .deck-card {
+	        transform-origin: bottom center;
+	        transition: transform 0.6s ease;
+	      }
+	
+	      .deck-cards {
+	        pointer-events: none;
+	      }
+	
+	      .deck-cards.open {
+	        pointer-events: auto;
+	      }
+	
+	      /*sherlock theme effect*/
+          
+	@keyframes protest-shake {
+	  0% { transform: translateX(0); }
+	  20% { transform: translateX(-4px); }
+	  40% { transform: translateX(4px); }
+	  60% { transform: translateX(-3px); }
+	  80% { transform: translateX(3px); }
+	  100% { transform: translateX(0); }
+	}
+	    </style>
+	  </head>
+
+	<script>
+	tailwind.config = {
+	darkMode: "class"
+	}
+	</script>
+	
+	  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100 font-sans">
+	    <canvas 
+	  id="cursor-canvas"
+	  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+	</canvas>
+	    <!-- MAIN WRAPPER -->
+	<!-- HEADER -->
+	<header class="sticky top-0 z-50 backdrop-blur bg-black/80 border-b border-yellow-900/70">
+	  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+	
+	    <!-- Title -->
+	    <h1 dir="rtl" class="text-xl md:text-2xl font-extrabold text-yellow-300 flex items-center gap-3">
+	      <span>راهنمای شخصیت شرلوک هلمز</span>
+	    </h1>
+	
+	    <!-- Right Side -->
+	    <div class="flex items-center gap-4">
+	
+	      <!-- Desktop Navigation -->
+	      <nav dir="rtl"
+	        class="hidden md:flex gap-6 font-semibold text-sm text-slate-200">
+	    <a href="#components" class="hover:text-yellow-400 transition">متعلقات</a>
+	        <a href="#hero" class="hover:text-yellow-400 transition">قهرمان</a>
+	        <a href="#sidekicks" class="hover:text-yellow-400 transition">همراهان</a>
+	        <a href="#deck" class="hover:text-yellow-400 transition">دِک</a>
+	        <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
+	      </nav>
+	
+	      <!-- Theme Toggle (UNCHANGED) -->
+	      <button
+	        id="theme-toggle"
+	        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+	               bg-yellow-950/80 text-yellow-200 border-yellow-700
+	               hover:scale-105 hover:bg-yellow-900 hover:text-white
+	               transition duration-300 shadow-md shadow-yellow-900/40
+	               backdrop-blur-sm"
+	        aria-label="sherlock theme toggle"
+	      >
+	        🌙
+	      </button>
+	
+	      <!-- Hamburger -->
+	      <button id="menuBtn" class="md:hidden text-2xl text-yellow-300">
+	        ☰
+	      </button>
+	
+	    </div>
+	  </div>
+	
+	  <!-- Mobile Menu -->
+	  <div id="mobileMenu"
+	    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+	           bg-black/95 border-t border-yellow-900/70 text-slate-200"
+	    dir="rtl">
+	
+	    <a href="#components" class="pt-4 hover:text-yellow-400 transition">متعلقات</a>
+	    <a href="#hero" class="hover:text-yellow-400 transition">قهرمان</a>
+	    <a href="#sidekicks" class="hover:text-yellow-400 transition">همراهان</a>
+	    <a href="#deck" class="hover:text-yellow-400 transition">دِک</a>
+	    <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
+	
+	  </div>
+	</header>
+	
+	
+	          
+	<section  class="relative z-10 pt-6 md:pt-10">
+	  <!-- Container for centering alignment -->
+	  <div class="max-w-6xl mx-auto px-6 md:px-12">
+	    
+	    <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+	      <!-- Left: Text -->
+	      <div>
+	  <p class="text-xs uppercase tracking-[0.3em] text-slate-300 mb-3">
+	    معرفی شخصیت
+	  </p>
+	
+	  <h1 class="text-3xl md:text-5xl font-extrabold text-slate-50 mb-4">
+	    شرلوک هلمز
+	    <span class="block text-lg md:text-2xl text-yellow-400 font-normal mt-2">
+	      کاراگاه نابغه
+	    </span>
+	  </h1>
+        <p class="text-sm md:text-base text-slate-200 max-w-xl mb-4">
+        شرلوک هلمز در بازی
+        <span class="font-semibold text-yellow-300">Unmatched</span>
+         قهرمانی با محوریت <span class="font-semibold text-slate-100"> تحلیل و پیش‌بینی</span> است که با
+        <span class="font-semibold text-slate-100">توانایی های ذهنی و تاکتیکی خود </span>
+        بر حریف برتری پیدا می‌کند. او با نزدیک نگه داشتن دشمن در محدوده‌ی خود و بهره گیری از
+        <span class="font-semibold text-slate-100">حرکات هوشمندانه</span> و کارت های متنوع، می تواند به تدریج بر حریف مسلط شود.
+        </p>
+
+	
+	
+	</div>
+	
+	
+	      <!-- Right: Portrait card -->
+	      <div class="flex justify-center">
+	        <div class="relative w-full max-w-sm">
+	          <!-- decorative glow -->
+	          <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700 via-black to-purple-900 rounded-3xl blur-xl opacity-60"></div>
+	          <!-- main card -->
+	          <div class="relative glass border border-yellow-800/50 rounded-3xl p-4 shadow-2xl">
+	            <div class="aspect-[3/4] overflow-hidden rounded-2xl border border-slate-700 mb-4">
+	              <img src="../../../images/sherlockHerocard.png" alt="sherlock" class="h-full w-full object-cover" />
+	            </div>
+	            <div class="flex items-center justify-between mb-1">
+	              <h2 class="text-lg font-bold tracking-wide">sherlock</h2>
+	              <span class="inline-flex items-center gap-1 text-xs text-slate-300">
+	                Melee
+	                <span class="h-2 w-2 rounded-full bg-yellow-500"></span>
+	              </span>
+	            </div>
+	            <p class="text-xs uppercase text-slate-400 tracking-[0.25em] mb-3">
+	              The Great Detective
+	            </p>
+	            <div class="flex items-center justify-between text-xs">
+	              <div class="flex flex-col">
+	                <span class="text-slate-400">Health</span>
+	                <span class="text-lg font-bold text-yellow-300">16</span>
+	              </div>
+	              <div class="flex flex-col text-right">
+	                <span class="text-slate-400">Movement</span>
+	                <span class="text-lg font-bold text-slate-100">2</span>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    
+	  </div>
+	</section>
+	
+	<!-- sherlock COMPONENTS SECTION -->
+	<section id="components" class="py-24 px-6">
+	
+	  <div class="max-w-6xl mx-auto px-6 md:px-12">
+	    <!-- Simple Header -->
+	    <div dir="rtl" class="flex items-center gap-3 mb-12">
+	      <div class="h-8 w-1 bg-yellow-600 rounded-full"></div>
+	
+	      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+	        متعلقات شرلوک هلمز
+	      </h2>
+	    </div>
+	
+	    <!-- Components Grid -->
+	    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+	
+	      <!-- sherlock Figure -->
+	      <div class="bg-[#090909] border border-yellow-800 rounded-3xl p-6
+	                  shadow-[0_0_10px_20px_-5px_rgba(217,119,6,0,3)]
+	                  hover:border-amber-400 hover:shadow-[0_15px_25px_-8px_rgba(217,119,6,0.5)]
+                  	  transition duration-500 ease-in-out transform hover:-translate-y-2">
+	
+	        <img
+	          src="../../../images/sherlockTran.png"
+	          alt="فیگور شرلوک هلمز"
+	          class="w-full h-64 object-contain mb-5">
+	
+	        <div dir="rtl" class="text-right">
+	          <h3 class="text-xl font-bold text-yellow-200 mb-2">
+	            فیگور شرلوک هلمز
+	          </h3>
+	
+	          <p class="text-slate-400 text-sm">
+	            فیگور اصلی قهرمان با طراحی کلاسیک.
+	          </p>
+	        </div>
+	      </div>
+	
+	      <!-- watson Tokens -->
+	      <div class="bg-[#090909] border border-yellow-800 rounded-3xl p-6
+	                  shadow-[0_0_10px_20px_-5px_rgba(217,119,6,0,3)]
+	                  hover:border-amber-400 hover:shadow-[0_15px_25px_-8px_rgba(217,119,6,0.5)]
+                  	  transition duration-500 ease-in-out transform hover:-translate-y-2">
+	
+	        <img
+	          src="../../../images/drwatson.png"
+	          alt="توکن دکتر واتسون"
+	          class="w-full h-64 object-contain mb-5"
+	        >
+	
+	        <div dir="rtl" class="text-right">
+	          <h3 class="text-xl font-bold text-yellow-200 mb-2">
+	            توکن دکتر واتسون
+	          </h3>
+	
+	          <p class="text-slate-400 text-sm">
+	           یار وفادار شرلوک هلمز، یک نیروی پشتیبان قدرتمند.
+	          </p>
+	        </div>
+	      </div>
+	
+	      <!-- Health Dial -->
+	      <div class="bg-[#090909] border border-yellow-800 rounded-3xl p-6
+	                  shadow-[0_0_10px_20px_-5px_rgba(217,119,6,0,3)]
+	                  hover:border-amber-400 hover:shadow-[0_15px_25px_-8px_rgba(217,119,6,0.5)]
+                  	  transition duration-500 ease-in-out transform hover:-translate-y-2">
+			<div class="grid grid-cols-2 gap-3 mb-5">
+	        <img
+	          src="../../../images/sherlockHealth.png" 
+	          alt="توکن سلامتی شرلوک"
+	          class="w-full h-56 object-contain rounded-xl" >
+
+		    <img
+	          src="../../../images/watsonHealth.png" 
+	          alt="توکن سلامتی واتسون"
+	          class="w-full h-56 object-contain rounded-xl" >
+
+			</div>  
+	        <div dir="rtl" class="text-right">
+	          <h3 class="text-xl font-bold text-yellow-200 mb-2">
+	            توکن تنظیم جون
+	          </h3>
+	
+	          <p class="text-slate-400 text-sm">
+	            برای ثبت میزان سلامتی باقی‌مانده شرلوک هلمز و دکتر واتسون.
+	          </p>
+	        </div>
+	      </div>
+	
+	      <!-- Deck -->
+	      <div class="bg-[#090909] border border-yellow-800 rounded-3xl p-6
+	                  shadow-[0_0_10px_20px_-5px_rgba(217,119,6,0,3)]
+	                  hover:border-amber-400 hover:shadow-[0_15px_25px_-8px_rgba(217,119,6,0.5)]
+                  	  transition duration-500 ease-in-out transform hover:-translate-y-2">
+	
+	        <img
+	          src="../../../images/sherBackCard.webp"
+	          alt="دک کارت‌ها"
+	          class="w-full h-64 object-contain mb-5"
+	        >
+	
+	        <div dir="rtl" class="text-right">
+	          <h3 class="text-xl font-bold text-yellow-200 mb-2">
+	            دِک 30 کارتی
+	          </h3>
+	
+	          <p class="text-slate-400 text-sm">
+	            شامل 30 کارت اختصاصی.
+	          </p>
+	        </div>
+	      </div>
+	
+	      <!-- Hero Card -->
+	      <div class="bg-[#090909] border border-yellow-800 rounded-3xl p-6
+	                  shadow-[0_0_10px_20px_-5px_rgba(217,119,6,0,3)]
+	                  hover:border-amber-400 hover:shadow-[0_15px_25px_-8px_rgba(217,119,6,0.5)]
+                  	  transition duration-500 ease-in-out transform hover:-translate-y-2">
+	
+	        <div class="grid grid-cols-2 gap-3 mb-5">
+	          <img
+	            src="../../../images/sherlockHerocard.png"
+	            alt="روی کارت قهرمان"
+	            class="w-full h-56 object-contain rounded-xl"
+	          >
+	
+	          <img
+	            src="../../../images/action.png"
+	            alt="پشت کارت قهرمان"
+	            class="w-full h-56 object-contain rounded-xl"
+	          >
+	        </div>
+	
+	        <div dir="rtl" class="text-right">
+	          <h3 class="text-xl font-bold text-yellow-200 mb-2">
+	            کارت قهرمان
+	          </h3>
+	
+	          <p class="text-slate-400 text-sm">
+	            نمای جلو و پشت کارت رسمی شخصیت شرلوک هلمز.
+	          </p>
+	        </div>
+	      </div>
+	
+	    </div>
+	  </div>
+	</section>
+	
+	      <!-- MAIN CONTENT -->
+	      <main
+	        class="flex-1 bg-gradient-to-b from-night via-slate-950 to-black pb-16"
+	      >
+	        <div class="max-w-6xl mx-auto px-6 md:px-12 pt-10 space-y-12">
+	
+	
+	<!-- sherlock -->
+	<section id="hero" class="pt-16">
+	  <div class="max-w-6xl mx-auto px-6 md:px-12">
+	
+	    <!-- Header -->
+	    <div class="flex items-center gap-3 mb-10">
+	      <div class="h-8 w-1 bg-yellow-400 rounded-full"></div>
+	      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+	        شرلوک هلمز
+	      </h2>
+	    </div>
+	
+	    <!-- Content -->
+	    <div class="grid md:grid-cols-2 gap-12 items-center">
+	
+	      <!-- Image -->
+	      <div class="flex justify-center">
+	        <div class="relative w-full max-w-md">
+	          <div class="absolute inset-0 bg-yellow-500/30 blur-3xl rounded-full"></div>
+	          <img
+	            src="../../../images/sherArt.png"
+	            alt="sherlock"
+	            class="relative z-10 w-full object-contain drop-shadow-[0_0_30px_rgba(217,119,6,0.5)]"
+	          />
+	        </div>
+	      </div>
+	
+	      <!-- Info -->
+	      <div dir="rtl" class="text-right">
+	
+	        <!-- Stats -->
+	        <div class="grid grid-cols-3 gap-4 mb-8">
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">سلامتی</p>
+	            <p class="text-2xl font-bold text-yellow-400">16</p>
+	          </div>
+	
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">حرکت</p>
+	            <p class="text-2xl font-bold text-slate-100">2</p>
+	          </div>
+	
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">حمله</p>
+	            <img src="../../../images/melee.svg" class="text-2xl font-bold text-yellow-300"></img>
+	          </div>
+	        </div>
+	
+	        <!-- Setup -->
+	        <div class="mb-6">
+	          <h3 class="text-sm tracking-[0.2em] text-yellow-400 mb-2">
+	            شروع بازی
+	          </h3>
+	          <p class="text-sm text-slate-300 leading-relaxed">
+	            شرلوک هلمز بازی را در ناحیه شروع خود آغاز می‌کند.
+	            او می‌تواند روی هرکدام از ۴ خانه مشخص‌شده برای قهرمان قرار بگیرد.
+	          </p>
+	        </div>
+	
+	        <!-- Ability -->
+	        <div class="mb-6">
+	          <h3 class="text-sm tracking-[0.2em] text-yellow-400 mb-2">
+	            توانایی
+	          </h3>
+	          <div class="border-r-2 border-yellow-600 pr-4">
+	            <p class="text-sm italic text-slate-200">
+                  کارت‌هایی که مربوط به دکتر واتسون هستند(نه هر کارت با هر نوعی) توسط رویدادهای دیگر غیرفعال نمی‌شوند. 
+                  به طور ساده تر اگر در بازی، رویداد یا کارت‌های دیگری بیایند و سعی کنند قابلیت دکتر واتسون را غیرفعال کنند،
+                   شرلوک باعث می‌شود اون دسته از کارت‌ها همچنان فعال بمانند.
+	            </p>
+	          </div>
+	        </div>
+	
+	      </div>
+	    </div>
+	
+	  </div>
+	</section>
+	
+	
+	
+	<!-- Watson -->
+	<section id="sidekicks" class="pt-16">
+	  <div class="max-w-6xl mx-auto px-6 md:px-12">
+	
+	    <!-- Header -->
+	    <div class="flex items-center gap-3 mb-10">
+	      <div class="h-8 w-1 bg-yellow-600 rounded-full"></div>
+	
+	      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+	        دکتر واتسون
+	      </h2>
+	    </div>
+	
+	    <!-- Content -->
+	    <div class="grid md:grid-cols-2 gap-12 items-center">
+	
+	      <!-- Image -->
+	      <div class="flex justify-center">
+	        <div class="relative w-full max-w-md">
+	
+	          <!-- glow -->
+	          <div class="absolute inset-0 bg-yellow-500/30 blur-3xl rounded-full"></div>
+	
+	          <!-- transparent png holder -->
+	          <img
+	            src="../../../images/drwatson.png"
+	            alt="Watson"
+	            class="relative z-10 w-full object-contain drop-shadow-[0_0_30px_rgba(217,119,6,0.5)]"
+	          />
+	
+	        </div>
+	      </div>
+	
+	      <!-- Info -->
+	      <div dir="rtl" class="text-right">
+	
+	        <!-- Stats -->
+	        <div class="grid grid-cols-3 gap-4 mb-8">
+	
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">تعداد</p>
+	            <p class="text-2xl font-bold text-yellow-400">x1</p>
+	          </div>
+	
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">سلامتی</p>
+	            <p class="text-2xl font-bold text-yellow-400">8</p>
+	          </div>
+	
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">حرکت</p>
+	            <p class="text-2xl font-bold text-slate-100">2</p>
+	          </div>
+	
+	          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+	            <p class="text-xs text-slate-400 mb-1">حمله</p>
+	            <img src="../../../images/ranged.svg" class="text-2xl font-bold text-slate-100"></img>
+	          </div>
+	
+	        </div>
+	
+	        <!-- Setup -->
+	        <div class="mb-6">
+	          <h3 class="text-sm tracking-[0.2em] text-yellow-400 mb-2">
+	            شروع بازی
+	          </h3>
+	
+	          <p class="text-sm text-slate-300 leading-relaxed">
+	            دکتر واتسون بازی را در ناحیه شروع شرلوک هلمز آغاز می‌کنند
+	             .و روی خانه‌هایی با رنگ‌های مشخص‌شده قرار می‌گیرند که شرلوک هلمز هم در خانه شروع خود در آن رنگ ها قرار دارد.
+	            دقت کنید قرارگیری دو مبارز در یک مکان امکان پذیر نیست.
+	            </p>
+	        </div>
+	
+	        <!-- Ability -->
+	        <div class="mb-6">
+	          <h3 class="text-sm tracking-[0.2em] text-yellow-400 mb-2">
+	            توانایی
+	          </h3>
+	
+	          <div class="border-r-2 border-yellow-600 pr-4">
+	            <p class="text-sm italic text-slate-200">
+                    دکتر واتسون توانایی ویژه ای ندارد.
+	            </p>
+	          </div>
+	        </div>
+	
+	      </div>
+	    </div>
+	
+	  </div>
+	</section>
+	
+	
+	
+	
+	<section id="deck" class="pt-16">
+	  <div class="max-w-6xl mx-auto px-6 md:px-12">
+	
+	    <div class="flex items-center gap-3">
+	      <div class="h-8 w-1 bg-yellow-600 rounded-full"></div>
+	      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+	        دک
+	      </h2>
+	    </div>
+	
+	    <div class="flex justify-center pt-6">
+	
+	    <img
+	      src="../../../images/sherBackCard.webp"
+	      class="w-[140px] rounded-lg cursor-pointer deck-button"
+	      data-deck="deck-sherlock"
+	    />
+	
+	    <div id="deck-sherlock" class="relative w-[340px] h-[220px] deck-cards">
+	                  <img
+	                    src="../../../images/holms/administer-aid.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                  data-card="administer-aid"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/confirm-suspicion.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                  data-card="confirm-suspicion"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/counterpunch.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="counterpunch"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/deduce-strategy.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                  data-card="deduce-strategy"
+	
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/education-never-ends.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                  data-card="education-never-ends"
+	
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/elementary.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="elementary"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/feint (2).png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="feint (2)"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/fixed-point-in-a-changing-age.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="fixed-point-in-a-changing-age"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/master-of-disguise.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="master-of-disguise"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/service-revolver.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="service-revolver"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/study-methods.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="study-methods"
+	                    />
+	
+	                  <img
+	                    src="../../../images/holms/the-game-is-afoot.png"
+	                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+	                    data-card="the-game-is-afoot"
+	                    />
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </section>
+	          <div
+	            id="cardModal"
+	            class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[999]"
+	          >
+	            <img id="modalImage" class="w-[380px] rounded-xl shadow-2xl" />
+	          </div>
+	<section id="cards" class="pt-16">
+	  <div class="max-w-6xl mx-auto px-6 md:px-12">
+	
+	    <div class="flex items-center gap-3 mb-10">
+	      <div class="h-8 w-1 bg-yellow-600 rounded-full"></div>
+	
+	      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+	        کارت‌ها
+	      </h2>
+	    </div>
+	
+	    <div class="space-y-12">
+	
+	
+	        <article class="relative group" id="administer-aid">
+	          <div
+	            class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+	          ></div>
+	
+	          <div
+	            class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+	          >
+	            <div
+	              class="grid md:grid-cols-[220px_1fr] gap-8 items-center"
+	            >
+	              <div class="flex justify-center">
+	                <img
+	                  src="../../../images/holms/administer-aid.png"
+	                  alt="administer aid"
+	                  class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+	                         transform group-hover:scale-105 group-hover:-translate-y-1
+	                         transition duration-300"
+	                />
+	              </div>
+	
+	              <div dir="rtl" class="text-right">
+	
+	                <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">
+	                  امدادرسانی
+	                </h3>
+	
+	                <p
+	                  class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4"
+	                >
+	                  دکتر واتسون · رویداد
+	                </p>
+	
+	                <p class="text-slate-300 mb-4 text-sm md:text-base">
+	                </p>
+	                <p class="text-slate-300 mb-4 text-sm md:text-base">
+	                </p>
+	
+	                <p class="text-slate-300 mb-4 text-sm md:text-base">
+	                  بوست : 2
+	                </p>
+	
+	                <p class="text-slate-300 mb-4 text-sm md:text-base">
+	                  تعداد : x2
+	                </p>
+	
+	                <div
+	                  class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+	                >
+	                  <p
+	                    class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+	                  >
+	                    اثر
+	                  </p>
+	
+	                  <p class="text-sm text-slate-200">
+	                    دکتر واتسون را در خانه مجاور هلمز قرار بدهید،
+						 1 جان به هلمز اضافه کنید و یک کارت بکشید
+	                  </p>
+	
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </article>
+	
+	<article class="relative group" id="confirm-suspicion">
+	  <div
+	    class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+	  ></div>
+	
+	  <div
+	    class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+	  >
+	    <div
+	      class="grid md:grid-cols-[220px_1fr] gap-8 items-center"
+	    >
+	      <div class="flex justify-center">
+	        <img
+	          src="../../../images/holms/confirm-suspicion.png"
+	          alt="Confirm suspicion"
+	          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+	                 transform group-hover:scale-105 group-hover:-translate-y-1
+	                 transition duration-300"
+	        />
+	      </div>
+	
+	      <div dir="rtl" class="text-right">
+	        <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">
+	          تأیید ظن (Extra)
+	        </h3>
+	
+	        <p
+	          class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4"
+	        >
+	          شرلوک هلمز · رویداد
+	        </p>
+	
+	        <p class="text-yellow-300 mb-4 text-sm md:text-base">
+				(پیاده سازی این کارت امتیازی است.)
+			</p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          بوست : 1
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          تعداد : x3
+	        </p>
+	
+	        <div
+	          class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+	        >
+	          <p
+	            class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+	          >
+	            اثر
+	          </p>
+	
+	          <p class="text-sm text-slate-200">
+			یک حریف انتخاب کنید و یک مقدار را نام ببرید.
+			 حریف شما باید یک کارت مطابق با آن مقدار حمله یا دفاع انتخاب و کنار بگذارد.
+			 قهرمان حریف معادل مقدار بوست 
+			 کارت کنار گذاشته شده، ضربه دریافت می‌کند.
+			  اگر کارتی با مقدار نام برده نداشته باشد، باید دست خود را رو کند.
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</article>
+	<article class="relative group" id="ambush">
+	  <div
+	    class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+	  ></div>
+	
+	  <div
+	    class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+	  >
+	    <div
+	      class="grid md:grid-cols-[220px_1fr] gap-8 items-center"
+	    >
+	      <div class="flex justify-center">
+	        <img
+	          src="../../../images/holms/counterpunch.png"
+	          alt="counter punch"
+	          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+	                 transform group-hover:scale-105 group-hover:-translate-y-1
+	                 transition duration-300"
+	        />
+	      </div>
+	
+	      <div dir="rtl" class="text-right">
+	        <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">
+	          ضد حمله
+	        </h3>
+	
+	        <p
+	          class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4"
+	        >
+	          شرلوک هلمز · چندمنظوره
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          حمله/دفاع : 3
+	        </p>
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          نوع رویداد : بعد از نبرد
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          بوست : 1
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          تعداد : x3
+	        </p>
+	
+	        <div
+	          class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+	        >
+	          <p
+	            class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+	          >
+	            اثر
+	          </p>
+	
+	          <p class="text-sm text-slate-200">
+				اگر هلمز در مجاورت مبارز حریف است، 
+				به آن مبارز 2 ضربه وارد کنید.
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</article>
+	<article class="relative group" id="deduce-strategy">
+	  <div
+	    class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+	  ></div>
+	
+	  <div
+	    class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+	  >
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	
+	      <!-- Image -->
+	      <div class="flex justify-center">
+	        <img
+	          src="../../../images/holms/deduce-strategy.png"
+	          alt="deduce strategy card"
+	          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+	                 transform group-hover:scale-105 group-hover:-translate-y-1
+	                 transition duration-300"
+	        />
+	      </div>
+	
+	      <!-- Text -->
+	      <div dir="rtl" class="text-right">
+	
+	        <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">
+	           استنتاج استراتژیک
+	        </h3>
+	
+	        <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	          شرلوک هلمز · چندمنظوره
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          حمله/دفاع : 3
+	        </p>
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          نوع رویداد : هنگام نبرد
+	        </p>
+
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          بوست : 1
+	        </p>
+	
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          تعداد : x3
+	        </p>
+	
+	        <div
+	          class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+	        >
+	          <p
+	            class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+	          >
+	            اثر
+	          </p>
+	
+	          <p class="text-sm text-slate-200">
+				شما می‌توانید مقدار چاپ شده روی کارت حریف را به مقدار 
+				بوست آن تغییر دهید.(اگر کارتی مقدار بوست نداشته باشد، آن را 0 درنظر بگیرید)
+	          </p>
+	        </div>
+	
+	      </div>
+	    </div>
+	  </div>
+	</article>
+	
+	<article class="relative group" id="education-never-ends">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/education-never-ends.png"
+	             alt="education never ends card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">
+		آموزش هرگز پایان ندارد  </h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    هر مبارز · چندمنظوره
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    حمله/دفاع : 3
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    نوع رویداد : بعد از نبرد
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 1
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+		اگر در نبرد پیروز شدید، حریف شما 1 کارت برمی‌دارد 
+		اما اگر در نبرد شکست خوردید،
+		 شما2 کارت برمی‌دارید.
+	    </p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	
+	<article class="relative group" id="elementary">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/elementary.png"
+	             alt="elementary card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">پیش‌پاافتاده(Extra)</h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    شرلوک هلمز · دفاع
+	  </p>
+	  	
+		<p class="text-yellow-300 mb-4 text-sm md:text-base">
+			(پیاده سازی این کارت امتیازی است.)
+		</p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    دفاع : 3
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    نوع رویداد : هنگام نبرد
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 3
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+		این کارت را رو به بالا بازی کنید.
+		 مقدار حمله کارت حریف را پیش‌بینی کنید.
+		  در طول نبرد: اگر مقدار حمله را درست پیش‌بینی کرده‌اید،
+		  تمام اثرات روی کارت حریف خود را لغو کنید 
+		 و مقدار حمله آن را نادیده بگیرید.
+	    </p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	
+	<!-- <article class="relative group" id="do-my-bidding">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-purple-900/60 via-black to-blood/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/dracula/do-my-bidding.png"
+	             alt="Do My Bidding card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	      <div>
+	        <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">Do My Bidding</h3>
+	        <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	          Dracula . Defense
+	        </p>
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          Event Type : Immediately
+	        </p>
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          Boost : 3
+	        </p>
+	        <p class="text-slate-300 mb-4 text-sm md:text-base">
+	          Count : x2
+	        </p>
+	
+	        <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	          <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">Effect</p>
+	          <p class="text-sm text-slate-200">
+	            return your opponent's attack card to their hand. look at their hand and choose an attack or versaitle
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</article>
+	 -->
+	
+	<article class="relative group" id="eliminate-the-impossible">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/eliminate-the-impossible.png"
+	             alt="eliminate the impossible card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">حذف ناممکن‌ها</h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    شرلوک هلمز · رویداد
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 2
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2  
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+			به دست حریف نگاه کنید و
+			 1 کارت انتخاب کرده و آن را بسوزانید.
+		</p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	
+	<article class="relative group" id="feint (2)">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/feint (2).png"
+	             alt="feint card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2"> فریب</h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    هر مبارز · چندمنظوره
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    حمله/دفاع : 2
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    نوع رویداد : قبل از نبرد
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 1
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x3
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+			 تمام اثرات کارت حریف خود را لغو کنید.
+		</p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	<article class="relative group" id="fixed-point-in-a-changing-age">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-800/80 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/fixed-point-in-a-changing-age.png"
+	             alt="fixed point in a changingage card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">نقطه ثابت در زمانه‌ای متغیر </h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    دکتر واتسون · چندمنظوره
+	  </p>
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    حمله/دفاع : 3
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    نوع رویداد : بعد از نبرد
+	  </p>
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 1
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+	اگر دکتر واتسون در مجاورت هلمز قرار دارد،
+	 1 جان به هردو اضافه کنید.
+	    </p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+
+	<article class="relative group" id="master-of-disguise">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/master-of-disguise.png"
+	             alt="master of disguise card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2"> استاد تغییر چهره</h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+		شرلوک هلمز . رویداد
+	</p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 2
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+		مکان هلمز را با حریف عوض کنید و به آن 1 ضربه وارد کنید.
+	    </p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	<article class="relative group" id="the-game-is-afoot">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/the-game-is-afoot.png"
+	             alt="the game is afoot card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2"> بازی شروع شده است</h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+		شرلوک هلمز . حمله
+	</p>
+
+	<p class="text-slate-300 mb-4 text-sm md:text-base">
+	    نوع رویداد : بعد از نبرد
+	  </p>
+
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    حمله : 5
+	  </p>	
+	    
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 2
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+			هلمز را 3 خانه حرکت دهید.
+	    </p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	<article class="relative group" id="service-revolver">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	      <div class="flex justify-center">
+	        <img src="../../../images/holms/service-revolver.png"
+	             alt="service revolver card"
+	             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+	      </div>
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2"> سلاح کمری </h3>
+	
+	  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    دکتر واتسون · حمله
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    حمله : 5
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 3
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+			اثر
+	    </p>
+	-
+	    <p class="text-sm text-slate-200">
+	    </p>
+	  </div>
+	</div>
+	
+	    </div>
+	  </div>
+	</article>
+	
+	<article class="relative group" id="study-methods">
+	  <div class="absolute -inset-1 bg-gradient-to-br from-yellow-700/50 via-black to-yellow-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+	
+	  <div class="relative glass border border-yellow-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+	    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+	
+	      <div class="flex justify-center">
+	        <img
+	          src="../../../images/holms/study-methods.png"
+	          alt="study methods card"
+	          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+	                 transform group-hover:scale-105 group-hover:-translate-y-1
+	                 transition duration-300"
+	        />
+	      </div>
+	
+	<div dir="rtl" class="text-right">
+	  <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">
+	    روش‌های مطالعه </h3>
+	
+	  <p class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4">
+	    هر مبارز · چندمنظوره
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    حمله/دفاع : 3
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    نوع رویداد : بعد از نبرد
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    بوست : 2
+	  </p>
+	
+	  <p class="text-slate-300 mb-4 text-sm md:text-base">
+	    تعداد : x2
+	  </p>
+	
+	  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+	    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+	      اثر
+	    </p>
+	
+	    <p class="text-sm text-slate-200">
+اگر در نبرد پیروز شدید، می‌توانید دست حریف را نگاه کنید.
+	    </p>
+	  </div>
+	</div>
+	
+	
+	    </div>
+	  </div>
+	</article>
+	
+	
+	    </div>
+	  </div>
+	</section>
+	
+	
+	          
+	        </div>
+	      </main>
+	    </div>
+	  </body>
+	</html>
