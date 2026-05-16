@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fa" dir="rtl" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <titleMapUNMATCHED - سیستم حرکت و نقشه</title>
+
+    <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Tahoma", sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #0f2e1f 0%,
+          #07140d 45%,
+          #020604 100%
+        );
+        color: #e5f7ec;
+        margin: 0;
+        overflow-x: hidden;
+      }
+html:not(.dark) body {
+  background: radial-gradient(
+    circle at top,
+    #d9fbe8 0%,
+    #b7f3cf 35%,
+    #86efac 70%,
+    #dcfce7 100%
+  );
+
+  color: #064e3b;
+}
+
+
+      html.dark body {
+        background: radial-gradient(
+          circle at top,
+          #0f2e1f 0%,
+          #07140d 45%,
+          #020604 100%
+        );
+        color: #e5f7ec;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Cinzel", serif;
+      }
+
+      .glass-box {
+        background: rgba(8, 18, 12, 0.72);
+        border: 1px solid rgba(74, 222, 128, 0.12);
+        backdrop-filter: blur(16px);
+        box-shadow:
+          0 10px 35px rgba(0, 0, 0, 0.35),
+          0 0 25px rgba(34, 197, 94, 0.05);
+        border-radius: 24px;
+        transition: all 0.35s ease;
+      }
+
+      .glass-box:hover {
+        border-color: rgba(74, 222, 128, 0.35);
+        transform: translateY(-4px);
+        box-shadow:
+          0 18px 40px rgba(0, 0, 0, 0.45),
+          0 0 30px rgba(74, 222, 128, 0.12);
+      }
+
+      .modern-btn {
+        cursor: pointer;
+        border: none;
+        border-radius: 14px;
+        padding: 12px 20px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 24px rgba(34, 197, 94, 0.18);
+      }
+
+      .modern-btn:hover {
+        transform: translateY(-2px) scale(1.02);
+        background: linear-gradient(135deg, #22c55e, #4ade80);
+        box-shadow: 0 16px 30px rgba(74, 222, 128, 0.25);
+      }
+
+      img {
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        transition: all 0.4s ease;
+        max-width: 100%;
+        object-fit: cover;
+      }
+
+      img:hover {
+        transform: scale(1.02);
+        border-color: rgba(74, 222, 128, 0.4);
+        box-shadow: 0 0 25px rgba(74, 222, 128, 0.15);
+      }
+
+      #longTextContent {
+        max-height: 24rem;
+        overflow-y: auto;
+        background: rgba(3, 10, 6, 0.75);
+        border: 1px solid rgba(74, 222, 128, 0.08);
+        border-radius: 16px;
+        padding: 1rem;
+        color: #d7ffe4;
+        line-height: 1.9;
+      }
+
+      .title-gradient {
+        background: linear-gradient(135deg, #22c55e, #4ade80, #16a34a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #04110a;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #14532d;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #166534;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen relative text-slate-200 dark">
+    <canvas
+      id="cursor-canvas"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 50;
+      "
+    >
+    </canvas>
+    <header
+      class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-black/40 border-b border-green-200 dark:border-green-900/40 transition-colors"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center"
+      >
+        <h2
+          class="text-2xl md:text-3xl font-black flex items-center gap-3 title-gradient"
+        >
+          <i class="fas fa-map"></i>
+          <span>راهنمای سیستم حرکت و نقشه </span>
+        </h2>
+        <div class="flex gap-3">
+          <button
+            id="theme-toggle"
+            class="rounded-full border px-3 py-1.5 text-xs font-semibold bg-green-100 text-green-700 dark:bg-slate-800 dark:text-slate-100 border-green-300 dark:border-green-700 hover:scale-105 transition shadow-sm"
+          >
+            🌙
+          </button>
+
+          <button
+            id="toggleSound"
+            class="rounded-full px-4 py-2 text-sm font-bold bg-green-950/70 text-green-100 border border-green-800 hover:bg-green-700 hover:border-green-400 transition duration-300 shadow-lg shadow-green-900/20"
+          >
+            <i class="fas fa-volume-up"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <audio id="themeAudio" loop>
+      <source src="../../../musics/map.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="container mx-auto px-4 py-10 relative z-10">
+      <!-- HERO -->
+      <section class="text-right mb-14 pr-4 md:pr-12">
+
+
+        <div dir="rtl" class="flex items-center gap-3 mb-12">
+          <div class="h-8 w-1 bg-green-600 rounded-full"></div>
+
+          <h1
+            class="text-2xl md:text-3xl font-semibold text-green-500  tracking-wide"
+          >
+            Map
+          </h1>
+        </div>
+
+        <p
+          class="text-lg text-green-700 dark:text-green-500/70 max-w-3xl leading-8"
+        >یک تجربه‌ی مدرن، تاریک و پر از راز؛ جایی که نقشه تنها میدان نبرد نیست،
+
+بلکه معمایی زنده است. هر خانه، هر گذرگاه و هر مسیر پنهان می‌تواند
+
+جریان نبرد را دگرگون کند و فرصت یا تهدیدی تازه بسازد.
+        </p>
+      </section>
+
+      <!-- CONTENT -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <!-- MOVEMENT -->
+        <section class="glass-box p-7">
+          <div class="flex items-center justify-between mb-6">
+            <h2
+              class="text-3xl font-bold text-green-300 flex items-center gap-3"
+            >
+              <i class="fas fa-running"></i>
+              سیستم حرکت
+            </h2>
+
+            <span
+              class="px-4 py-1 rounded-full text-sm bg-green-500/10 text-green-300 border border-green-500/20"
+            >
+              حیاتی
+            </span>
+          </div>
+
+          <p class="text-slate-300 leading-8 mb-6">
+            در بازی Unmatched، حرکت یکی از مهم‌ترین بخش‌های استراتژی است.
+            جای‌گیری صحیح مبارزان می‌تواند مسیر نبرد را کاملاً تغییر دهد.
+          </p>
+
+          <div class="mb-6">
+            <img src="../../../images/art1.png" alt="سیستم حرکت" />
+          </div>
+
+          <div class="space-y-4 hidden" id="movementOptions"></div>
+
+          <button id="showMovementOptions" class="modern-btn mt-5">
+            <i class="fas fa-chevron-down"></i>
+            <span>نمایش گزینه‌های حرکت</span>
+          </button>
+        </section>
+
+        <!-- MAP -->
+        <section class="glass-box p-7">
+          <div class="flex items-center justify-between mb-6">
+            <h2
+              class="text-3xl font-bold text-green-300 flex items-center gap-3"
+            >
+              <i class="fas fa-map-marked-alt"></i>
+              نقشه بازی
+            </h2>
+
+            <span
+              class="px-4 py-1 rounded-full text-sm bg-green-500/10 text-green-300 border border-green-500/20"
+            >
+              مرموز
+            </span>
+          </div>
+
+          <p class="text-slate-300 leading-8 mb-6">
+            هر بخش از نقشه دارای ویژگی‌های خاص است و می‌تواند فرصت حمله یا فرار
+            ایجاد کند.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <img src="../../../images/board.jpeg" alt="نقشه" />
+            <img src="../../../images/board1.jpeg" alt="جزئیات" />
+          </div>
+
+          <div class="space-y-4 hidden" id="mapOptions"></div>
+
+          <button id="showMapOptions" class="modern-btn mt-5">
+            <i class="fas fa-chevron-down"></i>
+            <span>نمایش گزینه‌های نقشه</span>
+          </button>
+        </section>
+      </div>
+
+      <!-- LONG TEXT -->
+      <section class="glass-box p-6 mb-8 hidden" id="longTextContainer">
+        <div class="flex justify-between items-center mb-5">
+          <h3 class="text-2xl font-bold text-green-300" id="longTextTitle"></h3>
+
+          <button
+            id="closeLongText"
+            class="text-slate-400 hover:text-white transition text-xl"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div id="longTextContent"></div>
+      </section>
+    </div>
+
+    <script src="../js/map.js"></script>
+  </body>
+  <!-- FOOTER -->
+  <footer class="text-center text-slate-400 pt-12 pb-6">
+    Basu-Advanced Programming
+  </footer>
+</html>

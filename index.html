@@ -15,6 +15,9 @@
   html { scroll-behavior: smooth; }
 
   #navMenu.active { display: flex !important; }
+.node-point {
+  transition: 0.25s ease;
+}
 
 /* Deck slidera */
 #decks {
@@ -354,9 +357,23 @@ section {
               </div>
             </div>
 
-            <div class="px-4 py-4 text-center font-bold text-[18px] bg-[#151515] border-t border-[rgba(255,255,255,0.06)] group-hover:opacity-30 transition">
-              Sherlock Holms
-            </div>
+<div class="px-4 py-4 text-center bg-[#151515] border-t border-[rgba(255,255,255,0.06)]">
+
+  <h3 class="font-bold text-[18px] text-[#eaeaea] mb-3">
+    Sherlock Holms
+  </h3>
+
+  <a
+    href="pages/game/html/sherlock.html"
+    class="inline-block px-5 py-2 rounded-[8px]
+           bg-[#9f7aea] text-white text-[14px] font-semibold
+           hover:bg-[#8663d3] transition duration-300"
+  >
+    View Character
+  </a>
+
+</div>
+
           </div>
 
           <!-- Dracula -->
@@ -399,9 +416,22 @@ section {
               </div>
             </div>
 
-            <div class="px-4 py-4 text-center font-bold text-[18px] bg-[#151515] border-t border-[rgba(255,255,255,0.06)] group-hover:opacity-30 transition">
-              Dracula
-            </div>
+     <div class="px-4 py-4 text-center bg-[#151515] border-t border-[rgba(255,255,255,0.06)]">
+
+  <h3 class="font-bold text-[18px] text-[#eaeaea] mb-3">
+    Dracula
+  </h3>
+
+  <a
+    href="pages/game/html/dracula.html"
+    class="inline-block px-5 py-2 rounded-[8px]
+           bg-[#9f7aea] text-white text-[14px] font-semibold
+           hover:bg-[#8663d3] transition duration-300"
+  >
+    View Character
+  </a>
+
+</div>
           </div>
 
           <!-- Invisible Man -->
@@ -444,36 +474,84 @@ section {
               </div>
             </div>
 
-            <div class="px-4 py-4 text-center font-bold text-[18px] bg-[#151515] border-t border-[rgba(255,255,255,0.06)] group-hover:opacity-30 transition">
-              Invisible Man
-            </div>
+<div class="px-4 py-4 text-center bg-[#151515] border-t border-[rgba(255,255,255,0.06)]">
+
+  <h3 class="font-bold text-[18px] text-[#eaeaea] mb-3">
+    invisible Man
+  </h3>
+
+  <a
+    href="pages/game/html/"
+    class="inline-block px-5 py-2 rounded-[8px]
+           bg-[#9f7aea] text-white text-[14px] font-semibold
+           hover:bg-[#8663d3] transition duration-300"
+  >
+    View Character
+  </a>
+
+</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BOARDS -->
-    <section id="boards" class="px-[10%] py-[100px]">
-      <h2 class="reveal text-[36px] mb-10 text-center">Game Boards</h2>
+<!-- BOARDS -->
+<section id="boards" class="px-[10%] py-[100px]">
+  <h2 class="reveal text-[36px] mb-10 text-center">Game Boards</h2>
 
-      <div class="grid gap-[30px] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
-        <div class="reveal bg-[#161a22] rounded-[10px] overflow-hidden border border-[#222] transition hover:-translate-y-2 hover:border-[#444]">
-          <img src="images/board.jpeg" class="w-full h-[280px] object-cover" />
-          <div class="p-5">
-            <h3 class="mb-2.5">Soho Streets</h3>
-            <p class="text-[#aaa] text-[14px]">foggy city battlefield perfect for cunning tactics.</p>
-          </div>
-        </div>
+  <div class="grid gap-[30px] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
 
-        <div class="reveal bg-[#161a22] rounded-[10px] overflow-hidden border border-[#222] transition hover:-translate-y-2 hover:border-[#444]">
-          <img src="images/board1.jpeg" class="w-full h-[280px] object-cover" />
-          <div class="p-5">
-            <h3 class="mb-2.5">Dracula's Castle</h3>
-            <p class="text-[#aaa] text-[14px]">A dark gothic castle filled with danger and ambush opportunities.</p>
-          </div>
-        </div>
+    <!-- Board 1 -->
+    <div class="reveal bg-[#161a22] rounded-[10px] overflow-hidden border border-[#222] transition hover:-translate-y-2 hover:border-[#444]">
+      <img src="images/board.jpeg" class="w-full h-[280px] object-cover" />
+
+      <div class="p-5">
+        <h3 class="mb-2.5">Soho Streets</h3>
+
+        <p class="text-[#aaa] text-[14px] mb-4">
+          foggy city battlefield perfect for cunning tactics.
+        </p>
+
+        <a
+          href="pages/game/html/map.html"
+          class="inline-block px-4 py-2 rounded-[8px]
+                 border border-[#9f7aea]
+                 text-[#eaeaea] text-[14px] font-semibold
+                 hover:bg-[#9f7aea] hover:text-white
+                 transition duration-300"
+        >
+          View Map Details
+        </a>
       </div>
-    </section>
+    </div>
+
+    <!-- Board 2 -->
+    <div class="reveal bg-[#161a22] rounded-[10px] overflow-hidden border border-[#222] transition hover:-translate-y-2 hover:border-[#444]">
+      <img src="images/board1.jpeg" class="w-full h-[280px] object-cover" />
+
+      <div class="p-5">
+        <h3 class="mb-2.5">Dracula's Castle</h3>
+
+        <p class="text-[#aaa] text-[14px] mb-4">
+          A dark gothic castle filled with danger and ambush opportunities.
+        </p>
+
+        <a
+          href="pages/game/html/map.html"
+          class="inline-block px-4 py-2 rounded-[8px]
+                 border border-[#9f7aea]
+                 text-[#eaeaea] text-[14px] font-semibold
+                 hover:bg-[#9f7aea] hover:text-white
+                 transition duration-300"
+        >
+          View Map Details
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
     <!-- DECKS -->
     <section id="decks" class="px-[10%] py-[100px]">
@@ -862,8 +940,12 @@ section {
       <h2 class="reveal text-[36px] mb-10 text-center">How To Play</h2>
 
       <div class="max-w-[900px] mx-auto flex flex-col gap-[25px]">
+        <!-- hero selection -->
         <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
           <h3>1. Select Your Hero</h3>
+                        <p class="text-slate-400 mb-8">
+                          Remeber if you are younger you can choose your hero first :)
+                        </p>
 
           <div id="hero-select">
             <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
@@ -897,65 +979,104 @@ section {
           </div>
         </div>
 
-       <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-  <h3>3. Play Combat Cards</h3>
+        <!-- placement -->
+        <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+          <h3>2. Place Your Hero</h3>
+              <p class="text-slate-400 mb-8">
+    After hero selection you have to place you'r hero in one of the two positon shown below
+  </p>
 
-  <!-- Attack cards -->
-  <div id="attack-card">
-    <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-      <div
-        class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
-               hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
-      >
-        <img src="images/dracula/beastform.png" class="attack-img w-full h-full object-cover" />
-      </div>
+          <div class="mt-4 flex justify-center">
+            <div id="mapstart" data-max="13" class=" w-[500px] h-[320px] ">
+              <img src="images/herostartpos.png" alt="maps" class="block" />
+            </div>
 
-      <div
-        class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
-               hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
-      >
-        <img src="images/invisibleMan/slip-away.png" class="attack-img w-full h-full object-cover" />
-      </div>
+          </div>
+        </div>
 
-      <div
-        class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
-               hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
-      >
-        <img src="images/holms/service-revolver.png" class="attack-img w-full h-full object-cover" />
-      </div>
-    </div>
-  </div>
+        <!-- 3. Understand Your Deck -->
+<div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+  <h3>3. Create your hand</h3>
+  <p class="text-slate-400 mb-8">
+    Draw 5 cards from the top of your deck.
+  </p>
 
-  <!-- Defense cards -->
-  <div id="defense-card">
-    <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-      <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-        <img src="images/dracula/look-into-my-eyes.png" class="defense-img w-full h-full object-cover" />
-      </div>
-
-      <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-        <img src="images/invisibleMan/lurking.png" class="defense-img w-full h-full object-cover" />
-      </div>
-
-      <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-        <img src="images/holms/elementary.png" class="defense-img w-full h-full object-cover" />
-      </div>
+  <div class="flex justify-center py-10 overflow-hidden">
+    <!-- Fan container: Smaller on mobile (150x210), Original on desktop (220x320) -->
+    <div id="deck-fan" class="relative w-[150px] h-[210px] md:w-[220px] md:h-[320px]">
+      
+      <!-- Card Images -->
+      <img src="images/holms/administer-aid.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-10 w-full h-full object-cover" />
+           
+      <img src="images/holms/confirm-suspicion.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-20 w-full h-full object-cover" />
+           
+      <img src="images/holms/counterpunch.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-30 w-full h-full object-cover" />
+           
+      <img src="images/holms/education-never-ends.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-40 w-full h-full object-cover" />
+           
+      <img src="images/holms/the-game-is-afoot.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-[45] w-full h-full object-cover" />
+           
+      <!-- Trigger / Back Card -->
+      <img id="deck-trigger"
+           src="images/sherBackCard.webp"
+           alt="Back Card"
+           class="absolute inset-0 cursor-pointer rounded-[10px] md:rounded-[14px] shadow-2xl z-50 transition-all duration-500 ease-out w-full h-full object-cover hover:brightness-110" />
     </div>
   </div>
 </div>
 
+<!-- 4. Take Actions -->
+<div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+  <h3>4. Take Actions</h3>
+  <p class="text-slate-400 mb-8">
+    On your turn you must take <b>2 actions</b>. You may choose the same action twice or two different ones.
+  </p>
+
+  <!-- Action buttons -->
+  <div class="flex justify-center gap-6 flex-wrap mb-8">
+    <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-cyan-500 transition" data-action="maneuver">
+      Maneuver
+    </button>
+
+
+    <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-red-500 transition" data-action="attack">
+      Attack
+    </button>
+
+    <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-purple-500 transition" data-action="scheme">
+      Scheme
+    </button>
+  </div>
+
+  <!-- Explanation panel -->
+  <div id="action-display" class="max-w-[600px] mx-auto text-center text-slate-300">
+    Select an action above to see how it works.
+  </div>
+</div>
+
+
+<!-- defeat -->
         <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-          <h3>4. Defeat Your Opponent</h3>
+          <h3>5. Defeat Your Opponent</h3>
+              <p class="text-slate-400 mb-8">
+                Reduce the enemy hero's health to zero to win the match.
+              </p>
 
           <div class="mt-4">
             <div id="draculaHealth" data-max="13" class="">
               <img src="images/draculaHealth.png" alt="Dracula Health Dial" class="block" />
             </div>
 
-            <p class="mt-4">Reduce the enemy hero's health to zero to win the match.</p>
           </div>
         </div>
       </div>
+
+      <!-- oop button -->
       <a href="pages/concepts/html/oop.html" class="mt-12 flex justify-center">
   <button id="forwardBtn"
     class="px-8 py-3 rounded-xl font-semibold
@@ -966,6 +1087,8 @@ section {
     Continue to Implementation Guide →
   </button>
 </a>
+
+
     </section>
 
 

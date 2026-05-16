@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unmatched – Dracula Character</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+    <script src="../js/dracula.js" defer></script>
+    <script>
+      // Basic Tailwind config (optional)
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              blood: "#8b0000",
+              night: "#050816",
+              card: "#151820",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      html {
+  scroll-behavior: smooth;
+}
+/* font */
+/* --- Persian Font: Vazir --- */
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/vazir-font-v16.1.0/Vazir.woff2') format('woff2'),
+       url('/fonts/vazir-font-v16.1.0/Vazir.woff') format('woff'),
+       u('/fonts/vazir-font-v16.1.0/Vazir.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff2') format('woff2'),
+       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff') format('woff'),
+       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: 'Vazir', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+
+
+      /* Small custom touches */
+      .blood-gradient {
+        background: radial-gradient(
+          circle at top,
+          #8b0000 0,
+          #050816 45%,
+          #02010a 100%
+        );
+      }
+      .glass {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(12px);
+      }
+
+      .deck-card:hover{
+       z-index: 100;
+      scale: 1.1;
+      }
+
+      .deck-card {
+        transform-origin: bottom center;
+        transition: transform 0.6s ease;
+      }
+
+      .deck-cards {
+        pointer-events: none;
+      }
+
+      .deck-cards.open {
+        pointer-events: auto;
+      }
+
+      /*dracula theme effect*/
+
+@keyframes protest-shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+#dracula-box-inner.dracula-box-shake {
+  animation: protest-shake 0.5s ease-in-out;
+}
+
+
+
+@keyframes red-pulse {
+  0% {
+    box-shadow: inset 0 0 0 rgba(255, 0, 0, 0);
+    background-color: rgba(127, 0, 0, 0);
+  }
+  50% {
+    box-shadow: inset 0 0 180px rgba(255, 0, 0, 0.18);
+    background-color: rgba(127, 0, 0, 0.08);
+  }
+  100% {
+    box-shadow: inset 0 0 0 rgba(255, 0, 0, 0);
+    background-color: rgba(127, 0, 0, 0);
+  }
+}
+
+@keyframes warning-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+#dracula-warning .dracula-box-shake {
+  animation: protest-shake 0.5s ease-in-out;
+}
+
+body.dracula-rage {
+  animation: screen-shake 0.55s ease-in-out;
+}
+
+body.dracula-red {
+  animation: red-pulse 1s ease-out;
+}
+
+#dracula-warning.show {
+  display: flex;
+}
+
+#dracula-warning.show > div:last-child {
+  animation: warning-pop 0.35s ease-out;
+}
+/* Container that holds splattered blood droplets */
+#blood-splatter-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  z-index: 999999;
+}
+
+/* Base blood droplet */
+.blood-drop {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle, #ff0000, #7a0000);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.3);
+  animation: blood-splash 0.9s ease-out forwards;
+}
+
+/* Splash animation */
+@keyframes blood-splash {
+  0% {
+    opacity: 1;
+    transform: scale(0.3) translate(0, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1) translate(var(--dx), var(--dy));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1) translate(var(--dx), var(--dy));
+  }
+}
+
+
+    </style>
+  </head>
+
+  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100 font-sans">
+    <canvas 
+  id="cursor-canvas"
+  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
+</canvas>
+    <!-- MAIN WRAPPER -->
+<!-- HEADER -->
+<header class="sticky top-0 z-50 backdrop-blur bg-black/80 border-b border-red-900/70">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Title -->
+    <h1 dir="rtl" class="text-xl md:text-2xl font-extrabold text-red-300 flex items-center gap-3">
+      <span>راهنمای شخصیت دراکولا</span>
+    </h1>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-4">
+
+      <!-- Desktop Navigation -->
+      <nav dir="rtl"
+        class="hidden md:flex gap-6 font-semibold text-sm text-slate-200">
+    <a href="#components" class="hover:text-red-400 transition">متعلقات</a>
+        <a href="#hero" class="hover:text-red-400 transition">قهرمان</a>
+        <a href="#sidekicks" class="hover:text-red-400 transition">همراهان</a>
+        <a href="#deck" class="hover:text-red-400 transition">دِک</a>
+        <a href="#cards" class="hover:text-red-400 transition">کارت‌ها</a>
+      </nav>
+
+      <!-- Theme Toggle (UNCHANGED) -->
+      <button
+        id="theme-toggle"
+        class="rounded-full border px-3 py-1.5 text-xs font-semibold
+               bg-red-950/80 text-red-200 border-red-700
+               hover:scale-105 hover:bg-red-900 hover:text-white
+               transition duration-300 shadow-md shadow-red-900/40
+               backdrop-blur-sm"
+        aria-label="Dracula theme toggle"
+      >
+        🌙
+      </button>
+
+      <!-- Hamburger -->
+      <button id="menuBtn" class="md:hidden text-2xl text-red-300">
+        ☰
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu"
+    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+           bg-black/95 border-t border-red-900/70 text-slate-200"
+    dir="rtl">
+
+    <a href="#components" class="pt-4 hover:text-red-400 transition">متعلقات</a>
+    <a href="#hero" class="hover:text-red-400 transition">قهرمان</a>
+    <a href="#sidekicks" class="hover:text-red-400 transition">همراهان</a>
+    <a href="#deck" class="hover:text-red-400 transition">دِک</a>
+    <a href="#cards" class="hover:text-red-400 transition">کارت‌ها</a>
+
+  </div>
+</header>
+
+
+          
+<section  class="relative z-10 pt-6 md:pt-10">
+  <!-- Container for centering alignment -->
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+    
+    <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+      <!-- Left: Text -->
+      <div>
+  <p class="text-xs uppercase tracking-[0.3em] text-slate-300 mb-3">
+    معرفی شخصیت
+  </p>
+
+  <h1 class="text-3xl md:text-5xl font-extrabold text-slate-50 mb-4">
+    دراکولا
+    <span class="block text-lg md:text-2xl text-red-400 font-normal mt-2">
+      ارباب خون‌آشام‌ها
+    </span>
+  </h1>
+
+  <p class="text-sm md:text-base text-slate-200 max-w-xl mb-4">
+    دراکولا در بازی
+    <span class="font-semibold text-red-300">Unmatched</span>
+ یک قهرمان تهاجمی است که با کمک سه خواهر خود Sisters بازی می‌کند و با آسیب زدن به مبارزان می‌تواند کارت بیشتری به دست بیاورد.
+    <span class="font-semibold text-slate-100">در نبرد نزدیک  </span>
+    بهترین عملکرد را دارد و با نزدیک ماندن به قهرمان‌ها و همراهان حریف، جریان بازی را به نفع خود تغییر می‌دهد.
+  </p>
+
+
+</div>
+
+
+      <!-- Right: Portrait card -->
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <!-- decorative glow -->
+          <div class="absolute -inset-1 bg-gradient-to-br from-red-700 via-black to-purple-900 rounded-3xl blur-xl opacity-60"></div>
+          <!-- main card -->
+          <div class="relative glass border border-red-800/50 rounded-3xl p-4 shadow-2xl">
+            <div class="aspect-[3/4] overflow-hidden rounded-2xl border border-slate-700 mb-4">
+              <img src="assets/../../../../images/dracHero.webp" alt="Dracula" class="h-full w-full object-cover" />
+            </div>
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-lg font-bold tracking-wide">Dracula</h2>
+              <span class="inline-flex items-center gap-1 text-xs text-slate-300">
+                Melee
+                <span class="h-2 w-2 rounded-full bg-red-500"></span>
+              </span>
+            </div>
+            <p class="text-xs uppercase text-slate-400 tracking-[0.25em] mb-3">
+              Lord of Darkness
+            </p>
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex flex-col">
+                <span class="text-slate-400">Health</span>
+                <span class="text-lg font-bold text-red-300">13</span>
+              </div>
+              <div class="flex flex-col text-right">
+                <span class="text-slate-400">Movement</span>
+                <span class="text-lg font-bold text-slate-100">2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- DRACULA COMPONENTS SECTION -->
+<section id="components" class="py-24 px-6">
+
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+    <!-- Simple Header -->
+    <div dir="rtl" class="flex items-center gap-3 mb-12">
+      <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+        متعلقات دراکولا
+      </h2>
+    </div>
+
+    <!-- Components Grid -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+      <!-- Dracula Figure -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/tranDrac.png"
+          alt="فیگور دراکولا"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            فیگور دراکولا
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            فیگور اصلی قهرمان با طراحی خون‌آشامی کلاسیک.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sisters Tokens -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/3sisters.png"
+          alt="توکن خواهران"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            توکن‌های خواهران
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            همراهان وفادار دراکولا برای محاصره دشمنان.
+          </p>
+        </div>
+      </div>
+
+      <!-- Health Dial -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/draculaHealth.png"
+          alt="توکن سلامتی"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            توکن تنظیم جون
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            برای ثبت میزان سلامتی باقی‌مانده دراکولا.
+          </p>
+        </div>
+      </div>
+
+      <!-- Deck -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <img
+          src="../../../images/draculaBackCard.webp"
+          alt="دک کارت‌ها"
+          class="w-full h-64 object-contain mb-5"
+        >
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            دِک 30 کارتی
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            شامل 30 کارت اختصاصی.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hero Card -->
+      <div class="bg-[#090909] border border-red-900/40 rounded-3xl p-5
+                  shadow-[0_0_25px_rgba(120,0,0,0.15)]
+                  hover:border-red-500 hover:shadow-red-900/40
+                  transition duration-300">
+
+        <div class="grid grid-cols-2 gap-3 mb-5">
+          <img
+            src="../../../images/dracHero.webp"
+            alt="روی کارت قهرمان"
+            class="w-full h-56 object-contain rounded-xl"
+          >
+
+          <img
+            src="../../../images/action.png"
+            alt="پشت کارت قهرمان"
+            class="w-full h-56 object-contain rounded-xl"
+          >
+        </div>
+
+        <div dir="rtl" class="text-right">
+          <h3 class="text-xl font-bold text-red-200 mb-2">
+            کارت قهرمان
+          </h3>
+
+          <p class="text-slate-400 text-sm">
+            نمای جلو و پشت کارت رسمی شخصیت دراکولا.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+      <!-- MAIN CONTENT -->
+      <main
+        class="flex-1 bg-gradient-to-b from-night via-slate-950 to-black pb-16"
+      >
+        <div class="max-w-6xl mx-auto px-6 md:px-12 pt-10 space-y-12">
+
+
+<!-- Dracula -->
+<section id="hero" class="pt-16">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3 mb-10">
+      <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+        دراکولا
+      </h2>
+    </div>
+
+    <!-- Content -->
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Image -->
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-md">
+          <div class="absolute inset-0 bg-red-700/20 blur-3xl rounded-full"></div>
+          <img
+            src="../../../images/DracArt.png"
+            alt="Dracula"
+            class="relative z-10 w-full object-contain drop-shadow-[0_0_30px_rgba(220,38,38,0.45)]"
+          />
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div dir="rtl" class="text-right">
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 mb-8">
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">سلامتی</p>
+            <p class="text-2xl font-bold text-red-400">13</p>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">حرکت</p>
+            <p class="text-2xl font-bold text-slate-100">2</p>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">حمله</p>
+            <img src="../../../images/melee.svg" class="text-2xl font-bold text-red-300"></img>
+          </div>
+        </div>
+
+        <!-- Setup -->
+        <div class="mb-6">
+          <h3 class="text-sm tracking-[0.2em] text-red-400 mb-2">
+            شروع بازی
+          </h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            دراکولا بازی را در ناحیه شروع خود آغاز می‌کند.
+            او می‌تواند روی هرکدام از ۴ خانه مشخص‌شده برای قهرمان قرار بگیرد.
+          </p>
+        </div>
+
+        <!-- Ability -->
+        <div class="mb-6">
+          <h3 class="text-sm tracking-[0.2em] text-red-400 mb-2">
+            توانایی
+          </h3>
+          <div class="border-r-2 border-red-600 pr-4">
+            <p class="text-sm italic text-slate-200">
+              «در ابتدای نوبت خود، می‌توانی به یکی از خواهران که کنار دراکولا است
+              ۱ آسیب وارد کنی. اگر این کار را انجام دهی، یک کارت بکش.»
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- Sisters -->
+<section id="sidekicks" class="pt-16">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3 mb-10">
+      <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+        خواهران
+      </h2>
+    </div>
+
+    <!-- Content -->
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Image -->
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-md">
+
+          <!-- glow -->
+          <div class="absolute inset-0 bg-red-700/20 blur-3xl rounded-full"></div>
+
+          <!-- transparent png holder -->
+          <img
+            src="../../../images/3sisters.png"
+            alt="Dracula Sisters"
+            class="relative z-10 w-full object-contain drop-shadow-[0_0_25px_rgba(255,0,0,0.35)]"
+          />
+
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div dir="rtl" class="text-right">
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 mb-8">
+
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">تعداد</p>
+            <p class="text-2xl font-bold text-red-400">x3</p>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">سلامتی</p>
+            <p class="text-2xl font-bold text-red-400">1</p>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">حرکت</p>
+            <p class="text-2xl font-bold text-slate-100">2</p>
+          </div>
+
+          <div class="bg-slate-900/40 border border-slate-700 rounded-xl p-4">
+            <p class="text-xs text-slate-400 mb-1">حمله</p>
+            <img src="../../../images/melee.svg" class="text-2xl font-bold text-slate-100"></img>
+          </div>
+
+        </div>
+
+        <!-- Setup -->
+        <div class="mb-6">
+          <h3 class="text-sm tracking-[0.2em] text-red-400 mb-2">
+            شروع بازی
+          </h3>
+
+          <p class="text-sm text-slate-300 leading-relaxed">
+            خواهران بازی را در ناحیه شروع دراکولا آغاز می‌کنند
+             .و روی خانه‌هایی با رنگ‌های مشخص‌شده قرار می‌گیرند که دراکولا هم در خانه شروع خود در آن رنگ ها قرار دارد.
+            دقت کنید قرارگیری دو مبارز در یک مکان امکان پذیر نیست.
+            </p>
+        </div>
+
+        <!-- Ability -->
+        <div class="mb-6">
+          <h3 class="text-sm tracking-[0.2em] text-red-400 mb-2">
+            توانایی
+          </h3>
+
+          <div class="border-r-2 border-red-600 pr-4">
+            <p class="text-sm italic text-slate-200">
+              «خواهران توانایی ویژه‌ای ندارند؛ اما در ابتدای نوبت دراکولا،
+              او می‌تواند به یک خواهرِ مچاور خود ۱ آسیب وارد کند و ۱ کارت بکشد.»
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<section id="deck" class="pt-16">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+
+    <div class="flex items-center gap-3">
+      <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+        دک
+      </h2>
+    </div>
+
+    <div class="flex justify-center pt-6">
+
+    <img
+      src="../../../images/draculaBackCard.webp"
+      class="w-[140px] rounded-lg cursor-pointer deck-button"
+      data-deck="deck-dracula"
+    />
+
+    <div id="deck-dracula" class="relative w-[340px] h-[220px] deck-cards">
+                  <img
+                    src="../../../images/dracula/ambush.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                  data-card="ambush"
+                    />
+
+                  <img
+                    src="../../../images/dracula/baptism-of-blood.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                  data-card="baptism-of-blood"
+                    />
+
+                  <img
+                    src="../../../images/dracula/beastform.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="beastform"
+                    />
+
+                  <img
+                    src="../../../images/dracula/dash.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                  data-card="dash"
+
+                    />
+
+                  <img
+                    src="../../../images/dracula/exploit.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                  data-card="exploit"
+
+                    />
+
+                  <img
+                    src="../../../images/dracula/feeding-frenzy.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="feeding-frenzy"
+                    />
+
+                  <img
+                    src="../../../images/dracula/feint (1).png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="feint"
+                    />
+
+                  <img
+                    src="../../../images/dracula/look-into-my-eyes.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="look-into-my-eyes"
+                    />
+
+                  <img
+                    src="../../../images/dracula/mistform.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="mistform"
+                    />
+
+                  <img
+                    src="../../../images/dracula/prey-upon.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="prey-upon"
+                    />
+
+                  <img
+                    src="../../../images/dracula/ravening-seduction.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="ravening-seduction"
+                    />
+
+                  <img
+                    src="../../../images/dracula/thirst-for-sustenance.png"
+                    class="deck-card w-[150px] rounded-lg cursor-pointer absolute left-1/2 top-0 -translate-x-1/2"
+                    data-card="thirst-for-sustenance"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            id="cardModal"
+            class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[999]"
+          >
+            <img id="modalImage" class="w-[380px] rounded-xl shadow-2xl" />
+          </div>
+<section id="cards" class="pt-16">
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+
+    <div class="flex items-center gap-3 mb-10">
+      <div class="h-8 w-1 bg-red-600 rounded-full"></div>
+
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-wide text-slate-100">
+        کارت‌ها
+      </h2>
+    </div>
+
+    <div class="space-y-12">
+
+
+        <article class="relative group" id="feeding-frenzy">
+          <div
+            class="absolute -inset-1 bg-gradient-to-br from-blood/60 via-black to-purple-900/60 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+          ></div>
+
+          <div
+            class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+          >
+            <div
+              class="grid md:grid-cols-[220px_1fr] gap-8 items-center"
+            >
+              <div class="flex justify-center">
+                <img
+                  src="../../../images/dracula/feeding-frenzy.png"
+                  alt="Feeding Frenzy card"
+                  class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+                         transform group-hover:scale-105 group-hover:-translate-y-1
+                         transition duration-300"
+                />
+              </div>
+
+              <div dir="rtl" class="text-right">
+
+                <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">
+                  عطش خون
+                </h3>
+
+                <p
+                  class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4"
+                >
+                  دراکولا · حمله
+                </p>
+
+                <p class="text-slate-300 mb-4 text-sm md:text-base">
+                  حمله : 2
+                </p>
+                <p class="text-slate-300 mb-4 text-sm md:text-base">
+                  نوع رویداد : هنگام نبرد
+                </p>
+
+                <p class="text-slate-300 mb-4 text-sm md:text-base">
+                  بوست : 3
+                </p>
+
+                <p class="text-slate-300 mb-4 text-sm md:text-base">
+                  تعداد : x2
+                </p>
+
+                <div
+                  class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+                >
+                  <p
+                    class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+                  >
+                    اثر
+                  </p>
+
+                  <p class="text-sm text-slate-200">
+                    ارزش حمله این کارت به ازای هر خواهر که در همان ناحیه
+                    با مبارز حریف قرار دارد،
+                    1+ افزایش می‌یابد.
+                  </p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+<article class="relative group" id="mistform">
+  <div
+    class="absolute -inset-1 bg-gradient-to-br from-purple-900/70 via-black to-blood/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+  ></div>
+
+  <div
+    class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+  >
+    <div
+      class="grid md:grid-cols-[220px_1fr] gap-8 items-center"
+    >
+      <div class="flex justify-center">
+        <img
+          src="../../../images/dracula/mistform.png"
+          alt="Mistform card"
+          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+                 transform group-hover:scale-105 group-hover:-translate-y-1
+                 transition duration-300"
+        />
+      </div>
+
+      <div dir="rtl" class="text-right">
+        <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">
+          فرم مه
+        </h3>
+
+        <p
+          class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4"
+        >
+          دراکولا · رویداد
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          بوست : 2
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          تعداد : x2
+        </p>
+
+        <div
+          class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+        >
+          <p
+            class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+          >
+            اثر
+          </p>
+
+          <p class="text-sm text-slate-200">
+            دراکولا را در هر خانه‌ای قرار دهید و 1 اکشن به‌دست آورید.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="relative group" id="ambush">
+  <div
+    class="absolute -inset-1 bg-gradient-to-br from-blood/60 via-black to-amber-700/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+  ></div>
+
+  <div
+    class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+  >
+    <div
+      class="grid md:grid-cols-[220px_1fr] gap-8 items-center"
+    >
+      <div class="flex justify-center">
+        <img
+          src="../../../images/dracula/ambush.png"
+          alt="Ambush card"
+          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+                 transform group-hover:scale-105 group-hover:-translate-y-1
+                 transition duration-300"
+        />
+      </div>
+
+      <div dir="rtl" class="text-right">
+        <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">
+          کمین
+        </h3>
+
+        <p
+          class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4"
+        >
+          هر مبارز · حمله
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          حمله : 2
+        </p>
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          نوع رویداد : هنگام نبرد
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          بوست : 2
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          تعداد : x2
+        </p>
+
+        <div
+          class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+        >
+          <p
+            class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+          >
+            اثر
+          </p>
+
+          <p class="text-sm text-slate-200">
+            حریف شما 1 کارت تصادفی از دست خود را دور می‌اندازد.
+            مقدار بوست آن کارت به ارزش حمله این کارت اضافه می‌شود.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="relative group" id="baptism-of-blood">
+  <div
+    class="absolute -inset-1 bg-gradient-to-br from-blood/60 via-black to-rose-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"
+  ></div>
+
+  <div
+    class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl"
+  >
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+
+      <!-- Image -->
+      <div class="flex justify-center">
+        <img
+          src="../../../images/dracula/baptism-of-blood.png"
+          alt="Baptism of Blood card"
+          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+                 transform group-hover:scale-105 group-hover:-translate-y-1
+                 transition duration-300"
+        />
+      </div>
+
+      <!-- Text -->
+      <div dir="rtl" class="text-right">
+
+        <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">
+          غسل خون
+        </h3>
+
+        <p
+          class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4"
+        >
+          دراکولا · رویداد
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base"></p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          بوست : 2
+        </p>
+
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          تعداد : x2
+        </p>
+
+        <div
+          class="bg-black/60 border border-slate-800/80 rounded-2xl p-4"
+        >
+          <p
+            class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2"
+          >
+            اثر
+          </p>
+
+          <p class="text-sm text-slate-200">
+            مقدار 2 سلامتی بازیابی کنید.  
+            اگر خواهری شکست خورده باشد، او را در هر خانه‌ای از ناحیهٔ دراکولا برگردانید.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="relative group" id="beastform">
+  <div class="absolute -inset-1 bg-gradient-to-br from-amber-700/50 via-black to-blood/60 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/beastform.png"
+             alt="Beastform card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">فرم هیولا</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    دراکولا · حمله
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    حمله : 6
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    نوع رویداد : هنگام نبرد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 4
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x2
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      می‌توانید هر تعداد کارت از دست خود را دور بیندازید.
+      به ازای هر کارت دور انداخته شده، مقدار حمله این کارت 1+ افزایش می‌یابد.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+
+<article class="relative group" id="dash">
+  <div class="absolute -inset-1 bg-gradient-to-br from-slate-500/40 via-black to-purple-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/dash.png"
+             alt="Dash card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">یورش</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    هر مبارز · چندمنظوره
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    حمله/دفاع : 3
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    نوع رویداد : بعد از نبرد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 1
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x3
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      مبارز خود را تا 3 خانه جابه‌جا کنید.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+
+<!-- <article class="relative group" id="do-my-bidding">
+  <div class="absolute -inset-1 bg-gradient-to-br from-purple-900/60 via-black to-blood/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/do-my-bidding.png"
+             alt="Do My Bidding card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+      <div>
+        <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">Do My Bidding</h3>
+        <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+          Dracula . Defense
+        </p>
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          Event Type : Immediately
+        </p>
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          Boost : 3
+        </p>
+        <p class="text-slate-300 mb-4 text-sm md:text-base">
+          Count : x2
+        </p>
+
+        <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+          <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">Effect</p>
+          <p class="text-sm text-slate-200">
+            return your opponent's attack card to their hand. look at their hand and choose an attack or versaitle
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+ -->
+
+<article class="relative group" id="exploit">
+  <div class="absolute -inset-1 bg-gradient-to-br from-blood/60 via-black to-red-900/40 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/exploit.png"
+             alt="Exploit card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">بهره‌برداری</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    هر مبارز · چندمنظوره
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    حمله/دفاع : 4
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    نوع رویداد : بعد از نبرد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 1
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x3  
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      1 کارت بکشید.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+
+<article class="relative group" id="look-into-my-eyes">
+  <div class="absolute -inset-1 bg-gradient-to-br from-indigo-800/60 via-black to-blood/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/look-into-my-eyes.png"
+             alt="Look Into My Eyes card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">به چشمانم نگاه کن</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    دراکولا · دفاع
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    دفاع : 1
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    نوع رویداد : هنگام نبرد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 2
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x3
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      مقدار بوست کارت حمله حریف را به مقدار دفاع این کارت اضافه کنید.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+<article class="relative group" id="prey-upon">
+  <div class="absolute -inset-1 bg-gradient-to-br from-blood/60 via-black to-orange-900/40 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/prey-upon.png"
+             alt="Prey Upon card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">شکار کن</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    دراکولا · رویداد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 4
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x2
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      به تمام مبارزان حریف که کنار دراکولا هستند 1 آسیب وارد کنید.
+      دراکولا به ازای هر آسیبی که وارد شود، 1 سلامتی بازیابی می‌کند.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+<article class="relative group" id="ravening-seduction">
+  <div class="absolute -inset-1 bg-gradient-to-br from-purple-800/60 via-black to-blood/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/ravening-seduction.png"
+             alt="Ravening Seduction card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">اغوای سیری‌ناپذیر</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    رویداد · خواهر
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 2
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x3
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      هر مبارزی را تا 2 خانه جابه‌جا کنید.
+      پس از جابه‌جایی، به ازای هر خواهری که کنار اوست، 1 آسیب به آن مبارز وارد کنید.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+<article class="relative group" id="thirst-for-sustenance">
+  <div class="absolute -inset-1 bg-gradient-to-br from-blood/70 via-black to-rose-900/50 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+      <div class="flex justify-center">
+        <img src="../../../images/dracula/thirst-for-sustenance.png"
+             alt="Thirst for Sustenance card"
+             class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60 transform group-hover:scale-105 group-hover:-translate-y-1 transition duration-300"/>
+      </div>
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">تشنگی برای بقا</h3>
+
+  <p class="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 mb-4">
+    خواهر · حمله
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    حمله : 3
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    نوع رویداد : بعد از نبرد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 3
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x3
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      اگر نبرد را بردید، دراکولا را در هر خانه‌ای کنار مبارز حریف قرار دهید.
+      در غیر این صورت هیچ اتفاقی نمی‌افتد.
+    </p>
+  </div>
+</div>
+
+    </div>
+  </div>
+</article>
+
+<article class="relative group" id="feint">
+  <div class="absolute -inset-1 bg-gradient-to-br from-slate-500/40 via-black to-blood/60 rounded-3xl blur-xl opacity-40 group-hover:opacity-70 transition"></div>
+
+  <div class="relative glass border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl">
+    <div class="grid md:grid-cols-[220px_1fr] gap-8 items-center">
+
+      <div class="flex justify-center">
+        <img
+          src="../../../images/dracula/feint (1).png"
+          alt="Feint card"
+          class="w-[180px] md:w-[220px] rounded-2xl shadow-xl shadow-black/60
+                 transform group-hover:scale-105 group-hover:-translate-y-1
+                 transition duration-300"
+        />
+      </div>
+
+<div dir="rtl" class="text-right">
+  <h3 class="text-xl md:text-2xl font-bold text-blood mb-2">
+    فریب
+  </h3>
+
+  <p class="text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-slate-400 mb-4">
+    هر مبارز · چندمنظوره
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    حمله/دفاع : 2
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    نوع رویداد : قبل از نبرد
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    بوست : 2
+  </p>
+
+  <p class="text-slate-300 mb-4 text-sm md:text-base">
+    تعداد : x3
+  </p>
+
+  <div class="bg-black/60 border border-slate-800/80 rounded-2xl p-4">
+    <p class="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400 mb-2">
+      اثر
+    </p>
+
+    <p class="text-sm text-slate-200">
+      تمام اثرهای کارت حریف را لغو کنید.
+    </p>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</article>
+
+
+    </div>
+  </div>
+</section>
+
+
+          
+        </div>
+      </main>
+    </div>
+    <!-- Dracula jump scare / warning overlay -->
+<div
+  id="dracula-warning"
+  class="fixed inset-0 hidden items-center justify-center z-[10000] pointer-events-none"
+>
+  <!-- red flash background -->
+  <div class="absolute inset-0 bg-red-900/70 backdrop-blur-[2px]"></div>
+
+<!-- message card -->
+<div
+  id="dracula-box"
+  class="relative mx-6 max-w-xl rounded-3xl border border-red-500/50
+         bg-black/80 px-6 py-8 text-center shadow-2xl shadow-red-900/60"
+>
+  <div id="dracula-box-inner" dir="rtl">
+    <p class="text-xs uppercase tracking-[0.35em] text-red-400 mb-3">
+      اعتراض دراکولا
+    </p>
+
+    <h2 class="text-2xl md:text-4xl font-extrabold text-red-200 leading-snug">
+      من دراکولا هستم، محض رضای خدا—
+      <span class="block text-white mt-2">
+        نورو رو روشن نکن، سوختم!
+      </span>
+    </h2>
+  </div>
+</div>
+
+
+</div>
+<div id="blood-splatter-container"></div>
+
+  </body>
+</html>
