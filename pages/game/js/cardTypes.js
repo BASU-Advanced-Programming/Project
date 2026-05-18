@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+      document.addEventListener('DOMContentLoaded', function() {
           const rulesData = [
             { title: 'توضیح بازی و هدف', icon: 'flag-checkered', text: `بازی Unmatched یک بازی دوئل با مینیاتور است. هر بازیکن کنترل یک قهرمان افسانه‌ای (و گاهی دستیار او) را بر عهده می‌گیرد. هدف بازی ساده است: 
 شما باید اولین نفری باشید که قهرمان حریف را شکست می‌دهد. 
@@ -54,25 +55,24 @@ document.addEventListener('DOMContentLoaded', function() {
           const rulesList = document.getElementById('rulesOptionsList');
           const cardsList = document.getElementById('cardsOptionsList');
           
-          const modalOverlay = document.getElementById('modalOverlay');
-          const modalContent = document.getElementById('modalContent');
-          const modalTitle = document.getElementById('modalTitle');
-          const modalText = document.getElementById('modalText');
-          const closeModal = document.getElementById('closeModal');
+          const longTextContainer = document.getElementById('longTextContainer');
+          const longTextTitle = document.getElementById('longTextTitle');
+          const longTextContent = document.getElementById('longTextContent');
+          const closeLongText = document.getElementById('closeLongText');
 
           // Build lists
           function buildList(data, container) {
               data.forEach(item => {
                   const div = document.createElement('div');
-                  div.className = 'p-4 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 rounded-xl border-r-4 border-transparent hover:border-blue-500 transition-all cursor-pointer flex justify-between items-center shadow-sm';
+                  div.className = 'p-4 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 rounded-xl border-r-4 border-transparent hover:border-blue-500 transition-all cursor-pointer flex justify-between items-center shadow-sm relative z-20';
                   div.innerHTML = `
-                      <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-3 pointer-events-none">
                           <i class="fas fa-${item.icon} text-blue-500 w-6 text-center"></i>
                           <h4 class="font-bold text-slate-800 dark:text-slate-200">${item.title}</h4>
                       </div>
-                      <i class="fas fa-angle-left text-slate-400"></i>
+                      <i class="fas fa-angle-left text-slate-400 pointer-events-none"></i>
                   `;
-                  div.addEventListener('click', () => openModal(item.title, item.text));
+                  div.addEventListener('click', () => openLongText(item.title, item.text));
                   container.appendChild(div);
               });
           }
@@ -99,31 +99,20 @@ document.addEventListener('DOMContentLoaded', function() {
           setupToggle(rulesBtn, rulesList);
           setupToggle(cardsBtn, cardsList);
 
-          // Modal Logic
-          function openModal(title, text) {
-              modalTitle.textContent = title;
-              modalText.textContent = text;
-              modalOverlay.classList.remove('hidden');
-              // small delay for transition
+          // Long Text Container Logic
+          function openLongText(title, text) {
+              longTextTitle.textContent = title;
+              longTextContent.textContent = text;
+              longTextContainer.classList.remove('hidden');
+              
+              // Smooth scroll to container
               setTimeout(() => {
-                  modalOverlay.classList.remove('opacity-0');
-                  modalContent.classList.remove('scale-95');
-                  modalContent.classList.add('scale-100');
-              }, 10);
+                  longTextContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+              }, 50);
           }
 
-          function closeMod() {
-              modalOverlay.classList.add('opacity-0');
-              modalContent.classList.remove('scale-100');
-              modalContent.classList.add('scale-95');
-              setTimeout(() => {
-                  modalOverlay.classList.add('hidden');
-              }, 300);
-          }
-
-          closeModal.addEventListener('click', closeMod);
-          modalOverlay.addEventListener('click', (e) => {
-              if (e.target === modalOverlay) closeMod();
+          closeLongText.addEventListener('click', () => {
+              longTextContainer.classList.add('hidden');
           });
 
           // Theme Toggle
