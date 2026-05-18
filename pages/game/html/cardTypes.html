@@ -109,29 +109,56 @@
       ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
       ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
 
+      /* Animations (اضافه شده) */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+      }
     </style>
   </head>
 
   <body class="min-h-screen relative text-slate-200 dark">
+    <!-- موزیک پس‌زمینه (اضافه شده) -->
+    <audio id="bgMusic" src="../../../musics/background.mp3" loop></audio>
+
     <canvas id="cursor-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50;"></canvas>
     
     <!-- Floating Pill Header -->
     <header class="relative z-40 pt-6 px-4">
-      <div class="max-w-5xl mx-auto glass-card !rounded-full px-8 py-4 flex justify-between items-center bg-white/70 dark:bg-slate-900/70">
+      <div class="max-w-5xl mx-auto glass-card !rounded-full px-8 py-4 flex justify-between items-center bg-white/70 dark:bg-slate-900/70 animate-fade-in-up" style="animation-delay: 0.1s;">
         <h2 class="text-xl md:text-2xl font-black flex items-center gap-3 gradient-text">
           <i class="fas fa-chess-knight"></i>
           <span>قوانین UNMATCHED</span>
         </h2>
-        <button id="theme-toggle" class="rounded-full border px-4 py-2 text-sm font-semibold bg-blue-50 text-blue-800 dark:bg-slate-800 dark:text-blue-200 border-blue-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
-          🌙
-        </button>
+        
+        <!-- نگهدارنده دکمه‌های کنترلی -->
+        <div class="flex items-center gap-2">
+          <!-- دکمه کنترل موسیقی (اضافه شده) -->
+          <button id="music-toggle" class="rounded-full border px-4 py-2 text-sm font-semibold bg-slate-50 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:scale-105 transition shadow-sm w-12 h-10 flex items-center justify-center">
+            🔇
+          </button>
+
+          <button id="theme-toggle" class="rounded-full border px-4 py-2 text-sm font-semibold bg-blue-50 text-blue-800 dark:bg-slate-800 dark:text-blue-200 border-blue-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
+            🌙
+          </button>
+        </div>
       </div>
     </header>
 
     <div class="max-w-5xl mx-auto px-4 py-12 relative z-10">
       
       <!-- HERO (Center Aligned) -->
-      <section class="text-center mb-16 relative">
+      <section class="text-center mb-16 relative animate-fade-in-up" style="animation-delay: 0.2s;">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-32 bg-blue-500/10 blur-3xl rounded-full -z-10"></div>
         <span class="inline-block py-1 px-4 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm mb-4 font-bold tracking-widest">
           GUIDE & RULES
@@ -147,7 +174,7 @@
       <div class="flex flex-col gap-10 mb-8">
         
         <!-- RULES -->
-        <section class="glass-card p-8 relative overflow-hidden">
+        <section class="glass-card p-8 relative overflow-hidden animate-fade-in-up" style="animation-delay: 0.3s;">
           <div class="absolute -right-10 -top-10 text-blue-500/5 text-9xl pointer-events-none"><i class="fas fa-gavel"></i></div>
           <div class="relative z-10 md:flex gap-8 items-start">
             <div class="md:w-1/3 mb-6 md:mb-0">
@@ -167,7 +194,7 @@
         </section>
 
         <!-- CARDS -->
-        <section class="glass-card p-8 relative overflow-hidden">
+        <section class="glass-card p-8 relative overflow-hidden animate-fade-in-up" style="animation-delay: 0.4s;">
           <div class="absolute -left-10 -bottom-10 text-blue-500/5 text-9xl pointer-events-none"><i class="fas fa-layer-group"></i></div>
           <div class="relative z-10 md:flex flex-row-reverse gap-8 items-start">
             <div class="md:w-1/3 mb-6 md:mb-0">
@@ -188,24 +215,36 @@
 
       </div>
 
-      <!-- LONG TEXT CONTAINER -->
-      <section class="glass-card p-6 md:p-8 hidden border-t-4 border-t-blue-500 animate-[fadeIn_0.5s_ease] mb-12 hover:transform-none" id="longTextContainer">
+        <!-- LONG TEXT CONTAINER -->
+      <section class="glass-card p-6 md:p-8 hidden border-t-4 border-t-blue-500 mb-12 hover:transform-none" id="longTextContainer">
         <div class="flex justify-between items-center mb-6 border-b border-slate-200/20 dark:border-slate-700/50 pb-4">
           <h3 class="text-2xl font-bold text-blue-700 dark:text-blue-400 flex items-center gap-3" id="longTextTitle"></h3>
           <button id="closeLongText" class="text-slate-500 dark:text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 transition text-xl w-10 h-10 rounded-full flex items-center justify-center cursor-pointer relative z-20">
             <i class="fas fa-times"></i>
           </button>
         </div>
-        <div id="longTextContent" class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap"></div>
+        
+        <!-- گرید دو ستونه برای متن و عکس -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <!-- بخش متن -->
+          <div id="longTextContent" class="md:col-span-7 text-lg text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap"></div>
+          
+          <!-- بخش عکس -->
+          <div class="md:col-span-5 relative group hidden" id="longTextImageContainer">
+            <img id="longTextImage" src="" alt="توضیحات بازی" class="w-full h-auto rounded-xl shadow-lg border border-slate-200/20 dark:border-slate-700/50 transition-transform duration-500 group-hover:scale-105 object-cover">
+            <!-- افکت گرادیانت روی عکس هنگام هاور (برای زیبایی بیشتر) -->
+            <div class="absolute inset-0 rounded-xl bg-gradient-to-t from-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          </div>
+        </div>
       </section>
 
     </div>
 
     <script src="../js/cardTypes.js"></script>
 
-      <footer class="text-center text-slate-400 pt-12 pb-6">
-    Basu-Advanced Programming
-  </footer>
+    <footer class="text-center text-slate-400 pt-12 pb-6 animate-fade-in-up" style="animation-delay: 0.5s;">
+      Basu-Advanced Programming
+    </footer>
 
   </body>
 </html>
