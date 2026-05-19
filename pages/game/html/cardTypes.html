@@ -15,20 +15,54 @@
         darkMode: "class",
       };
     </script>
+    <script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        fontFamily: {
+          vazir: ["Vazir", "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
+
 
     <style>
-      body {
-        font-family: 'Vazirmatn', "Tahoma", sans-serif;
-        background: radial-gradient(
-          circle at top right,
-          #0f172a 0%,
-          #0a0f1d 50%,
-          #020617 100%
-        );
-        color: #e2e8f0;
-        margin: 0;
-        overflow-x: hidden;
-      }
+       /* Local Persian font: Vazir */
+  @font-face {
+    font-family: 'Vazir';
+    src: url('../../../fonts/Vazir.woff2') format('woff2'),
+         url('../../../fonts/Vazir.woff') format('woff'),
+         url('../../../fonts/Vazir.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Vazir';
+    src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
+         url('../../../fonts/Vazir-Bold.woff') format('woff'),
+         url('../../../fonts/Vazir-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'Vazir', "Tahoma", sans-serif;
+    background: radial-gradient(
+      circle at top right,
+      #0f172a 0%,
+      #0a0f1d 50%,
+      #020617 100%
+    );
+    color: #e2e8f0;
+    margin: 0;
+    overflow-x: hidden;
+  }
 
       /* Fix text visibility in light mode */
       html:not(.dark) .text-slate-400 {
@@ -153,7 +187,7 @@
     </style>
   </head>
 
-  <body class="min-h-screen relative text-slate-200 dark">
+<body class="min-h-screen relative text-slate-200 font-vazir dark">
     <!-- موزیک پس‌زمینه (اضافه شده) -->
     <audio id="bgMusic" src="../../../musics/background.mp3" loop></audio>
 
@@ -170,9 +204,20 @@
         <!-- نگهدارنده دکمه‌های کنترلی -->
         <div class="flex items-center gap-2">
           <!-- دکمه کنترل موسیقی (اضافه شده) -->
-          <button id="music-toggle" class="rounded-full border px-4 py-2 text-sm font-semibold bg-slate-50 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:scale-105 transition shadow-sm w-12 h-10 flex items-center justify-center">
-            🔇
-          </button>
+     <!-- Updated Sound Button (Blue Theme) -->
+<button
+  id="music-toggle"
+  class="rounded-full border px-4 py-2 text-sm font-semibold 
+         bg-blue-600/10 text-blue-600 
+         dark:bg-blue-500/10 dark:text-blue-400 
+         border-blue-200 dark:border-blue-900/50 
+         hover:border-blue-500 hover:bg-blue-500/20 
+         transition-all duration-300 shadow-sm 
+         w-12 h-10 flex items-center justify-center"
+>
+  <i class="fas fa-volume-up"></i>
+</button>
+
 
           <button id="theme-toggle" class="rounded-full border px-4 py-2 text-sm font-semibold bg-blue-50 text-blue-800 dark:bg-slate-800 dark:text-blue-200 border-blue-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
             🌙
@@ -187,7 +232,7 @@
       <section class="text-center mb-16 relative animate-fade-in-up" style="animation-delay: 0.2s;">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-32 bg-blue-500/10 blur-3xl rounded-full -z-10"></div>
         <span class="inline-block py-1 px-4 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm mb-4 font-bold tracking-widest">
-          GUIDE & RULES
+          CARDS GUIDE & RULES
         </span>
         <h1 class="text-3xl md:text-5xl font-bold text-slate-800 dark:text-white mb-6">
 راهنمای کلی بازی          </h1>

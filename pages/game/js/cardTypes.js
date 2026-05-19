@@ -250,26 +250,28 @@ document.addEventListener('DOMContentLoaded', function() {
         longTextContainer.classList.add('hidden');
         longTextContainer.classList.remove('animate-fade-in-up');
     });
+// Music Logic
+const musicToggleBtn = document.getElementById('music-toggle');
+const bgMusic = document.getElementById('bgMusic');
 
-    // Music Logic
-    const musicToggleBtn = document.getElementById('music-toggle');
-    const bgMusic = document.getElementById('bgMusic');
-    
-    if (bgMusic && musicToggleBtn) {
-        bgMusic.volume = 0.3;
-        let isMusicPlaying = false;
+if (bgMusic && musicToggleBtn) {
+    bgMusic.volume = 0.3;
+    let isMusicPlaying = false;
 
-        musicToggleBtn.addEventListener('click', () => {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicToggleBtn.textContent = '🔇';
-            } else {
-                bgMusic.play().catch(e => console.log("Audio play failed:", e));
-                musicToggleBtn.textContent = '🔊';
-            }
-            isMusicPlaying = !isMusicPlaying;
-        });
-    }
+    musicToggleBtn.addEventListener('click', () => {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            // Using FontAwesome icon class instead of emoji
+            musicToggleBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else {
+            bgMusic.play().catch(e => console.log("Audio play failed:", e));
+            // Using FontAwesome icon class instead of emoji
+            musicToggleBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+        isMusicPlaying = !isMusicPlaying;
+    });
+}
+
 
     // Theme Toggle
     const themeBtn = document.getElementById("theme-toggle");

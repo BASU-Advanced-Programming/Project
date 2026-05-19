@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <titleMapUNMATCHED - سیستم حرکت و نقشه</title>
+    <title> سیستم حرکت و نقشه</title>
 
     <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
     <link
@@ -15,20 +15,54 @@
         darkMode: "class",
       };
     </script>
+    <script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        fontFamily: {
+          vazir: ["Vazir", "sans-serif"],
+        },      },
+    },
+  };
+</script>
+
 
     <style>
-      body {
-        font-family: "Tahoma", sans-serif;
-        background: radial-gradient(
-          circle at top,
-          #0f2e1f 0%,
-          #07140d 45%,
-          #020604 100%
-        );
-        color: #e5f7ec;
-        margin: 0;
-        overflow-x: hidden;
-      }
+
+      @font-face {
+  font-family: 'Vazir';
+  src: url('../../../fonts/Vazir.woff2') format('woff2'),
+       url('../../../fonts/Vazir.woff') format('woff'),
+       url('../../../fonts/Vazir.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
+       url('../../../fonts/Vazir-Bold.woff') format('woff'),
+       url('../../../fonts/Vazir-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: 'Vazir', sans-serif; /* Update this line */
+  background: radial-gradient(
+    circle at top,
+    #0f2e1f 0%,
+    #07140d 45%,
+    #020604 100%
+  );
+  color: #e5f7ec;
+  margin: 0;
+  overflow-x: hidden;
+  line-height: 1.8; /* Added for better Persian readability */
+}
+
 html:not(.dark) body {
   background: radial-gradient(
     circle at top,
@@ -148,7 +182,7 @@ html:not(.dark) body {
     </style>
   </head>
 
-  <body class="min-h-screen relative text-slate-200 dark">
+  <body class="min-h-screen font-vazir relative text-slate-200 dark">
     <canvas
       id="cursor-canvas"
       style="
@@ -235,7 +269,7 @@ html:not(.dark) body {
            border border-green-600/20 
            text-sm mb-4 font-bold tracking-widest"
   >
-    MAP GUIDE
+    MAP GUIDE & RULES
   </span>
 
   <!-- Title -->
