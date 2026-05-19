@@ -34,22 +34,26 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="../pattern/images/singleton-mini.png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../../../images/patterns/images/singleton/singleton-mini.png" alt="mini-cmd" class="w-8 h-8">
       <span>Singleton Pattern</span>
     </h1>
 
     <!-- Right Side -->
     <div class="flex items-center gap-4">
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex gap-6 font-semibold text-sm">
-      <a href="#intent" class="hover:text-indigo-500">Intent</a>
-      <a href="#problem" class="hover:text-indigo-500">Problem</a>
-      <a href="#solution" class="hover:text-indigo-500">Solution</a>
-      <a href="#ex" class="hover:text-indigo-500">Structure</a>
-      <a href="#cpp" class="hover:text-indigo-500">C++</a>
-      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
-      </nav>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-6 font-semibold text-sm">
+  <a href="#intent" class="hover:text-indigo-500">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500">Applicability</a>
+  <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500">Relations</a>
+</nav>
+
 
    <!-- Theme Toggle (Now inside header) -->
       <button id="theme-toggle"
@@ -68,19 +72,23 @@ hljs.highlightAll();
     </div>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu"
-    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
-           bg-white/95 dark:bg-slate-800/95
-           border-t border-slate-200 dark:border-slate-700">
+<!-- Mobile Menu -->
+<div id="mobileMenu"
+  class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+         bg-white/95 dark:bg-slate-800/95
+         border-t border-slate-200 dark:border-slate-700">
 
-      <a href="#intent" class="hover:text-indigo-500">Intent</a>
-      <a href="#problem" class="hover:text-indigo-500">Problem</a>
-      <a href="#solution" class="hover:text-indigo-500">Solution</a>
-      <a href="#ex" class="hover:text-indigo-500">Structure</a>
-      <a href="#cpp" class="hover:text-indigo-500">C++</a>
-      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
-  </div>
+  <a href="#intent" class="hover:text-indigo-500">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500">Applicability</a>
+  <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500">Relations</a>
+</div>
+
 </header>
 
 
@@ -89,7 +97,7 @@ hljs.highlightAll();
 <section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
   <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Singleton</h2>
   <p class="text-lg font-medium text-slate-800">Singleton is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance.</p>
-  <figure class="image"><img src="../pattern/images/singleton.png" alt=""></figure>
+  <figure class="image"><img src="../../../images/patterns/images/singleton//singleton.png" alt=""></figure>
 </section>
 
 <section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
@@ -104,7 +112,7 @@ hljs.highlightAll();
 <p>Note that this behavior is impossible to implement with a regular constructor since a constructor call <strong>must</strong> always return a new object by design.</p>
 </li>
 </ol>
-<figure class="image"><img src="../pattern/images/singleton-comic-1-en.png" alt="The global access to an object" ><figcaption>
+<figure class="image"><img src="../../../images/patterns/images/singleton//singleton-comic-1-en.png" alt="The global access to an object" ><figcaption>
 <p>Clients may not even realize that they’re working with the same object all the&nbsp;time.</p>
 </figcaption></figure>
 <ol start="2">
@@ -130,16 +138,47 @@ hljs.highlightAll();
 
 </section>
 
-<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
-  <h3 class="text-xl font-bold mb-3">Structure</h3>
-  <p></p>
-  <figure class="image"><img src="../pattern/images/structure-en (1).png" alt=""><figcaption></figcaption></figure>
+<section id="analogy" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-car-side text-indigo-500"></i>
+    Real-World Analogy
+  </h3>
+
+  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+    The government is an excellent real-world example of the Singleton pattern.
+    A country can have only one official government. Regardless of which individuals
+    form the cabinet, the title “The Government of X” represents a single, globally
+    accessible authority.
+  </p>
 </section>
-<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
-  <h3 class="text-xl font-bold mb-3">Structure</h3>
-  <p></p>
-  <figure class="image"><img src="../pattern/images/structure-en.png" alt=""><figcaption></figcaption></figure>
+
+<section id="structure" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-sitemap text-indigo-500"></i>
+    Structure
+  </h3>
+
+  <figure class="mb-6">
+    <img 
+      src="../../../images/patterns/images/singleton/structure-en-indexed.png"
+      alt="The structure of the Singleton pattern"
+      class="rounded-lg w-full max-w-lg mx-auto"
+      loading="lazy"
+    />
+  </figure>
+
+  <ol class="list-decimal pl-6 space-y-4 text-slate-700 dark:text-slate-300">
+    <li>
+      The <strong>Singleton</strong> class exposes a static 
+      <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded text-sm">getInstance()</code>
+      method that always returns the same instance.
+      <br><br>
+      The constructor is private or protected to prevent direct instantiation.
+      The static method is the only allowed access point.
+    </li>
+  </ol>
 </section>
+
 
 <section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
     <div class="flex items-center justify-between mb-4">
@@ -273,6 +312,48 @@ int main()
 </div>
 </section>
 
+<section id="applicability" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-lightbulb text-yellow-500"></i>
+    Applicability
+  </h3>
+
+  <div class="space-y-6">
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500"></i>
+        Use the Singleton when a class must have only one instance accessible to all clients,
+        such as a shared database connection.
+      </p>
+      <p class="text-slate-600 dark:text-slate-400">
+        The Singleton pattern restricts all object creation and
+        exposes a single global access method that either creates the instance or returns
+        the existing one.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500"></i>
+        Use Singleton when you need stricter control over global variables.
+      </p>
+      <div class="text-slate-600 dark:text-slate-400 space-y-2">
+        <p>
+          Unlike global variables, a Singleton guarantees that only one instance can ever exist,
+          protected from replacement.
+        </p>
+        <p>
+          You may also intentionally loosen the restriction by modifying the
+          <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded text-sm">getInstance()</code>
+          method to allow multiple instances if needed.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section id="proscons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-600">
     <h3 class="text-xl font-bold mb-4"> 
   <i  aria-hidden="true"></i>⚖️ Pros & Cons
@@ -290,6 +371,37 @@ int main()
       <li>It may be difficult to unit test the client code of the Singleton because many test frameworks rely on inheritance when producing mock objects. Since the constructor of the singleton class is private and overriding static methods is impossible in most languages, you will need to think of a creative way to mock the singleton. Or just don’t write the tests. Or don’t use the Singleton pattern.</li>
     </ul>
   </div>
+</section><section id="relations" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-exchange-alt text-indigo-500" aria-hidden="true"></i>
+    Relations with Other Patterns
+  </h3>
+
+  <ul class="list-disc pl-6 space-y-4 text-slate-700 dark:text-slate-300">
+
+    <li>
+      A <strong class="text-indigo-600 dark:text-indigo-400">Facade</strong> can often be
+      implemented as a <strong class="text-indigo-600 dark:text-indigo-400">Singleton</strong>,
+      since only one façade object is typically needed.
+    </li>
+
+    <li>
+      <strong class="text-indigo-600 dark:text-indigo-400">Flyweight</strong> resembles a
+      Singleton when reduced to a single shared intrinsic object, but with key differences:
+      <ol class="list-decimal pl-6 mt-2 space-y-1">
+        <li>There should be only one Singleton instance, whereas a <em>Flyweight</em> class can have multiple instances with different intrinsic states.</li>
+        <li>The <em>Singleton</em> object can be mutable. Flyweight objects are immutable.</li>
+      </ol>
+    </li>
+
+    <li>
+      <strong class="text-indigo-600 dark:text-indigo-400">Abstract Factory</strong>,
+      <strong class="text-indigo-600 dark:text-indigo-400">Builder</strong>,
+      and <strong class="text-indigo-600 dark:text-indigo-400">Prototype</strong>
+      can all be implemented as Singletons when only one instance is desirable.
+    </li>
+
+  </ul>
 </section>
 
   <footer class="text-center text-slate-400 pt-12 pb-6">

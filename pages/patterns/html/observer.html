@@ -32,7 +32,7 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="../pattern/images/observer-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../../../images/patterns/images/observer/observer-mini.png" alt="mini-cmd" class="w-8 h-8">
       <span>Observer Pattern</span>
     </h1>
 
@@ -40,14 +40,19 @@ hljs.highlightAll();
     <div class="flex items-center gap-4">
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex gap-6 font-semibold text-sm">
-      <a href="#intent" class="hover:text-indigo-500">Intent</a>
-      <a href="#problem" class="hover:text-indigo-500">Problem</a>
-      <a href="#solution" class="hover:text-indigo-500">Solution</a>
-      <a href="#ex" class="hover:text-indigo-500">Example</a>
-      <a href="#cpp" class="hover:text-indigo-500">C++</a>
-      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
-      </nav>
+    <!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-6 font-semibold text-sm">
+  <a href="#intent" class="hover:text-indigo-500">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500">Applicability</a>
+  <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500">Relations</a>
+</nav>
+
 
    <!-- Theme Toggle (Now inside header) -->
       <button id="theme-toggle"
@@ -67,18 +72,24 @@ hljs.highlightAll();
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu"
-    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
-           bg-white/95 dark:bg-slate-800/95
-           border-t border-slate-200 dark:border-slate-700">
+  <!-- Mobile Menu -->
+<div id="mobileMenu"
+  class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+         bg-white/95 dark:bg-slate-800/95
+         border-t border-slate-200 dark:border-slate-700">
 
-      <a href="#intent" class="hover:text-indigo-500">Intent</a>
-      <a href="#problem" class="hover:text-indigo-500">Problem</a>
-      <a href="#solution" class="hover:text-indigo-500">Solution</a>
-      <a href="#ex" class="hover:text-indigo-500">Example</a>
-      <a href="#cpp" class="hover:text-indigo-500">C++</a>
-      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
-  </div>
+  <a href="#intent" class="hover:text-indigo-500">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500">Applicability</a>
+  <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500">Relations</a>
+
+</div>
+
 </header>
 <main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
 
@@ -89,7 +100,7 @@ hljs.highlightAll();
   </h2>
   <p class="text-lg font-medium text-slate-800">
    <strong>Observer</strong> is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re&nbsp;observing.</p>
-<figure class="image"><img src="../pattern/images/observer.png" alt="Observer Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
+<figure class="image"><img src="../../../images/patterns/images/observer/observer.png" alt="Observer Design Pattern"  sizes="(max-width: 720px) 100vw, 640px" width="640" style="aspect-ratio: 1.6;" fetchpriority="high"></figure>
 
   </section>
 
@@ -100,7 +111,7 @@ hljs.highlightAll();
 </h3>
 <p>Imagine that you have two types of objects: a <code>Customer</code> and a <code>Store</code>. The customer is very interested in a particular brand of product (say, it’s a new model of the iPhone) which should become available in the store very soon.</p>
 <p>The customer could visit the store every day and check product availability. But while the product is still en route, most of these trips would be pointless.</p>
-<figure class="image"><img src="../pattern/images/observer-comic-1-en.png" alt="Visiting store vs. sending spam" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy"><figcaption>
+<figure class="image"><img src="../../../images/patterns/images/observer/observer-comic-1-en.png" alt="Visiting store vs. sending spam" sizes="(max-width: 720px) 100vw, 600px" width="600" style="aspect-ratio: 2;" loading="lazy"><figcaption>
 <p>Visiting the store vs. sending&nbsp;spam</p>
 </figcaption></figure>
 <p>On the other hand, the store could send tons of emails (which might be considered spam) to all customers each time a new product becomes available. This would save some customers from endless trips to the store. At the same time, it’d upset other customers who aren’t interested in new products.</p>
@@ -115,13 +126,13 @@ hljs.highlightAll();
 </h3>
 <p>The object that has some interesting state is often called <em>subject</em>, but since it’s also going to notify other objects about the changes to its state, we’ll call it <em>publisher</em>. All other objects that want to track changes to the publisher’s state are called <em>subscribers</em>.</p>
 <p>The Observer pattern suggests that you add a subscription mechanism to the publisher class so individual objects can subscribe to or unsubscribe from a stream of events coming from that publisher. Fear not! Everything isn’t as complicated as it sounds. In reality, this mechanism consists of 1) an array field for storing a list of references to subscriber objects and 2) several public methods which allow adding subscribers to and removing them from that list.</p>
-<figure class="image"><img src="../pattern/images/solution1-en.png" alt="Subscription mechanism" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.61;" loading="lazy"><figcaption>
+<figure class="image"><img src="../../../images/patterns/images/observer/solution1-en.png" alt="Subscription mechanism" sizes="(max-width: 720px) 100vw, 470px" width="470" style="aspect-ratio: 2.61;" loading="lazy"><figcaption>
 <p>A subscription mechanism lets individual objects subscribe to event&nbsp;notifications.</p>
 </figcaption></figure>
 <p>Now, whenever an important event happens to the publisher, it goes over its subscribers and calls the specific notification method on their objects.</p>
 <p>Real apps might have dozens of different subscriber classes that are interested in tracking events of the same publisher class. You wouldn’t want to couple the publisher to all of those classes. Besides, you might not even know about some of them beforehand if your publisher class is supposed to be used by other people.</p>
 <p>That’s why it’s crucial that all subscribers implement the same interface and that the publisher communicates with them only via that interface. This interface should declare the notification method along with a set of parameters that the publisher can use to pass some contextual data along with the notification.</p>
-<figure class="image"><img src="../pattern/images/solution2-en.png" alt="Notification methods"sizes="(max-width: 720px) 100vw, 460px" width="460" style="aspect-ratio: 1.24;" loading="lazy"><figcaption>
+<figure class="image"><img src="../../../images/patterns/images/observer/solution2-en.png" alt="Notification methods"sizes="(max-width: 720px) 100vw, 460px" width="460" style="aspect-ratio: 1.24;" loading="lazy"><figcaption>
 <p>Publisher notifies subscribers by calling the specific notification method on their&nbsp;objects.</p>
 </figcaption></figure>
 <p>If your app has several different types of publishers and you want to make your subscribers compatible with all of them, you can go even further and make all publishers follow the same interface. This interface would only need to describe a few subscription methods. The interface would allow subscribers to observe publishers’ states without coupling to their concrete classes.</p>
@@ -129,17 +140,82 @@ hljs.highlightAll();
 </section>
 <!-- example -->
 
-<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
-    <h3 class="text-xl font-bold mb-4">
-  <i class="fa fa-car-side" aria-hidden="true"></i>Example
-</h3>
+<section id="analogy" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-car-side text-indigo-500" aria-hidden="true"></i>
+    Real-World Analogy
+  </h3>
 
-  <p>In this example, the <strong>Observer</strong> pattern lets the text editor object notify other service objects about changes in its state.</p>
-<figure class="image"><img src="../pattern/images/example (1).png" alt="Structure of the Observer pattern example" sizes="(max-width: 720px) 100vw, 510px" width="510" style="aspect-ratio: 1.19;" loading="lazy"><figcaption>
+  <figure class="mb-6">
+    <img 
+      src="../../../images/patterns/images/observer/real-world.png"
+      alt="Magazine and newspaper subscriptions"
+      class="rounded-lg w-full max-w-lg mx-auto"
+      loading="lazy"
+    />
+    <figcaption class="text-center text-sm text-slate-500 dark:text-slate-400 mt-2">
+      Magazine and newspaper subscriptions.
+    </figcaption>
+  </figure>
 
-</div>
-
+  <div class="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed">
+    <p>
+      If you subscribe to a newspaper or magazine, you no longer need to go to the store
+      to check if the next issue is available. Instead, the publisher sends new issues
+      directly to your mailbox right after publication or even in advance.
+    </p>
+    <p>
+      The publisher maintains a list of subscribers and knows which magazines they’re
+      interested in. Subscribers can leave the list at any time when they wish to stop
+      receiving new issues.
+    </p>
+  </div>
 </section>
+
+<section id="structure" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-sitemap text-indigo-500" aria-hidden="true"></i>
+    Structure
+  </h3>
+
+  <figure class="mb-6">
+    <img 
+      src="../../../images/patterns/images/observer/structure.png"
+      alt="Structure of the Observer design pattern"
+      class="rounded-lg w-full max-w-2xl mx-auto"
+      loading="lazy"
+    />
+  </figure>
+
+  <ol class="list-decimal pl-6 space-y-4 text-slate-700 dark:text-slate-300">
+    <li>
+      The <strong>Publisher</strong> issues events when its state changes. It maintains a
+      subscription infrastructure allowing subscribers to join or leave.
+    </li>
+    <li>
+      When an event occurs, the publisher iterates through its subscription list and
+      calls the notification method on each subscriber.
+    </li>
+    <li>
+      The <strong>Subscriber</strong> interface declares the notification method
+      (usually <code class="bg-slate-200 dark:bg-slate-700 px-1 rounded text-sm">update()</code>).
+    </li>
+    <li>
+      <strong>Concrete Subscribers</strong> implement the subscriber interface and
+      react to notifications. The publisher depends only on the interface.
+    </li>
+    <li>
+      Publishers may pass contextual data to subscribers during notification,
+      sometimes even passing themselves as arguments.
+    </li>
+    <li>
+      The <strong>Client</strong> creates publisher and subscriber objects and
+      registers subscribers to receive updates.
+    </li>
+  </ol>
+</section>
+
+
 
 <section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
     <div class="flex items-center justify-between mb-4">
@@ -330,6 +406,47 @@ int main() {
 </div>
 </section>
 
+<section id="applicability" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-lightbulb text-yellow-500" aria-hidden="true"></i>
+    Applicability
+  </h3>
+
+  <div class="space-y-6">
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500"></i>
+        Use the Observer pattern when changes in one object require changes in others,
+        and the set of dependent objects is unknown or dynamic.
+      </p>
+      <div class="text-slate-600 dark:text-slate-400 space-y-2">
+        <p>
+          This is common in GUI systems. For example, custom buttons may need to notify
+          client code whenever they are pressed.
+        </p>
+        <p>
+          The Observer pattern allows objects implementing a subscriber interface
+          to register for notifications and react automatically to events.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500"></i>
+        Use the pattern when objects should observe others only temporarily or conditionally.
+      </p>
+      <p class="text-slate-600 dark:text-slate-400">
+        Since subscriptions are dynamic, subscribers can join or leave the notification
+        list at runtime.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
 
 <!-- Pros & Cons -->
 <section id="proscons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-600">
@@ -354,6 +471,46 @@ int main() {
 
   </div>
 </section>
+<section id="relations" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-exchange-alt text-indigo-500" aria-hidden="true"></i>
+    Relations with Other Patterns
+  </h3>
+
+  <ul class="list-disc pl-6 space-y-4 text-slate-700 dark:text-slate-300">
+
+    <li>
+      <strong class="text-purple-600 dark:text-purple-400">Chain of Responsibility</strong>,
+      <strong class="text-purple-600 dark:text-purple-400">Command</strong>,
+      <strong class="text-purple-600 dark:text-purple-400">Mediator</strong>,
+      and <strong class="text-purple-600 dark:text-purple-400">Observer</strong>
+      define different ways of connecting senders and receivers:
+      <ul class="list-disc pl-6 mt-2 space-y-1">
+        <li><em>Chain of Responsibility</em> passes a request along a chain until handled.</li>
+        <li><em>Command</em> creates unidirectional connections between senders and receivers.</li>
+        <li><em>Mediator</em> centralizes communication between components.</li>
+        <li><em>Observer</em> enables dynamic subscription and notification.</li>
+      </ul>
+    </li>
+
+    <li>
+      The difference between 
+      <strong class="text-purple-600 dark:text-purple-400">Mediator</strong>
+      and 
+      <strong class="text-purple-600 dark:text-purple-400">Observer</strong>
+      can be subtle:
+      <div class="mt-2 space-y-2">
+        <p><em>Mediator</em> reduces mutual dependencies by introducing a central object.</p>
+        <p><em>Observer</em> establishes dynamic one‑way dependencies between publishers and subscribers.</p>
+        <p>A mediator can internally use Observer to notify components. However, Mediator can also be implemented without dynamic subscriptions.</p>
+        <p>If every component becomes a publisher, you end up with a distributed observer system instead of a centralized mediator.</p>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+
 
 
 </main>

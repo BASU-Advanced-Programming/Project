@@ -38,7 +38,7 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="../../../images/pattern/images/command-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../../../images/patterns/images/command/command-mini.png" alt="mini-cmd" class="w-8 h-8">
       <span>Command Pattern</span>
     </h1>
 
@@ -46,14 +46,18 @@ hljs.highlightAll();
     <div class="flex items-center gap-4">
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex gap-6 font-semibold text-sm">
-        <a href="#intent" class="hover:text-indigo-500 transition">Intent</a>
-        <a href="#problem" class="hover:text-indigo-500 transition">Problem</a>
-        <a href="#solution" class="hover:text-indigo-500 transition">Solution</a>
-        <a href="#ex" class="hover:text-indigo-500 transition">Example</a>
-        <a href="#cpp" class="hover:text-indigo-500 transition">C++</a>
-        <a href="#pros-cons" class="hover:text-indigo-500 transition">Pros/Cons</a>
-      </nav>
+<nav class="hidden md:flex gap-6 font-semibold text-sm">
+  <a href="#intent" class="hover:text-indigo-500 transition">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500 transition">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500 transition">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500 transition">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500 transition">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500 transition">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500 transition">Applicability</a>
+  <a href="#pros-cons" class="hover:text-indigo-500 transition">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500 transition">Relations</a>
+</nav>
+
 
    <!-- Theme Toggle (Now inside header) -->
       <button id="theme-toggle"
@@ -77,13 +81,16 @@ hljs.highlightAll();
     class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
            bg-white/95 dark:bg-slate-800/95
            border-t border-slate-200 dark:border-slate-700">
+<a href="#intent" class="pt-4 hover:text-indigo-500 transition">Intent</a>
+<a href="#problem" class="hover:text-indigo-500 transition">Problem</a>
+<a href="#solution" class="hover:text-indigo-500 transition">Solution</a>
+<a href="#analogy" class="hover:text-indigo-500 transition">Analogy</a>
+<a href="#structure" class="hover:text-indigo-500 transition">Structure</a>
+<a href="#cpp" class="hover:text-indigo-500 transition">C++</a>
+<a href="#applicability" class="hover:text-indigo-500 transition">Applicability</a>
+<a href="#pros-cons" class="hover:text-indigo-500 transition">Pros/Cons</a>
+<a href="#relations" class="hover:text-indigo-500 transition">Relations</a>
 
-    <a href="#intent" class="pt-4 hover:text-indigo-500 transition">Intent</a>
-    <a href="#problem" class="hover:text-indigo-500 transition">Problem</a>
-    <a href="#solution" class="hover:text-indigo-500 transition">Solution</a>
-    <a href="#ex" class="hover:text-indigo-500 transition">Example</a>
-    <a href="#cpp" class="hover:text-indigo-500 transition">C++</a>
-    <a href="#pros-cons" class="hover:text-indigo-500 transition">Pros/Cons</a>
   </div>
 </header>
 
@@ -98,7 +105,7 @@ hljs.highlightAll();
   <p class="text-lg font-medium text-slate-800">
    <strong>Command</strong> is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as method arguments, delay or queue a request’s execution, and support undoable operations.
   </p>
-  <figure class="image"><img src="../../../"></figure>
+  <figure class="image"><img src="../../../images/patterns/images/command/command-en.png"></figure>
   </section>
 
 <!-- Problem -->
@@ -107,18 +114,18 @@ hljs.highlightAll();
     <i class="fa fa-frown" aria-hidden="true"></i> Problem
   </h3>
 <p>Imagine that you’re working on a new text-editor app. Your current task is to create a toolbar with a bunch of buttons for various operations of the editor. You created a very neat <code>Button</code> class that can be used for buttons on the toolbar, as well as for generic buttons in various dialogs.</p>
-<figure class="image"><img src="../../../images/pattern/problem-command.png"></figure>
+<figure class="image"><img src="../../../images/patterns/images/command/problem1.png"></figure>
 
   <p>All buttons of the app are derived from the same&nbsp;class.</p>
   <figcaption>
   </figcaption>
 </figure>
 <p>While all of these buttons look similar, they’re all supposed to do different things. Where would you put the code for the various click handlers of these buttons? The simplest solution is to create tons of subclasses for each place where the button is used. These subclasses would contain the code that would have to be executed on a button click.</p>
-<figure class="image"><img src="../../.."></figure>
+<figure class="image"><img src="../../../images/patterns/images/command/problem2.png"></figure>
 
 <p>Lots of button subclasses. What can go&nbsp;wrong?</p>
 <p>Before long, you realize that this approach is deeply flawed. First, you have an enormous number of subclasses, and that would be okay if you weren’t risking breaking the code in these subclasses each time you modify the base <code>Button</code> class. Put simply, your GUI code has become awkwardly dependent on the volatile code of the business logic.</p>
-<figure class="image"><img src="../../../"></figure>
+<figure class="image"><img src="../../../images/patterns/images/command/problem3-en.png"></figure>
   <p>Several classes implement the same&nbsp;functionality.</p>
   <p>And here’s the ugliest part. Some operations, such as copying/pasting text, would need to be invoked from multiple places. For example, a user could click a small “Copy” button on the toolbar, or copy something via the context menu, or just hit <code>Ctrl+C</code> on the keyboard.</p>
   <p>Initially, when our app only had the toolbar, it was okay to place the implementation of various operations into the button subclasses. In other words, having the code for copying text inside the <code>CopyButton</code> subclass was fine. But then, when you implement context menus, shortcuts, and other stuff, you have to either duplicate the operation’s code in many classes or make menus dependent on buttons, which is an even worse option.</p>
@@ -132,17 +139,17 @@ hljs.highlightAll();
   </h3>
 <p>Good software design is often based on the <em>principle of separation of concerns</em>, which usually results in breaking an app into layers. The most common example: a layer for the graphical user interface and another layer for the business logic. The GUI layer is responsible for rendering a beautiful picture on the screen, capturing any input and showing results of what the user and the app are doing. However, when it comes to doing something important, like calculating the trajectory of the moon or composing an annual report, the GUI layer delegates the work to the underlying layer of business logic.</p>
 <p>In the code it might look like this: a GUI object calls a method of a business logic object, passing it some arguments. This process is usually described as one object sending another a <em>request</em>.</p>
-<figure class="image"><img src="../../../"></figure>
+<figure class="image"><img src="../../../images/patterns/images/command/solution1-en.png"></figure>
   <p>The GUI objects may access the business logic objects&nbsp;directly.</p>
 </figcaption></figure>
 <p>The Command pattern suggests that GUI objects shouldn’t send these requests directly. Instead, you should extract all of the request details, such as the object being called, the name of the method and the list of arguments into a separate <em>command</em> class with a single method that triggers this request.</p>
 <p>Command objects serve as links between various GUI and business logic objects. From now on, the GUI object doesn’t need to know what business logic object will receive the request and how it’ll be processed. The GUI object just triggers the command, which handles all the details.</p>
-<figure class="image"><img src="../../../"></figure>
+<figure class="image"><img src="../../../images/patterns/images/command/solution2-en.png"></figure>
   <p>Accessing the business logic layer via a&nbsp;command.</p>
 </figcaption></figure>
 <p>The next step is to make your commands implement the same interface. Usually it has just a single execution method that takes no parameters. This interface lets you use various commands with the same request sender, without coupling it to concrete classes of commands. As a bonus, now you can switch command objects linked to the sender, effectively changing the sender’s behavior at runtime.</p>
 <p>You might have noticed one missing piece of the puzzle, which is the request parameters. A GUI object might have supplied the business-layer object with some parameters. Since the command execution method doesn’t have any parameters, how would we pass the request details to the receiver? It turns out the command should be either pre-configured with this data, or capable of getting it on its own.</p>
-<figure class="image"><img src="../../../"></figure>
+<figure class="image"><img src="../../../images/patterns/images/command/solution3-en.png"></figure>
   <p>The GUI objects delegate the work to&nbsp;commands.</p>
 </figcaption></figure>
 <p>Let’s get back to our text editor. After we apply the Command pattern, we no longer need all those button subclasses to implement various click behaviors. It’s enough to put a single field into the base <code>Button</code> class that stores a reference to a command object and make the button execute that command on a click.</p>
@@ -152,14 +159,56 @@ hljs.highlightAll();
 
 </section>
 
-<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
+<!-- Real Worl -->
+<section id="analogy" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-purple-400">
 
-    <h3 class="text-xl font-bold mb-4">
-    <i class="fa fa-car-side" aria-hidden="true"></i>Example
-  </h3>
-<p>In this example, the <strong>Command</strong> pattern helps to track the history of executed operations and makes it possible to revert an operation if needed.</p>
-<figure class="image"><img src="../../.."></figure>
-</figcaption> </figure>
+<h3 class="text-xl font-bold mb-3">
+<i class="fa-solid fa-lightbulb"></i> Real‑World Analogy
+</h3>
+
+
+<figure class="image"><img src="../../../images/patterns/images/command/real-world.png"><p>Making an order in a&nbsp;restaurant.</p>
+</figcaption></figure>
+<p>After a long walk through the city, you get to a nice restaurant and sit at the table by the window. A friendly waiter approaches you and quickly takes your order, writing it down on a piece of paper. The waiter goes to the kitchen and sticks the order on the wall. After a while, the order gets to the chef, who reads it and cooks the meal accordingly. The cook places the meal on a tray along with the order. The waiter discovers the tray, checks the order to make sure everything is as you wanted it, and brings everything to your table.</p>
+<p>The paper order serves as a command. It remains in a queue until the chef is ready to serve it. The order contains all the relevant information required to cook the meal. It allows the chef to start cooking right away instead of running around clarifying the order details from you directly.</p>
+</div>
+
+</section>
+
+<!-- Structure -->
+
+<section id="structure" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+
+<h3 class="text-xl font-bold mb-3">
+<i class="fa-solid fa-diagram-project"></i> Structure
+</h3>
+<div class="struct-image1 struct-image">
+</div><div class="section structure-container">
+  <h2 id="structure"><i class="fa fa-sitemap" aria-hidden="true"></i> Structure</h2>
+  <div class="structure">
+    <div class="struct-image1 struct-image">
+  <figure class="image">
+  <img src="../../../images/patterns/images/command/structure.png">
+  </figure>
+</div>
+<ol class="list-decimal pl-6"><li class="struct-li1">
+<p>The <strong>Sender</strong> class (aka <em>invoker</em>) is responsible for initiating requests. This class must have a field for storing a reference to a command object. The sender triggers that command instead of sending the request directly to the receiver. Note that the sender isn’t responsible for creating the command object. Usually, it gets a pre-created command from the client via the constructor.</p>
+</li>
+<li class="struct-li2">
+<p>The <strong>Command</strong> interface usually declares just a single method for executing the command.</p>
+</li>
+<li class="struct-li3">
+<p><strong>Concrete Commands</strong> implement various kinds of requests. A concrete command isn’t supposed to perform the work on its own, but rather to pass the call to one of the business logic objects. However, for the sake of simplifying the code, these classes can be merged.</p>
+<p>Parameters required to execute a method on a receiving object can be declared as fields in the concrete command. You can make command objects immutable by only allowing the initialization of these fields via the constructor.</p>
+</li>
+<li class="struct-li4">
+<p>The <strong>Receiver</strong> class contains some business logic. Almost any object may act as a receiver. Most commands only handle the details of how a request is passed to the receiver, while the receiver itself does the actual work.</p>
+</li>
+<li class="struct-li5">
+<p>The <strong>Client</strong> creates and configures concrete command objects. The client must pass all of the request parameters, including a receiver instance, into the command’s constructor. After that, the resulting command may be associated with one or multiple senders.</p>
+</li></ol>
+
+</div></div>
 </section>
 
 <section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
@@ -284,6 +333,26 @@ int main() {
 
 </div>
 </section>
+<section id="applicability" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fa fa-lightbulb" aria-hidden="true"></i> Applicability
+    </h3>
+    <div class="space-y-6">
+        <div>
+            <p class="font-bold mb-2 text-slate-800 dark:text-slate-200"><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Command pattern when you want to parameterize objects with operations.</p>
+            <p class="text-slate-600 dark:text-slate-400">The Command pattern can turn a specific method call into a stand-alone object. This change opens up a lot of interesting uses: you can pass commands as method arguments, store them inside other objects, switch linked commands at runtime, etc.</p>
+        </div>
+        <div>
+            <p class="font-bold mb-2 text-slate-800 dark:text-slate-200"><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Command pattern when you want to queue operations, schedule their execution, or execute them remotely.</p>
+            <p class="text-slate-600 dark:text-slate-400">As with any other object, a command can be serialized. Thus, you can delay and schedule command execution, or even queue, log, or send commands over the network.</p>
+        </div>
+        <div>
+            <p class="font-bold mb-2 text-slate-800 dark:text-slate-200"><i class="fa fa-fw fa-bug" aria-hidden="true"></i> Use the Command pattern when you want to implement reversible operations.</p>
+            <p class="text-slate-600 dark:text-slate-400">To be able to revert operations, you need to implement the history of performed operations. The command history is a stack that contains all executed command objects along with related backups of the application’s state.</p>
+        </div>
+    </div>
+</section>
+
 
 
 
@@ -330,6 +399,21 @@ The code may become more complicated since you’re introducing a whole new laye
 </div>
 
 </section>
+
+<section id="relations" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400 mt-6">
+    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fa fa-exchange-alt" aria-hidden="true"></i> Relations with Other Patterns
+    </h3>
+    <ul class="list-disc pl-6 space-y-3 text-slate-700 dark:text-slate-300">
+        <li><strong>Chain of Responsibility, Command, Mediator, and Observer</strong> address different ways of connecting senders and receivers. Command establishes unidirectional connections.</li>
+        <li>Handlers in <strong>Chain of Responsibility</strong> can be implemented as <strong>Commands</strong>.</li>
+        <li>Use <strong>Command</strong> and <strong>Memento</strong> together to implement "undo".</li>
+        <li><strong>Command</strong> converts operations into objects, while <strong>Strategy</strong> describes different ways of doing the same thing.</li>
+        <li><strong>Prototype</strong> can help save copies of <strong>Commands</strong> into history.</li>
+        <li><strong>Visitor</strong> can be treated as a powerful version of the <strong>Command</strong> pattern.</li>
+    </ul>
+</section>
+
 
 
 

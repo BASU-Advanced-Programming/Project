@@ -32,7 +32,7 @@ hljs.highlightAll();
 
     <!-- Logo / Title -->
     <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <img src="../pattern/images/strategy-mini (1).png" alt="mini-cmd" class="w-8 h-8">
+      <img src="../../../images/patterns/images/strategy/strategy-mini.png" alt="mini-cmd" class="w-8 h-8">
       <span>Strategy Pattern</span>
     </h1>
 
@@ -40,14 +40,18 @@ hljs.highlightAll();
     <div class="flex items-center gap-4">
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex gap-6 font-semibold text-sm">
-      <a href="#intent" class="hover:text-indigo-500">Intent</a>
-      <a href="#problem" class="hover:text-indigo-500">Problem</a>
-      <a href="#solution" class="hover:text-indigo-500">Solution</a>
-      <a href="#ex" class="hover:text-indigo-500">Example</a>
-      <a href="#cpp" class="hover:text-indigo-500">C++</a>
-      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
-     </nav>
+<nav class="hidden md:flex gap-6 font-semibold text-sm">
+  <a href="#intent" class="hover:text-indigo-500">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500">Applicability</a>
+  <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500">Relations</a>
+</nav>
+
 
    <!-- Theme Toggle (Now inside header) -->
       <button id="theme-toggle"
@@ -67,18 +71,22 @@ hljs.highlightAll();
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu"
-    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
-           bg-white/95 dark:bg-slate-800/95
-           border-t border-slate-200 dark:border-slate-700">
+<div id="mobileMenu"
+  class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+         bg-white/95 dark:bg-slate-800/95
+         border-t border-slate-200 dark:border-slate-700">
 
-      <a href="#intent" class="hover:text-indigo-500">Intent</a>
-      <a href="#problem" class="hover:text-indigo-500">Problem</a>
-      <a href="#solution" class="hover:text-indigo-500">Solution</a>
-      <a href="#ex" class="hover:text-indigo-500">Example</a>
-      <a href="#cpp" class="hover:text-indigo-500">C++</a>
-      <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
-     </div>
+  <a href="#intent" class="hover:text-indigo-500">Intent</a>
+  <a href="#problem" class="hover:text-indigo-500">Problem</a>
+  <a href="#solution" class="hover:text-indigo-500">Solution</a>
+  <a href="#analogy" class="hover:text-indigo-500">Analogy</a>
+  <a href="#structure" class="hover:text-indigo-500">Structure</a>
+  <a href="#cpp" class="hover:text-indigo-500">C++</a>
+  <a href="#applicability" class="hover:text-indigo-500">Applicability</a>
+  <a href="#proscons" class="hover:text-indigo-500">Pros/Cons</a>
+  <a href="#relations" class="hover:text-indigo-500">Relations</a>
+</div>
+
 </header>
 
 <main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
@@ -86,7 +94,7 @@ hljs.highlightAll();
 <section id="intent" class="rounded-3xl bg-gradient-to-br scroll-mt-20 from-blue-300 to-purple-300 p-8 shadow-xl">
   <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Strategy</h2>
   <p class="text-lg font-medium text-slate-800">is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects&nbsp;interchangeable.</p>
-  <figure class="image"><img src="../pattern/images/strategy.png" alt=""></figure>
+  <figure class="image"><img src="../../../images/patterns/images/strategy/strategy.png" alt=""></figure>
 </section>
 
 <section id="problem" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-red-400">
@@ -98,7 +106,7 @@ hljs.highlightAll();
 <p>One of the most requested features for the app was automatic route planning. A user should be able to enter an address and see the fastest route to that destination displayed on the map.</p>
 <p>The first version of the app could only build the routes over roads. People who traveled by car were bursting with joy. But apparently, not everybody likes to drive on their vacation. So with the next update, you added an option to build walking routes. Right after that, you added another option to let people use public transport in their routes.</p>
 <p>However, that was only the beginning. Later you planned to add route building for cyclists. And even later, another option for building routes through all of a city’s tourist attractions.</p>
-<figure class="image"><img src="../pattern/images/problem.png" ></figure>
+<figure class="image"><img src="../../../images/patterns/images/strategy/problem.png" ></figure>
 <p>The code of the navigator became&nbsp;bloated.</p>
 </figcaption></figure>
 <p>While from a business perspective the app was a success, the technical part caused you many headaches. Each time you added a new routing algorithm, the main class of the navigator doubled in size. At some point, the beast became too hard to maintain.</p>
@@ -116,27 +124,64 @@ hljs.highlightAll();
 <p>The original class, called <em>context</em>, must have a field for storing a reference to one of the strategies. The context delegates the work to a linked strategy object instead of executing it on its own.</p>
 <p>The context isn’t responsible for selecting an appropriate algorithm for the job. Instead, the client passes the desired strategy to the context. In fact, the context doesn’t know much about strategies. It works with all strategies through the same generic interface, which only exposes a single method for triggering the algorithm encapsulated within the selected strategy.</p>
 <p>This way the context becomes independent of concrete strategies, so you can add new algorithms or modify existing ones without changing the code of the context or other strategies.</p>
-<figure class="image"><img src="../pattern/images/solution.png" > </figure>
+<figure class="image"><img src="../../../images/patterns/images/strategy/solution.png" > </figure>
 <p>Route planning&nbsp;strategies.</p>
 </figcaption></figure>
 <p>In our navigation app, each routing algorithm can be extracted to its own class with a single <code>buildRoute</code> method. The method accepts an origin and destination and returns a collection of the route’s checkpoints.</p>
 <p>Even though given the same arguments, each routing class might build a different route, the main navigator class doesn’t really care which algorithm is selected since its primary job is to render a set of checkpoints on the map. The class has a method for switching the active routing strategy, so its clients, such as the buttons in the user interface, can replace the currently selected routing behavior with another one.</p>
 
 </section>
+<section id="analogy" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-car-side text-indigo-500" aria-hidden="true"></i>
+    Real-World Analogy
+  </h3>
 
-<section id="structure"class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-emerald-400">
-  <h3 class="text-xl font-bold mb-2">Structure</h3>
-    <figure class="image"><img src="../pattern/images/structure (1).png" alt=""></figure>
+  <figure class="image mb-6">
+    <img 
+      src="../../../images/patterns/images/strategy/real-world.png"
+      alt="Various transportation strategies"
+      class="rounded-lg w-full max-w-md mx-auto"
+      loading="lazy"
+    />
+    <figcaption class="text-center text-sm text-slate-500 dark:text-slate-400 mt-2">
+      Various strategies for getting to the airport.
+    </figcaption>
+  </figure>
 
+  <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+    Imagine that you have to get to the airport. You can catch a bus, order a cab, or get on your bicycle.
+    These are your transportation strategies. You can pick one depending on factors such as
+    budget or time constraints.
+  </p>
+</section>
+<section id="structure" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-sitemap text-indigo-500" aria-hidden="true"></i>
+    Structure
+  </h3>
+
+  <div class="structure space-y-4">
+    <figure class="image">
+      <img 
+        src="../../../images/patterns/images/strategy/structure.png"
+        alt="Structure of the Strategy design pattern"
+        class="rounded-lg w-full max-w-lg mx-auto"
+        loading="lazy"
+      />
+    </figure>
+
+    <ol class="list-decimal pl-6 space-y-3 text-slate-700 dark:text-slate-300">
+      <li>The <strong>Context</strong> maintains a reference to one of the concrete strategies and communicates with it via the strategy interface.</li>
+      <li>The <strong>Strategy</strong> interface is common to all strategies and declares the execution method used by the context.</li>
+      <li><strong>Concrete Strategies</strong> implement various versions of the algorithm the context uses.</li>
+      <li>The <strong>Context</strong> invokes the strategy each time it needs to perform the algorithm, without knowing the exact strategy type.</li>
+      <li>The <strong>Client</strong> creates a specific strategy and passes it to the context, allowing runtime replacement of strategies.</li>
+    </ol>
+  </div>
 </section>
 
-<section id="ex" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
-    <i class="fa fa-car-side" aria-hidden="true"></i>Example
-  <figure class="image"><img src="../pattern/images/strategy-comic-1-en.png" alt=""><figcaption></figcaption></figure>
-  <p>Imagine that you have to get to the airport. You can catch a bus, order a cab, or get on your bicycle. These are your transportation strategies. You can pick one of the strategies depending on factors such as budget or time constraints.
 
-</p>
-</section>
 
 <section id="cpp" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-blue-400">
     <div class="flex items-center justify-between mb-4">
@@ -275,9 +320,61 @@ int main()
 </pre>
 </div>
 </section>
+<section id="applicability" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-lightbulb text-yellow-500" aria-hidden="true"></i>
+    Applicability
+  </h3>
+
+  <div class="space-y-6">
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500" aria-hidden="true"></i>
+        Use the Strategy pattern when you want to use different variants of an algorithm within an object and switch during runtime.
+      </p>
+      <p class="text-slate-600 dark:text-slate-400">
+        The Strategy pattern lets you change the object’s behavior at runtime by linking different sub-objects that perform sub-tasks differently.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500" aria-hidden="true"></i>
+        Use the Strategy when many similar classes differ only in the way they execute some behavior.
+      </p>
+      <p class="text-slate-600 dark:text-slate-400">
+        The Strategy pattern extracts the varying behavior into a separate hierarchy and merges duplicate classes, reducing repetition.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500" aria-hidden="true"></i>
+        Use the pattern to isolate business logic from implementation details of algorithms.
+      </p>
+      <p class="text-slate-600 dark:text-slate-400">
+        The Strategy pattern isolates algorithm dependencies and data from the rest of the system,
+        exposing a simple interface to execute and swap algorithms.
+      </p>
+    </div>
+
+    <div>
+      <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">
+        <i class="fa fa-fw fa-bug text-red-500" aria-hidden="true"></i>
+        Use the pattern when your class has large conditional statements that switch between variants of the same algorithm.
+      </p>
+      <p class="text-slate-600 dark:text-slate-400">
+        Strategy eliminates these conditionals by extracting algorithms into separate classes implementing a shared interface.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section id="proscons" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-600">
-    <i  aria-hidden="true"></i>⚖️ Pros & Cons
+    <h3 class="text-xl font-bold mb-4">
+    
+  <i  aria-hidden="true"></i>⚖️ Pros & Cons
+    </h3>
   <div class="grid md:grid-cols-2 gap-6">
     <ul class="list-disc pl-5 space-y-2 text-green-500">
  
@@ -302,6 +399,34 @@ int main()
  </li>   </ul>
   </div>
 </section>
+
+<section id="relations" class="bg-white dark:bg-slate-800 rounded-xl scroll-mt-20 p-6 shadow border-l-4 border-indigo-400">
+  <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+    <i class="fa fa-exchange-alt text-indigo-500" aria-hidden="true"></i>
+    Relations with Other Patterns
+  </h3>
+
+  <ul class="list-disc pl-6 space-y-3 text-slate-700 dark:text-slate-300">
+    <li>
+      <strong>Bridge, State, Strategy, and Adapter</strong> share similar structures based on composition (delegating work to other objects)
+      — but each solves a distinct problem.
+    </li>
+    <li>
+      <strong>Command</strong> and <strong>Strategy</strong> look alike because both parameterize objects with actions,
+      but their intents differ:
+      <ul class="list-disc pl-6 mt-2 space-y-1">
+        <li><em>Command</em> turns any operation into an object, allowing deferred execution, queuing, history tracking, and remote invocation.</li>
+        <li><em>Strategy</em> describes multiple possible ways to perform an operation, enabling runtime swapping of algorithms.</li>
+      </ul>
+    </li>
+    <li><strong>Decorator</strong> changes an object’s “skin”, while <strong>Strategy</strong> changes its “guts”.</li>
+    <li><strong>Template Method</strong> (inheritance-based) alters parts of an algorithm at the class level, while
+      <strong>Strategy</strong> (composition-based) switches behavior at the object level, dynamically at runtime.</li>
+    <li><strong>State</strong> extends <strong>Strategy</strong>: both change context behavior via delegation,
+      but <em>State</em> allows linked states to modify one another and the context itself.</li>
+  </ul>
+</section>
+
 
   <footer class="text-center text-slate-400 pt-12 pb-6">
     Basu-Advanced Programming
