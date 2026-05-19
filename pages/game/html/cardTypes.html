@@ -255,11 +255,13 @@
           <!-- بخش متن -->
           <div id="longTextContent" class="md:col-span-7 text-lg text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap"></div>
           
-          <!-- بخش عکس -->
-          <div class="md:col-span-5 relative group hidden" id="longTextImageContainer">
-            <img id="longTextImage" src="" alt="توضیحات بازی" class="w-full h-auto rounded-xl shadow-lg border border-slate-200/20 dark:border-slate-700/50 transition-transform duration-500 group-hover:scale-105 object-cover">
+          <!-- بخش عکس (تغییرات اینجا اعمال شده) -->
+          <div class="md:col-span-5 relative group hidden self-start sticky top-24" id="longTextImageContainer">
+<img id="longTextImage" src="" alt="توضیحات بازی" class="cursor-pointer w-full h-auto max-h-[70vh] object-contain rounded-xl shadow-lg border border-slate-200/20 dark:border-slate-700/50 transition-transform duration-500 group-hover:scale-105 bg-white/5 dark:bg-slate-800/50 p-2">
             <!-- افکت گرادیانت روی عکس هنگام هاور (برای زیبایی بیشتر) -->
             <div class="absolute inset-0 rounded-xl bg-gradient-to-t from-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+         <!-- در تگ img کلاس cursor-pointer را اضافه کنید -->
+
           </div>
         </div>
       </section>
@@ -271,6 +273,14 @@
     <footer class="text-center text-slate-400 pt-12 pb-6 animate-fade-in-up" style="animation-delay: 0.5s;">
       Basu-Advanced Programming
     </footer>
+<!-- Lightbox Modal (پاپ‌آپ عکس) -->
+<div id="imageLightbox" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex justify-center items-center opacity-0 transition-opacity duration-300">
+  <button id="closeLightbox" class="absolute top-6 right-6 text-white hover:text-red-500 bg-white/10 hover:bg-white/20 w-12 h-12 rounded-full flex items-center justify-center text-2xl transition cursor-pointer z-50">
+    <i class="fas fa-times"></i>
+  </button>
+  <img id="lightboxImage" src="" alt="بزرگنمایی" class="max-w-[95vw] max-h-[95vh] object-contain rounded-xl shadow-2xl scale-95 transition-transform duration-300">
+</div> 
+
 
   </body>
 </html>

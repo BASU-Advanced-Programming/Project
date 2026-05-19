@@ -133,6 +133,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const longTextImageContainer = document.getElementById('longTextImageContainer');
     const longTextImage = document.getElementById('longTextImage');
 
+    const imageLightbox = document.getElementById("imageLightbox");
+  const lightboxImage = document.getElementById("lightboxImage");
+  const closeLightbox = document.getElementById("closeLightbox");
+
+  // باز کردن پاپ‌آپ هنگام کلیک روی عکس
+  if (longTextImage && imageLightbox) {
+    longTextImage.addEventListener("click", () => {
+      // انتقال سورس عکس اصلی به عکس پاپ‌آپ
+      lightboxImage.src = longTextImage.src;
+      
+      // نمایش کانتینر
+      imageLightbox.classList.remove("hidden");
+      
+      // افکت انیمیشن (با کمی تاخیر برای اعمال شدن کلاس hidden)
+      setTimeout(() => {
+        imageLightbox.classList.remove("opacity-0");
+        lightboxImage.classList.remove("scale-95");
+        lightboxImage.classList.add("scale-100");
+      }, 10);
+    });
+  }
+
+  // تابع بستن پاپ‌آپ
+  const hideLightbox = () => {
+    imageLightbox.classList.add("opacity-0");
+    lightboxImage.classList.remove("scale-100");
+    lightboxImage.classList.add("scale-95");
+    
+    // مخفی کردن کانتینر بعد از اتمام انیمیشن
+    setTimeout(() => {
+      imageLightbox.classList.add("hidden");
+    }, 300); // 300ms برابر با duration-300 در CSS
+  };
+
+  // بستن پاپ‌آپ با کلیک روی دکمه ضربدر
+  if (closeLightbox) {
+    closeLightbox.addEventListener("click", hideLightbox);
+  }
+
+  // بستن پاپ‌آپ با کلیک روی فضای خالی (پس‌زمینه تیره)
+  if (imageLightbox) {
+    imageLightbox.addEventListener("click", (e) => {
+      if (e.target === imageLightbox) {
+        hideLightbox();
+      }
+    });
+  }
+
     // Build lists
     function buildList(data, container) {
         data.forEach((item, index) => {
