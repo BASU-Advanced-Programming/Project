@@ -21,18 +21,34 @@
         },
       };
     </script>
+    <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          vazir: ['Vazir', 'sans-serif'],
+        },
+        colors: {
+          blood: "#8b0000",
+          night: "#050816",
+          card: "#151820",
+        },
+      },
+    },
+  };
+</script>
+
 
     <style>
       html {
   scroll-behavior: smooth;
-}
-/* font */
+}/* font */
 /* --- Persian Font: Vazir --- */
 @font-face {
   font-family: 'Vazir';
-  src: url('/fonts/vazir-font-v16.1.0/Vazir.woff2') format('woff2'),
-       url('/fonts/vazir-font-v16.1.0/Vazir.woff') format('woff'),
-       u('/fonts/vazir-font-v16.1.0/Vazir.ttf') format('truetype');
+  src: url('../../../fonts/Vazir.woff2') format('woff2'),
+       url('../../../fonts/Vazir.woff') format('woff'),
+       url('../../../fonts/Vazir.ttf') format('truetype'); /* <--- Fixed 'u' to 'url' */
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -40,19 +56,20 @@
 
 @font-face {
   font-family: 'Vazir';
-  src: url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff2') format('woff2'),
-       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff') format('woff'),
-       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf') format('truetype');
+  src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
+       url('../../../fonts/Vazir-Bold.woff') format('woff'),
+       url('../../../fonts/Vazir-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
+
 body {
   font-family: 'Vazir', sans-serif;
   direction: rtl;
   text-align: right;
+  line-height: 1.8;
 }
-
 
 
       /* Small custom touches */
@@ -192,49 +209,63 @@ body.dracula-red {
     </style>
   </head>
 
-  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100 font-sans">
+  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100">
     <canvas 
   id="cursor-canvas"
   class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
 </canvas>
-    <!-- MAIN WRAPPER -->
-<!-- HEADER -->
-<header class="sticky top-0 z-50 backdrop-blur bg-black/80 border-b border-red-900/70">
-  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+<!-- DRACULA HEADER -->
+<header class="relative z-50 pt-6 px-4">
+  <div
+    class="max-w-6xl mx-auto 
+           rounded-full px-8 py-4 
+           flex justify-between items-center
+           bg-black/70 backdrop-blur-xl
+           border border-red-900/60
+           shadow-[0_0_30px_rgba(139,0,0,0.35)]"
+  >
 
     <!-- Title -->
-    <h1 dir="rtl" class="text-xl md:text-2xl font-extrabold text-red-300 flex items-center gap-3">
+    <h2
+      dir="rtl"
+      class="text-lg md:text-2xl font-extrabold flex items-center gap-3"
+      style="background: linear-gradient(90deg,#ffb3b3,#ff0000,#8b0000);
+             -webkit-background-clip: text;
+             color: transparent;"
+    >
+      🩸
       <span>راهنمای شخصیت دراکولا</span>
-    </h1>
+    </h2>
 
-    <!-- Right Side -->
-    <div class="flex items-center gap-4">
+    <!-- Controls -->
+    <div class="flex items-center gap-3">
 
-      <!-- Desktop Navigation -->
+      <!-- Navigation (Desktop) -->
       <nav dir="rtl"
-        class="hidden md:flex gap-6 font-semibold text-sm text-slate-200">
-    <a href="#components" class="hover:text-red-400 transition">متعلقات</a>
+        class="hidden md:flex gap-6 text-sm font-semibold text-slate-300">
+        <a href="#components" class="hover:text-red-400 transition">متعلقات</a>
         <a href="#hero" class="hover:text-red-400 transition">قهرمان</a>
         <a href="#sidekicks" class="hover:text-red-400 transition">همراهان</a>
         <a href="#deck" class="hover:text-red-400 transition">دِک</a>
         <a href="#cards" class="hover:text-red-400 transition">کارت‌ها</a>
       </nav>
 
-      <!-- Theme Toggle (UNCHANGED) -->
+      <!-- Theme Button -->
       <button
         id="theme-toggle"
-        class="rounded-full border px-3 py-1.5 text-xs font-semibold
-               bg-red-950/80 text-red-200 border-red-700
-               hover:scale-105 hover:bg-red-900 hover:text-white
-               transition duration-300 shadow-md shadow-red-900/40
-               backdrop-blur-sm"
+        class="rounded-full w-10 h-10 flex items-center justify-center
+               bg-red-950/80 text-red-200
+               border border-red-800
+               hover:border-red-500 hover:bg-red-900
+               transition shadow-md shadow-red-900/40"
         aria-label="Dracula theme toggle"
       >
         🌙
       </button>
 
-      <!-- Hamburger -->
-      <button id="menuBtn" class="md:hidden text-2xl text-red-300">
+      <!-- Mobile Hamburger -->
+      <button id="menuBtn"
+        class="md:hidden text-xl text-red-300">
         ☰
       </button>
 
@@ -243,19 +274,20 @@ body.dracula-red {
 
   <!-- Mobile Menu -->
   <div id="mobileMenu"
-    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
-           bg-black/95 border-t border-red-900/70 text-slate-200"
+    class="hidden mt-4 max-w-6xl mx-auto rounded-3xl
+           bg-black/90 border border-red-900/60
+           backdrop-blur-xl px-6 py-6
+           flex flex-col gap-4 font-semibold text-slate-300"
     dir="rtl">
 
-    <a href="#components" class="pt-4 hover:text-red-400 transition">متعلقات</a>
+    <a href="#components" class="hover:text-red-400 transition">متعلقات</a>
     <a href="#hero" class="hover:text-red-400 transition">قهرمان</a>
     <a href="#sidekicks" class="hover:text-red-400 transition">همراهان</a>
-    <a href="#deck" class="hover:text-red-400 transition">دِک</a>
+    <a href="#de" class="hover:text-red-400 transition">دِک</a>
     <a href="#cards" class="hover:text-red-400 transition">کارت‌ها</a>
 
   </div>
 </header>
-
 
           
 <section  class="relative z-10 pt-6 md:pt-10">
@@ -491,17 +523,20 @@ body.dracula-red {
     <!-- Content -->
     <div class="grid md:grid-cols-2 gap-12 items-center">
 
-      <!-- Image -->
-      <div class="flex justify-center">
-        <div class="relative w-full max-w-md">
-          <div class="absolute inset-0 bg-red-700/20 blur-3xl rounded-full"></div>
-          <img
-            src="../../../images/DracArt.png"
-            alt="Dracula"
-            class="relative z-10 w-full object-contain drop-shadow-[0_0_30px_rgba(220,38,38,0.45)]"
-          />
-        </div>
-      </div>
+     <!-- Image -->
+<div class="flex justify-center">
+  <div class="relative w-full max-w-md">
+    <div class="absolute inset-0 bg-red-700/20 blur-3xl rounded-full"></div>
+    <img
+      src="../../../images/DracArt.png"
+      alt="Dracula"
+      class="relative z-10 w-full object-contain
+             rounded-2xl
+             drop-shadow-[0_0_30px_rgba(220,38,38,0.45)]"
+    />
+  </div>
+</div>
+
 
       <!-- Info -->
       <div dir="rtl" class="text-right">
@@ -531,7 +566,7 @@ body.dracula-red {
           </h3>
           <p class="text-sm text-slate-300 leading-relaxed">
             دراکولا بازی را در ناحیه شروع خود آغاز می‌کند.
-            او می‌تواند روی هرکدام از ۴ خانه مشخص‌شده برای قهرمان قرار بگیرد.
+            او می‌تواند روی هرکدام از 2 خانه مشخص‌شده برای قهرمان قرار بگیرد.
           </p>
         </div>
 
@@ -542,7 +577,7 @@ body.dracula-red {
           </h3>
           <div class="border-r-2 border-red-600 pr-4">
             <p class="text-sm italic text-slate-200">
-              «در ابتدای نوبت خود، می‌توانی به یکی از خواهران که کنار دراکولا است
+              «در ابتدای نوبت خود، می‌توانی به یکی از جنگجویان - حتی خواهران خود که کنار دراکولا است
               ۱ آسیب وارد کنی. اگر این کار را انجام دهی، یک کارت بکش.»
             </p>
           </div>
@@ -638,8 +673,7 @@ body.dracula-red {
 
           <div class="border-r-2 border-red-600 pr-4">
             <p class="text-sm italic text-slate-200">
-              «خواهران توانایی ویژه‌ای ندارند؛ اما در ابتدای نوبت دراکولا،
-              او می‌تواند به یک خواهرِ مچاور خود ۱ آسیب وارد کند و ۱ کارت بکشد.»
+              «خواهران توانایی ویژه‌ای ندارند؛.»
             </p>
           </div>
         </div>

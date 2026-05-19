@@ -25,33 +25,34 @@
 	    <style>
 	      html {
 	  scroll-behavior: smooth;
-	}
-	/* font */
-	/* --- Persian Font: Vazir --- */
-	@font-face {
-	  font-family: 'Vazir';
-	  src: url('/fonts/vazir-font-v16.1.0/Vazir.woff2') format('woff2'),
-	       url('/fonts/vazir-font-v16.1.0/Vazir.woff') format('woff'),
-	       u('/fonts/vazir-font-v16.1.0/Vazir.ttf') format('truetype');
-	  font-weight: 400;
-	  font-style: normal;
-	  font-display: swap;
-	}
-	
-	@font-face {
-	  font-family: 'Vazir';
-	  src: url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff2') format('woff2'),
-	       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.woff') format('woff'),
-	       url('/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf') format('truetype');
-	  font-weight: 700;
-	  font-style: normal;
-	  font-display: swap;
-	}
-	body {
-	  font-family: 'Vazir', sans-serif;
-	  direction: rtl;
-	  text-align: right;
-	}
+	}/* font */
+/* --- Persian Font: Vazir --- */
+@font-face {
+  font-family: 'Vazir';
+  src: url('../../../fonts/Vazir.woff2') format('woff2'),
+       url('../../../fonts/Vazir.woff') format('woff'),
+       url('../../../fonts/Vazir.ttf') format('truetype'); /* <--- Fixed 'u' to 'url' */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
+       url('../../../fonts/Vazir-Bold.woff') format('woff'),
+       url('../../../fonts/Vazir-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Vazir', sans-serif;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.8;
+}
 	html:not(.dark) body {
 	background: radial-gradient(
 		circle at top,
@@ -115,71 +116,90 @@
 	}
 	</script>
 	
-	  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100 font-sans">
+	  <body class="cursor-none font-vazir min-h-screen bg-night text-slate-100 ">
 	    <canvas 
 	  id="cursor-canvas"
 	  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
 	</canvas>
-	    <!-- MAIN WRAPPER -->
-	<!-- HEADER -->
-	<header class="sticky top-0 z-50 backdrop-blur bg-black/80 border-b border-yellow-900/70">
-	  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-	
-	    <!-- Title -->
-	    <h1 dir="rtl" class="text-xl md:text-2xl font-extrabold text-yellow-300 flex items-center gap-3">
-	      <span>راهنمای شخصیت شرلوک هلمز</span>
-	    </h1>
-	
-	    <!-- Right Side -->
-	    <div class="flex items-center gap-4">
-	
-	      <!-- Desktop Navigation -->
-	      <nav dir="rtl"
-	        class="hidden md:flex gap-6 font-semibold text-sm text-slate-200">
-	    <a href="#components" class="hover:text-yellow-400 transition">متعلقات</a>
-	        <a href="#hero" class="hover:text-yellow-400 transition">قهرمان</a>
-	        <a href="#sidekicks" class="hover:text-yellow-400 transition">همراهان</a>
-	        <a href="#deck" class="hover:text-yellow-400 transition">دِک</a>
-	        <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
-	      </nav>
-	
-	      <!-- Theme Toggle (UNCHANGED) -->
-	      <button
-	        id="theme-toggle"
-	        class="rounded-full border px-3 py-1.5 text-xs font-semibold
-	               bg-yellow-950/80 text-yellow-200 border-yellow-700
-	               hover:scale-105 hover:bg-yellow-900 hover:text-white
-	               transition duration-300 shadow-md shadow-yellow-900/40
-	               backdrop-blur-sm"
-	        aria-label="sherlock theme toggle"
-	      >
-	        🌙
-	      </button>
-	
-	      <!-- Hamburger -->
-	      <button id="menuBtn" class="md:hidden text-2xl text-yellow-300">
-	        ☰
-	      </button>
-	
-	    </div>
-	  </div>
-	
-	  <!-- Mobile Menu -->
-	  <div id="mobileMenu"
-	    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
-	           bg-black/95 border-t border-yellow-900/70 text-slate-200"
-	    dir="rtl">
-	
-	    <a href="#components" class="pt-4 hover:text-yellow-400 transition">متعلقات</a>
-	    <a href="#hero" class="hover:text-yellow-400 transition">قهرمان</a>
-	    <a href="#sidekicks" class="hover:text-yellow-400 transition">همراهان</a>
-	    <a href="#deck" class="hover:text-yellow-400 transition">دِک</a>
-	    <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
-	
-	  </div>
-	</header>
-	
-	
+	<!-- SHERLOCK HEADER -->
+<header class="sticky top-0 z-50 pt-6 px-4">
+  <div
+    class="max-w-6xl mx-auto
+           rounded-full px-8 py-4
+           flex justify-between items-center
+           bg-black/70 backdrop-blur-xl
+           border border-yellow-900/60
+           shadow-[0_0_30px_rgba(202,138,4,0.22)]"
+  >
+
+    <!-- Title -->
+    <h2
+      dir="rtl"
+      class="text-lg md:text-2xl font-extrabold flex items-center gap-3"
+      style="background: linear-gradient(90deg,#fef3c7,#facc15,#a16207);
+             -webkit-background-clip: text;
+             color: transparent;"
+    >
+      🕵️
+      <span>راهنمای شخصیت شرلوک هلمز</span>
+    </h2>
+
+    <!-- Controls -->
+    <div class="flex items-center gap-3">
+
+      <!-- Desktop Navigation -->
+      <nav
+        dir="rtl"
+        class="hidden md:flex gap-6 text-sm font-semibold text-slate-300"
+      >
+        <a href="#components" class="hover:text-yellow-400 transition">متعلقات</a>
+        <a href="#hero" class="hover:text-yellow-400 transition">قهرمان</a>
+        <a href="#sidekicks" class="hover:text-yellow-400 transition">همراهان</a>
+        <a href="#deck" class="hover:text-yellow-400 transition">دِک</a>
+        <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
+      </nav>
+
+      <!-- Theme Toggle -->
+      <button
+        id="theme-toggle"
+        class="rounded-full w-10 h-10 flex items-center justify-center
+               bg-yellow-950/80 text-yellow-200
+               border border-yellow-800
+               hover:border-yellow-500 hover:bg-yellow-900
+               transition shadow-md shadow-yellow-900/40"
+        aria-label="Sherlock theme toggle"
+      >
+        🌙
+      </button>
+
+      <!-- Mobile Hamburger -->
+      <button
+        id="menuBtn"
+        class="md:hidden text-xl text-yellow-300"
+      >
+        ☰
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobileMenu"
+    class="hidden mt-4 max-w-6xl mx-auto rounded-3xl
+           bg-black/90 border border-yellow-900/60
+           backdrop-blur-xl px-6 py-6
+           flex flex-col gap-4 font-semibold text-slate-300"
+    dir="rtl"
+  >
+    <a href="#components" class="hover:text-yellow-400 transition">متعلقات</a>
+    <a href="#hero" class="hover:text-yellow-400 transition">قهرمان</a>
+    <a href="#sidekicks" class="hover:text-yellow-400 transition">همراهان</a>
+    <a href="#deck" class="hover:text-yellow-400 transition">دِک</a>
+    <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
+  </div>
+</header>
+
 	          
 	<section  class="relative z-10 pt-6 md:pt-10">
 	  <!-- Container for centering alignment -->
@@ -419,17 +439,20 @@
 	    <!-- Content -->
 	    <div class="grid md:grid-cols-2 gap-12 items-center">
 	
-	      <!-- Image -->
-	      <div class="flex justify-center">
-	        <div class="relative w-full max-w-md">
-	          <div class="absolute inset-0 bg-yellow-500/30 blur-3xl rounded-full"></div>
-	          <img
-	            src="../../../images/sherArt.png"
-	            alt="sherlock"
-	            class="relative z-10 w-full object-contain drop-shadow-[0_0_30px_rgba(217,119,6,0.5)]"
-	          />
-	        </div>
-	      </div>
+	  <!-- Image -->
+<div class="flex justify-center">
+  <div class="relative w-full max-w-md">
+    <div class="absolute inset-0 bg-yellow-500/30 blur-3xl rounded-full"></div>
+    <img
+      src="../../../images/sherArt.png"
+      alt="sherlock"
+      class="relative z-10 w-full object-contain
+             rounded-2xl
+             drop-shadow-[0_0_30px_rgba(217,119,6,0.5)]"
+    />
+  </div>
+</div>
+
 	
 	      <!-- Info -->
 	      <div dir="rtl" class="text-right">
@@ -459,7 +482,7 @@
 	          </h3>
 	          <p class="text-sm text-slate-300 leading-relaxed">
 	            شرلوک هلمز بازی را در ناحیه شروع خود آغاز می‌کند.
-	            او می‌تواند روی هرکدام از ۴ خانه مشخص‌شده برای قهرمان قرار بگیرد.
+	            او می‌تواند روی هرکدام از 2 خانه مشخص‌شده برای قهرمان قرار بگیرد.
 	          </p>
 	        </div>
 	
