@@ -1,4 +1,3 @@
-
 const reveals = document.querySelectorAll('.reveal');
 
 const observer = new IntersectionObserver((entries)=>{
@@ -10,6 +9,268 @@ const observer = new IntersectionObserver((entries)=>{
 },{ threshold: 0.15 });
 
 reveals.forEach(el=>observer.observe(el));
+
+/* ============== FA-to-En ================ */
+const translations = {
+  en: {
+    /* more than one uses */
+    deck_status_total: "TOTAL",
+    deck_status_unique_cards: "Unique Cards",
+    deck_status_total_cards: "Total Cards",
+    deck_status_total_value: "Total Value",
+    deck_status_table_character_row: "Character",
+
+    /* NavBar section */
+    characters: "Characters",
+    boards: "Boards",
+    decks: "Decks",
+    how_to_play: "How to Play",
+
+    /* game over view */
+    game_first_over_view: "Tactical board game where legends battle across time and myth. Choose your fighter and outsmart your opponent.",
+    game_second_over_view: "Let yourself discover the dangers and truths of this world and its people",
+    explore_fighters: "Explore Fighters",
+
+    /* game board section */
+    game_boards_section: "Game Boards",
+    maps_soho_street_title: "Soho Streets",
+    maps_soho_street_info: "foggy city battlefield perfect for cunning tactics.",
+    maps_soho_street_view_button: "View Map Details",
+    maps_dracula_castle_title: "Dracula's Castle",
+    maps_dracula_castle_info: "A dark gothic castle filled with danger and ambush opportunities.",
+    maps_dracula_castle_view_button: "View Map Details",
+    character_decks_header: "Character Decks",
+
+    /* characters deck section */
+    characters_section_view_character_button: "View Character",
+      /* sherlock */
+    characters_section_sherlock_health_and_movment: "HEALTH: 16 , MOVEMENT: 2",
+    characters_section_sherlock_special_ability_header: "Special Ability:",
+    characters_section_sherlock_special_ability_text: "Effects on HOLMES and DR. WATSON cards cannot be cancelled by an opponent.",
+    characters_section_sherlock_dr_watson_header: "Dr.Watson:",
+    characters_section_sherlock_title: "Sherlock Holms",
+      /* dracula */
+    characters_section_dracula_health_and_movment: "HEALTH: 13 , MOVEMENT: 2",
+    characters_section_dracula_special_ability_header: "BLOODTHIRSTY:",
+    characters_section_dracula_special_ability_text: "At the start of your turn, deal 1 damage to adjacent fighter. If you do, draw a card.",
+    characters_section_dracula_sisters_header: "Sisters:",
+    characters_section_dracula_title: "Dracula",
+      /* invisible man */
+    characters_section_invisible_man_health_and_movment: "HEALTH: 15 , MOVEMENT: 2",
+    characters_section_invisible_man_special_ability_header: "Special Ability:",
+    characters_section_invisible_man_special_ability_text: "Place 3 fog tokens in separate spaces in his zone. +1 defense while on a fog space. May move between fog spaces as if adjacent.",
+    characters_section_invisible_man_sisters_header: "Fogs: ",
+    characters_section_invisible_man_title: "Invisible Man",
+
+    /* sherlock table */
+    sherlock_deck_status_title: "Sherlock Holms - Deck Stats",
+    sherlock_deck_status_table_first_vertical_row: "HOLMES + ANY",
+    sherlock_deck_status_table_second_vertical_row: "DR. WATSON + ANY",
+    sherlock_deck_status_table_third_vertical_row: "ANY",
+
+    /* invisible-man table */
+    invisible_deck_status_title: "Invisible Man - Deck Stats",
+    invisible_deck_status_table_first_vertical_row: "INVISIBLE MAN",
+
+    /* dracula table */
+    dracula_deck_status_table_first_vertical_row: "Dracula - Deck Stats",
+    dracula_deck_status_table_second_vertical_row: "DRACULA + ANY",
+    dracula_deck_status_table_third_vertical_row: "SISTER + ANY",
+    dracula_deck_status_table_fourth_vertical_row: "ANY",
+
+    /* how to play section */
+      /* first section */
+    how_to_play_section_header: "How To Play",
+    how_to_play_first_section_box_header: "1. Select Your Hero",
+    how_to_play_first_section_box_text: "Remeber if you are younger you can choose your hero first :)",
+      /* second section */
+    how_to_play_second_section_box_header: "2. Place Your Hero",
+    how_to_play_second_section_box_text: "After hero selection you have to place you'r hero in one of the two positon shown below.",
+      /* third section */
+    how_to_play_third_section_box_header: "3. Create your hand",
+    how_to_play_third_section_box_text: "Draw 5 cards from the top of your deck.",
+      /* fourth section */
+    how_to_play_fourth_section_box_header: "4. Take Actions",
+    how_to_play_fourth_section_box_text: "On your turn you must take 2 actions (Remember you may choose the same action twice)",
+    how_to_play_fourth_section_box_explanation: "Select an action above to see how it works",
+        /* maneuver */
+        maneuver_btn: "Maneuver",
+        maneuver_header: "Maneuver",
+        maneuver_first_element_title: "1. Draw a card: ",
+        maneuver_first_element_text: "You MUST draw the top card of your deck.",
+        maneuver_second_element_title: "2. Move your fighters: ",
+        maneuver_second_element_text: "You MAY move each fighter up to their move value.",
+
+        /* attck */
+        attack_btn: "Attack",
+        attack_header: "Attack",
+        attack_text: "Choose an opponent fighter in your range and play an attack card. The defender may then play a defense card.",
+        attack_cards_title: "Combat Cards",
+
+        /* scheme */
+        scheme_btn: "Scheme",
+        scheme_header: "Scheme",
+        scheme_text: "Play a scheme card and resolve its effect.",
+
+
+      /* fifth section */
+    how_to_play_fifth_section_box_header: "5. Defeat Your Opponent",
+    how_to_play_fifth_section_box_text: "Reduce the enemy hero's health to zero to win the match.",
+    /* implementation_guide_button */
+    implementation_guide_button: "Continue to Implementation Guide →"
+
+  },
+  fa: {
+    /* more than one uses */
+    deck_status_total: "مجموع",
+    deck_status_unique_cards: "کارت های خاص",
+    deck_status_total_cards: "تمام کارت ها",
+    deck_status_total_value: "ارزش نهایی",
+    deck_status_table_character_row: "مبارز",
+
+    /* NavBar section */
+    characters: "کاراکترها",
+    boards: "نقشه‌ها",
+    decks: "دسته کارت‌ها",
+    how_to_play: "نحوه بازی",
+
+    /* game over view */
+    game_first_over_view: "دنبال یه بازی متفاوت هستی که بتونی در کنار دوستات  ازش لذت ببری و ساعت ها سرگرم بشی؟  تبریک می گم، جای درستی اومدی!!!",
+    game_second_over_view: "بزن تو دل خطر و حقایق این دنیا و افراد توش رو کشف کن",
+    explore_fighters: "بررسی مبارزها",
+
+    /* game board section */
+    game_boards_section: "نقشه های بازی",
+    maps_soho_street_title: "خیابان های سوهو",
+    maps_soho_street_info: "میدان نبردی شهری و مه‌آلود، ایده‌آل برای تاکتیک‌های زیرکانه.",
+    maps_soho_street_view_button: "مشاهده نقشه",
+    maps_dracula_castle_title: "قلعه دراکولا",
+    maps_dracula_castle_info: "قلعه‌ای ترسناک و تاریک، سرشار از خطر و فرصت‌های کمین.",
+    maps_dracula_castle_view_button: "مشاهده نقشه",
+    character_decks_header: "دسته کارت مبارزها",
+
+    /* characters deck section */
+    characters_section_view_character_button: "بررسی مبارز",
+      /* sharlock */
+    characters_section_sherlock_health_and_movment: "سلامتی : 16 , حرکت : 2",
+    characters_section_sherlock_special_ability_header: "توانایی ویژه:",
+    characters_section_sherlock_special_ability_text: "افکت ها و فرایندهای اعمال شده بر روی کارت های هلمز و دکتر واتسون نمی تواند توسط حریف غیر فعال شود.",
+    characters_section_sherlock_dr_watson_header: "دکتر واتسون:",
+    characters_section_sherlock_title: "شرلوک هلمز",
+      /* dracula */
+    characters_section_dracula_health_and_movment: "سلامتی: 13 , حرکت : 2",
+    characters_section_dracula_special_ability_header: "تشنه خون:",
+    characters_section_dracula_special_ability_text: "در ابتدا نوبت خود 1 ضربه به مبارز مجاور وارد کنید ، اگر موفق شدید; یک کارت بکشید.",
+    characters_section_dracula_sisters_header: "خواهران:",
+    characters_section_dracula_title: "دراکولا",
+    /* invisible man */
+    characters_section_invisible_man_health_and_movment: "سلامتی: 15 , حرکت: 2",
+    characters_section_invisible_man_special_ability_header: "توانایی ویژه: ",
+    characters_section_invisible_man_special_ability_text: "3 ژتون مه را در فضاهایی جداگانه در منطقه خود قرار دهید ، اگر مبارز شما در این فضای مه باشد دفاع +1 برای آن در نظر گرفته می شود ، همپنین ممکن است بین مه های مجاور جابه جا شود.",
+    characters_section_invisible_man_sisters_header: "مه ها",
+    characters_section_invisible_man_title: "مرد نامرئی",
+
+    /* sherlock table */
+    sherlock_deck_status_title: "شرلوک هلمز - وضعیت دسته کارت",
+    sherlock_deck_status_table_first_vertical_row: "هلمز + خودش یا همرزمان",
+    sherlock_deck_status_table_second_vertical_row: "دکتر واتسون + خودش یا همرزمان",
+    sherlock_deck_status_table_third_vertical_row: "خود مبارز یا همرزمش",
+
+    /* invisible-man table */
+    invisible_deck_status_title: "مرد نامرئی - وضعیت دسته کارت",
+    invisible_deck_status_table_first_vertical_row: "مبارز",
+
+    /* dracula table */
+    dracula_deck_status_table_first_vertical_row: "دراکولا - وضعیت دسته کارت",
+    dracula_deck_status_table_second_vertical_row: "دراکولا + خودش یا همرزمان",
+    dracula_deck_status_table_third_vertical_row: "خواهران + خودش یا همرزمان",
+    dracula_deck_status_table_fourth_vertical_row: "خود مبارز یا همرزمش",
+
+    /* how to play section */
+      /* first section */
+    how_to_play_section_header: "چطور بازی کنیم؟",
+    how_to_play_first_section_box_header: "1. مبارز خود را انتخاب کن!",
+    how_to_play_first_section_box_text: "به یاد داشته باشید ، بازیکن جوان تر اول انتخاب می کند:)",
+      /* second section */
+    how_to_play_second_section_box_header: "2. مبارز خود را در زمین قرار بده",
+    how_to_play_second_section_box_text: "بعد از انتخاب مبارز باید آن را در یکی از دو مکانی که در زیر نشان داده شده قرار دهی.",
+      /* third section */
+    how_to_play_third_section_box_header: "3. دسته کارت خود برای مبارزه را بساز",
+    how_to_play_third_section_box_text: "5 کارت از ابتدا دسته کارت خودت بکش",
+      /* fourth section */
+    how_to_play_fourth_section_box_header: "4. حرکات زیرکانه خودتو انجام بده",
+    how_to_play_fourth_section_box_text: "در نوبت خودت باید 2 حرکت انجام بدی (به یاد داشته باش ممکنه لازم شه یه حرکتو دوبار انجام بدی)",
+    how_to_play_fourth_section_box_explanation: "برای مشاهده نحوه کارکرد بر روی دگمه های بالا بزنید" ,
+        /* maneuver */
+        maneuver_btn: "مانور",
+        maneuver_header: "مانور",
+        maneuver_first_element_title: "1. یک کارت بکش: ",
+        maneuver_first_element_text: "تو باید بالاترین کارت موجود از دست خودتو بکشی",
+        maneuver_second_element_title: "2. مبارز خودتو حرکت بده: ",
+        maneuver_second_element_text: "می توانی هر مبارز را تا حداکثر تعداد حرکاتش ، حرکت دهی یا هیچ حرکتی انجام ندهی",
+
+        /* attck */
+        attack_btn: "حمله",
+        attack_header: "حمله",
+        attack_text: "مبارزی از یکی از حریفان که در محدوده تو است را انتخاب کن و سپس یک کارت حمله بازی کن ، حریف ممکن است کارت دفاع بازی کند.",
+        attack_cards_title: "کارت های حمله",
+
+        /* scheme */
+        scheme_btn: "رویداد",
+        scheme_header: "رویداد",
+        scheme_text: "یک کارت رویداد بازی کنید و اثر آنرا در بازی اعمال کنید.",
+
+      /* fifth section */
+    how_to_play_fifth_section_box_header: "5. حریفت رو شکست بده",
+    how_to_play_fifth_section_box_text: "سلامتی مبارز حریفت رو به صفر برسون تا برنده بازی شی:)",
+
+    /* implementation_guide_button */
+    implementation_guide_button: "→ برای مشاهده راهنمایی پیاده سازی کلیک کنید"
+
+  }
+};
+
+function applyLang(lang) {
+
+  document.documentElement.lang = lang;
+  document.documentElement.classList.toggle("lang-fa", lang === "fa");
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr"; 
+
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  document.querySelectorAll(".action-btn").forEach(btn => {
+    const actionType = btn.dataset.action;
+    const translationKey = `${actionType}_btn`;
+    if (translations[lang] && translations[lang][translationKey]) {
+      btn.textContent = translations[lang][translationKey];
+    }
+  });
+
+  const btn = document.getElementById("langToggle");
+  if (btn) btn.textContent = lang === "fa" ? "EN" : "FA";
+
+  localStorage.setItem("lang", lang);
+}
+
+let currentLang = localStorage.getItem("lang") || "en";
+applyLang(currentLang);
+
+const langBtn = document.getElementById("langToggle");
+if (langBtn) {
+  langBtn.addEventListener("click", ()=>{
+    currentLang = currentLang === "en" ? "fa" : "en";
+    applyLang(currentLang);
+  });
+
+}
 
 /* ================= DECK ================= */
 
@@ -93,7 +354,6 @@ window.addEventListener("resize", () => {
 
 
 /* ================= HERO SELECTION ================= */
-
 document.querySelectorAll(".hero-box").forEach(hero=>{
 
 const img = hero.querySelector(".hero-img");
@@ -127,10 +387,7 @@ flipped = !flipped;
 
 });
 
-
-
 /* ================= BOARD MOVEMENT ================= */
-
 const nodes = [
   { x: "8%",   y: "12%" },
   { x: "39%",  y: "11%" },
@@ -154,11 +411,11 @@ function shuffle(array) {
 }
 
 function moveFighters() {
-  const shuffledNodes = [...nodes]; 
+  const shuffledNodes = [...nodes];
   shuffle(shuffledNodes);
 
   fighters.forEach((fighter, index) => {
-    if (!fighter) return;     
+    if (!fighter) return;
     fighter.style.left = shuffledNodes[index].x;
     fighter.style.top  = shuffledNodes[index].y;
   });
@@ -171,13 +428,12 @@ moveFighters();
 
 
 /* ================= INVISIBLE MAN FOG ================= */
-
 function createFogEffect(hero) {
     const canvas = hero.querySelector(".fx-canvas");
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-    
+
     renderer.setSize(hero.offsetWidth, hero.offsetHeight);
 
     const geometry = new THREE.PlaneGeometry(2, 2);
@@ -237,7 +493,6 @@ function createFogEffect(hero) {
 
 
 /* ================= DRACULA BLOOD ================= */
-
 function bloodSplash(hero){
 
 const canvas = hero.querySelector(".fx-canvas");
@@ -435,7 +690,7 @@ function sherlockStorm(hero) {
 
     function animate() {
         let elapsed = Date.now() - startTime;
-        
+
         if (elapsed > 2500) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             cancelAnimationFrame(animationId);
@@ -443,11 +698,11 @@ function sherlockStorm(hero) {
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         let fadeOut = elapsed > 1500 ? (2500 - elapsed) / 1000 : 1;
 
         particles.forEach(p => {
-            ctx.fillStyle = `rgb(69, 71, 42), ${fadeOut})`; 
+            ctx.fillStyle = `rgb(69, 71, 42), ${fadeOut})`;
             ctx.font = `${p.fontSize}px serif`;
             ctx.fillText(p.symbol, p.x, p.y);
 
@@ -460,22 +715,6 @@ function sherlockStorm(hero) {
 
     animate();
 }
-// // scrolling above
-// window.addEventListener("scroll", () => {
-//     const bg = document.querySelector(".hero-bg");
-//     const maxScroll = window.innerHeight * 0.8;
-//     const scrollY = window.scrollY;
-
-//     let opacity = 1 - scrollY / maxScroll;
-//     if (opacity < 0) opacity = 0;
-
-//     // smoother upward motion
-//     let translateY = -(scrollY * 0.35);
-
-//     bg.style.opacity = opacity;
-//     bg.style.transform = `translateY(${translateY}px)`;
-// });
-
 
 const canvas = document.getElementById("cursor-canvas");
 const ctx = canvas.getContext("2d");
@@ -518,7 +757,6 @@ document.addEventListener("mousemove",(e)=>{
   }
 
 });
-
 
 
 
@@ -636,7 +874,7 @@ const deckTrigger = document.getElementById('deck-trigger');
 const fanCards = document.querySelectorAll('.fan-card');
 let isFanOpen = false;
 
-const fanAngles = [-40, -30, -20, -10, 0]; 
+const fanAngles = [-40, -30, -20, -10, 0];
 const fanTranslates = [-140, -105, -70, -35, 0];
 
 deckTrigger.addEventListener('click', () => {
@@ -652,8 +890,8 @@ deckTrigger.addEventListener('click', () => {
     }
   });
 
-  deckTrigger.style.transform = isFanOpen 
-    ? 'rotate(10deg) translateX(40px)' 
+  deckTrigger.style.transform = isFanOpen
+    ? 'rotate(10deg) translateX(40px)'
     : 'rotate(0deg) translateX(0px)';
 });
 // Action info
@@ -662,126 +900,70 @@ const display = document.getElementById("action-display");
 
 let activeAction = null;
 
-const actions = {
-  maneuver: `
-    <h4 class="text-lg font-semibold mb-2">Maneuver</h4>
-
-    <p class="text-slate-400 mb-4">
-      <span class="font-bold text-cyan-300">1. Draw a card:</span>
-      You MUST draw the top card of your deck.
-    </p>
-
-    <p class="text-slate-400 mb-6">
-      <span class="font-bold text-cyan-300">2. Move your fighters:</span>
-      You MAY move each fighter up to their move value.
-    </p>
-
-<div class="relative w-full max-w-[700px] aspect-[7/4.5] mx-auto overflow-hidden rounded-lg shadow-xl border border-slate-700">
-      
-<img 
-  src="images/board.jpeg"
-  class="absolute inset-0 w-full h-full object-contain"
->
-
-
-      <img id="fighter-token"
-      src="images/sherlockTran.png"
-class="absolute w-[32px] h-[32px] md:w-[50px] md:h-[50px] object-contain transition-all duration-300 z-20"
-      style="display:none">
-
-      <div id="map-nodes-overlay" class="absolute inset-0 z-10"></div>
-
-    </div>
-  `,
-attack: `
-  <h3 class="text-xl font-bold mb-3">Attack</h3>
-
-  <p class="text-slate-300 mb-6">
-    Choose an opponent fighter in your range and play an attack card.
-    The defender may then play a defense card.
-  </p>
-
-  <div class="bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-
-    <h3 class="text-lg font-bold mb-3">Combat Cards</h3>
-
-    <!-- Attack cards -->
-    <div id="attack-card">
-      <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-
-        <div
-          class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
-          hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
-        >
-          <img src="images/dracula/beastform.png"
-               class="attack-img w-full h-full object-cover" />
-        </div>
-
-        <div
-          class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10
-          hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent"
-        >
-          <img src="images/invisibleMan/slip-away.png"
-               class="attack-img w-full h-full object-cover" />
-        </div>
-
+function getActions(lang) {
+  const t = translations[lang];
+  return {
+    maneuver: `
+      <h4 class="text-lg font-semibold mb-2">${t.maneuver_header}</h4>
+      <p class="text-slate-400 mb-4">
+        <span class="font-bold text-cyan-300">${t.maneuver_first_element_title}</span> ${t.maneuver_first_element_text}
+      </p>
+      <p class="text-slate-400 mb-6">
+        <span class="font-bold text-cyan-300">${t.maneuver_second_element_title}</span> ${t.maneuver_second_element_text}
+      </p>
+      <div class="relative w-full max-w-[700px] aspect-[7/4.5] mx-auto overflow-hidden rounded-lg shadow-xl border border-slate-700">
+        <img src="images/board.jpeg" class="absolute inset-0 w-full h-full object-contain">
+        <img id="fighter-token" src="images/sherlockTran.png" class="absolute w-[32px] h-[32px] md:w-[50px] md:h-[50px] object-contain transition-all duration-300 z-20" style="display:none">
+        <div id="map-nodes-overlay" class="absolute inset-0 z-10"></div>
       </div>
-    </div>
-
-    <!-- Defense cards -->
-    <div id="defense-card">
-      <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-
-        <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-          <img src="images/dracula/look-into-my-eyes.png"
-               class="defense-img w-full h-full object-cover" />
-        </div>
-
-        <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-          <img src="images/invisibleMan/lurking.png"
-               class="defense-img w-full h-full object-cover" />
-        </div>
-
+    `,
+    attack: `
+      <h3 class="text-xl font-bold mb-3">${t.attack_header}</h3>
+      <p class="text-slate-300 mb-6">${t.attack_text}</p>
+      <div class="bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+        <h3 class="text-lg font-bold mb-3">${t.attack_cards_title}</h3>
+        <div id="attack-card"><div class="flex justify-center gap-10 mt-[30px] flex-wrap">
+          <div class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10 hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent">
+            <img src="images/dracula/beastform.png" class="attack-img w-full h-full object-cover" />
+          </div>
+          <div class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10 hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent">
+            <img src="images/invisibleMan/slip-away.png" class="attack-img w-full h-full object-cover" />
+          </div>
+        </div></div>
+        <div id="defense-card"><div class="flex justify-center gap-10 mt-[30px] flex-wrap">
+          <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
+            <img src="images/dracula/look-into-my-eyes.png" class="defense-img w-full h-full object-cover" />
+          </div>
+          <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
+            <img src="images/invisibleMan/lurking.png" class="defense-img w-full h-full object-cover" />
+          </div>
+        </div></div>
       </div>
-    </div>
-
-  </div>
-`,
-
-
-
-  scheme: `
-    <h4 class="text-lg font-semibold mb-2">Scheme</h4>
-    <p class="text-slate-400">
-      Play a scheme card and resolve its effect.
-    </p>
-  `
-};
+    `,
+    scheme: `
+      <h4 class="text-lg font-semibold mb-2">${t.scheme_header}</h4>
+      <p class="text-slate-400">${t.scheme_text}</p>
+    `
+  };
+}
 
 actionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
-
     const action = btn.dataset.action;
 
-    // hide if same clicked
+    const currentActions = getActions(currentLang);
+
     if (activeAction === action) {
       display.innerHTML = "";
       activeAction = null;
       return;
     }
 
-    display.innerHTML = actions[action];
+    display.innerHTML = currentActions[action];
     activeAction = action;
 
-    // only run movement system if maneuver
-    if (action === "maneuver") {
-      initManeuverMap();
-    }
-    if (action === "attack") {
-  initAttackCards();
-}
-
-
+    if (action === "maneuver") initManeuverMap();
+    if (action === "attack") initAttackCards();
   });
 });
 
