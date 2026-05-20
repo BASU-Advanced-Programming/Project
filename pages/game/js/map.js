@@ -82,13 +82,17 @@ const mapData = [
   {
     id: 'map2',
     title: 'گذرگاه‌های مخفی',
-    text: `در نقشه‌ی "Baskerville Manor" سیستمی از گذرگاه‌های مخفی وجود دارد که به مبارزان اجازه می‌دهد سریع بین بخش‌های مختلف نقشه حرکت کنند.
+text: `<div class="flex items-start gap-6"><div class="flex-1 text-justify leading-relaxed"> در نقشه ی "Baskerville Manor" سیستمی از گذرگاه های مخفی وجود دارد که به مبارزان اجازه می دهد سریع بین بخش های مختلف نقشه حرکت کنند.
+        <br>
+<strong class="text-white">قوانین گذرگاه مخفی:</strong>
+1. هر خانه ی دارای نماد گذرگاه مخفی می تواند با تمام خانه های دیگر دارای همین نماد ارتباط داشته باشد.
+2. حرکت از یک گذرگاه به گذرگاه دیگر، فقط ۱ واحد حرکت هزینه دارد.
+3. خانه های دارای گذرگاه مخفی برای حمله های نزدیک یا اثرات دیگر مجاور قلمداد نمی شوند.
+4. همه ی مبارزان می توانند از آن استفاده کنند، مگر کارت یا اثر دیگری محدودیت اعمال کند.
+    </div>
+    <img src="../../../images/portal.png" alt="گذرگاه مخفی" class="w-24 h-24 object-contain drop-shadow-md rounded-md shrink-0" />
 
-قوانین گذرگاه مخفی:
-1. هر خانه‌ی دارای نماد گذرگاه مخفی می‌تواند با تمام خانه‌های دیگر دارای همین نماد ارتباط داشته باشد.  
-2. حرکت از یک گذرگاه به گذرگاه دیگر، فقط ۱ واحد حرکت هزینه دارد.  
-3. خانه‌های دارای گذرگاه مخفی برای حمله‌های نزدیک یا اثرات دیگر مجاور قلمداد نمی‌شوند.  
-4. همه‌ی مبارزان می‌توانند از آن استفاده کنند، مگر کارت یا اثر دیگری محدودیت اعمال کند.  
+</div>
 `
   },
   {
@@ -157,7 +161,7 @@ div.className =
     function showLongText(title, content) {
         if(!longTextTitle || !longTextContent || !longTextContainer) return;
         longTextTitle.textContent = title;
-        longTextContent.textContent = content;
+        longTextContent.innerHTML = content;
         longTextContainer.classList.remove('hidden');
         longTextContainer.classList.add('block');
         
