@@ -94,6 +94,25 @@ nav,
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(0,0,0,0.4);
 }
+/* Reset the fixed positioning when inside the nav */
+nav .lang-toggle {
+  position: static !important;
+  margin: 0 !important;
+  width: auto !important; /* Let it size based on content */
+  height: auto !important;
+  padding: 8px 16px !important; /* Adjust padding as needed */
+  box-shadow: none !important;
+}
+
+/* Ensure the mobile view doesn't break */
+@media (max-width: 768px) {
+  nav .lang-toggle {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
 
 .force-ltr {
   direction: ltr !important;
@@ -333,26 +352,32 @@ section {
 </style>
 
   <body class="bg-[#0f1115] text-[#e6e6e6] [cursor:none]">
-    <!-- NAV -->
-    <nav class="fixed top-0 w-full z-[1000] bg-[#11141a] border-b border-[#222] px-10 py-[18px] flex items-center justify-between max-md:px-5">
-      <h1 class="text-[20px] tracking-[2px]">UNMATCHED</h1>
+  <!-- NAV -->
+<nav class="fixed top-0 w-full z-[1000] bg-[#11141a] border-b border-[#222] px-10 py-[18px] flex items-center justify-between max-md:px-5">
+  <h1 class="text-[20px] tracking-[2px]">UNMATCHED</h1>
 
-      <div id="menuToggle" class="hidden max-md:block text-[26px] cursor-pointer text-white">
-        ☰
-      </div>
+  <!-- Container for Menu and Toggle to keep them grouped -->
+  <div class="flex items-center gap-6">
+    
+    <ul
+      id="navMenu"
+      class="list-none flex gap-[30px] max-md:absolute max-md:top-[70px] max-md:right-0 max-md:w-full max-md:flex-col max-md:items-center max-md:gap-5 max-md:py-5 max-md:bg-[#11141a] max-md:border-b max-md:border-[#222] max-md:hidden"
+    >
+      <li><a data-i18n="characters" class="no-underline text-[#bbb] hover:text-white transition" href="#characters"></a></li>
+      <li><a data-i18n="boards" class="no-underline text-[#bbb] hover:text-white transition" href="#boards"></a></li>
+      <li><a data-i18n="decks" class="no-underline text-[#bbb] hover:text-white transition" href="#decks"></a></li>
+      <li><a data-i18n="how_to_play" class="no-underline text-[#bbb] hover:text-white transition" href="#how"></a></li>
+    </ul>
 
-      <ul
-        id="navMenu"
-        class="list-none flex gap-[30px] max-md:absolute max-md:top-[70px] max-md:right-0 max-md:w-full max-md:flex-col max-md:items-center max-md:gap-5 max-md:py-5 max-md:bg-[#11141a] max-md:border-b max-md:border-[#222] max-md:hidden"
-      >
-        <li><a data-i18n="characters" class="no-underline text-[#bbb] hover:text-white transition" href="#characters"></a></li>
-        <li><a data-i18n="boards" class="no-underline text-[#bbb] hover:text-white transition" href="#boards"></a></li>
-        <li><a data-i18n="decks" class="no-underline text-[#bbb] hover:text-white transition" href="#decks"></a></li>
-        <li><a data-i18n="how_to_play" class="no-underline text-[#bbb] hover:text-white transition" href="#how"></a></li>
-      </ul>
-
-    <button id="langToggle" class="lang-toggle">FA</button>
-    </nav>
+    <!-- Moved Language Toggle here -->
+    <button id="langToggle" class="lang-toggle text-[#bbb] hover:text-white transition border border-[#333] px-3 py-1 rounded text-[14px]">FA</button>
+    
+    <!-- Menu Toggle (only for mobile) -->
+    <div id="menuToggle" class="hidden max-md:block text-[26px] cursor-pointer text-white">
+      ☰
+    </div>
+  </div>
+</nav>
 
 
 
