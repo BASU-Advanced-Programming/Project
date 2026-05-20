@@ -53,6 +53,40 @@ body {
   text-align: right;
   line-height: 1.8;
 }
+/* Define these variables at the top of your style block */
+  :root {
+    --accent-color: 202, 138, 4; /* Detective Gold */
+  }
+
+/* Page-specific overrides (Add this to your HTML style block for each character) */
+/* For Dracula: 
+   :root { --accent-color: 220, 38, 38; } 
+   For Sherlock: 
+   :root { --accent-color: 234, 179, 8; } 
+*/
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  /* Uses variable for border */
+  border: 1px solid rgba(var(--accent-color), 0.15);
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(var(--accent-color), 0.05);
+  border-radius: 20px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  /* Dynamic Shadow based on variable */
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(var(--accent-color), 0.25);
+  /* Dynamic Border based on variable */
+  border-color: rgba(var(--accent-color), 0.4);
+}
+
 	html:not(.dark) body {
 	background: radial-gradient(
 		circle at top,
@@ -122,16 +156,17 @@ body {
 	  class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]">
 	</canvas>
 	<!-- SHERLOCK HEADER -->
-<header class="sticky top-0 z-50 pt-6 px-4">
+<!-- SHERLOCK HEADER -->
+<header class="relative z-50 pt-6 px-4">
   <div
     class="max-w-6xl mx-auto
            rounded-full px-8 py-4
            flex justify-between items-center
-           bg-black/70 backdrop-blur-xl
+           bg-black/80 backdrop-blur-xl
            border border-yellow-900/60
-           shadow-[0_0_30px_rgba(202,138,4,0.22)]"
+           shadow-[0_0_30px_rgba(202,138,4,0.22)]
+           transition-all duration-300 hover:border-yellow-500/70 hover:shadow-[0_0_40px_rgba(202,138,4,0.35)]"
   >
-
     <!-- Title -->
     <h2
       dir="rtl"
@@ -146,8 +181,6 @@ body {
 
     <!-- Controls -->
     <div class="flex items-center gap-3">
-
-      <!-- Desktop Navigation -->
       <nav
         dir="rtl"
         class="hidden md:flex gap-6 text-sm font-semibold text-slate-300"
@@ -159,7 +192,6 @@ body {
         <a href="#cards" class="hover:text-yellow-400 transition">کارت‌ها</a>
       </nav>
 
-      <!-- Theme Toggle -->
       <button
         id="theme-toggle"
         class="rounded-full w-10 h-10 flex items-center justify-center
@@ -172,14 +204,12 @@ body {
         🌙
       </button>
 
-      <!-- Mobile Hamburger -->
       <button
         id="menuBtn"
         class="md:hidden text-xl text-yellow-300"
       >
         ☰
       </button>
-
     </div>
   </div>
 
@@ -201,7 +231,7 @@ body {
 </header>
 
 	          
-	<section  class="relative z-10 pt-6 md:pt-10">
+<section class="relative z-10 pt-10 md:pt-14">
 	  <!-- Container for centering alignment -->
 	  <div class="max-w-6xl mx-auto px-6 md:px-12">
 	    

@@ -71,6 +71,41 @@ body {
   line-height: 1.8;
 }
 
+/* Define these variables at the top of your style block */
+:root {
+  /* Default Blue (Unmatched) */
+  --accent-color: 59, 130, 246; /* RGB format */
+}
+
+/* Page-specific overrides (Add this to your HTML style block for each character) */
+/* For Dracula: 
+   :root { --accent-color: 220, 38, 38; } 
+   For Sherlock: 
+   :root { --accent-color: 234, 179, 8; } 
+*/
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.65);
+  /* Uses variable for border */
+  border: 1px solid rgba(var(--accent-color), 0.15);
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(var(--accent-color), 0.05);
+  border-radius: 20px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  /* Dynamic Shadow based on variable */
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(var(--accent-color), 0.25);
+  /* Dynamic Border based on variable */
+  border-color: rgba(var(--accent-color), 0.4);
+}
+
 
       /* Small custom touches */
       .blood-gradient {
