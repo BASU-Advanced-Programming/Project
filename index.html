@@ -348,6 +348,29 @@ section {
   scroll-margin-top: 100px; /* adjust to your navbar height */
 }
 
+/* Thunder Flash Animation */
+@keyframes thunder-flash {
+  0% { background-color: rgba(255, 255, 0, 0); }
+  20% { background-color: rgba(255, 255, 0, 0.4); }
+  40% { background-color: rgba(255, 255, 0, 0); }
+  60% { background-color: rgba(255, 255, 0, 0.3); }
+  100% { background-color: rgba(0, 0, 0, 0); }
+}
+
+.thunder-effect {
+  animation: thunder-flash 0.5s ease-out forwards;
+}
+/* Shake animation for impact */
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-5px, 2px); }
+  20%, 40%, 60%, 80% { transform: translate(5px, -2px); }
+}
+
+.shake-it {
+  animation: screen-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
 
 </style>
 
@@ -647,7 +670,7 @@ section {
       <h2 data-i18n="character_decks_header" class="text-[36px] mb-10 text-center"></h2>
 
       <div class="flex flex-col gap-[60px]">
-        <!-- Invisible Man -->
+        Invisible Man
         <div class="flex items-center gap-5 relative">
           <img
             src="images/invBackCard.png"

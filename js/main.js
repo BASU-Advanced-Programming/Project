@@ -33,7 +33,7 @@ const translations = {
 
     /* game board section */
     game_boards_section: "Game Boards",
-    maps_soho_street_title: "Soho Streets",
+    maps_soho_street_title: "Baskerville Manor",
     maps_soho_street_info: "foggy city battlefield perfect for cunning tactics.",
     maps_soho_street_view_button: "View Map Details",
     maps_dracula_castle_title: "Dracula's Castle",
@@ -141,10 +141,10 @@ const translations = {
 
     /* game board section */
     game_boards_section: "نقشه های بازی",
-    maps_soho_street_title: "خیابان های سوهو",
+    maps_soho_street_title: "Baskerville Manor",
     maps_soho_street_info: "میدان نبردی شهری و مه‌آلود، ایده‌آل برای تاکتیک‌های زیرکانه.",
     maps_soho_street_view_button: "مشاهده نقشه",
-    maps_dracula_castle_title: "قلعه دراکولا",
+    maps_dracula_castle_title: "Dracula's Castle",
     maps_dracula_castle_info: "قلعه‌ای ترسناک و تاریک، سرشار از خطر و فرصت‌های کمین.",
     maps_dracula_castle_view_button: "مشاهده نقشه",
     character_decks_header: "دسته کارت مبارزها",
@@ -940,17 +940,19 @@ function getActions(lang) {
         </div></div>
       </div>
     `,
-    scheme: `
-      <h4 class="text-lg font-semibold mb-2">${t.scheme_header}</h4>
-      <p class="text-slate-400">${t.scheme_text}</p>
-    `
+scheme: `
+  <div id="scheme-container" class="relative transition-all duration-300">
+    <h4 class="text-lg font-semibold mb-2">${t.scheme_header}</h4>
+    <p class="text-slate-400">${t.scheme_text}</p>
+  </div>
+`
+
   };
 }
 
 actionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const action = btn.dataset.action;
-
     const currentActions = getActions(currentLang);
 
     if (activeAction === action) {
@@ -962,10 +964,37 @@ actionButtons.forEach(btn => {
     display.innerHTML = currentActions[action];
     activeAction = action;
 
+    // Trigger the THUNDER effect if it's a scheme
+    if (action === "scheme") {
+      triggerThunder();
+    }
+    
     if (action === "maneuver") initManeuverMap();
     if (action === "attack") initAttackCards();
   });
 });
+
+// Helper function to trigger the effect
+function triggerThunder() {
+  const container = document.getElementById("action-display");
+  if (!container) return;
+
+  // 1. Shake the container
+  container.classList.add("shake-it");
+  
+  // 2. Draw the lightning bolt
+  drawLightning(container);
+  
+  // 3. Flash the background
+  container.style.transition = "background 0.1s";
+  container.style.backgroundColor = "rgba(255, 255, 0, 0.85)";
+  
+  setTimeout(() => {
+    container.style.backgroundColor = ""; // Reset
+    container.classList.remove("shake-it");
+  }, 400);
+}
+
 
 
 function initManeuverMap() {
@@ -1110,4 +1139,39 @@ function getReachable(start, steps) {
   placeFighter(currentNode);
 
   enableMovement();
+}
+
+function drawLightning(container) {
+  const rect = container.getBoundingClientRect();
+  const canvas = document.createElement("canvas");
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = "100";
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  container.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  
+  // Lightning Drawing Logic
+  let x = Math.random() * rect.width;
+  let y = 0;
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 3;
+  ctx.shadowBlur = 15;
+  ctx.shadowColor = "yellow";
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+
+  while (y < rect.height) {
+    x += (Math.random() - 0.5) * 40;
+    y += Math.random() * 20;
+    ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // Remove the canvas after the flash
+  setTimeout(() => canvas.remove(), 200);
 }
