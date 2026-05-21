@@ -61,6 +61,27 @@ nav,
   text-align: left !important;
 }
 
+/* Mobile deck fix */
+@media (max-width: 768px) {
+
+  .deck-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .deck-cards {
+    position: relative;
+    width: 100%;
+    height: 220px;   /* space for the fan */
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .deck-cards.fan {
+    overflow: visible;
+  }
+
+}
 
 /*language translater button in normal*/
 .lang-toggle{

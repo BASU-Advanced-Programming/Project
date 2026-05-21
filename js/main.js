@@ -290,7 +290,7 @@ const isOpen = deck.classList.toggle("open");
       return;
     }
 
-   if (window.innerWidth <= 1580) {
+  if (window.innerWidth <= 768)    {
       createFanEffect(deck);   // ONLY MOBILE
     }
 
