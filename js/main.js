@@ -14,6 +14,7 @@ reveals.forEach(el=>observer.observe(el));
 const translations = {
   en: {
     /* more than one uses */
+     view_details_button: "View Details",
     deck_status_total: "TOTAL",
     deck_status_unique_cards: "Unique Cards",
     deck_status_total_cards: "Total Cards",
@@ -122,6 +123,7 @@ const translations = {
   },
   fa: {
     /* more than one uses */
+    view_details_button: "مشاهده جزئیات",
     deck_status_total: "مجموع",
     deck_status_unique_cards: "کارت های خاص",
     deck_status_total_cards: "تمام کارت ها",
