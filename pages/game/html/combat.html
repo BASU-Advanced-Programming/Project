@@ -1,135 +1,485 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>راهنمای نبرد | Combat Guide</title>
+
     <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              vazir: ["Vazir", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700&display=swap');
-        body { font-family: 'Vazirmatn', sans-serif; background-color: #0f172a; color: #e2e8f0; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        @font-face {
+            font-family: 'Vazir';
+            src: url('../../../fonts/Vazir.woff2') format('woff2'),
+                 url('../../../fonts/Vazir.woff') format('woff'),
+                 url('../../../fonts/Vazir.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Vazir';
+            src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
+                 url('../../../fonts/Vazir-Bold.woff') format('woff'),
+                 url('../../../fonts/Vazir-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Vazir', "Tahoma", sans-serif;
+            background: radial-gradient(circle at top right, #0f172a 0%, #0a0f1d 50%, #020617 100%);
+            color: #e2e8f0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        html:not(.dark) body {
+            background: radial-gradient(circle at top right, #e0e7ff 0%, #c7d2fe 50%, #93a5fd 100%);
+            color: #0f172a;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 15px rgba(59, 130, 246, 0.05);
+            border-radius: 20px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        html:not(.dark) .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to left, #60a5fa, #3b82f6, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
     </style>
 </head>
-<body class="bg-[#0f1115] text-[#e6e6e6] [cursor:none] pt-16">
+<body class="min-h-screen relative text-slate-200 font-vazir">
     
-    <canvas id="cursor-canvas" class="fixed inset-0 pointer-events-none z-[9999]"></canvas>
+    <canvas id="cursor-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50;"></canvas>
 
-    <div class="max-w-4xl mx-auto">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-bold mb-12 gradient-text pb-3">قوانین نبرد و دفاع</h1>
-            <p class="text-slate-400 mt-4">راهنمای جامع سیستم حمله، دفاع و تعیین برنده در بازی</p>
-        </header>
+    <header class="relative z-40 pt-6 px-4">
+      <div class="max-w-4xl mx-auto glass-card !rounded-full px-8 py-4 flex justify-between items-center bg-white/70 dark:bg-slate-900/70 animate-fade-in-up" style="animation-delay: 0.1s;">
+        <h2 class="text-xl md:text-2xl font-black flex items-center gap-3 gradient-text">
+          <i class="fas fa-khanda"></i>
+          <span>راهنمای نبرد و دفاع</span>
+        </h2>
+        <div class="flex items-center gap-2">
+          <button id="theme-toggle" class="rounded-full border px-4 py-2 text-sm font-semibold bg-blue-50 text-blue-800 dark:bg-slate-800 dark:text-blue-200 border-blue-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
+            🌙
+          </button>
+        </div>
+      </div>
+    </header>
 
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
-                <span class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm text-white">1</span>
-                مراحل اجرای نبرد (Combat Order)
+    <div class="max-w-4xl mx-auto px-4 py-12 relative z-10">
+
+        <!-- HERO Section -->
+        <section class="text-center mb-16 relative animate-fade-in-up" style="animation-delay: 0.2s;">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-32 bg-blue-500/10 blur-3xl rounded-full -z-10"></div>
+            <span class="inline-block py-1 px-4 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm mb-4 font-bold tracking-widest">
+                COMBAT SYSTEM
+            </span>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                راهنمای جامع سیستم حمله، دفاع، مبارزان و تعیین برنده در بازی بر اساس قوانین رسمی
+            </p>
+        </section>
+
+        <!-- مبارزان -->
+        <section class="glass-card p-8 mb-10 animate-fade-in-up" style="animation-delay: 0.3s;">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                <i class="fas fa-users"></i> مبارزان (Fighters)
             </h2>
-            <div class="space-y-4 border-r-2 border-blue-500/30 pr-6 mr-4">
-                <div class="relative">
-                    <div class="absolute -right-[33px] top-1 w-4 h-4 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
-                    <h3 class="font-bold text-blue-400">۱. اثرهای فوری (Immediately)</h3>
-                    <p class="text-sm text-slate-400">اولین چیزی که پس از رو شدن کارت‌ها حل می‌شود.</p>
-                </div>
-                <div class="relative">
-                    <div class="absolute -right-[33px] top-1 w-4 h-4 bg-indigo-500 rounded-full"></div>
-                    <h3 class="font-bold text-indigo-400">۲. در حین نبرد (During Combat)</h3>
-                    <p class="text-sm text-slate-400">اثرهایی که روی قدرت حمله یا دفاع تاثیر می‌گذارند.</p>
-                </div>
-                <div class="relative">
-                    <div class="absolute -right-[33px] top-1 w-4 h-4 bg-purple-500 rounded-full"></div>
-                    <h3 class="font-bold text-purple-400">۳. تعیین نتیجه و آسیب</h3>
-                    <p class="text-sm text-slate-400">محاسبه Damage و اعمال روی Health Dial.</p>
-                </div>
-                <div class="relative">
-                    <div class="absolute -right-[33px] top-1 w-4 h-4 bg-pink-500 rounded-full"></div>
-                    <h3 class="font-bold text-pink-400">۴. پس از نبرد (After Combat)</h3>
-                    <p class="text-sm text-slate-400">اجرای قابلیت‌های ویژه و انتقال کارت‌ها به Discard Pile.</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-16">
-            <div class="glass p-6 rounded-2xl hover:scale-[1.02] transition-transform">
-                <div class="text-red-400 text-3xl mb-4">⚔️ حمله (Attack)</div>
-                <p class="text-sm leading-7 text-slate-300">
-                    مهاجم کارت را بازی می‌کند. مقدار <span class="text-red-400 font-bold">Attack Value</span> مبنای آسیب است.
-                    تمام اثرها <span class="bg-red-500/20 px-1 rounded text-red-300 font-bold">اجباری</span> هستند.
+            <div class="space-y-4 text-slate-700 dark:text-slate-300 leading-8">
+                <p>
+                    تمام کارکترهایی که در میدان نبرد دارید <b>مبارز (Fighter)</b> نامیده می‌شوند.
+                    مبارز اصلی شما <b>قهرمان (Hero)</b> است که با یک مینیاتور روی صفحه بازی نمایش داده می‌شود.
+                </p>
+                <p>
+                    بقیه مبارزان شما <b>یاران (Sidekicks)</b> هستند که معمولاً با توکن روی صفحه نمایش داده می‌شوند.
+                    سلامت هر مبارز با <b>Health Dial</b> پیگیری می‌شود و هرگز نمی‌تواند از سلامت اولیه بیشتر شود. یاران بدون Health Dial تنها 1 جان دارند.
                 </p>
             </div>
-            <div class="glass p-6 rounded-2xl hover:scale-[1.02] transition-transform">
-                <div class="text-green-400 text-3xl mb-4">🛡️ دفاع (Defense)</div>
-                <p class="text-sm leading-7 text-slate-300">
-                    دفاع <span class="text-green-400 font-bold">اختیاری (May)</span> است. 
-                    کارت به صورت Face-down گذاشته شده و مقدار آن از Damage مهاجم کم می‌شود.
-                </p>
-            </div>
-        </div>
-        <section class="mb-16 glass p-8 rounded-3xl">
-            <h2 class="text-2xl font-bold mb-6 text-center">نوع کارکترها و هدف‌گیری</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                    <h3 class="text-xl mb-2 text-orange-400 font-bold">نزدیک‌زن (Melee)</h3>
-                    <ul class="list-disc list-inside text-sm space-y-2 text-slate-400">
-                        <li>فقط فضاهای مجاور (Adjacent).</li>
-                        <li>گذرگاه مخفی مجاورت ایجاد نمی‌کند.</li>
-                    </ul>
+        </section>
+        <!-- اکشن حمله (بخش جامع و تفصیلی جدید) -->
+        <section class="glass-card p-8 mb-10 animate-fade-in-up" style="animation-delay: 0.4s;">
+            <h2 class="text-3xl font-black mb-4 text-red-600 dark:text-red-500 flex items-center gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
+                <i class="fas fa-fire-alt drop-shadow-md"></i> مراحل جامع حمله (Attack Action)
+            </h2>
+            <p class="mb-8 text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
+                برای انجام اکشن حمله، ابتدا باید اعلام کنید کدام یک از مبارزان شما حمله را انجام می‌دهد (مبارز فعال). 
+                <span class="inline-block mt-2 bg-amber-100 text-amber-900 dark:bg-amber-900/30 dark:text-amber-200 px-3 py-1 rounded-md text-sm font-semibold border border-amber-200 dark:border-amber-800/50">
+                    <i class="fas fa-exclamation-triangle ml-1"></i> توجه: در صورتی که کارت حمله‌ای در دست ندارید یا هیچ هدف معتبری در دسترس نیست، نمی‌توانید اکشن حمله را انتخاب کنید.
+                </span>
+            </p>
+
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 dark:before:via-slate-600 before:to-transparent">
+                
+                <!-- گام 1 -->
+                <div class="relative z-10 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden group transition-all hover:shadow-xl">
+                    <div class="absolute right-0 top-0 bottom-0 w-2 bg-gradient-to-b from-red-400 to-red-600"></div>
+                    <div class="p-6 pr-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 text-red-600 dark:bg-red-900/50 dark:text-red-400 font-black text-xl shadow-inner">۱</span>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white">تعیین هدف (Declare Target)</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 text-sm leading-relaxed">
+                            هر مبارزی می‌تواند یک مبارز حریف را در <b>فضای مجاور (Adjacent Space)</b> هدف قرار دهد، صرف نظر از اینکه در چه منطقه‌ای (Zone) قرار دارند.
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700/50 shadow-sm flex gap-3 items-start">
+                                <div class="bg-orange-100 dark:bg-orange-900/50 text-orange-600 dark:text-orange-400 p-2 rounded-lg"><i class="fas fa-fist-raised"></i></div>
+                                <div>
+                                    <strong class="block text-slate-800 dark:text-slate-200 mb-1 text-sm">نزدیک‌زن (Melee)</strong>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed block">فقط می‌توانند به مبارزانی حمله کنند که در فضاهای مجاور (چسبیده با خط مستقیم) قرار دارند.</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-100 dark:border-slate-700/50 shadow-sm flex gap-3 items-start">
+                                <div class="bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 p-2 rounded-lg"><i class="fas fa-bow-arrow"></i></div>
+                                <div>
+                                    <strong class="block text-slate-800 dark:text-slate-200 mb-1 text-sm">دورزن (Ranged)</strong>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed block">می‌توانند به مبارزان مجاور <b>یا</b> هر مبارزی که در <b>همان Zone (منطقه هم‌رنگ)</b> با مهاجم قرار دارد حمله کنند.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                    <h3 class="text-xl mb-2 text-blue-400 font-bold">دورزن (Ranged)</h3>
-                    <ul class="list-disc list-inside text-sm space-y-2 text-slate-400">
-                        <li>هدف در فضای مجاور.</li>
-                        <li>هدف در همان Zone (حتی غیرمجاور).</li>
-                    </ul>
+
+                <!-- گام 2 -->
+                <div class="relative z-10 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden group transition-all hover:shadow-xl">
+                    <div class="absolute right-0 top-0 bottom-0 w-2 bg-gradient-to-b from-indigo-400 to-indigo-600"></div>
+                    <div class="p-6 pr-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400 font-black text-xl shadow-inner">۲</span>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white">انتخاب و رو کردن کارت‌ها (Choose and Reveal)</h3>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed flex items-start gap-2">
+                                <i class="fas fa-arrow-left text-indigo-400 mt-1 text-xs"></i>
+                                <span>به‌عنوان <b>مهاجم</b>، باید یک کارت حمله (Attack یا Versatile) مجاز برای کارکتر خود از دستتان انتخاب کرده و <b>به پشت </b> روی میز بگذارید.</span>
+                            </p>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed flex items-start gap-2">
+                                <i class="fas fa-arrow-left text-indigo-400 mt-1 text-xs"></i>
+                                <span>سپس <b>مدافع</b> می‌تواند (اختیاری است، مجبور نیست) یک کارت دفاع مجاز برای کارکتر هدف از دستش انتخاب کرده و به پشت قرار دهد.</span>
+                            </p>
+                        </div>
+                        <div class="mt-5 bg-gradient-to-r from-indigo-50 to-white dark:from-indigo-900/30 dark:to-slate-800/50 border border-indigo-100 dark:border-indigo-800/50 p-4 rounded-xl text-sm font-bold flex items-center gap-3 shadow-inner">
+                            <div class="bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-md">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <span class="text-indigo-900 dark:text-indigo-200">پس از انتخاب، هر دو بازیکن کارت‌های خود را <b>همزمان</b> رو می‌کنند.</span>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- گام 3 -->
+                <div class="relative z-10 bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden group transition-all hover:shadow-xl">
+                    <div class="absolute right-0 top-0 bottom-0 w-2 bg-gradient-to-b from-purple-400 to-purple-600"></div>
+                    <div class="p-6 pr-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900/50 dark:text-purple-400 font-black text-xl shadow-inner">۳</span>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white">حل نبرد (Resolve Combat)</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 mb-5 text-sm leading-relaxed">
+                            بیشتر کارت‌ها دارای افکت‌هایی با لیبل زمانی هستند. این افکت‌ها <b>اجباری</b> هستند (مگر کلمه "May" ذکر شده باشد) و ممکن است حتی به مبارز خودتان آسیب بزنند!
+                        </p>
+                        
+                        <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/50 p-4 mb-6 rounded-xl flex gap-4 items-center shadow-sm relative overflow-hidden">
+                            <div class="absolute -right-4 -top-4 text-red-100 dark:text-red-900/20 text-6xl"><i class="fas fa-balance-scale"></i></div>
+                            <div class="relative z-10 text-red-600 dark:text-red-400 text-2xl"><i class="fas fa-exclamation-circle"></i></div>
+                            <div class="relative z-10 text-sm text-red-900 dark:text-red-200">
+                                <b class="font-black text-red-700 dark:text-red-400">قانون طلایی:</b> اگر افکت‌های دو کارت همزمان رخ دهند، <b>ابتدا افکت مدافع (Defender)</b> اجرا می‌شود و سپس مهاجم.
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-5 border border-slate-100 dark:border-slate-700/50 shadow-inner">
+                            <h4 class="text-sm font-bold text-slate-500 dark:text-slate-400 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">ترتیب اجرای رویدادها:</h4>
+                            <ol class="space-y-4 text-sm text-slate-700 dark:text-slate-300 font-medium relative border-r-2 border-slate-200 dark:border-slate-700 pr-4">
+                                <li class="relative before:absolute before:-right-[23px] before:top-1.5 before:w-3 before:h-3 before:bg-purple-500 before:rounded-full before:border-2 before:border-white dark:before:border-slate-800">
+                                    <strong class="text-purple-600 dark:text-purple-400 block mb-1">اجرای افکت‌های فوری (Immediately):</strong>
+                                    <span class="font-normal text-xs text-slate-500 dark:text-slate-400">درست پس از رو شدن کارت‌ها بررسی می‌شوند.</span>
+                                </li>
+                                <li class="relative before:absolute before:-right-[23px] before:top-1.5 before:w-3 before:h-3 before:bg-cyan-500 before:rounded-full before:border-2 before:border-white dark:before:border-slate-800">
+                                    <strong class="text-cyan-600 dark:text-cyan-400 block mb-1">اجرای افکت‌های حین نبرد (During Combat):</strong>
+                                    <span class="font-normal text-xs text-slate-500 dark:text-slate-400">معمولاً روی قدرت کارت‌ها تأثیر می‌گذارند.</span>
+                                </li>
+                                <li class="relative bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 -ml-2 before:absolute before:-right-[23px] before:top-4 before:w-3 before:h-3 before:bg-rose-500 before:rounded-full before:border-2 before:border-white dark:before:border-slate-800">
+                                    <strong class="text-slate-900 dark:text-white flex items-center gap-2 mb-1"><i class="fas fa-heart-crack text-rose-500"></i> محاسبه و اعمال آسیب (Damage):</strong>
+                                    <span class="font-normal text-xs text-slate-600 dark:text-slate-400">مقدار دفاع کارت مدافع (در صورت وجود) از مقدار حمله مهاجم کسر می‌شود. اگر عددی ماند، از سلامت (Health) مدافع کم می‌شود.</span>
+                                </li>
+                                <li class="relative before:absolute before:-right-[23px] before:top-1.5 before:w-3 before:h-3 before:bg-pink-500 before:rounded-full before:border-2 before:border-white dark:before:border-slate-800">
+                                    <strong class="text-pink-600 dark:text-pink-400 block mb-1">اجرای افکت‌های پس از نبرد (After Combat):</strong>
+                                    <span class="font-normal text-xs text-slate-500 dark:text-slate-400">حتی اگر مبارزی طی ضربه اصلی کشته شده باشد، افکت کارت او اجرا می‌شود.</span>
+                                </li>
+                                <!-- <li class="relative before:absolute before:-right-[23px] before:top-1.5 before:w-3 before:h-3 before:bg-orange-500 before:rounded-full before:border-2 before:border-white dark:before:border-slate-800">
+                                    <strong class="text-orange-600 dark:text-orange-400 block mb-1">سایر افکت‌های بازی:</strong>
+                                    <span class="font-normal text-xs text-slate-500 dark:text-slate-400">مانند قدرت ویژه (Special Ability) قهرمان‌ها که زمان‌بندی آن‌ها پس از نبرد است.</span>
+                                </li> -->
+                                <li class="relative before:absolute before:-right-[23px] before:top-1.5 before:w-3 before:h-3 before:bg-slate-400 before:rounded-full before:border-2 before:border-white dark:before:border-slate-800">
+                                    <strong class="text-slate-600 dark:text-slate-400 block mb-1">پایان درگیری:</strong>
+                                    <span class="font-normal text-xs text-slate-500 dark:text-slate-400">کارت‌های استفاده شده به دسته کارت‌های سوخته منتقل می‌شوند.</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
-
-<!-- Combat Simulator (اصلاح شده - نهایی) -->
-<section class="mb-16 bg-gradient-to-br from-indigo-900/40 to-slate-900 p-8 rounded-3xl border border-indigo-500/30">
-    <h2 class="text-2xl font-bold mb-8 text-center text-white">شبیه‌ساز نتیجه نبرد</h2>
-    
-    <!-- اضافه کردن dir="ltr" برای اینکه حمله حتما سمت چپ بماند -->
-    <div class="flex flex-col items-center gap-8" dir="ltr">
-        
-        <div class="flex items-center justify-center gap-6 md:gap-12">
+     <!-- Combat Simulator -->
+        <section class="mb-10 glass-card bg-gradient-to-br from-indigo-50/50 to-white/50 dark:from-indigo-900/40 dark:to-slate-900 p-8 rounded-3xl border border-indigo-200 dark:border-indigo-500/30 animate-fade-in-up" style="animation-delay: 0.8s;">
+            <h2 class="text-2xl font-bold mb-8 text-center text-slate-800 dark:text-white flex justify-center items-center gap-2">
+                <i class="fas fa-calculator"></i> شبیه‌ساز نتیجه نبرد مستقیم
+            </h2>
+            <p class="text-center text-sm text-slate-500 mb-6">این شبیه‌ساز تنها ارزش کارت‌ها را (بدون در نظر گرفتن افکت‌ها) محاسبه می‌کند.</p>
             
-            <!-- ورودی حمله (سمت چپ) -->
-            <div class="flex flex-col items-center gap-2">
-                <label for="atkVal" class="text-sm text-red-400 font-bold mb-1">قدرت حمله</label>
-                <input type="number" id="atkVal" value="3" min="0" oninput="if(this.value<0)this.value=0" class="bg-slate-800 border-2 border-red-500/50 p-3 rounded-xl w-24 text-center text-2xl font-bold text-white focus:border-red-500 outline-none transition-all">
+            <div class="flex flex-col items-center gap-8" dir="ltr">
+                <div class="flex items-center justify-center gap-6 md:gap-12 w-full max-w-lg">
+                    <!-- ورودی حمله (سمت چپ) -->
+                    <div class="flex flex-col items-center gap-2 flex-1">
+                        <label for="atkVal" class="text-sm text-red-500 font-bold mb-1">قدرت حمله</label>
+                        <input type="number" id="atkVal" value="3" min="0" oninput="if(this.value<0)this.value=0" class="bg-white dark:bg-slate-800 border-2 border-red-300 dark:border-red-500/50 p-3 rounded-xl w-full text-center text-2xl font-bold text-slate-800 dark:text-white focus:border-red-500 outline-none transition-all shadow-sm">
+                    </div>
+
+                    <div class="text-3xl font-bold text-slate-400 dark:text-slate-500 mt-6 italic">VS</div>
+
+                    <!-- ورودی دفاع (سمت راست) -->
+                    <div class="flex flex-col items-center gap-2 flex-1">
+                        <label for="defVal" class="text-sm text-green-500 font-bold mb-1">قدرت دفاع</label>
+                        <input type="number" id="defVal" value="1" min="0" oninput="if(this.value<0)this.value=0" class="bg-white dark:bg-slate-800 border-2 border-green-300 dark:border-green-500/50 p-3 rounded-xl w-full text-center text-2xl font-bold text-slate-800 dark:text-white focus:border-green-500 outline-none transition-all shadow-sm">
+                    </div>
+                </div>
+
+                <button onclick="calculateCombat()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 hover:scale-105 active:scale-95 text-white px-10 py-3 rounded-xl font-bold text-lg transition-all shadow-lg shadow-blue-500/30">
+                    محاسبه نتیجه
+                </button>
+
+                <div id="resultBox" dir="rtl" class="w-full max-w-md mt-2 p-6 rounded-2xl bg-white/50 dark:bg-white/10 border border-slate-200 dark:border-white/10 hidden transform transition-all text-center">
+                    <div id="damageResult" class="text-2xl mb-2 font-bold text-slate-800 dark:text-white"></div>
+                    <div id="winnerResult" class="font-black text-xl tracking-wide mt-3"></div>
+                </div>
             </div>
+        </section>
 
-            <div class="text-3xl font-bold text-slate-500 mt-6 italic">VS</div>
 
-            <!-- ورودی دفاع (سمت راست) -->
-            <div class="flex flex-col items-center gap-2">
-                <label for="defVal" class="text-sm text-green-400 font-bold mb-1">قدرت دفاع</label>
-                <input type="number" id="defVal" value="1" min="0" oninput="if(this.value<0)this.value=0" class="bg-slate-800 border-2 border-green-500/50 p-3 rounded-xl w-24 text-center text-2xl font-bold text-white focus:border-green-500 outline-none transition-all">
+   
+
+                <!-- بخش مثال‌های نبرد -->
+        <section class="glass-card p-8 mb-10 animate-fade-in-up" style="animation-delay: 0.6s;">
+            <h2 class="text-3xl font-black mb-6 text-indigo-600 dark:text-indigo-400 flex items-center gap-3 border-b border-slate-200 dark:border-slate-700 pb-4">
+                <i class="fas fa-chess-board drop-shadow-md"></i> مثال‌های حل نبرد 
+            </h2>
+            <p class="mb-8 text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
+                بررسی مثال‌های واقعی به درک بهتر زمان‌بندی افکت‌ها و قوانین نبرد کمک می‌کند. در ادامه چند سناریوی کاربردی را مرور می‌کنیم:
+            </p>
+
+            <div class="space-y-10">
+
+                <!-- مثال ۱ (بر اساس تصویر ارسالی شما) -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col xl:flex-row group transition-all hover:shadow-lg">
+                    <!-- بخش تصویر -->
+                    <div class="xl:w-2/5 bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 border-b xl:border-b-0 xl:border-l border-slate-200 dark:border-slate-700 relative overflow-hidden">
+                        <!-- جایگزین کردن src با مسیر تصویر خودتان -->
+                        <img src="../../../images/combatex.jpg" alt="Holmes vs Dracula Combat Example" class="rounded-xl shadow-sm object-contain max-h-80 w-full hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-6 left-6 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">مثال ۱</div>
+                    </div>
+                    
+                    <!-- بخش توضیحات -->
+                    <div class="xl:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">اهمیت ترتیب اجرا: اولویت با مدافع است!</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">شرلوک هولمز (مهاجم) در برابر دراکولا (مدافع)</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-layer-group text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-700 dark:text-slate-300 text-sm mb-1">کارت‌های بازی شده:</strong>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        هولمز کارت <span class="font-bold text-purple-600 dark:text-purple-400">Counterpunch</span> (ارزش ۳) را بازی می‌کند. <br>
+                                        دراکولا کارت <span class="font-bold text-purple-600 dark:text-purple-400">Dash</span> (ارزش ۳) را به عنوان دفاع رو می‌کند.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-heart-crack text-rose-500 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-700 dark:text-slate-300 text-sm mb-1">محاسبه آسیب اولیه:</strong>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        هیچ افکت فوری (Immediately) یا حین نبرد (During Combat) وجود ندارد. ارزش کارت‌ها برابر است (3 - 3 = 0)، بنابراین این حمله هیچ آسیبی وارد نمی‌کند.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-xl border border-indigo-100 dark:border-indigo-800/50 mt-4">
+                                <strong class="block text-indigo-800 dark:text-indigo-300 text-sm mb-2 flex items-center gap-2">
+                                    <span class="bg-pink-500 text-white text-[10px] px-2 py-0.5 rounded uppercase tracking-wider">After Combat</span>
+                                    اجرای افکت‌ها
+                                </strong>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    هر دو کارت دارای افکت <b>پس از نبرد</b> هستند. طبق قانون، ابتدا افکت مدافع اجرا می‌شود:<br><br>
+                                    ۱. <b>دراکولا (مدافع):</b> با افکت Dash، دراکولا تا ۳ خانه حرکت می‌کند و از هولمز دور می‌شود.<br>
+                                    ۲. <b>هولمز (مهاجم):</b> حالا نوبت افکت Counterpunch است که می‌گوید "اگر مجاور هدف هستید، ۲ آسیب به او بزنید". از آنجایی که دراکولا دور شده و دیگر مجاور نیست، این افکت باطل شده و <b>هیچ اتفاقی نمی‌افتد!</b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- 
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col xl:flex-row-reverse group transition-all hover:shadow-lg">
+                    <div class="xl:w-2/5 bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4 border-b xl:border-b-0 xl:border-r border-slate-200 dark:border-slate-700 relative overflow-hidden min-h-[250px]">
+                        <div class="text-slate-400 flex flex-col items-center gap-3">
+                            <i class="far fa-image text-5xl"></i>
+                            <span class="text-sm font-medium">تصویر مثال دوم (مثلاً کارت Feint)</span>
+                        </div>
+                        <div class="absolute top-6 right-6 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">مثال ۲</div>
+                    </div>
+                    
+                    <div class="xl:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">قدرت افکت‌های فوری (Immediately)</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">قهرمان الف (مهاجم) در برابر قهرمان ب (مدافع)</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-layer-group text-slate-400 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-700 dark:text-slate-300 text-sm mb-1">کارت‌های بازی شده:</strong>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        مهاجم یک کارت قدرتمند با ارزش ۵ و افکت <i>During Combat</i> بازی می‌کند.<br>
+                                        مدافع کارت معروف <b>Feint</b> (ارزش ۲) را بازی می‌کند.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-xl border border-teal-100 dark:border-teal-800/50 my-4">
+                                <strong class="block text-teal-800 dark:text-teal-300 text-sm mb-2 flex items-center gap-2">
+                                    <span class="bg-purple-500 text-white text-[10px] px-2 py-0.5 rounded uppercase tracking-wider">Immediately</span>
+                                    اجرای افکت کارت مدافع
+                                </strong>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    کارت Feint دارای افکت <b>فوری</b> است که می‌گوید "تمام افکت‌های کارت حریف را خنثی کنید (Cancel all effects)". بنابراین قبل از هر اتفاق دیگری، افکت کارت مهاجم کاملاً پاک شده و نادیده گرفته می‌شود.
+                                </p>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-heart-crack text-rose-500 mt-1"></i>
+                                <div>
+                                    <strong class="block text-slate-700 dark:text-slate-300 text-sm mb-1">محاسبه آسیب:</strong>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        چون افکت کارت مهاجم خنثی شده، فقط ارزش عددی آن (۵) در برابر دفاع مدافع (۲) محاسبه می‌شود. در نتیجه ($5 - 2 = 3$) واحد آسیب به سلامت مدافع وارد می‌گردد، اما از افکت‌های خطرناک کارت مهاجم جلوگیری شد!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
             </div>
+        </section>
 
+                <!-- برنده نبرد و پایان بازی -->
+        <div class="grid md:grid-cols-2 gap-6 mb-10 animate-fade-in-up" style="animation-delay: 0.7s;">
+            <section class="glass-card p-6 border-t-4 border-t-emerald-500">
+                <h2 class="text-xl font-bold mb-4 text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                    <i class="fas fa-trophy"></i> تعیین برنده نبرد
+                </h2>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">برخی کارت‌ها به شرط "برنده شدن در نبرد" کار می‌کنند. نحوه تعیین برنده:</p>
+                <ul class="list-disc list-inside space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                    <li><b>مهاجم پیروز است:</b> اگر <b>حداقل 1 آسیب (Damage)</b> مستقیماً از طریق ارزش کارت حمله (نه افکت‌ها) به مدافع وارد کند.</li>
+                    <li><b>مدافع پیروز است:</b> اگر <b>هیچ آسیبی (0)</b> از ضربه مستقیم مهاجم دریافت نکند (حتی اگر بخاطر افکت کارت‌ها آسیب ببیند).</li>
+                </ul>
+            </section>
+            
+            <section class="glass-card p-6 border-t-4 border-t-slate-800">
+                <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-skull"></i> شکست و پایان بازی
+                </h2>
+                <ul class="list-disc list-inside space-y-3 text-sm text-slate-700 dark:text-slate-300">
+                    <li>هرگاه سلامت مبارزی به <b>0</b> برسد، فوراً از بازی حذف می‌شود.</li>
+                    <li>اگر یار (Sidekick) کشته شود، توکن آن از نقشه برداشته می‌شود.</li>
+                    <li>اگر <b>قهرمان (Hero)</b> حریف به <b>0</b> سلامت برسد، بازی فوراً به پایان می‌رسد و <b>شما برنده بازی می‌شوید!</b></li>
+                </ul>
+            </section>
         </div>
 
-        <!-- دکمه محاسبه -->
-        <button onclick="calculateCombat()" class="bg-indigo-600 hover:bg-indigo-500 hover:scale-105 active:scale-95 text-white px-12 py-4 rounded-2xl font-extrabold text-lg transition-all shadow-xl shadow-indigo-500/20">
-            محاسبه نتیجه نبرد
-        </button>
 
-        <!-- باکس نمایش نتیجه (دارای جهت فارسی برای متن) -->
-        <div id="resultBox" dir="rtl" class="w-full max-w-md mt-4 p-6 rounded-2xl bg-white/10 border border-white/10 hidden transform transition-all">
-            <div id="damageResult" class="text-center text-2xl mb-2 font-bold text-white"></div>
-            <div id="winnerResult" class="text-center font-black text-xl tracking-wide"></div>
-        </div>
-    </div>
-</section>
-        <footer class="text-center pb-10 text-slate-500 text-sm italic">
-            اگر سلامت هر کارکتر به صفر برسد، بازی به پایان می‌رسد.
-        </footer>
     </div>
 
+    <!-- Scripts -->
+    <script>
+        const themeBtn = document.getElementById("theme-toggle");
+        function updateThemeBtn() {
+            themeBtn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+        }
+        themeBtn.onclick = () => {
+            document.documentElement.classList.toggle("dark");
+            localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+            updateThemeBtn();
+        };
+        if (localStorage.theme === "dark" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+        updateThemeBtn();
+
+        function calculateCombat() {
+            const atk = parseInt(document.getElementById('atkVal').value) || 0;
+            const def = parseInt(document.getElementById('defVal').value) || 0;
+            const resultBox = document.getElementById('resultBox');
+            const damageResult = document.getElementById('damageResult');
+            const winnerResult = document.getElementById('winnerResult');
+
+            resultBox.classList.remove('hidden');
+            
+            let damage = atk - def;
+            if (damage < 0) damage = 0;
+
+            damageResult.innerHTML = `مقدار آسیب دریافتی: <span class="text-red-500 text-3xl mx-2 font-black">${damage}</span>`;
+
+            if (damage > 0) {
+                winnerResult.innerHTML = '🏆 <span class="text-red-500">مهاجم برنده نبرد شد! (At least 1 damage)</span>';
+            } else {
+                winnerResult.innerHTML = '🛡️ <span class="text-green-500">مدافع برنده نبرد شد! (0 damage taken)</span>';
+            }
+        }
+    </script>
     <script src="../js/cursor_effect.js"></script>
-    <script src="../js/combat.js"></script>
 </body>
 </html>
