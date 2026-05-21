@@ -919,29 +919,39 @@ function getActions(lang) {
         <div id="map-nodes-overlay" class="absolute inset-0 z-10"></div>
       </div>
     `,
-    attack: `
-      <h3 class="text-xl font-bold mb-3">${t.attack_header}</h3>
-      <p class="text-slate-300 mb-6">${t.attack_text}</p>
-      <div class="bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-        <h3 class="text-lg font-bold mb-3">${t.attack_cards_title}</h3>
-        <div id="attack-card"><div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-          <div class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10 hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent">
-            <img src="images/dracula/beastform.png" class="attack-img w-full h-full object-cover" />
-          </div>
-          <div class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10 hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent">
-            <img src="images/invisibleMan/slip-away.png" class="attack-img w-full h-full object-cover" />
-          </div>
-        </div></div>
-        <div id="defense-card"><div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-          <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-            <img src="images/dracula/look-into-my-eyes.png" class="defense-img w-full h-full object-cover" />
-          </div>
-          <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
-            <img src="images/invisibleMan/lurking.png" class="defense-img w-full h-full object-cover" />
-          </div>
-        </div></div>
+attack: `
+  <h3 class="text-xl font-bold mb-3">${t.attack_header}</h3>
+  <p class="text-slate-300 mb-6">${t.attack_text}</p>
+
+  <div class="bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+    <h3 class="text-lg font-bold mb-6 text-center">${t.attack_cards_title}</h3>
+
+    <div class="flex justify-center gap-20 flex-wrap">
+
+      <!-- ATTACK COLUMN -->
+      <div id="attack-card" class="flex flex-col items-center gap-6">
+
+        <div class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10 hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent">
+          <img src="images/dracula/beastform.png" class="attack-img w-full h-full object-cover"/>
+        </div>
+
+
+
       </div>
-    `,
+
+      <!-- DEFENSE COLUMN -->
+      <div id="defense-card" class="flex flex-col items-center gap-6">
+
+        <div class="defense-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer transition relative">
+          <img src="images/dracula/look-into-my-eyes.png" class="defense-img w-full h-full object-cover"/>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+`,
+
 scheme: `
   <div id="scheme-container" class="relative text-center">
     <h4 class="text-lg font-semibold mb-3">${t.scheme_header}</h4>
