@@ -943,11 +943,26 @@ function getActions(lang) {
       </div>
     `,
 scheme: `
-  <div id="scheme-container" class="relative transition-all duration-300">
-    <h4 class="text-lg font-semibold mb-2">${t.scheme_header}</h4>
-    <p class="text-slate-400">${t.scheme_text}</p>
+  <div id="scheme-container" class="relative text-center">
+    <h4 class="text-lg font-semibold mb-3">${t.scheme_header}</h4>
+    <p class="text-slate-400 mb-6">${t.scheme_text}</p>
+
+    <div class="flex justify-center">
+      <div id="scheme-card" class="relative w-[240px] h-[340px] rounded-[14px] transition-all duration-300">
+        
+        <!-- The Glow layer: Tight, saturated, and constrained to the card shape -->
+        <div id="scheme-glow" 
+             class="absolute inset-0 rounded-[14px] opacity-0 transition-opacity duration-150 
+                    shadow-[0_0_25px_8px_rgba(255,215,0,0.8)] border-4 border-yellow-400">
+        </div>
+
+        <img src="images/holms/administer-aid.png"
+             class="relative z-10 w-full h-full object-cover rounded-[14px]">
+      </div>
+    </div>
   </div>
-`
+`,
+
 
   };
 }
@@ -976,27 +991,29 @@ actionButtons.forEach(btn => {
   });
 });
 
-// Helper function to trigger the effect
 function triggerThunder() {
-  const container = document.getElementById("action-display");
-  if (!container) return;
+  const container = document.getElementById("scheme-container");
+  const glow = document.getElementById("scheme-glow");
+  const card = document.getElementById("scheme-card");
 
-  // 1. Shake the container
+  if (!container || !glow || !card) return;
+
+  // 1. Trigger shake
   container.classList.add("shake-it");
-  
-  // 2. Draw the lightning bolt
-  drawLightning(container);
-  
-  // 3. Flash the background
-  container.style.transition = "background 0.1s";
-  container.style.backgroundColor = "rgba(255, 255, 0, 0.85)";
-  
-  setTimeout(() => {
-    container.style.backgroundColor = ""; // Reset
-    container.classList.remove("shake-it");
-  }, 400);
-}
 
+  // 2. High-saturation glow
+  glow.style.opacity = "1";
+  
+  // 3. Subtle scale pop
+  card.style.transform = "scale(1.03)";
+
+  setTimeout(() => {
+    // Reset after impact
+    glow.style.opacity = "0";
+    card.style.transform = "scale(1)";
+    container.classList.remove("shake-it");
+  }, 300); // Short, punchy duration
+}
 
 
 function initManeuverMap() {

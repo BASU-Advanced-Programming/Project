@@ -12,6 +12,14 @@
   <canvas id="cursor-canvas" class="fixed inset-0 pointer-events-none z-[9999]"></canvas>
 
   <style>
+    /* Modern Game Background Texture */
+body {
+  background-color: #0f1115;
+  background-image: radial-gradient(#222 1px, transparent 1px);
+  background-size: 30px 30px; /* Adjust size for density */
+  background-attachment: fixed;
+}
+
   html { scroll-behavior: smooth; }
 
   #navMenu.active { display: flex !important; }
@@ -348,33 +356,45 @@ section {
   scroll-margin-top: 100px; /* adjust to your navbar height */
 }
 
-/* Thunder Flash Animation */
-@keyframes thunder-flash {
-  0% { background-color: rgba(255, 255, 0, 0); }
-  20% { background-color: rgba(255, 255, 0, 0.4); }
-  40% { background-color: rgba(255, 255, 0, 0); }
-  60% { background-color: rgba(255, 255, 0, 0.3); }
-  100% { background-color: rgba(0, 0, 0, 0); }
-}
-
-.thunder-effect {
-  animation: thunder-flash 0.5s ease-out forwards;
-}
-/* Shake animation for impact */
-@keyframes screen-shake {
-  0%, 100% { transform: translate(0, 0); }
-  10%, 30%, 50%, 70%, 90% { transform: translate(-5px, 2px); }
-  20%, 40%, 60%, 80% { transform: translate(5px, -2px); }
-}
-
+</style>
+<style>
 .shake-it {
-  animation: screen-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
 }
 
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-6px); }
+  40%, 60% { transform: translateX(6px); }
+}
 
 </style>
 
-  <body class="bg-[#0f1115] text-[#e6e6e6] [cursor:none]">
+
+<body class="bg-[#0f1115] text-[#e6e6e6] [cursor:none] bg-[radial-gradient(#1c1e26_1px,transparent_1px)] bg-[length:40px_40px]">
+
+  <!-- Fixed Ambient Glows (Blue/Purple Atmosphere) -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    
+    <!-- Base subtle dark color grading -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0b0c10] via-[#0f1115] to-[#0a0c10]"></div>
+
+    <!-- Glow 1: Cyan/Blue (Top Left) -->
+    <div class="absolute -left-[10%] top-[5%] w-[500px] h-[500px] rounded-full bg-cyan-500/10 blur-[140px]"></div>
+
+    <!-- Glow 2: Deep Purple (Middle Right) -->
+    <div class="absolute -right-[15%] top-[25%] w-[600px] h-[600px] rounded-full bg-purple-600/10 blur-[160px]"></div>
+
+    <!-- Glow 3: Indigo Accent (Bottom Left) -->
+    <div class="absolute left-[15%] bottom-[15%] w-[450px] h-[450px] rounded-full bg-indigo-500/8 blur-[120px]"></div>
+
+    <!-- Glow 4: Soft Royal Blue (Bottom Right) -->
+    <div class="absolute right-[5%] -bottom-[10%] w-[550px] h-[550px] rounded-full bg-blue-600/8 blur-[150px]"></div>
+    
+  </div>
+
+
   <!-- NAV -->
 <nav class="fixed top-0 w-full z-[1000] bg-[#11141a] border-b border-[#222] px-10 py-[18px] flex items-center justify-between max-md:px-5">
   <h1 class="text-[20px] tracking-[2px]">UNMATCHED</h1>
