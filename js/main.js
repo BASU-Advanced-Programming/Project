@@ -31,6 +31,7 @@ const translations = {
     game_first_over_view: "Tactical board game where legends battle across time and myth. Choose your fighter and outsmart your opponent.",
     game_second_over_view: "Let yourself discover the dangers and truths of this world and its people",
     explore_fighters: "Explore Fighters",
+    combat_page:"Combat Rules",
 
     /* game board section */
     game_boards_section: "Game Boards",
@@ -140,6 +141,7 @@ const translations = {
     game_first_over_view: "دنبال یه بازی متفاوت هستی که بتونی در کنار دوستات  ازش لذت ببری و ساعت ها سرگرم بشی؟  تبریک می گم، جای درستی اومدی!!!",
     game_second_over_view: "بزن تو دل خطر و حقایق این دنیا و افراد توش رو کشف کن",
     explore_fighters: "بررسی مبارزها",
+    combat_page: "قوانین مبارزه",
 
     /* game board section */
     game_boards_section: "نقشه های بازی",
@@ -305,7 +307,8 @@ function createFanEffect(deck) {
 
   const maxAngle = 80;
   const start = -maxAngle / 2;
-  const step = maxAngle / (total - 1);
+  const step = maxAngle / (total - 1)
+  ;
 
   cards.forEach((card, i) => {
     const angle = start + step * i;
