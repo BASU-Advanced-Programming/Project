@@ -444,220 +444,68 @@ section {
 </nav>
 
 
+<!-- HERO / OVERVIEW -->
+<section class="relative z-[1] h-screen flex flex-col items-center justify-center text-center px-5">
+  <div
+    class="absolute inset-0 z-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.5),rgba(0,0,0,0.8)),url('images/art1.png')] bg-center bg-cover bg-no-repeat
+           [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]
+           [-webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]"
+  ></div>
 
-    <!-- HERO / OVERVIEW -->
-    <section class="relative z-[1] h-screen flex flex-col items-center justify-center text-center px-5">
-      <div
-        class="absolute inset-0 z-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.5),rgba(0,0,0,0.8)),url('images/art1.png')] bg-center bg-cover bg-no-repeat
-               [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]
-               [-webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_70%,rgba(0,0,0,0)_100%)]"
-      ></div>
+  <h2
+    class="relative z-10 text-white font-extrabold tracking-[2px]
+           text-[72px] max-md:text-[50px]
+           [text-shadow:0_0_25px_rgba(255,255,255,0.35),0_0_45px_rgba(160,70,255,0.35),0_4px_10px_rgba(0,0,0,0.8)]"
+  >
+    Unmatched
+  </h2>
 
-      <h2
-        class="relative z-10 text-white font-extrabold tracking-[2px]
-               text-[72px] max-md:text-[50px]
-               [text-shadow:0_0_25px_rgba(255,255,255,0.35),0_0_45px_rgba(160,70,255,0.35),0_4px_10px_rgba(0,0,0,0.8)]"
-      >
-        Unmatched
-      </h2>
+  <p data-i18n="game_first_over_view"
+     class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-6 opacity-90"></p>
 
-      <p data-i18n="game_first_over_view" class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-10 opacity-90"></p>
-      <p data-i18n="game_second_over_view" class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-10 opacity-90"></p>
+  <p data-i18n="game_second_over_view"
+     class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-10 opacity-90"></p>
 
-  
-<div class="flex gap-4 mt-8">
-    <a href="#characters" data-i18n="explore_fighters" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
-        Explore Fighters
+  <div class="flex gap-4 mt-8">
+    <a href="#characters" data-i18n="explore_fighters"
+       class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+      Explore Fighters
     </a>
-    <!-- دکمه جدید برای صفحه نبرد -->
-    <a href="pages/game/html/combat.html" data-i18n="combat_page" class="bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-600 hover:bg-indigo-50 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
-        Combat Rules
+
+    <a href="pages/game/html/combat.html" data-i18n="combat_page"
+       class="bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-600 hover:bg-indigo-50 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+      Combat Rules
     </a>
-</div>
+  </div>
+</section>
 
-</div>
+<section id="setup" class="px-[10%] py-[100px] text-white">
+  <div class="max-w-4xl mx-auto bg-[#11141a] border border-[#222] p-10 rounded-[20px]">
+    <h2 data-i18n="setup_title" class="text-[32px] font-bold mb-8 text-indigo-400"></h2>
+    
+    <div class="space-y-6 text-[#bbb] leading-[1.8]">
+      <p data-i18n="setup_intro"></p>
+      
+      <h3 class="text-white font-bold text-[20px] mt-8" data-i18n="setup_core_header"></h3>
+      <p data-i18n="setup_core_desc"></p>
 
-
-<!-- <div class="mt-12 flex justify-center">
-  <a href="#characters"
-     class="px-9 py-[14px] text-[18px] font-semibold rounded-[10px]
-            text-slate-900 bg-[rgba(34,211,238,0.8)]
-            backdrop-blur-[6px]
-            shadow-[0_0_12px_rgba(34,211,238,0.45),inset_0_0_12px_rgba(180,240,255,0.25)]
-            transition duration-200
-            hover:bg-[rgba(34,211,238,0.95)]
-            hover:scale-[1.06]
-            hover:shadow-[0_0_18px_rgba(34,211,238,0.65),inset_0_0_16px_rgba(200,250,255,0.35)]">
-    Explore Fighters
-  </a>
-</div> -->
-
-
-
-    </section>
-
-    <!-- CHARACTERS -->
-    <!-- <section id="characters" class="px-[10%] py-[100px]">
-      <div id="hero-charactars-section" class="py-10">
-        <div class="flex gap-[30px] justify-center max-md:flex-wrap">
-          <div class="w-[260px] bg-[#111] rounded-[14px] overflow-hidden flex flex-col text-[#eaeaea] shadow-[0_0_18px_rgba(0,0,0,0.35)] group">
-            <div class="relative w-full h-[260px] overflow-hidden">
-              <img src="images/sherArt.png" class="w-full h-full object-cover" />
-
-              <div
-  class="absolute inset-0 p-[18px] opacity-0 group-hover:opacity-100 transition duration-300
-         bg-[rgba(10,10,15,0.78)] backdrop-blur-[7px]
-         overflow-y-auto scrollbar-thin scrollbar-thumb-[#444]"
->
-                <div class="translate-y-5 group-hover:translate-y-0 transition duration-300">
-                  <h2 class="flex items-center gap-[10px] mb-3 text-[20px]">
-                    <img src="images/melee.svg" class="w-[100px]" />
-                  </h2>
-
-                  <p data-i18n="characters_section_sherlock_health_and_movment" class="text-[14px] opacity-90"></p>
-                  <br/>
-                  <span data-i18n="characters_section_sherlock_special_ability_header" class="text-[#9f7aea] font-semibold"></span>
-
-                  <p data-i18n="characters_section_sherlock_special_ability_text" class="my-3 text-[14px]"></p>
-
-                  <p class="my-3 text-[14px]">
-                    <span data-i18n="characters_section_sherlock_dr_watson_header" class="text-[#9f7aea] font-semibold"></span>
-                  </p>
-
-                  <div class="flex items-center gap-[10px] mt-4 justify-start">
-                    <img
-                      src="images/watson_20260428141027.png"
-                      class="w-[30px] h-[30px] rounded-full object-cover border border-[rgba(255,255,255,0.2)]"
-                    />
-                    <img src="images/ranged.svg" class="w-[100px] h-auto block" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-<div class="px-4 py-4 text-center bg-[#151515] border-t border-[rgba(255,255,255,0.06)]">
-
-  <h3 data-i18n="characters_section_sherlock_title" class="font-bold text-[18px] text-[#eaeaea] mb-3"></h3>
-
-  <a
-    href="pages/game/html/sherlock.html" data-i18n="characters_section_view_character_button"
-    class="inline-block px-5 py-2 rounded-[8px]
-           bg-[#9f7aea] text-white text-[14px] font-semibold
-           hover:bg-[#8663d3] transition duration-300"
-  >
-  </a>
-
-</div>
-
-          </div>
-
-          <div class="w-[260px] bg-[#111] rounded-[14px] overflow-hidden flex flex-col text-[#eaeaea] shadow-[0_0_18px_rgba(0,0,0,0.35)] group">
-            <div class="relative w-full h-[260px] overflow-hidden">
-              <img src="images/DracArt.png" class="w-full h-full object-cover" />
-
-              <div
-  class="absolute inset-0 p-[18px] opacity-0 group-hover:opacity-100 transition duration-300
-         bg-[rgba(10,10,15,0.78)] backdrop-blur-[7px]
-         overflow-y-auto scrollbar-thin scrollbar-thumb-[#444]"
->
-                <div class="translate-y-5 group-hover:translate-y-0 transition duration-300">
-                  <h2 class="flex items-center gap-[10px] mb-3 text-[20px]">
-                    <img src="images/melee.svg" class="w-[100px]" />
-                  </h2>
-
-                  <p data-i18n="characters_section_dracula_health_and_movment" class="text-[14px] opacity-90"></p>
-                  <br/>
-                  <span data-i18n="characters_section_dracula_special_ability_header" class="text-[#9f7aea] font-semibold"></span>
-
-                  <p data-i18n="characters_section_dracula_special_ability_text" class="my-3 text-[14px]"></p>
-
-                  <p class="my-3 text-[14px]">
-                    <span data-i18n="characters_section_dracula_sisters_header" class="text-[#9f7aea] font-semibold"></span>
-                  </p>
-
-                  <div class="flex items-center gap-[10px] mt-4 justify-start">
-                    <p class="flex items-center gap-2">
-                      <img
-                        src="images/sis1.webp"
-                        class="w-[30px] h-[30px] rounded-full object-cover border border-[rgba(255,255,255,0.2)]"
-                      />
-                      x3
-                    </p>
-                    <img src="images/melee.svg" class="w-[100px] h-auto block" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-     <div class="px-4 py-4 text-center bg-[#151515] border-t border-[rgba(255,255,255,0.06)]">
-
-  <h3 data-i18n="characters_section_dracula_title" class="font-bold text-[18px] text-[#eaeaea] mb-3"></h3>
-
-  <a
-    href="pages/game/html/dracula.html" data-i18n="characters_section_view_character_button"
-    class="inline-block px-5 py-2 rounded-[8px]
-           bg-[#9f7aea] text-white text-[14px] font-semibold
-           hover:bg-[#8663d3] transition duration-300"
-  >
-  </a>
-
-</div>
-          </div>
-
-          <div class="w-[260px] bg-[#111] rounded-[14px] overflow-hidden flex flex-col text-[#eaeaea] shadow-[0_0_18px_rgba(0,0,0,0.35)] group">
-            <div class="relative w-full h-[260px] overflow-hidden">
-              <img src="images/invArt.png" class="w-full h-full object-cover" />
-
-              <div
-  class="absolute inset-0 p-[18px] opacity-0 group-hover:opacity-100 transition duration-300
-         bg-[rgba(10,10,15,0.78)] backdrop-blur-[7px]
-         overflow-y-auto scrollbar-thin scrollbar-thumb-[#444]"
->
-                <div class="translate-y-5 group-hover:translate-y-0 transition duration-300">
-                  <h2 class="flex items-center gap-[10px] mb-3 text-[20px]">
-                    <img src="images/melee.svg" class="w-[100px]" />
-                  </h2>
-
-                  <p data-i18n="characters_section_invisible_man_health_and_movment" class="text-[14px] opacity-90"></p>
-                  <br/>
-
-                  <span data-i18n="characters_section_invisible_man_special_ability_header" class="text-[#9f7aea] font-semibold"></span>
-                  <p data-i18n="characters_section_invisible_man_special_ability_text" class="my-3 text-[14px]"></p>
-
-                  <p class="my-3 text-[14px]">
-                    <span data-i18n="characters_section_invisible_man_sisters_header" class="text-[#9f7aea] font-semibold"></span>
-                  </p>
-
-                  <div class="flex items-center gap-[10px] mt-4 justify-start">
-                    <p class="flex items-center gap-2">
-                      <img
-                        src="images/fogtok.png"
-                        class="w-[30px] h-[30px] rounded-full object-cover border border-[rgba(255,255,255,0.2)]"
-                      />
-                      x3
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-<div class="px-4 py-4 text-center bg-[#151515] border-t border-[rgba(255,255,255,0.06)]">
-
-  <h3 data-i18n="characters_section_invisible_man_title" class="font-bold text-[18px] text-[#eaeaea] mb-3"></h3>
-
-  <a
-    href="pages/game/html/" data-i18n="characters_section_view_character_button"
-    class="inline-block px-5 py-2 rounded-[8px]
-           bg-[#9f7aea] text-white text-[14px] font-semibold
-           hover:bg-[#8663d3] transition duration-300"
-  >
-  </a>
-
-</div>
-          </div>
+      <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div class="bg-[#1a1e26] p-6 rounded-[15px] border border-[#333]">
+          <h4 class="text-white font-bold mb-2" data-i18n="char_sherlock"></h4>
+          <p class="text-[14px]" data-i18n="char_sherlock_desc"></p>
         </div>
-      </div>
-    </section> -->
+        <div class="bg-[#1a1e26] p-6 rounded-[15px] border border-[#333]">
+          <h4 class="text-white font-bold mb-2" data-i18n="char_dracula"></h4>
+          <p class="text-[14px]" data-i18n="char_dracula_desc"></p>
+        </div>
+      </div> -->
+
+      <h3 class="text-white font-bold text-[20px] mt-8" data-i18n="setup_logic_header"></h3>
+      <p data-i18n="setup_logic_desc"></p>
+    </div>
+  </div>
+</section>
+
 
     <!-- CHARACTERS -->
 <section id="characters" class="px-[10%] py-[100px]">

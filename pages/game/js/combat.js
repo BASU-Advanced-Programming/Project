@@ -1,5 +1,34 @@
+      // Navigation Logic
+        function toggleSection(id) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
 
-  const themeBtn = document.getElementById("theme-toggle");
+            // Remove active state from all buttons
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected section
+            const target = document.getElementById('sec-' + id);
+            if (target) {
+                target.classList.remove('hidden');
+                document.getElementById('btn-' + id).classList.add('active');
+                
+                // Scroll to the content container
+                document.getElementById('content-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function closeSection() {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+            
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+        }
+
+        // Theme Logic
+        const themeBtn = document.getElementById("theme-toggle");
         function updateThemeBtn() {
             themeBtn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
         }
@@ -15,6 +44,7 @@
         }
         updateThemeBtn();
 
+        // Simulator Logic
         function calculateCombat() {
             const atk = parseInt(document.getElementById('atkVal').value) || 0;
             const def = parseInt(document.getElementById('defVal').value) || 0;
@@ -35,116 +65,114 @@
                 winnerResult.innerHTML = '🛡️ <span class="text-green-500">مدافع برنده نبرد شد! (0 damage taken)</span>';
             }
         }
-const canvas = document.getElementById("cursor-canvas");
-const ctx = canvas.getContext("2d");
 
-function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+        // Particle Cursor Logic
+        const canvas = document.getElementById("cursor-canvas");
+        const ctx = canvas.getContext("2d");
 
-let hoveringClickable = false;
+        function resizeCanvas(){
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
 
-  let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
-  let lastMove = Date.now();
+        let hoveringClickable = false;
+        let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+        let lastMove = Date.now();
+        let particles = [];
 
-  let particles = [];
+        document.addEventListener("mousemove",(e)=>{
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            lastMove = Date.now();
 
-document.addEventListener("mousemove",(e)=>{
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  lastMove = Date.now();
+            const style = window.getComputedStyle(e.target);
+            hoveringClickable = style.cursor === "pointer" || e.target.tagName.toLowerCase() === 'button';
 
-  const style = window.getComputedStyle(e.target);
-  hoveringClickable = style.cursor === "pointer";
+            for(let i=0;i<4;i++){
+                particles.push(new Particle(mouse.x,mouse.y));
+            }
+        });
 
-  for(let i=0;i<4;i++){
-      particles.push(new Particle(mouse.x,mouse.y));
-  }
-});
+        class Particle{
+            constructor(x,y){
+                this.x=x;
+                this.y=y;
+                this.size=Math.random()*3+1;
+                this.speedX=(Math.random()-0.5)*2;
+                this.speedY=(Math.random()-0.5)*2;
+                this.life=80;
+                this.hue=Math.random()*360;
+            }
+            update(){
+                this.x+=this.speedX;
+                this.y+=this.speedY;
+                this.life--;
+            }
+            draw(){
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+                ctx.fillStyle=`hsla(${this.hue},100%,60%,${this.life/80})`;
+                ctx.shadowColor=`hsl(${this.hue},100%,60%)`;
+                ctx.shadowBlur=15;
+                ctx.fill();
+            }
+        }
 
+        function drawIdleCircles(){
+            let idleTime = Date.now() - lastMove;
+            if(idleTime < 200) return;
+            let t = Date.now()*0.002;
+            let circles = [
+                {r:18, speed:1},
+                {r:28, speed:-0.7},
+                {r:40, speed:0.5}
+            ];
+            circles.forEach((c,i)=>{
+                let angle = t * c.speed;
+                let x = mouse.x + Math.cos(angle)*c.r;
+                let y = mouse.y + Math.sin(angle)*c.r;
 
+                ctx.beginPath();
+                ctx.arc(x,y,3,0,Math.PI*2);
+                ctx.fillStyle=`hsl(${(t*80+i*90)%360},100%,65%)`;
+                ctx.shadowBlur=12;
+                ctx.shadowColor=ctx.fillStyle;
+                ctx.fill();
+            });
 
-  class Particle{
-  constructor(x,y){
-      this.x=x;
-      this.y=y;
-      this.size=Math.random()*3+1;
-      this.speedX=(Math.random()-0.5)*2;
-      this.speedY=(Math.random()-0.5)*2;
-      this.life=80;
-      this.hue=Math.random()*360;
-  }
-  update(){
-      this.x+=this.speedX;
-      this.y+=this.speedY;
-      this.life--;
-  }
-  draw(){
-      ctx.beginPath();
-      ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-      ctx.fillStyle=`hsla(${this.hue},100%,60%,${this.life/80})`;
-      ctx.shadowColor=`hsl(${this.hue},100%,60%)`;
-      ctx.shadowBlur=15;
-      ctx.fill();
-  }
-  }
+            ctx.beginPath();
+            ctx.arc(mouse.x,mouse.y,12,0,Math.PI*2);
+            ctx.strokeStyle="rgba(255,255,255,0.6)";
+            ctx.lineWidth=1.5;
+            ctx.stroke();
+        }
 
-  function drawIdleCircles(){
-  let idleTime = Date.now() - lastMove;
-  if(idleTime < 200) return;
-  let t = Date.now()*0.002;
-  let circles = [
-      {r:18, speed:1},
-      {r:28, speed:-0.7},
-      {r:40, speed:0.5}
-  ];
-  circles.forEach((c,i)=>{
-      let angle = t * c.speed;
-      let x = mouse.x + Math.cos(angle)*c.r;
-      let y = mouse.y + Math.sin(angle)*c.r;
+        function animate(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
 
-      ctx.beginPath();
-      ctx.arc(x,y,3,0,Math.PI*2);
-      ctx.fillStyle=`hsl(${(t*80+i*90)%360},100%,65%)`;
-      ctx.shadowBlur=12;
-      ctx.shadowColor=ctx.fillStyle;
-      ctx.fill();
-  });
+            for(let i=0;i<particles.length;i++){
+                particles[i].update();
+                particles[i].draw();
+                if(particles[i].life<=0){
+                    particles.splice(i,1);
+                    i--;
+                }
+            }
 
-  ctx.beginPath();
-  ctx.arc(mouse.x,mouse.y,12,0,Math.PI*2);
-  ctx.strokeStyle="rgba(255,255,255,0.6)";
-  ctx.lineWidth=1.5;
-  ctx.stroke();
-  }
+            drawIdleCircles();
 
-  function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+            if (hoveringClickable) {
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
+                ctx.strokeStyle = "rgba(255,255,255,0.9)";
+                ctx.lineWidth = 2;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = "white";
+                ctx.stroke();
+            }
 
-  for(let i=0;i<particles.length;i++){
-      particles[i].update();
-      particles[i].draw();
-      if(particles[i].life<=0){
-      particles.splice(i,1);
-      i--;
-      }
-  }
-
-  drawIdleCircles();
-
-  if (hoveringClickable) {
-      ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255,255,255,0.9)";
-      ctx.lineWidth = 2;
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = "white";
-      ctx.stroke();
-  }
-
-  requestAnimationFrame(animate);
-  }
-  animate();
+            requestAnimationFrame(animate);
+        }
+        animate();

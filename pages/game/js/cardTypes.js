@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         icon: 'clone', 
         text: `در بازی ۴ نوع کارت اصلی وجود دارد:
 
-- کارت حمله (قرمز - نماد شمشیر): فقط مهاجم می‌تواند بازی کند.
+- کارت حمله (قرمز - نماد ضربه): فقط مهاجم می‌تواند بازی کند.
 - کارت دفاع (آبی - نماد سپر): فقط مدافع برای دفع حمله می‌تواند بازی کند.
 - کارت چندمنظوره (بنفش - نماد شمشیر و سپر): هم به عنوان حمله و هم دفاع قابل استفاده است.
 - کارت نقشه (زرد - نماد رعد و برق): در اکشن Scheme بازی می‌شود تا توانایی خاصی را فعال کند.`,
@@ -79,31 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
 ۲. در طول نبرد (During Combat): پیش از محاسبه آسیب، مقدار حمله یا دفاع را تغییر می‌دهند.
 ۳. بعد از نبرد (After Combat): پس از محاسبه و اعمال آسیب اجرا می‌شوند.
 
-⚔️ مراحل حل‌وفصل یک حمله:
-وقتی کارت‌ها رو می‌شوند، مراحل زیر به ترتیب طی می‌شوند:
-1. رو کردن کارت‌ها: مهاجم و مدافع همزمان کارت‌های خود را رو می‌کنند.
-2. اجرای اثرات Immediately: ابتدا اثرات فوری هر دو کارت (با اولویت مدافع) حل می‌شود.
-3. اجرای اثرات During Combat: هر تغییری در اعداد یا شرایط نبرد در این مرحله اعمال می‌شود.
-4. محاسبه آسیب: عدد نهایی حمله منهای عدد نهایی دفاع می‌شود و آسیب به سلامت مبارز وارد می‌گردد.
-5. اجرای اثرات After Combat: تمام اثرات ثانویه در این مرحله حل می‌شوند.
-
-⚠️ قاعده طلایی: اگر دو اثر (مثلاً هر دو "بعد از نبرد") همزمان فعال شوند، همیشه اثر کارت مدافع زودتر از مهاجم اجرا می‌شود. همچنین اجرای اثرات اجباری است، مگر اینکه عبارت «می‌توانید» (May) در آن ذکر شده باشد.
-
-💡 مثال‌های کاربردی برای درک بهتر:
-
-🔹 مثال ۱: اولویت مدافع (After Combat)
-فرض کنید دراکولا حمله می‌کند و هر دو بازیکن کارتی با اثر «بعد از نبرد» دارند:
-- کارت مدافع: «بعد از نبرد، مبارز خود را ۲ خانه جابه‌جا کنید.»
-- کارت دراکولا (مهاجم): «بعد از نبرد، اگر مجاور حریف هستید، ۲ آسیب اضافه بزنید.»
-در اینجا چون ابتدا اثر مدافع اجرا می‌شود، او از دراکولا دور شده و دیگر مجاور او نیست؛ بنابراین اثر دراکولا می‌سوزد و آسیبی وارد نمی‌کند.
-
-🔹 مثال ۲: تغییر قدرت (During Combat)
-کارتی می‌گوید: «در طول نبرد، به ازای هر کارت در دستتان، ۱ واحد به قدرت حمله اضافه کنید.»
-این اثر قبل از اینکه آسیب حساب شود، عدد روی کارت را بالا می‌برد و مستقیماً روی مقدار خونی که از حریف کم می‌شود تاثیر می‌گذارد.
-
-🔹 مثال ۳: اثر فوری (Immediately)
-کارتی با اثر: «بلافاصله، تمام اثرات کارت حریف را نادیده بگیرید.»
-این اثر به محض رو شدن کارت‌ها اجرا شده و اجازه نمی‌دهد حریف حتی از اثرات «در طول نبرد» یا «بعد از نبرد» خود استفاده کند؛ چون Immediately از همه سریع‌تر است.`,
+`,
+    linkText: '⚔️ جزئیات حل‌وفصل یک حمله',
+    linkUrl: '../html/combat.html',
     image: '../../../images/rulesCard.png'
       },
       { 
@@ -196,8 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <i class="fas fa-angle-left text-slate-400 pointer-events-none"></i>
             `;
             // ۲. ارسال پارامتر image به تابع
-            div.addEventListener('click', () => openLongText(item.title, item.text, item.image));
-            container.appendChild(div);
+            div.addEventListener('click', () => openLongText(item.title, item.text, item.image, item.linkText, item.linkUrl));
+        
+        container.appendChild(div);
         });
     }
 
@@ -224,27 +203,37 @@ document.addEventListener('DOMContentLoaded', function() {
     setupToggle(cardsBtn, cardsList);
 
     // Long Text Container Logic
-    // ۳. مدیریت نمایش عکس در باکسی که باز می‌شود
-    function openLongText(title, text, imageUrl) {
-        longTextTitle.textContent = title;
-        longTextContent.textContent = text;
-        
-        if (imageUrl && imageUrl.trim() !== '') {
-            longTextImage.src = imageUrl;
-            longTextImageContainer.classList.remove('hidden');
-            longTextContent.classList.replace('md:col-span-12', 'md:col-span-7'); // تنظیم عرض متن در صورت وجود عکس
-        } else {
-            longTextImageContainer.classList.add('hidden');
-            longTextContent.classList.replace('md:col-span-7', 'md:col-span-12'); // تمام‌عرض شدن متن در صورت نبود عکس
-        }
-
-        longTextContainer.classList.remove('hidden');
-        longTextContainer.classList.add('animate-fade-in-up');
-        
-        setTimeout(() => {
-            longTextContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }, 50);
+ function openLongText(title, text, imageUrl, linkText = null, linkUrl = null) {
+    longTextTitle.textContent = title;
+    
+    // متن اصلی را به همراه لینک در یک پاراگراف ادغام می‌کنیم
+    let finalContent = text;
+    
+    if (linkText && linkUrl) {
+        finalContent += `\n\nجهت مشاهده جزئیات بیشتر، <a href="${linkUrl}" class="text-purple-600 dark:text-purple-400 font-bold hover:underline decoration-2 underline-offset-4 transition-all">اینجا کلیک کنید</a>.`;
     }
+    
+    // استفاده از یک پاراگراف واحد برای اینکه همه چیز یکپارچه باشد
+    longTextContent.innerHTML = `<p class="whitespace-pre-line leading-relaxed text-slate-700 dark:text-slate-300">${finalContent}</p>`;
+    
+    // تنظیمات تصویر
+    if (imageUrl && imageUrl.trim() !== '') {
+        longTextImage.src = imageUrl;
+        longTextImageContainer.classList.remove('hidden');
+        longTextContent.classList.replace('md:col-span-12', 'md:col-span-7');
+    } else {
+        longTextImageContainer.classList.add('hidden');
+        longTextContent.classList.replace('md:col-span-7', 'md:col-span-12');
+    }
+
+    longTextContainer.classList.remove('hidden');
+    longTextContainer.classList.add('animate-fade-in-up');
+    
+    setTimeout(() => {
+        longTextContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 50);
+}
+
 
     closeLongText.addEventListener('click', () => {
         longTextContainer.classList.add('hidden');

@@ -1,20 +1,20 @@
 const reveals = document.querySelectorAll('.reveal');
 
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
       entry.target.classList.add("in-view");
     }
   });
-},{ threshold: 0.15 });
+}, { threshold: 0.15 });
 
-reveals.forEach(el=>observer.observe(el));
+reveals.forEach(el => observer.observe(el));
 
 /* ============== FA-to-En ================ */
 const translations = {
   en: {
     /* more than one uses */
-     view_details_button: "View Details",
+    view_details_button: "View Details",
     deck_status_total: "TOTAL",
     deck_status_unique_cards: "Unique Cards",
     deck_status_total_cards: "Total Cards",
@@ -28,11 +28,25 @@ const translations = {
     how_to_play: "How to Play",
 
     /* game over view */
-    game_first_over_view: "Tactical board game where legends battle across time and myth. Choose your fighter and outsmart your opponent.",
-    game_second_over_view: "Let yourself discover the dangers and truths of this world and its people",
+    game_first_over_view: "Welcome to Phase 1. This phase focuses on implementing the core gameplay mechanics for the UNMATCHED board game. Your objective is to defeat your opponent’s Hero through strategic movement, card draws, and combat.",
+    game_second_over_view: "Let yourself discover the dangers and truths of this world and its Heros",
     explore_fighters: "Explore Fighters",
-    combat_page:"Combat Rules",
+    combat_page: "Combat Rules",
 
+    setup_title: "Setup & Overview",
+    setup_intro: "Welcome to the Unmatched Combat Engine. This project is a strategic card-based simulation. You are tasked with implementing the core engine to support two specific legendary fighters: Sherlock Holmes and Dracula.",
+    setup_core_header: "Core Objective & Scope",
+    setup_core_desc: "The system must manage the battlefield, action economy (Maneuver, Scheme, Attack), and the resolution of combat using the specific card effects of your two chosen characters.",
+    setup_details_header: "System Architecture & Logic",
+    setup_details_text: "The engine must handle movement logic, adjacency, and combat zones. Key components include a turn-based system (2 actions per turn) and a robust 'Combat Resolution' cycle: Immediately, During Combat, and After Combat effects. Developers should use the 'Command' pattern for card effects to ensure the architecture remains extensible for future characters.",
+    setup_execution_header: "Execution & Winning Conditions",
+    setup_execution_text: "Initialize players, setup health dials based on character cards, and ensure a 30-card deck with a 5-card starting hand. The game ends when a hero's health hits zero. If a deck is depleted, the 'Exhaustion' rule must trigger.",
+    setup_rules_list_1: "Each hero starts at the designated position on the foggy board.",
+    setup_rules_list_2: "Draw 5 cards as your starting hand.",
+    setup_rules_list_3: "Each deck contains 30 cards. Note that some cards may be consolidated, so pay attention to card counts.",
+    setup_rules_list_4: "Set your hero's health dial to their initial health value.",
+
+    character_title:"Characters",
     /* game board section */
     game_boards_section: "Game Boards",
     maps_soho_street_title: "Baskerville Manor",
@@ -45,19 +59,19 @@ const translations = {
 
     /* characters deck section */
     characters_section_view_character_button: "View Character",
-      /* sherlock */
+    /* sherlock */
     characters_section_sherlock_health_and_movment: "HEALTH: 16 , MOVEMENT: 2",
     characters_section_sherlock_special_ability_header: "Special Ability:",
     characters_section_sherlock_special_ability_text: "Effects on HOLMES and DR. WATSON cards cannot be cancelled by an opponent.",
     characters_section_sherlock_dr_watson_header: "Dr.Watson:",
     characters_section_sherlock_title: "Sherlock Holms",
-      /* dracula */
+    /* dracula */
     characters_section_dracula_health_and_movment: "HEALTH: 13 , MOVEMENT: 2",
     characters_section_dracula_special_ability_header: "BLOODTHIRSTY:",
     characters_section_dracula_special_ability_text: "At the start of your turn, deal 1 damage to adjacent fighter. If you do, draw a card.",
     characters_section_dracula_sisters_header: "Sisters:",
     characters_section_dracula_title: "Dracula",
-      /* invisible man */
+    /* invisible man */
     characters_section_invisible_man_health_and_movment: "HEALTH: 15 , MOVEMENT: 2",
     characters_section_invisible_man_special_ability_header: "Special Ability:",
     characters_section_invisible_man_special_ability_text: "Place 3 fog tokens in separate spaces in his zone. +1 defense while on a fog space. May move between fog spaces as if adjacent.",
@@ -81,41 +95,41 @@ const translations = {
     dracula_deck_status_table_fourth_vertical_row: "ANY",
 
     /* how to play section */
-      /* first section */
+    /* first section */
     how_to_play_section_header: "How To Play",
     how_to_play_first_section_box_header: "1. Select Your Hero",
     how_to_play_first_section_box_text: "Remeber if you are younger you can choose your hero first :)",
-      /* second section */
+    /* second section */
     how_to_play_second_section_box_header: "2. Place Your Hero",
     how_to_play_second_section_box_text: "After hero selection you have to place you'r hero in one of the two positon shown below.",
-      /* third section */
+    /* third section */
     how_to_play_third_section_box_header: "3. Create your hand",
     how_to_play_third_section_box_text: "Draw 5 cards from the top of your deck.",
-      /* fourth section */
+    /* fourth section */
     how_to_play_fourth_section_box_header: "4. Take Actions",
     how_to_play_fourth_section_box_text: "On your turn you must take 2 actions (Remember you may choose the same action twice)",
     how_to_play_fourth_section_box_explanation: "Select an action above to see how it works",
-        /* maneuver */
-        maneuver_btn: "Maneuver",
-        maneuver_header: "Maneuver",
-        maneuver_first_element_title: "1. Draw a card: ",
-        maneuver_first_element_text: "You MUST draw the top card of your deck.",
-        maneuver_second_element_title: "2. Move your fighters: ",
-        maneuver_second_element_text: "You MAY move each fighter up to their move value.",
+    /* maneuver */
+    maneuver_btn: "Maneuver",
+    maneuver_header: "Maneuver",
+    maneuver_first_element_title: "1. Draw a card: ",
+    maneuver_first_element_text: "You MUST draw the top card of your deck.",
+    maneuver_second_element_title: "2. Move your fighters: ",
+    maneuver_second_element_text: "You MAY move each fighter up to their move value.",
 
-        /* attck */
-        attack_btn: "Attack",
-        attack_header: "Attack",
-        attack_text: "Choose an opponent fighter in your range and play an attack card. The defender may then play a defense card.",
-        attack_cards_title: "Combat Cards",
+    /* attck */
+    attack_btn: "Attack",
+    attack_header: "Attack",
+    attack_text: "Choose an opponent fighter in your range and play an attack card. The defender may then play a defense card.",
+    attack_cards_title: "Combat Cards",
 
-        /* scheme */
-        scheme_btn: "Scheme",
-        scheme_header: "Scheme",
-        scheme_text: "Play a scheme card and resolve its effect.",
+    /* scheme */
+    scheme_btn: "Scheme",
+    scheme_header: "Scheme",
+    scheme_text: "Play a scheme card and resolve its effect.",
 
 
-      /* fifth section */
+    /* fifth section */
     how_to_play_fifth_section_box_header: "5. Defeat Your Opponent",
     how_to_play_fifth_section_box_text: "Reduce the enemy hero's health to zero to win the match.",
     /* implementation_guide_button */
@@ -139,15 +153,29 @@ const translations = {
 
     /* game over view */
     game_first_over_view: "دنبال یه بازی متفاوت هستی که بتونی در کنار دوستات  ازش لذت ببری و ساعت ها سرگرم بشی؟  تبریک می گم، جای درستی اومدی!!!",
-    game_second_over_view: "بزن تو دل خطر و حقایق این دنیا و افراد توش رو کشف کن",
+    game_second_over_view: "به فاز اول خوش آمدید. تمرکز این مرحله بر پیاده‌سازی مکانیزم‌های اصلی گیم‌پلی بازی رومیزی «UNMATCHED» است. هدف شما در این بازی، شکست قهرمان حریف از طریق حرکت استراتژیک، کارت‌کشی و مبارزه است.",
     explore_fighters: "بررسی مبارزها",
     combat_page: "قوانین مبارزه",
+
+    setup_title: "راهنمای تنظیم و مرور کلی",
+    setup_intro: "به پروژه شبیه‌ساز مبارزه Unmatched خوش آمدید. این پروژه یک موتور استراتژیک مبتنی بر کارت است. وظیفه شما پیاده‌سازی موتوری است که به طور اختصاصی از دو قهرمان: شرلوک هلمز و دراکولا پشتیبانی کند.",
+    setup_core_header: "هدف و محدوده پروژه",
+    setup_core_desc: "سیستم باید میدان نبرد، مدیریت اقدامات (مانور، طرح، حمله) و حل نبرد را با استفاده از کارت‌های اختصاصی این دو شخصیت مدیریت کند.",
+    char_sherlock: "شرلوک هلمز",
+    char_sherlock_desc: "متمرکز بر استنتاج، مدیریت کارت و حملات کنترل‌شده با همراهی واتسون.",
+    char_dracula: "دراکولا",
+    char_dracula_desc: "استفاده از توکن‌های عطش خون و کنترل نقشه برای تخلیه سلامت حریف.",
+    setup_rules_list_1: "هر قهرمان بازی را از نقطه شروع در نقشه مه آلود آغاز می‌کند.",
+    setup_rules_list_2: "۵ کارت به عنوان دست اولیه از دسته کارت خود بکشید.",
+    setup_rules_list_3: "هر قهرمان ۳۰ کارت دارد. به دلیل ساده‌سازی، به تعداد  کارت‌های تکراری نوشته شده در بخش جزئیات کارت ها دقت کنید.",
+    setup_rules_list_4: "توکن سلامتی هر قهرمان را در ابتدای بازی روی مقدار اولیه تنظیم کنید.",
+    character_title:"کاراکترها",
 
     /* game board section */
     game_boards_section: "نقشه های بازی",
     maps_soho_street_title: "Baskerville Manor",
-    maps_soho_street_info: "میدان نبردی شهری و مه‌آلود، ایده‌آل برای تاکتیک‌های زیرکانه.",
-    maps_soho_street_view_button: "مشاهده نقشه",
+    maps_soho_street_info: "میدان نبردی شهری و مه‌آلود، ایده‌آل برای تاکتیک‌های زیرکانه؛ شما باید این نقشه را پیاده سازی کنید نیازی به پیاده سازی صفحه قلعه دراکولا نیست همچنین برای خواندن جزيیات نقشه روی دکمه زیر کلیک کنید.",
+      maps_soho_street_view_button: "مشاهده نقشه",
     maps_dracula_castle_title: "Dracula's Castle",
     maps_dracula_castle_info: "قلعه‌ای ترسناک و تاریک، سرشار از خطر و فرصت‌های کمین.",
     maps_dracula_castle_view_button: "مشاهده نقشه",
@@ -155,13 +183,13 @@ const translations = {
 
     /* characters deck section */
     characters_section_view_character_button: "بررسی مبارز",
-      /* sharlock */
+    /* sharlock */
     characters_section_sherlock_health_and_movment: "سلامتی : 16 , حرکت : 2",
     characters_section_sherlock_special_ability_header: "توانایی ویژه:",
     characters_section_sherlock_special_ability_text: "افکت ها و فرایندهای اعمال شده بر روی کارت های هلمز و دکتر واتسون نمی تواند توسط حریف غیر فعال شود.",
     characters_section_sherlock_dr_watson_header: "دکتر واتسون:",
     characters_section_sherlock_title: "شرلوک هلمز",
-      /* dracula */
+    /* dracula */
     characters_section_dracula_health_and_movment: "سلامتی: 13 , حرکت : 2",
     characters_section_dracula_special_ability_header: "تشنه خون:",
     characters_section_dracula_special_ability_text: "در ابتدا نوبت خود 1 ضربه به مبارز مجاور وارد کنید ، اگر موفق شدید; یک کارت بکشید.",
@@ -191,40 +219,40 @@ const translations = {
     dracula_deck_status_table_fourth_vertical_row: "خود مبارز یا همرزمش",
 
     /* how to play section */
-      /* first section */
+    /* first section */
     how_to_play_section_header: "چطور بازی کنیم؟",
     how_to_play_first_section_box_header: "1. مبارز خود را انتخاب کن!",
     how_to_play_first_section_box_text: "به یاد داشته باشید ، بازیکن جوان تر اول انتخاب می کند:)",
-      /* second section */
+    /* second section */
     how_to_play_second_section_box_header: "2. مبارز خود را در زمین قرار بده",
     how_to_play_second_section_box_text: "بعد از انتخاب مبارز باید آن را در یکی از دو مکانی که در زیر نشان داده شده قرار دهی.",
-      /* third section */
+    /* third section */
     how_to_play_third_section_box_header: "3. دسته کارت خود برای مبارزه را بساز",
     how_to_play_third_section_box_text: "5 کارت از ابتدا دسته کارت خودت بکش",
-      /* fourth section */
+    /* fourth section */
     how_to_play_fourth_section_box_header: "4. حرکات زیرکانه خودتو انجام بده",
     how_to_play_fourth_section_box_text: "در نوبت خودت باید 2 حرکت انجام بدی (به یاد داشته باش ممکنه لازم شه یه حرکتو دوبار انجام بدی)",
-    how_to_play_fourth_section_box_explanation: "برای مشاهده نحوه کارکرد بر روی دگمه های بالا بزنید" ,
-        /* maneuver */
-        maneuver_btn: "مانور",
-        maneuver_header: "مانور",
-        maneuver_first_element_title: "1. یک کارت بکش: ",
-        maneuver_first_element_text: "تو باید بالاترین کارت موجود از دست خودتو بکشی",
-        maneuver_second_element_title: "2. مبارز خودتو حرکت بده: ",
-        maneuver_second_element_text: "می توانی هر مبارز را تا حداکثر تعداد حرکاتش ، حرکت دهی یا هیچ حرکتی انجام ندهی",
+    how_to_play_fourth_section_box_explanation: "برای مشاهده نحوه کارکرد بر روی دگمه های بالا بزنید",
+    /* maneuver */
+    maneuver_btn: "مانور",
+    maneuver_header: "مانور",
+    maneuver_first_element_title: "1. یک کارت بکش: ",
+    maneuver_first_element_text: "تو باید بالاترین کارت موجود از دست خودتو بکشی",
+    maneuver_second_element_title: "2. مبارز خودتو حرکت بده: ",
+    maneuver_second_element_text: "می توانی هر مبارز را تا حداکثر تعداد حرکاتش ، حرکت دهی یا هیچ حرکتی انجام ندهی",
 
-        /* attck */
-        attack_btn: "حمله",
-        attack_header: "حمله",
-        attack_text: "مبارزی از یکی از حریفان که در محدوده تو است را انتخاب کن و سپس یک کارت حمله بازی کن ، حریف ممکن است کارت دفاع بازی کند.",
-        attack_cards_title: "کارت های حمله",
+    /* attck */
+    attack_btn: "حمله",
+    attack_header: "حمله",
+    attack_text: "مبارزی از یکی از حریفان که در محدوده تو است را انتخاب کن و سپس یک کارت حمله بازی کن ، حریف ممکن است کارت دفاع بازی کند.",
+    attack_cards_title: "کارت های حمله",
 
-        /* scheme */
-        scheme_btn: "رویداد",
-        scheme_header: "رویداد",
-        scheme_text: "یک کارت رویداد بازی کنید و اثر آنرا در بازی اعمال کنید.",
+    /* scheme */
+    scheme_btn: "رویداد",
+    scheme_header: "رویداد",
+    scheme_text: "یک کارت رویداد بازی کنید و اثر آنرا در بازی اعمال کنید.",
 
-      /* fifth section */
+    /* fifth section */
     how_to_play_fifth_section_box_header: "5. حریفت رو شکست بده",
     how_to_play_fifth_section_box_text: "سلامتی مبارز حریفت رو به صفر برسون تا برنده بازی شی:)",
 
@@ -240,7 +268,7 @@ function applyLang(lang) {
   document.documentElement.classList.toggle("lang-fa", lang === "fa");
 
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr"; 
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
 
 
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -269,7 +297,7 @@ applyLang(currentLang);
 
 const langBtn = document.getElementById("langToggle");
 if (langBtn) {
-  langBtn.addEventListener("click", ()=>{
+  langBtn.addEventListener("click", () => {
     currentLang = currentLang === "en" ? "fa" : "en";
     applyLang(currentLang);
   });
@@ -282,21 +310,21 @@ const buttons = document.querySelectorAll(".deck-button");
 const modal = document.getElementById("cardModal");
 const modalImg = document.getElementById("modalImage");
 
-buttons.forEach(btn=>{
-btn.addEventListener("click",()=>{
-const id = btn.dataset.deck;
-const deck = document.getElementById(id);
-const isOpen = deck.classList.toggle("open");
-   if (!isOpen) {
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.deck;
+    const deck = document.getElementById(id);
+    const isOpen = deck.classList.toggle("open");
+    if (!isOpen) {
       resetDeck(deck);
       return;
     }
 
-  if (window.innerWidth <= 768)    {
+    if (window.innerWidth <= 768) {
       createFanEffect(deck);   // ONLY MOBILE
     }
 
-});
+  });
 });
 
 function createFanEffect(deck) {
@@ -308,7 +336,7 @@ function createFanEffect(deck) {
   const maxAngle = 80;
   const start = -maxAngle / 2;
   const step = maxAngle / (total - 1)
-  ;
+    ;
 
   cards.forEach((card, i) => {
     const angle = start + step * i;
@@ -319,11 +347,11 @@ function createFanEffect(deck) {
   });
 }
 
-document.querySelectorAll(".deck-card").forEach(card=>{
-card.addEventListener("click",()=>{
-modal.style.display="flex";
-modalImg.src = card.src;
-});
+document.querySelectorAll(".deck-card").forEach(card => {
+  card.addEventListener("click", () => {
+    modal.style.display = "flex";
+    modalImg.src = card.src;
+  });
 });
 
 modal.addEventListener("click", () => {
@@ -359,47 +387,47 @@ window.addEventListener("resize", () => {
 
 
 /* ================= HERO SELECTION ================= */
-document.querySelectorAll(".hero-box").forEach(hero=>{
+document.querySelectorAll(".hero-box").forEach(hero => {
 
-const img = hero.querySelector(".hero-img");
+  const img = hero.querySelector(".hero-img");
 
-const front = img.src;
-const card = hero.dataset.card;
+  const front = img.src;
+  const card = hero.dataset.card;
 
-let flipped = false;
+  let flipped = false;
 
-hero.addEventListener("click",()=>{
+  hero.addEventListener("click", () => {
 
 
-if(hero.classList.contains("hero-invisible")){
-createFogEffect(hero);
-}
+    if (hero.classList.contains("hero-invisible")) {
+      createFogEffect(hero);
+    }
 
-if(hero.classList.contains("hero-dracula")){
-bloodSplash(hero);
-}
+    if (hero.classList.contains("hero-dracula")) {
+      bloodSplash(hero);
+    }
 
-if(hero.classList.contains("hero-sherlock")){
-sherlockStorm(hero);
-}
+    if (hero.classList.contains("hero-sherlock")) {
+      sherlockStorm(hero);
+    }
 
-setTimeout(()=>{
-img.src = flipped ? front : card;
-flipped = !flipped;
-},300);
+    setTimeout(() => {
+      img.src = flipped ? front : card;
+      flipped = !flipped;
+    }, 300);
 
-});
+  });
 
 });
 
 /* ================= BOARD MOVEMENT ================= */
 const nodes = [
-  { x: "8%",   y: "12%" },
-  { x: "39%",  y: "11%" },
-  { x: "69%",  y: "55%" },
-  { x: "51%",  y: "25%" },
-  { x: "46%",  y: "55%" },
-  { x: "92%",  y: "55%" },
+  { x: "8%", y: "12%" },
+  { x: "39%", y: "11%" },
+  { x: "69%", y: "55%" },
+  { x: "51%", y: "25%" },
+  { x: "46%", y: "55%" },
+  { x: "92%", y: "55%" },
 ];
 
 const fighters = [
@@ -422,7 +450,7 @@ function moveFighters() {
   fighters.forEach((fighter, index) => {
     if (!fighter) return;
     fighter.style.left = shuffledNodes[index].x;
-    fighter.style.top  = shuffledNodes[index].y;
+    fighter.style.top = shuffledNodes[index].y;
   });
 }
 
@@ -434,29 +462,29 @@ moveFighters();
 
 /* ================= INVISIBLE MAN FOG ================= */
 function createFogEffect(hero) {
-    const canvas = hero.querySelector(".fx-canvas");
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+  const canvas = hero.querySelector(".fx-canvas");
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 
-    renderer.setSize(hero.offsetWidth, hero.offsetHeight);
+  renderer.setSize(hero.offsetWidth, hero.offsetHeight);
 
-    const geometry = new THREE.PlaneGeometry(2, 2);
+  const geometry = new THREE.PlaneGeometry(2, 2);
 
-    const material = new THREE.ShaderMaterial({
-        transparent: true,
-        uniforms: {
-            time: { value: 0 },
-            opacity: { value: 1.0 }
-        },
-        vertexShader: `
+  const material = new THREE.ShaderMaterial({
+    transparent: true,
+    uniforms: {
+      time: { value: 0 },
+      opacity: { value: 1.0 }
+    },
+    vertexShader: `
             varying vec2 vUv;
             void main() {
                 vUv = uv;
                 gl_Position = vec4(position, 1.0);
             }
         `,
-        fragmentShader: `
+    fragmentShader: `
             uniform float time;
             uniform float opacity;
             varying vec2 vUv;
@@ -466,86 +494,86 @@ function createFogEffect(hero) {
                 gl_FragColor = vec4(0.9, 0.9, 1.0, fog * 0.7 * opacity);
             }
         `
-    });
+  });
 
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
 
-    let startTime = Date.now();
-    let animationId;
+  let startTime = Date.now();
+  let animationId;
 
-    function animate() {
-        let elapsed = (Date.now() - startTime) / 1000;
+  function animate() {
+    let elapsed = (Date.now() - startTime) / 1000;
 
-        if (elapsed > 2.5) {
-            renderer.clear();
-            cancelAnimationFrame(animationId);
-            return;
-        }
-
-        if (elapsed > 1.5) {
-            material.uniforms.opacity.value = 2.5 - elapsed;
-        }
-
-        material.uniforms.time.value = elapsed * 1.5;
-        renderer.render(scene, camera);
-        animationId = requestAnimationFrame(animate);
+    if (elapsed > 2.5) {
+      renderer.clear();
+      cancelAnimationFrame(animationId);
+      return;
     }
 
-    animate();
+    if (elapsed > 1.5) {
+      material.uniforms.opacity.value = 2.5 - elapsed;
+    }
+
+    material.uniforms.time.value = elapsed * 1.5;
+    renderer.render(scene, camera);
+    animationId = requestAnimationFrame(animate);
+  }
+
+  animate();
 }
 
 
 
 /* ================= DRACULA BLOOD ================= */
-function bloodSplash(hero){
+function bloodSplash(hero) {
 
-const canvas = hero.querySelector(".fx-canvas");
-const ctx = canvas.getContext("2d");
+  const canvas = hero.querySelector(".fx-canvas");
+  const ctx = canvas.getContext("2d");
 
-canvas.width = hero.offsetWidth;
-canvas.height = hero.offsetHeight;
+  canvas.width = hero.offsetWidth;
+  canvas.height = hero.offsetHeight;
 
-let particles = [];
+  let particles = [];
 
-for(let i=0;i<80;i++){
-particles.push({
-x:canvas.width/2,
-y:canvas.height/2,
-vx:(Math.random()-0.5)*8,
-vy:(Math.random()-0.5)*8,
-radius:Math.random()*6+2,
-life:100
-});
-}
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      vx: (Math.random() - 0.5) * 8,
+      vy: (Math.random() - 0.5) * 8,
+      radius: Math.random() * 6 + 2,
+      life: 100
+    });
+  }
 
-function animate(){
+  function animate() {
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-particles.forEach(p=>{
+    particles.forEach(p => {
 
-p.vy += 0.2;
-p.x += p.vx;
-p.y += p.vy;
-p.life--;
+      p.vy += 0.2;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life--;
 
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-ctx.fillStyle="rgba(139,0,0,0.9)";
-ctx.fill();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(139,0,0,0.9)";
+      ctx.fill();
 
-});
+    });
 
-particles = particles.filter(p=>p.life>0);
+    particles = particles.filter(p => p.life > 0);
 
-if(particles.length>0){
-requestAnimationFrame(animate);
-}
+    if (particles.length > 0) {
+      requestAnimationFrame(animate);
+    }
 
-}
+  }
 
-animate();
+  animate();
 
 }
 
@@ -670,55 +698,55 @@ function initAttackCards() {
 
 /* ================= SHERLOCK EFFECT ================= */
 function sherlockStorm(hero) {
-    const canvas = hero.querySelector(".fx-canvas");
-    const ctx = canvas.getContext("2d");
+  const canvas = hero.querySelector(".fx-canvas");
+  const ctx = canvas.getContext("2d");
 
-    canvas.width = hero.offsetWidth;
-    canvas.height = hero.offsetHeight;
+  canvas.width = hero.offsetWidth;
+  canvas.height = hero.offsetHeight;
 
-    const symbols = ["Σ", "Δ", "π", "√", "x", "y", "∞", "β", "λ", "∫"];
-    let particles = [];
+  const symbols = ["Σ", "Δ", "π", "√", "x", "y", "∞", "β", "λ", "∫"];
+  let particles = [];
 
-    for (let i = 0; i < 40; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vy: Math.random() * 2 + 2,
-            fontSize: Math.floor(Math.random() * 10) + 12,
-            symbol: symbols[Math.floor(Math.random() * symbols.length)],
-            opacity: 1
-        });
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vy: Math.random() * 2 + 2,
+      fontSize: Math.floor(Math.random() * 10) + 12,
+      symbol: symbols[Math.floor(Math.random() * symbols.length)],
+      opacity: 1
+    });
+  }
+
+  let startTime = Date.now();
+  let animationId;
+
+  function animate() {
+    let elapsed = Date.now() - startTime;
+
+    if (elapsed > 2500) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      cancelAnimationFrame(animationId);
+      return;
     }
 
-    let startTime = Date.now();
-    let animationId;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function animate() {
-        let elapsed = Date.now() - startTime;
+    let fadeOut = elapsed > 1500 ? (2500 - elapsed) / 1000 : 1;
 
-        if (elapsed > 2500) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            cancelAnimationFrame(animationId);
-            return;
-        }
+    particles.forEach(p => {
+      ctx.fillStyle = `rgb(69, 71, 42), ${fadeOut})`;
+      ctx.font = `${p.fontSize}px serif`;
+      ctx.fillText(p.symbol, p.x, p.y);
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      p.y += p.vy;
+      if (p.y > canvas.height) p.y = -20;
+    });
 
-        let fadeOut = elapsed > 1500 ? (2500 - elapsed) / 1000 : 1;
+    animationId = requestAnimationFrame(animate);
+  }
 
-        particles.forEach(p => {
-            ctx.fillStyle = `rgb(69, 71, 42), ${fadeOut})`;
-            ctx.font = `${p.fontSize}px serif`;
-            ctx.fillText(p.symbol, p.x, p.y);
-
-            p.y += p.vy;
-            if (p.y > canvas.height) p.y = -20;
-        });
-
-        animationId = requestAnimationFrame(animate);
-    }
-
-    animate();
+  animate();
 }
 
 const canvas = document.getElementById("cursor-canvas");
@@ -732,23 +760,23 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
 });
 
-let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 let lastMove = Date.now();
 
 let particles = [];
 
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("mousemove", (e) => {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
   lastMove = Date.now();
 
-  for(let i=0;i<4;i++){
-    particles.push(new Particle(mouse.x,mouse.y));
+  for (let i = 0; i < 4; i++) {
+    particles.push(new Particle(mouse.x, mouse.y));
   }
 });
 
 let hoveringClickable = false;
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("mousemove", (e) => {
 
   mouse.x = e.clientX;
   mouse.y = e.clientY;
@@ -757,94 +785,94 @@ document.addEventListener("mousemove",(e)=>{
   const style = window.getComputedStyle(e.target);
   hoveringClickable = style.cursor === "pointer";
 
-  for(let i=0;i<4;i++){
-    particles.push(new Particle(mouse.x,mouse.y));
+  for (let i = 0; i < 4; i++) {
+    particles.push(new Particle(mouse.x, mouse.y));
   }
 
 });
 
 
 
-class Particle{
-  constructor(x,y){
-    this.x=x;
-    this.y=y;
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
 
-    this.size=Math.random()*3+1;
+    this.size = Math.random() * 3 + 1;
 
-    this.speedX=(Math.random()-0.5)*2;
-    this.speedY=(Math.random()-0.5)*2;
+    this.speedX = (Math.random() - 0.5) * 2;
+    this.speedY = (Math.random() - 0.5) * 2;
 
-    this.life=80;
+    this.life = 80;
 
-    this.hue=Math.random()*360;
+    this.hue = Math.random() * 360;
   }
 
-  update(){
-    this.x+=this.speedX;
-    this.y+=this.speedY;
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
     this.life--;
   }
 
-  draw(){
+  draw() {
     ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle=`hsla(${this.hue},100%,60%,${this.life/80})`;
-    ctx.shadowColor=`hsl(${this.hue},100%,60%)`;
-    ctx.shadowBlur=15;
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue},100%,60%,${this.life / 80})`;
+    ctx.shadowColor = `hsl(${this.hue},100%,60%)`;
+    ctx.shadowBlur = 15;
     ctx.fill();
   }
 }
 
-function drawIdleCircles(){
+function drawIdleCircles() {
 
   let idleTime = Date.now() - lastMove;
 
-  if(idleTime < 200){
+  if (idleTime < 200) {
     return;
   }
 
-  let t = Date.now()*0.002;
+  let t = Date.now() * 0.002;
 
   let circles = [
-    {r:18, speed:1},
-    {r:28, speed:-0.7},
-    {r:40, speed:0.5}
+    { r: 18, speed: 1 },
+    { r: 28, speed: -0.7 },
+    { r: 40, speed: 0.5 }
   ];
 
-  circles.forEach((c,i)=>{
+  circles.forEach((c, i) => {
 
     let angle = t * c.speed;
 
-    let x = mouse.x + Math.cos(angle)*c.r;
-    let y = mouse.y + Math.sin(angle)*c.r;
+    let x = mouse.x + Math.cos(angle) * c.r;
+    let y = mouse.y + Math.sin(angle) * c.r;
 
     ctx.beginPath();
-    ctx.arc(x,y,3,0,Math.PI*2);
-    ctx.fillStyle=`hsl(${(t*80+i*90)%360},100%,65%)`;
-    ctx.shadowBlur=12;
-    ctx.shadowColor=ctx.fillStyle;
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = `hsl(${(t * 80 + i * 90) % 360},100%,65%)`;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = ctx.fillStyle;
     ctx.fill();
 
   });
 
   ctx.beginPath();
-  ctx.arc(mouse.x,mouse.y,12,0,Math.PI*2);
-  ctx.strokeStyle="rgba(255,255,255,0.6)";
-  ctx.lineWidth=1.5;
+  ctx.arc(mouse.x, mouse.y, 12, 0, Math.PI * 2);
+  ctx.strokeStyle = "rgba(255,255,255,0.6)";
+  ctx.lineWidth = 1.5;
   ctx.stroke();
 }
 
-function animate(){
+function animate() {
 
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for(let i=0;i<particles.length;i++){
+  for (let i = 0; i < particles.length; i++) {
     particles[i].update();
     particles[i].draw();
 
-    if(particles[i].life<=0){
-      particles.splice(i,1);
+    if (particles[i].life <= 0) {
+      particles.splice(i, 1);
       i--;
     }
   }
@@ -922,7 +950,7 @@ function getActions(lang) {
         <div id="map-nodes-overlay" class="absolute inset-0 z-10"></div>
       </div>
     `,
-attack: `
+    attack: `
   <h3 class="text-xl font-bold mb-3">${t.attack_header}</h3>
   <p class="text-slate-300 mb-6">${t.attack_text}</p>
 
@@ -955,7 +983,7 @@ attack: `
   </div>
 `,
 
-scheme: `
+    scheme: `
   <div id="scheme-container" class="relative text-center">
     <h4 class="text-lg font-semibold mb-3">${t.scheme_header}</h4>
     <p class="text-slate-400 mb-6">${t.scheme_text}</p>
@@ -998,7 +1026,7 @@ actionButtons.forEach(btn => {
     if (action === "scheme") {
       triggerThunder();
     }
-    
+
     if (action === "maneuver") initManeuverMap();
     if (action === "attack") initAttackCards();
   });
@@ -1016,7 +1044,7 @@ function triggerThunder() {
 
   // 2. High-saturation glow
   glow.style.opacity = "1";
-  
+
   // 3. Subtle scale pop
   card.style.transform = "scale(1.03)";
 
@@ -1031,12 +1059,12 @@ function triggerThunder() {
 
 function initManeuverMap() {
 
-const mapNodes = [
-  { id: 1, x: 6,  y: 31, links: [2,3,4] },
-  { id: 2, x: 18, y: 33, links: [1,3] },
-  { id: 3, x: 8,  y: 14, links: [1,2] },
-  { id: 4, x: 10, y: 58, links: [1] },
-];
+  const mapNodes = [
+    { id: 1, x: 6, y: 31, links: [2, 3, 4] },
+    { id: 2, x: 18, y: 33, links: [1, 3] },
+    { id: 3, x: 8, y: 14, links: [1, 2] },
+    { id: 4, x: 10, y: 58, links: [1] },
+  ];
 
   const MOVE_VALUE = 1;
 
@@ -1048,9 +1076,9 @@ const mapNodes = [
   overlay.innerHTML = "";
 
   let currentNode = 1;
-const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 768;
 
-const NODE_SIZE = isMobile ? 10 : 50;
+  const NODE_SIZE = isMobile ? 10 : 50;
 
   mapNodes.forEach(node => {
 
@@ -1059,8 +1087,8 @@ const NODE_SIZE = isMobile ? 10 : 50;
     el.className = "node-point";
 
     el.style.position = "absolute";
-el.style.width = `${NODE_SIZE}px`;
-el.style.height = `${NODE_SIZE}px`;
+    el.style.width = `${NODE_SIZE}px`;
+    el.style.height = `${NODE_SIZE}px`;
 
     el.style.borderRadius = "50%";
     el.style.background = "rgba(255,255,255,0.15)";
@@ -1068,8 +1096,8 @@ el.style.height = `${NODE_SIZE}px`;
     el.style.cursor = "pointer";
     el.style.transition = "all 0.25s ease";
 
-el.style.left = `calc(${node.x}% - ${NODE_SIZE/2}px)`;
-el.style.top = `calc(${node.y}% - ${NODE_SIZE/2}px)`;
+    el.style.left = `calc(${node.x}% - ${NODE_SIZE / 2}px)`;
+    el.style.top = `calc(${node.y}% - ${NODE_SIZE / 2}px)`;
 
 
     el.dataset.id = node.id;
@@ -1083,42 +1111,42 @@ el.style.top = `calc(${node.y}% - ${NODE_SIZE/2}px)`;
     const node = mapNodes.find(n => n.id == nodeId);
 
     fighter.style.display = "block";
-const FIGHTER_SIZE = isMobile ? 32 : 50;
+    const FIGHTER_SIZE = isMobile ? 32 : 50;
 
-fighter.style.left = `calc(${node.x}% - ${FIGHTER_SIZE/2}px)`;
-fighter.style.top = `calc(${node.y}% - ${FIGHTER_SIZE/2}px)`;
+    fighter.style.left = `calc(${node.x}% - ${FIGHTER_SIZE / 2}px)`;
+    fighter.style.top = `calc(${node.y}% - ${FIGHTER_SIZE / 2}px)`;
 
 
     currentNode = nodeId;
   }
-function getReachable(start, steps) {
+  function getReachable(start, steps) {
 
-  let queue = [{ id: start, dist: 0 }];
-  let reachable = new Set();
+    let queue = [{ id: start, dist: 0 }];
+    let reachable = new Set();
 
-  while (queue.length) {
+    while (queue.length) {
 
-    const { id, dist } = queue.shift();
+      const { id, dist } = queue.shift();
 
-    if (dist === steps) continue;
+      if (dist === steps) continue;
 
-    const node = mapNodes.find(n => n.id === id);
+      const node = mapNodes.find(n => n.id === id);
 
-    node.links.forEach(link => {
+      node.links.forEach(link => {
 
-      if (!reachable.has(link) && link !== start) {
+        if (!reachable.has(link) && link !== start) {
 
-        reachable.add(link);
-        queue.push({ id: link, dist: dist + 1 });
+          reachable.add(link);
+          queue.push({ id: link, dist: dist + 1 });
 
-      }
+        }
 
-    });
+      });
 
+    }
+
+    return [...reachable];
   }
-
-  return [...reachable];
-}
 
   function highlightNodes(nodes) {
 
@@ -1186,7 +1214,7 @@ function drawLightning(container) {
   container.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
-  
+
   // Lightning Drawing Logic
   let x = Math.random() * rect.width;
   let y = 0;
