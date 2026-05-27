@@ -25,13 +25,13 @@
 	    <style>
 	      html {
 	  scroll-behavior: smooth;
-	}/* font */
-/* --- Persian Font: Vazir --- */
+	}
+
 @font-face {
   font-family: 'Vazir';
   src: url('../../../fonts/Vazir.woff2') format('woff2'),
        url('../../../fonts/Vazir.woff') format('woff'),
-       url('../../../fonts/Vazir.ttf') format('truetype'); /* <--- Fixed 'u' to 'url' */
+       url('../../../fonts/Vazir.ttf') format('truetype'); 
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -53,12 +53,12 @@ body {
   text-align: right;
   line-height: 1.8;
 }
-/* Define these variables at the top of your style block */
+
   :root {
-    --accent-color: 202, 138, 4; /* Detective Gold */
+    --accent-color: 202, 138, 4; 
   }
 
-/* Page-specific overrides (Add this to your HTML style block for each character) */
+
 /* For Dracula: 
    :root { --accent-color: 220, 38, 38; } 
    For Sherlock: 
@@ -67,7 +67,7 @@ body {
 
 .glass-card {
   background: rgba(15, 23, 42, 0.65);
-  /* Uses variable for border */
+  
   border: 1px solid rgba(var(--accent-color), 0.15);
   backdrop-filter: blur(20px);
   box-shadow: 
@@ -79,11 +79,11 @@ body {
 
 .glass-card:hover {
   transform: translateY(-6px);
-  /* Dynamic Shadow based on variable */
+  
   box-shadow: 
     0 15px 40px rgba(0, 0, 0, 0.4),
     0 0 25px rgba(var(--accent-color), 0.25);
-  /* Dynamic Border based on variable */
+  
   border-color: rgba(var(--accent-color), 0.4);
 }
 
@@ -107,7 +107,7 @@ body {
         );
         color: #05051d;
       }
-	      /* Small custom touches */
+	      
 	      .glass {
 	        background: rgba(15, 23, 42, 0.85);
 	        backdrop-filter: blur(12px);
@@ -131,7 +131,7 @@ body {
 	        pointer-events: auto;
 	      }
 	
-	      /*sherlock theme effect*/
+	      
           
 	@keyframes protest-shake {
 	  0% { transform: translateX(0); }
@@ -561,7 +561,7 @@ body {
 	          <!-- glow -->
 	          <div class="absolute inset-0 bg-yellow-500/30 blur-3xl rounded-full"></div>
 	
-	          <!-- transparent png holder -->
+	          
 	          <img
 	            src="../../../images/drwatson.png"
 	            alt="Watson"
@@ -971,7 +971,7 @@ body {
 	        />
 	      </div>
 	
-	      <!-- Text -->
+	      
 	      <div dir="rtl" class="text-right">
 	
 	        <h3 class="text-xl md:text-2xl font-bold text-amber-300 mb-2">

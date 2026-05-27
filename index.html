@@ -12,11 +12,11 @@
   <canvas id="cursor-canvas" class="fixed inset-0 pointer-events-none z-[9999]"></canvas>
 
   <style>
-    /* Modern Game Background Texture */
+    
 body {
   background-color: #0f1115;
   background-image: radial-gradient(#222 1px, transparent 1px);
-  background-size: 30px 30px; /* Adjust size for density */
+  background-size: 30px 30px; 
   background-attachment: fixed;
 }
 
@@ -28,7 +28,7 @@ body {
   transition: 0.25s ease;
 }
 
-/*persian font style*/
+
 @font-face {
   font-family: "Vazirmatn";
   src: url("font/Vazir.woff2") format("woff2");
@@ -53,7 +53,7 @@ html.lang-fa .rtl-content {
   text-align: right;
 }
 
-/* NAV ALWAYS LTR */
+
 nav,
 #navMenu,
 #navMenu * {
@@ -61,7 +61,7 @@ nav,
   text-align: left !important;
 }
 
-/* Mobile deck fix */
+
 @media (max-width: 768px) {
 
   .deck-row {
@@ -72,7 +72,7 @@ nav,
   .deck-cards {
     position: relative;
     width: 100%;
-    height: 220px;   /* space for the fan */
+    height: 220px;   
     margin-top: 20px;
     justify-content: center;
   }
@@ -83,7 +83,7 @@ nav,
 
 }
 
-/*language translater button in normal*/
+
 .lang-toggle{
   position: fixed;
   top: 80px;
@@ -107,7 +107,7 @@ nav,
   transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
 }
 
-/*language tranlater button in mobile*/
+
 @media (max-width: 768px) {
   .lang-toggle {
     top: 74px;
@@ -123,17 +123,17 @@ nav,
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(0,0,0,0.4);
 }
-/* Reset the fixed positioning when inside the nav */
+
 nav .lang-toggle {
   position: static !important;
   margin: 0 !important;
-  width: auto !important; /* Let it size based on content */
+  width: auto !important; 
   height: auto !important;
-  padding: 8px 16px !important; /* Adjust padding as needed */
+  padding: 8px 16px !important; 
   box-shadow: none !important;
 }
 
-/* Ensure the mobile view doesn't break */
+
 @media (max-width: 768px) {
   nav .lang-toggle {
     position: static !important;
@@ -149,7 +149,7 @@ nav .lang-toggle {
 }
 
 
-/* Deck slidera */
+
 #decks {
   padding: 100px 10%;
 }
@@ -237,7 +237,7 @@ nav .lang-toggle {
   direction: ltr;
 }
 
-/* combat card */
+
 .attack-row {
   display: flex;
   justify-content: center;
@@ -298,7 +298,7 @@ nav .lang-toggle {
   margin-top: 30px;
   flex-wrap: wrap;
 }
-/* make defense card able to show overlay */
+
 .defense-box {
   width: 220px;
   height: 320px;
@@ -311,7 +311,7 @@ nav .lang-toggle {
   position: relative;
 }
 
-/* blood overlay */
+
 .blood-effect {
   position: absolute;
   inset: 0;
@@ -374,7 +374,7 @@ nav .lang-toggle {
   transform: translate(-50%, -50%);
 }
 section {
-  scroll-margin-top: 100px; /* adjust to your navbar height */
+  scroll-margin-top: 100px; 
 }
 
 </style>
@@ -1171,7 +1171,7 @@ section {
   <p data-i18n="how_to_play_third_section_box_text" class="text-slate-400 mb-8"></p>
 
   <div class="flex justify-center py-10 overflow-hidden">
-    <!-- Fan container: Smaller on mobile (150x210), Original on desktop (220x320) -->
+    
     <div id="deck-fan" class="relative w-[150px] h-[210px] md:w-[220px] md:h-[320px]">
 
       <!-- Card Images -->

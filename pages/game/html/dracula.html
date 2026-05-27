@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Unmatched – Dracula Character</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Tailwind CSS CDN -->
+    
     <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
     <script src="../js/dracula.js" defer></script>
     <script>
@@ -42,13 +42,13 @@
     <style>
       html {
   scroll-behavior: smooth;
-}/* font */
-/* --- Persian Font: Vazir --- */
+}
+
 @font-face {
   font-family: 'Vazir';
   src: url('../../../fonts/Vazir.woff2') format('woff2'),
        url('../../../fonts/Vazir.woff') format('woff'),
-       url('../../../fonts/Vazir.ttf') format('truetype'); /* <--- Fixed 'u' to 'url' */
+       url('../../../fonts/Vazir.ttf') format('truetype'); 
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -71,13 +71,13 @@ body {
   line-height: 1.8;
 }
 
-/* Define these variables at the top of your style block */
+
 :root {
-  /* Default Blue (Unmatched) */
-  --accent-color: 59, 130, 246; /* RGB format */
+  
+  --accent-color: 59, 130, 246; 
 }
 
-/* Page-specific overrides (Add this to your HTML style block for each character) */
+
 /* For Dracula: 
    :root { --accent-color: 220, 38, 38; } 
    For Sherlock: 
@@ -86,7 +86,7 @@ body {
 
 .glass-card {
   background: rgba(15, 23, 42, 0.65);
-  /* Uses variable for border */
+  
   border: 1px solid rgba(var(--accent-color), 0.15);
   backdrop-filter: blur(20px);
   box-shadow: 
@@ -98,16 +98,16 @@ body {
 
 .glass-card:hover {
   transform: translateY(-6px);
-  /* Dynamic Shadow based on variable */
+  
   box-shadow: 
     0 15px 40px rgba(0, 0, 0, 0.4),
     0 0 25px rgba(var(--accent-color), 0.25);
-  /* Dynamic Border based on variable */
+  
   border-color: rgba(var(--accent-color), 0.4);
 }
 
 
-      /* Small custom touches */
+      
       .blood-gradient {
         background: radial-gradient(
           circle at top,
@@ -139,7 +139,7 @@ body {
         pointer-events: auto;
       }
 
-      /*dracula theme effect*/
+      
 
 @keyframes protest-shake {
   0% { transform: translateX(0); }
@@ -200,7 +200,7 @@ body.dracula-red {
 #dracula-warning.show > div:last-child {
   animation: warning-pop 0.35s ease-out;
 }
-/* Container that holds splattered blood droplets */
+
 #blood-splatter-container {
   position: fixed;
   top: 0;
@@ -212,7 +212,7 @@ body.dracula-red {
   z-index: 999999;
 }
 
-/* Base blood droplet */
+
 .blood-drop {
   position: absolute;
   width: 15px;
@@ -224,7 +224,7 @@ body.dracula-red {
   animation: blood-splash 0.9s ease-out forwards;
 }
 
-/* Splash animation */
+
 @keyframes blood-splash {
   0% {
     opacity: 1;
@@ -275,7 +275,7 @@ body.dracula-red {
     <!-- Controls -->
     <div class="flex items-center gap-3">
 
-      <!-- Navigation (Desktop) -->
+      
       <nav dir="rtl"
         class="hidden md:flex gap-6 text-sm font-semibold text-slate-300">
         <a href="#components" class="hover:text-red-400 transition">متعلقات</a>
@@ -326,11 +326,11 @@ body.dracula-red {
 
           
 <section  class="relative z-10 pt-6 md:pt-10">
-  <!-- Container for centering alignment -->
+  
   <div class="max-w-6xl mx-auto px-6 md:px-12">
     
     <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
-      <!-- Left: Text -->
+      
       <div>
   <p class="text-xs uppercase tracking-[0.3em] text-slate-300 mb-3">
     معرفی شخصیت
@@ -355,10 +355,10 @@ body.dracula-red {
 </div>
 
 
-      <!-- Right: Portrait card -->
+      
       <div class="flex justify-center">
         <div class="relative w-full max-w-sm">
-          <!-- decorative glow -->
+          
           <div class="absolute -inset-1 bg-gradient-to-br from-red-700 via-black to-purple-900 rounded-3xl blur-xl opacity-60"></div>
           <!-- main card -->
           <div class="relative glass border border-red-800/50 rounded-3xl p-4 shadow-2xl">
@@ -649,7 +649,7 @@ body.dracula-red {
           <!-- glow -->
           <div class="absolute inset-0 bg-red-700/20 blur-3xl rounded-full"></div>
 
-          <!-- transparent png holder -->
+          
           <img
             src="../../../images/3sisters.png"
             alt="Dracula Sisters"
