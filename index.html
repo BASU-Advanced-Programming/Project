@@ -427,15 +427,12 @@ section {
       id="navMenu"
       class="list-none flex gap-[30px] max-md:absolute max-md:top-[70px] max-md:right-0 max-md:w-full max-md:flex-col max-md:items-center max-md:gap-5 max-md:py-5 max-md:bg-[#11141a] max-md:border-b max-md:border-[#222] max-md:hidden"
     >
-      <li><a data-i18n="characters" class="no-underline text-[#bbb] hover:text-white transition" href="#characters"></a></li>
-      <li><a data-i18n="boards" class="no-underline text-[#bbb] hover:text-white transition" href="#boards"></a></li>
-      <li><a data-i18n="decks" class="no-underline text-[#bbb] hover:text-white transition" href="#decks"></a></li>
-      <li><a data-i18n="how_to_play" class="no-underline text-[#bbb] hover:text-white transition" href="#how"></a></li>
+      <li><a data-i18n="characters" class="no-underline text-[#bbb] hover:text-white transition" href="#characters">کاراکترها</a></li>
+      <li><a data-i18n="boards" class="no-underline text-[#bbb] hover:text-white transition" href="#boards">نقشه‌ها</a></li>
+      <li><a data-i18n="decks" class="no-underline text-[#bbb] hover:text-white transition" href="#decks">دسته کارت‌ها</a></li>
+      <li><a data-i18n="how_to_play" class="no-underline text-[#bbb] hover:text-white transition" href="#how">نحوه بازی</a></li>
     </ul>
 
-    <!-- Moved Language Toggle here -->
-    <button id="langToggle" class="lang-toggle text-[#bbb] hover:text-white transition border border-[#333] px-3 py-1 rounded text-[14px]">FA</button>
-    
     <!-- Menu Toggle (only for mobile) -->
     <div id="menuToggle" class="hidden max-md:block text-[26px] cursor-pointer text-white">
       ☰
@@ -461,47 +458,44 @@ section {
   </h2>
 
   <p data-i18n="game_first_over_view"
-     class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-6 opacity-90"></p>
+     class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-6 opacity-90">
+    دنبال یه بازی متفاوت هستی که بتونی در کنار دوستات  ازش لذت ببری و ساعت ها سرگرم بشی؟  تبریک می گم، جای درستی اومدی
+    </p>
 
   <p data-i18n="game_second_over_view"
-     class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-10 opacity-90"></p>
+     class="relative z-10 max-w-[650px] text-[#d0d0d0] text-[20px] leading-[1.5] mb-10 opacity-90">
+    به فاز اول خوش آمدید. تمرکز این مرحله بر پیاده‌سازی مکانیزم‌های اصلی گیم‌پلی بازی رومیزی «UNMATCHED» است. هدف شما در این بازی، شکست قهرمان حریف از طریق حرکت استراتژیک، کارت‌کشی و مبارزه است
+    </p>
 
   <div class="flex gap-4 mt-8">
     <a href="#characters" data-i18n="explore_fighters"
        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
-      Explore Fighters
+      بررسی مبارزها
     </a>
 
     <a href="pages/game/html/combat.html" data-i18n="combat_page"
        class="bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-600 hover:bg-indigo-50 font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
-      Combat Rules
+      قوانین مبارزه
     </a>
   </div>
 </section>
 
 <section id="setup" class="px-[10%] py-[100px] text-white">
   <div class="max-w-4xl mx-auto bg-[#11141a] border border-[#222] p-10 rounded-[20px]">
-    <h2 data-i18n="setup_title" class="text-[32px] font-bold mb-8 text-indigo-400"></h2>
+    <h2 data-i18n="setup_title" class="text-[32px] font-bold mb-8 text-indigo-400">
+      راهنمای تنظیم و مرور کلی
+    </h2>
     
     <div class="space-y-6 text-[#bbb] leading-[1.8]">
-      <p data-i18n="setup_intro"></p>
+      <p data-i18n="setup_intro">
+        به پروژه شبیه‌ساز مبارزه Unmatched خوش آمدید. این پروژه یک موتور استراتژیک مبتنی بر کارت است. وظیفه شما پیاده‌سازی موتوری است که به طور اختصاصی از دو قهرمان: شرلوک هلمز و دراکولا پشتیبانی کند
+      </p>
       
-      <h3 class="text-white font-bold text-[20px] mt-8" data-i18n="setup_core_header"></h3>
-      <p data-i18n="setup_core_desc"></p>
+      <h3 class="text-white font-bold text-[20px] mt-8" data-i18n="setup_core_header">هدف و محدوده پروژه</h3>
+      <p data-i18n="setup_core_desc">
+        سیستم باید میدان نبرد، مدیریت اقدامات (مانور، طرح، حمله) و حل نبرد را با استفاده از کارت‌های اختصاصی این دو شخصیت مدیریت کند
 
-      <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-        <div class="bg-[#1a1e26] p-6 rounded-[15px] border border-[#333]">
-          <h4 class="text-white font-bold mb-2" data-i18n="char_sherlock"></h4>
-          <p class="text-[14px]" data-i18n="char_sherlock_desc"></p>
-        </div>
-        <div class="bg-[#1a1e26] p-6 rounded-[15px] border border-[#333]">
-          <h4 class="text-white font-bold mb-2" data-i18n="char_dracula"></h4>
-          <p class="text-[14px]" data-i18n="char_dracula_desc"></p>
-        </div>
-      </div> -->
-
-      <h3 class="text-white font-bold text-[20px] mt-8" data-i18n="setup_logic_header"></h3>
-      <p data-i18n="setup_logic_desc"></p>
+      </p>
     </div>
   </div>
 </section>
@@ -540,18 +534,21 @@ section {
                 <img src="images/melee.svg" class="w-[100px]" />
               </h2>
 
-              <p data-i18n="characters_section_sherlock_health_and_movment" class="text-[14px] opacity-90"></p>
+              <p data-i18n="characters_section_sherlock_health_and_movment" class="text-[14px] opacity-90">
+                سلامتی : 16 , حرکت : 2
+              </p>
               <br/>
 
               <span data-i18n="characters_section_sherlock_special_ability_header"
-                    class="text-[#9f7aea] font-semibold"></span>
+                    class="text-[#9f7aea] font-semibold">توانایی ویژه:</span>
 
               <p data-i18n="characters_section_sherlock_special_ability_text"
-                 class="my-3 text-[14px]"></p>
+                 class="my-3 text-[14px]">افکت ها و فرایندهای اعمال شده بر روی کارت های هلمز و دکتر واتسون نمی تواند توسط حریف غیر فعال شود</p>
 
               <p class="my-3 text-[14px]">
                 <span data-i18n="characters_section_sherlock_dr_watson_header"
                       class="text-[#9f7aea] font-semibold"></span>
+                      دکتر واتسون:
               </p>
 
               <div class="flex items-center gap-[10px] mt-4 justify-start">
@@ -568,7 +565,7 @@ section {
         <!-- bottom panel -->
         <div class="px-4 py-4 text-center bg-[#121216] border-t border-[rgba(255,255,255,0.06)]">
           <h3 data-i18n="characters_section_sherlock_title"
-              class="font-bold text-[18px] text-[#eaeaea] mb-3"></h3>
+              class="font-bold text-[18px] text-[#eaeaea] mb-3">شرلوک هلمز</h3>
 
           <a
             href="pages/game/html/sherlock.html"
@@ -579,6 +576,7 @@ section {
                    shadow-[0_8px_20px_rgba(159,122,234,0.25)]
                    hover:shadow-[0_10px_26px_rgba(134,99,211,0.35)]"
           >
+          بررسی مبارز
           </a>
         </div>
       </div>
@@ -609,18 +607,23 @@ section {
                 <img src="images/melee.svg" class="w-[100px]" />
               </h2>
 
-              <p data-i18n="characters_section_dracula_health_and_movment" class="text-[14px] opacity-90"></p>
+              <p data-i18n="characters_section_dracula_health_and_movment" class="text-[14px] opacity-90">
+                سلامتی: 13 , حرکت : 2
+              </p>
               <br/>
 
               <span data-i18n="characters_section_dracula_special_ability_header"
-                    class="text-[#9f7aea] font-semibold"></span>
+                    class="text-[#9f7aea] font-semibold">تشنه خون:</span>
 
               <p data-i18n="characters_section_dracula_special_ability_text"
-                 class="my-3 text-[14px]"></p>
+                 class="my-3 text-[14px]">
+                در ابتدا نوبت خود 1 ضربه به مبارز مجاور وارد کنید ، اگر موفق شدید; یک کارت بکشید.
+                </p>
 
               <p class="my-3 text-[14px]">
                 <span data-i18n="characters_section_dracula_sisters_header"
                       class="text-[#9f7aea] font-semibold"></span>
+                      خواهران:
               </p>
 
               <div class="flex items-center gap-[10px] mt-4 justify-start">
@@ -639,7 +642,9 @@ section {
 
         <div class="px-4 py-4 text-center bg-[#121216] border-t border-[rgba(255,255,255,0.06)]">
           <h3 data-i18n="characters_section_dracula_title"
-              class="font-bold text-[18px] text-[#eaeaea] mb-3"></h3>
+              class="font-bold text-[18px] text-[#eaeaea] mb-3">
+              دراکولا
+            </h3>
 
           <a
             href="pages/game/html/dracula.html"
@@ -650,6 +655,7 @@ section {
                    shadow-[0_8px_20px_rgba(159,122,234,0.25)]
                    hover:shadow-[0_10px_26px_rgba(134,99,211,0.35)]"
           >
+          بررسی مبارز
           </a>
         </div>
       </div>
@@ -661,7 +667,7 @@ section {
 
 <!-- BOARDS -->
 <section id="boards" class="px-[10%] py-[100px]">
-  <h2 data-i18n="game_boards_section" class="reveal text-[36px] mb-10 text-center"></h2>
+  <h2 data-i18n="game_boards_section" class="reveal text-[36px] mb-10 text-center">نقشه های بازی</h2>
 
   <div class="grid gap-[30px] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
 
@@ -670,9 +676,11 @@ section {
       <img src="images/board.jpeg" class="w-full h-[280px] object-cover" />
 
       <div class="p-5">
-        <h3 data-i18n="maps_soho_street_title" class="mb-2.5"></h3>
+        <h3 data-i18n="maps_soho_street_title" class="mb-2.5">Baskerville Manor</h3>
 
-        <p data-i18n="maps_soho_street_info" class="text-[#aaa] text-[14px] mb-4"></p>
+        <p data-i18n="maps_soho_street_info" class="text-[#aaa] text-[14px] mb-4">
+          میدان نبردی شهری و مه‌آلود، ایده‌آل برای تاکتیک‌های زیرکانه؛ شما باید این نقشه را پیاده سازی کنید نیازی به پیاده سازی صفحه قلعه دراکولا نیست همچنین برای خواندن جزيیات نقشه روی دکمه زیر کلیک کنید
+        </p>
 
         <a
           href="pages/game/html/map.html" data-i18n="maps_soho_street_view_button"
@@ -682,6 +690,7 @@ section {
                  hover:bg-[#9f7aea] hover:text-white
                  transition duration-300"
         >
+        مشاهده نقشه
         </a>
       </div>
     </div>
@@ -691,10 +700,12 @@ section {
       <img src="images/board1.jpeg" class="w-full h-[280px] object-cover" />
 
       <div class="p-5">
-        <h3 data-i18n="maps_dracula_castle_title" class="mb-2.5"></h3>
+        <h3 data-i18n="maps_dracula_castle_title" class="mb-2.5">Dracula's Castle</h3>
 
-        <p data-i18n="maps_dracula_castle_info" class="text-[#aaa] text-[14px] mb-4"></p>
+        <p data-i18n="maps_dracula_castle_info" class="text-[#aaa] text-[14px] mb-4">
 
+          قلعه‌ای ترسناک و تاریک، سرشار از خطر و فرصت‌های کمین.
+        </p>
         <a
           href="pages/game/html/map.html" data-i18n="maps_dracula_castle_view_button"
           class="inline-block px-4 py-2 rounded-[8px]
@@ -703,6 +714,7 @@ section {
                  hover:bg-[#9f7aea] hover:text-white
                  transition duration-300"
         >
+        مشاهده نقشه
         </a>
       </div>
     </div>
@@ -712,7 +724,9 @@ section {
 
 <!-- DECKS -->
 <section id="decks" class="px-[10%] py-[100px]">
-  <h2 data-i18n="character_decks_header" class="text-[36px] mb-10 text-center"></h2>
+  <h2 data-i18n="character_decks_header" class="text-[36px] mb-10 text-center">
+    دسته کارت مبارزها
+  </h2>
 
   <div class="flex flex-col gap-[60px]">
 
@@ -734,7 +748,7 @@ section {
                   hover:bg-[#9f7aea] hover:text-white
                   transition duration-300"
            data-i18n="view_details_button">
-          View Details
+          مشاهده جزئیات
         </a>
       </div>
 
@@ -778,7 +792,7 @@ section {
                   hover:bg-[#9f7aea] hover:text-white
                   transition duration-300"
            data-i18n="view_details_button">
-          View Details
+          مشاهده جزئیات
         </a>
       </div>
 
@@ -814,322 +828,24 @@ section {
   </div>
 </section>
 
-
-    <!-- DECK STATS: Sherlock -->
-    <section class="px-5 py-[60px] max-w-[1200px] mx-auto">
-      <h2 data-i18n="sherlock_deck_status_title" class="text-white mb-5 text-[2rem]"></h2>
-
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-white text-center bg-[#121212] text-[14px]">
-          <thead>
-            <tr>
-              <th data-i18n="deck_status_table_character_row" rowspan="2" class="p-3 border border-[#333] uppercase bg-[#1a1a1a] min-w-[160px]"></th>
-              <th data-i18n="deck_status_unique_cards" colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-              <th data-i18n="deck_status_total_cards" colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-              <th data-i18n="deck_status_total_value" colspan="4" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-            </tr>
-            <tr>
-              <th class="p-3 border border-[#333] bg-[#c62828]"> <img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /> </th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"> <img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /> </th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"> <img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /> </th>
-              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"> <img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /> </th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-
-              <th class="p-3 border border-[#333] bg-[#c62828]"> <img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /> </th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"> <img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /> </th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"> <img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /> </th>
-              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"> <img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /> </th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-
-              <th class="p-3 border border-[#333] bg-[#c62828]"> <img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /> </th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"> <img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /> </th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"> <img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /> </th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-            </tr>
-          </thead>
-
-          <tbody class="[&>tr:hover]:brightness-110">
-            <tr>
-              <td data-i18n="sherlock_deck_status_table_first_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] pl-5 text-center"></td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">5</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">10</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">13</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">7</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">24</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">10</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">36</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">6</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">52</td>
-            </tr>
-
-            <tr>
-              <td data-i18n="sherlock_deck_status_table_second_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] pl-5 text-center"></td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">6</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">9</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">13</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">10</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">24</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">34</td>
-            </tr>
-
-            <tr>
-              <td data-i18n="sherlock_deck_status_table_third_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-center pl-5"></td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">3</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">7</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">7</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">18</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">18</td>
-            </tr>
-          </tbody>
-
-          <tfoot>
-            <tr class="text-white">
-              <td data-i18n="deck_status_total" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444] text-center pl-5"></td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">6</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">13</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">15</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">9</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">30</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">20</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">42</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">6</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">68</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </section>
-<!-- 
-    <section class="px-5 py-[60px] max-w-[1100px] mx-auto">
-      <h2 data-i18n="invisible_deck_status_title" class="text-white mb-5 text-[2rem]"></h2>
-
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-white text-center bg-[#121212] text-[14px]">
-          <thead>
-            <tr>
-              <th data-i18n="deck_status_table_character_row" rowspan="2" class="p-3 border border-[#333] uppercase bg-[#1a1a1a] min-w-[160px]"></th>
-              <th data-i18n="deck_status_unique_cards" colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-              <th data-i18n="deck_status_total_cards" colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-              <th data-i18n="deck_status_total_value" colspan="3" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-            </tr>
-            <tr>
-              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
-              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-
-              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
-              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-
-              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
-            </tr>
-          </thead>
-
-          <tbody class="[&>tr:hover]:brightness-110">
-            <tr>
-              <td data-i18n="invisible_deck_status_table_first_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-center pl-5"></td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">14</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">7</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">9</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">6</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">8</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">30</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">25</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">22</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">18</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section> -->
-
-    <!-- Dracula Deck Stats -->
-    <section class="px-5 py-[60px] max-w-[1100px] mx-auto">
-      <h2 data-i18n="dracula_deck_status_table_first_vertical_row" class="text-white mb-5 text-[2rem]"></h2>
-
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-white text-center bg-[#121212] text-[14px]">
-          <thead>
-            <tr>
-              <th data-i18n="deck_status_table_character_row" rowspan="2" class="p-3 border border-[#333] uppercase bg-[#1a1a1a] min-w-[160px]"></th>
-              <th data-i18n="deck_status_unique_cards" colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-              <th data-i18n="deck_status_total_cards" colspan="5" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-              <th data-i18n="deck_status_total_value" colspan="3" class="p-3 border border-[#333] uppercase bg-black text-[#aaa] font-normal tracking-[1px]"></th>
-            </tr>
-            <tr>
-              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
-              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-
-              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
-              <th class="p-3 border border-[#333] bg-[#fbc02d] text-black"><img src="images/event.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="E" /></th>
-              <th data-i18n="deck_status_total" class="p-3 border border-[#333] bg-[#212121]"></th>
-
-              <th class="p-3 border border-[#333] bg-[#c62828]"><img src="images/attack.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="A" /></th>
-              <th class="p-3 border border-[#333] bg-[#6a1b9a]"><img src="images/bothAction.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="B" /></th>
-              <th class="p-3 border border-[#333] bg-[#1565c0]"><img src="images/defend.svg" class="inline-block w-[1em] h-[1em] align-middle" alt="D" /></th>
-            </tr>
-          </thead>
-
-          <tbody class="[&>tr:hover]:brightness-110">
-            <tr>
-              <td data-i18n="dracula_deck_status_table_second_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-center pl-5"></td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">11</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">6</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">8</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">6</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">24</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">20</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">23</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">8</td>
-            </tr>
-
-            <tr>
-              <td data-i18n="dracula_deck_status_table_third_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-center pl-5"></td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">6</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">5</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">8</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">16</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">13</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">23</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-            </tr>
-
-            <tr>
-              <td data-i18n="dracula_deck_status_table_fourth_vertical_row" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1a1a1a] text-center pl-5"></td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">1</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">4</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">8</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#fbc02d] text-black">0</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#212121]">10</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#c62828]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#6a1b9a]">23</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#1565c0]">0</td>
-            </tr>
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <td data-i18n="deck_status_total" class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444] text-center pl-5"></td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">3</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">2</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">13</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">9</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">8</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">4</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">9</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">30</td>
-
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">29</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">23</td>
-              <td class="p-[15px] border border-[#333] font-bold text-[1.1rem] bg-[#444]">8</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </section>
-
     <!-- HOW TO PLAY -->
     <section id="how" class="px-[10%] py-[100px]">
-      <h2 data-i18n="how_to_play_section_header" class="reveal text-[36px] mb-10 text-center"></h2>
+      <h2 data-i18n="how_to_play_section_header" class="reveal text-[36px] mb-10 text-center">
+        چطور بازی کنیم؟
+      </h2>
 
       <div class="max-w-[900px] mx-auto flex flex-col gap-[25px]">
         <!-- hero selection -->
         <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-          <h3 data-i18n="how_to_play_first_section_box_header" ></h3>
-                        <p data-i18n="how_to_play_first_section_box_text" class="text-slate-400 mb-8"></p>
+          <h3 data-i18n="how_to_play_first_section_box_header" >
+            1. مبارز خود را انتخاب کن!
+          </h3>
+                        <p data-i18n="how_to_play_first_section_box_text" class="text-slate-400 mb-8">
+                          به یاد داشته باشید ، بازیکن جوان تر اول انتخاب می کند:)
+                        </p>
 
           <div id="hero-select">
             <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
-              <!-- <button
-                class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-invisible"
-                data-front="images/invChar.webp"
-                data-card="images/invHero.png"
-              >
-                <canvas class="absolute inset-0 w-full h-full z-[3] pointer-events-none fx-canvas"></canvas>
-                <img src="images/invChar.webp" class="relative z-[1] w-full h-full object-cover transition hero-img" />
-              </button> -->
 
               <button
                 class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-sherlock"
@@ -1154,8 +870,12 @@ section {
 
         <!-- placement -->
         <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-          <h3 data-i18n="how_to_play_second_section_box_header"></h3>
-              <p data-i18n="how_to_play_second_section_box_text" class="text-slate-400 mb-8"></p>
+          <h3 data-i18n="how_to_play_second_section_box_header">
+            2. مبارز خود را در زمین قرار بده
+          </h3>
+              <p data-i18n="how_to_play_second_section_box_text" class="text-slate-400 mb-8">
+                بعد از انتخاب مبارز باید آن را در یکی از دو مکانی که در زیر نشان داده شده قرار دهی
+              </p>
 
           <div class="mt-4 flex justify-center">
             <div id="mapstart" data-max="13" class=" w-[500px] h-[320px] ">
@@ -1167,8 +887,10 @@ section {
 
         <!-- 3. Understand Your Deck -->
 <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-  <h3 data-i18n="how_to_play_third_section_box_header"></h3>
-  <p data-i18n="how_to_play_third_section_box_text" class="text-slate-400 mb-8"></p>
+  <h3 data-i18n="how_to_play_third_section_box_header">3.  دسته کارت خود برای مبارزه را بساز</h3>
+  <p data-i18n="how_to_play_third_section_box_text" class="text-slate-400 mb-8">
+   کارت از ابتدا دسته کارت خودت بکش 5 
+  </p>
 
   <div class="flex justify-center py-10 overflow-hidden">
     
@@ -1201,34 +923,44 @@ section {
 
 <!-- 4. Take Actions -->
 <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-  <h3 data-i18n="how_to_play_fourth_section_box_header"></h3>
-  <p data-i18n="how_to_play_fourth_section_box_text" class="text-slate-400 mb-8"></p>
+  <h3 data-i18n="how_to_play_fourth_section_box_header">
+    4. حرکات زیرکانه خودتو انجام بده
+  </h3>
+  <p data-i18n="how_to_play_fourth_section_box_text" class="text-slate-400 mb-8">
+    در نوبت خودت باید 2 حرکت انجام بدی (به یاد داشته باش ممکنه لازم شه یه حرکتو دوبار انجام بدی)
+  </p>
 
   <!-- Action buttons -->
   <div class="flex justify-center gap-6 flex-wrap mb-8">
     <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-cyan-500 transition" data-action="maneuver">
-      Maneuver
+      مانور
     </button>
 
 
     <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-red-500 transition" data-action="attack">
-      Attack
+      حمله
     </button>
 
     <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-purple-500 transition" data-action="scheme">
-      Scheme
+      رویداد
     </button>
   </div>
 
   <!-- Explanation panel -->
-  <div data-i18n="how_to_play_section_fourth_box_explanation" id="action-display" class="max-w-[600px] mx-auto text-center text-slate-300"></div>
+  <div data-i18n="how_to_play_section_fourth_box_explanation" id="action-display" class="max-w-[600px] mx-auto text-center text-slate-300">
+    برای مشاهده نحوه کارکرد بر روی دگمه های بالا بزنید
+  </div>
 </div>
 
 
 <!-- defeat -->
         <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-          <h3 data-i18n="how_to_play_fifth_section_box_header"></h3>
-              <p data-i18n="how_to_play_fifth_section_box_text" class="text-slate-400 mb-8"></p>
+          <h3 data-i18n="how_to_play_fifth_section_box_header">
+            5. حریفت رو شکست بده
+          </h3>
+              <p data-i18n="how_to_play_fifth_section_box_text" class="text-slate-400 mb-8">
+                سلامتی مبارز حریفت رو به صفر برسون تا برنده بازی شی
+              </p>
 
           <div class="mt-4">
             <div id="draculaHealth" data-max="13" class="">
@@ -1247,6 +979,7 @@ section {
            text-slate-900 shadow-lg shadow-cyan-500/30
            transition-all duration-300
            hover:scale-105 active:scale-95">
+           برای مشاهده راهنمایی پیاده سازی کلیک کنید
   </button>
 </a>
 
