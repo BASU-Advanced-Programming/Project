@@ -638,29 +638,46 @@ const display = document.getElementById("action-display");
 
 let activeAction = null;
 
-function getActions(lang) {
-  const t = translations[lang];
+function getActions() {
+
   return {
+
     maneuver: `
-      <h4 class="text-lg font-semibold mb-2">${t.maneuver_header}</h4>
-      <p class="text-slate-400 mb-4">
-        <span class="font-bold text-cyan-300">${t.maneuver_first_element_title}</span> ${t.maneuver_first_element_text}
-      </p>
-      <p class="text-slate-400 mb-6">
-        <span class="font-bold text-cyan-300">${t.maneuver_second_element_title}</span> ${t.maneuver_second_element_text}
-      </p>
-      <div class="relative w-full max-w-[700px] aspect-[7/4.5] mx-auto overflow-hidden rounded-lg shadow-xl border border-slate-700">
-        <img src="images/board.jpeg" class="absolute inset-0 w-full h-full object-contain">
-        <img id="fighter-token" src="images/sherlockTran.png" class="absolute w-[32px] h-[32px] md:w-[50px] md:h-[50px] object-contain transition-all duration-300 z-20" style="display:none">
-        <div id="map-nodes-overlay" class="absolute inset-0 z-10"></div>
-      </div>
-    `,
-    attack: `
-  <h3 class="text-xl font-bold mb-3">${t.attack_header}</h3>
-  <p class="text-slate-300 mb-6">${t.attack_text}</p>
+  <h4 class="text-lg font-semibold mb-2">مانور</h4>
+
+  <p class="text-slate-400 mb-4">
+    <span class="font-bold text-cyan-300">
+      ۱. یک کارت بکش:
+    </span>
+    باید بالاترین کارت دسته کارت خود را برداری.
+  </p>
+
+  <p class="text-slate-400 mb-6">
+    <span class="font-bold text-cyan-300">
+      ۲. مبارز خود را حرکت بده:
+    </span>
+    می‌توانی هر مبارز را تا مقدار حرکت مجاز او جابه‌جا کنی.
+  </p>
+
+  <div class="relative w-full max-w-[700px] aspect-[7/4.5] mx-auto overflow-hidden rounded-lg shadow-xl border border-slate-700">
+    <img src="images/board.jpeg" class="absolute inset-0 w-full h-full object-contain">
+    <img id="fighter-token" src="images/sherlockTran.png"
+      class="absolute w-[32px] h-[32px] md:w-[50px] md:h-[50px] object-contain transition-all duration-300 z-20"
+      style="display:none">
+    <div id="map-nodes-overlay" class="absolute inset-0 z-10"></div>
+  </div>
+`,
+
+attack: `
+  <h3 class="text-xl font-bold mb-3">حمله</h3>
+  <p class="text-slate-300 mb-6">
+    مبارزی از حریف که در محدوده حمله شما قرار دارد را انتخاب کنید و یک کارت حمله بازی کنید. سپس حریف می‌تواند یک کارت دفاع بازی کند.
+  </p>
 
   <div class="bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
-    <h3 class="text-lg font-bold mb-6 text-center">${t.attack_cards_title}</h3>
+    <h3 class="text-lg font-bold mb-6 text-center">
+      کارت‌های مبارزه
+    </h3>
 
     <div class="flex justify-center gap-20 flex-wrap">
 
@@ -670,8 +687,6 @@ function getActions(lang) {
         <div class="attack-box w-[220px] h-[320px] rounded-[14px] overflow-hidden cursor-pointer relative transition bg-[#111] z-10 hover:scale-[1.05] hover:shadow-[0_0_20px_6px_rgba(200,0,0,0.7)] hover:border-[darkred] border-2 border-transparent">
           <img src="images/dracula/beastform.png" class="attack-img w-full h-full object-cover"/>
         </div>
-
-
 
       </div>
 
@@ -688,17 +703,19 @@ function getActions(lang) {
   </div>
 `,
 
-    scheme: `
+scheme: `
   <div id="scheme-container" class="relative text-center">
-    <h4 class="text-lg font-semibold mb-3">${t.scheme_header}</h4>
-    <p class="text-slate-400 mb-6">${t.scheme_text}</p>
+    <h4 class="text-lg font-semibold mb-3">رویداد</h4>
+
+    <p class="text-slate-400 mb-6">
+      یک کارت رویداد بازی کنید و اثر آن را در بازی اعمال کنید.
+    </p>
 
     <div class="flex justify-center">
       <div id="scheme-card" class="relative w-[240px] h-[340px] rounded-[14px] transition-all duration-300">
-        
-        
-        <div id="scheme-glow" 
-             class="absolute inset-0 rounded-[14px] opacity-0 transition-opacity duration-150 
+
+        <div id="scheme-glow"
+             class="absolute inset-0 rounded-[14px] opacity-0 transition-opacity duration-150
                     shadow-[0_0_25px_8px_rgba(255,215,0,0.8)] border-4 border-yellow-400">
         </div>
 
@@ -709,14 +726,14 @@ function getActions(lang) {
   </div>
 `,
 
-
   };
 }
-
 actionButtons.forEach(btn => {
   btn.addEventListener("click", () => {
+
     const action = btn.dataset.action;
-    const currentActions = getActions(currentLang);
+
+    const currentActions = getActions();
 
     if (activeAction === action) {
       display.innerHTML = "";
@@ -727,13 +744,17 @@ actionButtons.forEach(btn => {
     display.innerHTML = currentActions[action];
     activeAction = action;
 
-    // Trigger the THUNDER effect if it's a scheme
     if (action === "scheme") {
       triggerThunder();
     }
 
-    if (action === "maneuver") initManeuverMap();
-    if (action === "attack") initAttackCards();
+    if (action === "maneuver") {
+      initManeuverMap();
+    }
+
+    if (action === "attack") {
+      initAttackCards();
+    }
   });
 });
 
