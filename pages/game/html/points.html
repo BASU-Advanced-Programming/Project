@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fa" dir="rtl" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>نکات پایانی پروژه</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              vazir: ["Vazirmatn", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                start: "#3b82f6",
+                end: "#8b5cf6"
+              }
+            }
+          },
+        },
+      };
+    </script>
+
+    <style>
+      * {
+        font-family: "Vazirmatn", sans-serif;
+      }
+      body {
+        background: 
+          radial-gradient(circle at 10% 20%, rgba(219, 234, 254, 0.6) 0%, transparent 40%),
+          radial-gradient(circle at 90% 80%, rgba(237, 233, 254, 0.6) 0%, transparent 40%),
+          #f8fafc;
+        overflow-x: hidden;
+      }
+      html.dark body {
+        background: 
+          radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 45%),
+          radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+          #090d16;
+      }
+      .glass-nav {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      html.dark .glass-nav {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .bento-card {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      html.dark .bento-card {
+        background: rgba(20, 27, 45, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .bento-card:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(59, 130, 246, 0.2);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+      }
+      html.dark .bento-card:hover {
+        background: rgba(20, 27, 45, 0.7);
+        border-color: rgba(99, 102, 241, 0.2);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+      }
+      #cursor-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+
+  <body class="text-slate-800 dark:text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white">
+    
+    <canvas id="cursor-canvas"></canvas>
+
+    <header class="w-full max-w-5xl mx-auto pt-6 px-4">
+      <div class="glass-nav rounded-2xl px-6 py-4 flex justify-between items-center shadow-sm">
+        <h2 class="text-lg md:text-xl font-black flex items-center gap-2.5 bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
+          <i class="fa-solid fa-graduation-cap text-blue-500"></i>
+          <span>راهنمای پایانی پروژه</span>
+        </h2>
+        <button id="theme-toggle" class="w-10 h-10 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:scale-105 transition-all duration-200">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="w-full max-w-5xl mx-auto px-4 py-12">
+      <div class="text-center mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-500 dark:text-indigo-400 bg-blue-500/10 dark:bg-indigo-500/10 px-3 py-1.5 rounded-full">پروژه</span>
+        <h1 class="text-4xl md:text-5xl font-black mt-4 mb-3 tracking-tight text-slate-900 dark:text-white">نکات حیاتی تحویل پروژه</h1>
+        <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto text-sm md:text-base">الزامات، قوانین و چهارچوب‌های نهایی جهت ثبت نمره نهایی بارگذاری پروژه‌ها</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4 text-xl">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">رعایت اصول شی‌گرایی</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">برنامه شما باید تمام اصول شی‌گرایی را رعایت کند. در صورت عدم رعایت این اصول، نمره مربوط به آن بخش کسر خواهد شد.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-500 mb-4 text-xl">
+              <i class="fa-solid fa-puzzle-piece"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">کدنویسی ماژولار</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">کد پروژه باید به صورت Modular و Maintainable پیاده‌سازی شده باشد؛ هر یک از این موارد ارزیابی خواهند شد.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-4 text-xl">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">عدم استفاده از متغیر Global</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">به هیچ عنوان مجاز به تعریف و استفاده از متغیرهای Global در طول توسعه برنامه نیستید.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-4 text-xl">
+              <i class="fa-solid fa-square-check"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Best Practices</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">ساختار کلی و سبک پیاده‌سازی شما ملزم به پیروی منطقی از استانداردهای  Best Practice است.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-4 text-xl">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Exception Handling</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">مدیریت صحیح خطاها و استفاده بهینه از لایه‌های Exception Handling در ساختار پروژه اجباری می‌باشد.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-500 mb-4 text-xl">
+              <i class="fa-solid fa-code-branch"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Git و CMake</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">مدیریت نسخه‌ها به وسیله سیستم کنترل Git و معماری پیکربندی با CMake جزو شروط اساسی است.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-500 mb-4 text-xl">
+              <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">گزارش پروژه</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">تنظیم و تحویل مستندات گزارش کار الزامی بوده و پروژه حتماً باید همراه با یک فایل خروجی PDF ارائه گردد.</p>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4 text-xl">
+              <i class="fa-solid fa-sitemap"></i>
+            </div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">Design Patterns و Clean Architecture</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-7">استفاده از الگوها اجباری نیست، اما پیاده‌سازی صحیح آن باعث بهبود فوق‌العاده خوانایی، توسعه‌پذیری و نگهداری آسان‌تر خواهد شد.</p>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 bg-rose-500/5 dark:bg-rose-500/10 border border-rose-500/20 rounded-2xl p-6 flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-rose-500/20 flex items-center justify-center text-rose-500 text-xl shrink-0">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg text-rose-600 dark:text-rose-400 mb-1">هشدار بسیار مهم تقلب</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-7">در صورت احراز و کشف هرگونه تشابه غیرمجاز و تقلب، دقیقاً مطابق با قوانین و ضوابط جدی آموزشی دانشگاه رفتار خواهد شد.</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <script src="../js/point.js" defer></script>
+  </body>
+</html>
