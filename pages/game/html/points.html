@@ -89,18 +89,45 @@
   <body class="text-slate-800 dark:text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white">
     
     <canvas id="cursor-canvas"></canvas>
+<header class="w-full max-w-5xl mx-auto pt-6 px-4">
+<div
+  class="max-w-5xl mx-auto glass-card !rounded-full px-8 py-4 flex justify-between items-center
+         bg-white/80 dark:bg-blue-950/70
+         backdrop-blur-xl
+         border border-blue-200 dark:border-blue-500/30
+         animate-fade-in-up"
+  style="animation-delay: 0.1s;"
+>
 
-    <header class="w-full max-w-5xl mx-auto pt-6 px-4">
-      <div class="glass-nav rounded-2xl px-6 py-4 flex justify-between items-center shadow-sm">
-        <h2 class="text-lg md:text-xl font-black flex items-center gap-2.5 bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
-          <i class="fa-solid fa-graduation-cap text-blue-500"></i>
-          <span>راهنمای پایانی پروژه</span>
-        </h2>
-        <button id="theme-toggle" class="w-10 h-10 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:scale-105 transition-all duration-200">
-          🌙
-        </button>
-      </div>
-    </header>
+    <!-- Title -->
+    <h2
+      class="text-xl md:text-2xl font-black flex items-center gap-3"
+      style="background: linear-gradient(90deg,#c4d2e5,#60a5fa,#2563eb,#1e3a8a);
+             -webkit-background-clip: text;
+             color: transparent;"
+    >
+      <i class="fas fa-solid fa-graduation-cap text-blue-400"></i>
+      <span>        راهنمای پروژه</span>
+    </h2>
+
+
+<button
+  id="theme-toggle"
+  class="rounded-full border px-4 py-2 text-sm font-semibold
+         bg-blue-50 text-blue-700
+         border-blue-200
+         hover:bg-blue-100 hover:border-blue-400
+         dark:bg-blue-900/60 dark:text-blue-100
+         dark:border-blue-500/40
+         dark:hover:bg-blue-800/70
+         transition shadow-sm"
+>
+  🌙
+</button>
+    </div>
+
+  </div>
+</header>
 
     <main class="w-full max-w-5xl mx-auto px-4 py-12">
       <div class="text-center mb-16">
