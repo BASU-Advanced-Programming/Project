@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Unmatched Board Game</title>
   </head>
@@ -30,23 +30,15 @@ body {
 
 
 @font-face {
-  font-family: "Vazirmatn";
-  src: url("font/Vazir.woff2") format("woff2");
+  font-family: "Vazir";
+  src: url("./font/Vazir.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("font/Vazir.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
+html {
+  font-family: "Vazir";
 }
-
-html.lang-fa {
-  font-family: "Vazirmatn", "Tahoma", sans-serif;
-}
-
 
 html.lang-fa .rtl-content {
   direction: rtl;
