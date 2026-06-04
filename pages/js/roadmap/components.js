@@ -12,17 +12,31 @@
     return node;
   }
 
-  function SectionShell({ id, badge, title, subtitle, parallaxClass }) {
+  function SectionShell({ id, badge, title, subtitle, parallaxClass, parallaxSpeed }) {
     const section = el("section", "roadmap-section relative py-24 md:py-32 overflow-hidden scroll-mt-24", {
       id,
       "data-section": id,
     });
-    const bg = el("div", `parallax-bg absolute inset-0 -z-10 pointer-events-none ${parallaxClass || ""}`, {
-      "data-parallax-speed": "0.35",
-    });
-    const glow = el("div", "absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#0f1115]/80 to-[#0f1115]");
+
+    const blobA = el(
+      "div",
+      `parallax-layer absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-[100px] opacity-60 pointer-events-none ${parallaxClass || "bg-indigo-600/20"}`,
+      { "data-section-parallax": String(parallaxSpeed || 0.55) }
+    );
+    const blobB = el(
+      "div",
+      "parallax-layer absolute -bottom-32 -right-16 w-[360px] h-[360px] rounded-full blur-[90px] opacity-40 pointer-events-none bg-purple-600/15",
+      { "data-section-parallax": String((parallaxSpeed || 0.55) * 0.65) }
+    );
+    const blobC = el(
+      "div",
+      "parallax-layer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] rounded-full blur-[120px] opacity-25 pointer-events-none bg-cyan-500/10",
+      { "data-section-parallax": String((parallaxSpeed || 0.55) * 0.35) }
+    );
+
+    const glow = el("div", "absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-[#0f1115]/70 to-[#0f1115] pointer-events-none");
     const inner = el("div", "relative z-10 max-w-6xl mx-auto px-5 md:px-8");
-    const header = el("header", "mb-12 md:mb-16 text-center md:text-right");
+    const header = el("header", "mb-12 md:mb-16 text-center md:text-right", { "data-parallax-content": "0.22" });
     if (badge) {
       header.appendChild(
         el("span", "inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-indigo-500/15 text-indigo-300 border border-indigo-500/30", {
@@ -34,7 +48,9 @@
     if (subtitle) {
       header.appendChild(el("p", "text-slate-400 text-base md:text-lg max-w-2xl mx-auto md:mx-0 md:mr-0 leading-relaxed", { text: subtitle }));
     }
-    section.appendChild(bg);
+    section.appendChild(blobA);
+    section.appendChild(blobB);
+    section.appendChild(blobC);
     section.appendChild(glow);
     section.appendChild(inner);
     return { section, inner, header };
@@ -104,10 +120,11 @@
     return grid;
   }
 
-  function HeroCard({ name, health, move, special, sidekick, image, accent, href }) {
+  function HeroCard({ name, health, move, special, sidekick, image, accent, href, index }) {
     const card = el(
       "article",
-      `hero-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#12151c] hover:border-opacity-60 transition-all duration-500`
+      `hero-card group relative overflow-hidden rounded-2xl border border-white/10 bg-[#12151c] hover:border-opacity-60 transition-all duration-500`,
+      { "data-parallax-content": String(0.08 + (index || 0) * 0.06) }
     );
     const imgWrap = el("div", "relative h-56 overflow-hidden");
     const img = el("img", "w-full h-full object-cover transition duration-700 group-hover:scale-105", {
@@ -138,8 +155,10 @@
     return card;
   }
 
-  function TopicCard({ icon, title, summary, points, href, hrefLabel }) {
-    const card = el("div", "glass-panel rounded-2xl p-6 md:p-8 border border-white/10 space-y-5");
+  function TopicCard({ icon, title, summary, points, href, hrefLabel, index }) {
+    const card = el("div", "glass-panel rounded-2xl p-6 md:p-8 border border-white/10 space-y-5", {
+      "data-parallax-content": String(0.1 + (index || 0) * 0.07),
+    });
     const head = el("div", "flex items-center gap-4");
     const iconBox = el("div", "w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-xl");
     iconBox.innerHTML = `<i class="${icon}"></i>`;

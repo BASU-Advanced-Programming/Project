@@ -27,15 +27,13 @@
     }
     .roadmap-section {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.8s ease;
     }
     .roadmap-section.section-visible {
       opacity: 1;
-      transform: translateY(0);
     }
     #roadmap-hero {
-      min-height: 100vh;
+      min-height: 115vh;
       position: relative;
       display: flex;
       align-items: center;
@@ -46,11 +44,21 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 55%, #0f1115 100%);
+      background: linear-gradient(to bottom, transparent 45%, #0f1115 100%);
       pointer-events: none;
       z-index: 5;
     }
-    .parallax-bg {
+    .parallax-layer,
+    [data-hero-layer],
+    [data-parallax-content],
+    [data-global-parallax],
+    .hero-parallax-bg {
+      will-change: transform;
+    }
+    .hero-parallax-bg {
+      transform-origin: center center;
+    }
+    #global-parallax {
       will-change: transform;
     }
     #roadmap-nav {
@@ -72,6 +80,13 @@
   </style>
 </head>
 <body class="antialiased">
+
+  <div id="global-parallax" class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <div data-global-parallax="0.18" class="absolute top-[8%] left-[2%] w-[45vw] max-w-[520px] h-[45vw] max-h-[520px] rounded-full bg-indigo-600/12 blur-[110px]"></div>
+    <div data-global-parallax="0.12" class="absolute top-[42%] right-[-5%] w-[38vw] max-w-[440px] h-[38vw] max-h-[440px] rounded-full bg-purple-600/10 blur-[100px]"></div>
+    <div data-global-parallax="0.22" class="absolute bottom-[12%] left-[18%] w-[32vw] max-w-[380px] h-[32vw] max-h-[380px] rounded-full bg-cyan-500/10 blur-[90px]"></div>
+    <div data-global-parallax="0.08" class="absolute top-[65%] right-[22%] w-[24vw] max-w-[280px] h-[24vw] max-h-[280px] rounded-full bg-emerald-500/8 blur-[80px]"></div>
+  </div>
 
   <header class="fixed top-0 inset-x-0 z-[100] bg-[#11141a]/90 border-b border-[#222] backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
@@ -108,7 +123,7 @@
 
   <div id="nav-backdrop" class="fixed inset-0 bg-black/50 z-[85] hidden lg:hidden"></div>
 
-  <main class="lg:mr-64">
+  <main class="lg:mr-64 relative z-[1]">
     <div id="roadmap-hero" data-parallax-hero></div>
 
     <div id="section-downloads"></div>

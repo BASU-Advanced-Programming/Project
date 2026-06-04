@@ -24,12 +24,17 @@
     const root = document.getElementById("roadmap-hero");
     if (!root) return;
     root.innerHTML = `
-      <div data-hero-layer="0.15" class="absolute inset-0 bg-[url('${IMG}art1.png')] bg-cover bg-center opacity-40"></div>
-      <div data-hero-layer="0.08" class="absolute -left-1/4 top-1/4 w-[600px] h-[600px] rounded-full bg-purple-600/20 blur-[120px]"></div>
-      <div data-hero-layer="0.12" class="absolute -right-1/4 bottom-0 w-[500px] h-[500px] rounded-full bg-cyan-500/15 blur-[100px]"></div>
-      <div data-hero-content class="relative z-10 max-w-4xl mx-auto px-5 text-center pt-32 pb-24">
+      <div data-hero-layer="0.82" data-hero-depth="0" class="hero-parallax-bg absolute -inset-[25%] bg-[url('${IMG}art1.png')] bg-cover bg-center opacity-[0.5]"></div>
+      <div data-hero-layer="0.62" data-hero-depth="1.4" data-hero-axis="xy" class="absolute -left-[30%] top-[5%] w-[800px] h-[800px] rounded-full bg-purple-600/30 blur-[140px]"></div>
+      <div data-hero-layer="0.48" data-hero-depth="2.2" data-hero-axis="xy" class="absolute -right-[35%] bottom-[-10%] w-[750px] h-[750px] rounded-full bg-cyan-500/25 blur-[130px]"></div>
+      <div data-hero-layer="0.34" data-hero-depth="3" data-hero-axis="xy" class="absolute left-[8%] top-[42%] w-[220px] h-[220px] rounded-full border-2 border-indigo-400/25 bg-indigo-500/10 backdrop-blur-sm"></div>
+      <div data-hero-layer="0.26" data-hero-depth="2.6" data-hero-axis="xy" class="absolute right-[12%] top-[22%] w-[140px] h-[140px] rounded-full border border-emerald-400/30 bg-emerald-500/10"></div>
+      <div data-hero-layer="0.18" data-hero-depth="1.6" class="absolute right-[30%] bottom-[28%] w-[80px] h-[80px] rounded-full bg-red-500/15 border border-red-400/20"></div>
+      <div data-hero-layer="0.12" data-hero-depth="1" class="absolute inset-x-[10%] top-[20%] h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+      <div data-hero-layer="0.08" data-hero-depth="0.8" class="absolute inset-x-[20%] bottom-[35%] h-px bg-gradient-to-r from-transparent via-indigo-400/25 to-transparent"></div>
+      <div data-hero-content class="relative z-10 max-w-4xl mx-auto px-5 text-center pt-32 pb-32">
         <span class="inline-block mb-4 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">فاز اول · UNMATCHED</span>
-        <h1 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-wide">نقشه راه پیاده‌سازی</h1>
+        <h1 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-wide drop-shadow-[0_8px_32px_rgba(0,0,0,0.6)]">نقشه راه پیاده‌سازی</h1>
         <p class="text-slate-300 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">از دانلود نسخه مرجع بازی تا قوانین نبرد — همه چیز برای شروع موتور C++ شما در یک مسیر منظم.</p>
         <div class="flex flex-wrap justify-center gap-4">
           <a href="#downloads" class="px-6 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition shadow-lg">شروع از منابع</a>
@@ -46,11 +51,12 @@
       badge: "منابع پروژه",
       title: "دانلود APK و دارایی‌های پیاده‌سازی",
       subtitle: "قبل از کدنویسی، نسخه مرجع بازی و پوشه تصاویر را در اختیار داشته باشید تا رفتار و داده‌ها با انتظار استاد هم‌خوان باشد.",
-      parallaxClass: "bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.12),transparent_55%)]",
+      parallaxClass: "bg-emerald-500/30",
+      parallaxSpeed: 0.72,
     });
     inner.appendChild(header);
 
-    const grid = C.el("div", "grid md:grid-cols-2 gap-6 mb-10");
+    const grid = C.el("div", "grid md:grid-cols-2 gap-6 mb-10", { "data-parallax-content": "0.12" });
     grid.appendChild(
       C.DownloadCard({
         icon: "fas fa-mobile-screen-button",
@@ -84,11 +90,12 @@
       badge: "مرور کلی",
       title: "بازی Unmatched چیست؟",
       subtitle: "دوئل کارتی با مینیاتور؛ هدف شما شکست قهرمان حریف است. فاز اول روی دو قهرمان و یک نقشه متمرکز است.",
-      parallaxClass: "bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.1),transparent_60%)]",
+      parallaxClass: "bg-indigo-500/30",
+      parallaxSpeed: 0.68,
     });
     inner.appendChild(header);
 
-    const panel = C.el("div", "glass-panel rounded-2xl p-6 md:p-10 border border-white/10 space-y-6");
+    const panel = C.el("div", "glass-panel rounded-2xl p-6 md:p-10 border border-white/10 space-y-6", { "data-parallax-content": "0.16" });
     panel.appendChild(
       C.el("p", "text-slate-300 leading-8 text-sm md:text-base", {
         text: "Unmatched یک بازی رومیزی نوبتی است. هر بازیکن یک قهرمان افسانه‌ای و یاران او را کنترل می‌کند. با ترکیب حرکت روی نقشه، بازی کارت و نبرد همزمان، سلامتی قهرمان حریف را به صفر می‌رسانید.",
@@ -118,13 +125,15 @@
       badge: "مبارزها",
       title: "شرلوک و دراکولا",
       subtitle: "خلاصه توانایی‌ها برای شروع طراحی کلاس‌ها. جزئیات هر کارت و اثر روی صفحات اختصاصی است.",
-      parallaxClass: "bg-[radial-gradient(ellipse_at_left,rgba(234,179,8,0.08),transparent_50%),radial-gradient(ellipse_at_right,rgba(220,38,38,0.08),transparent_50%)]",
+      parallaxClass: "bg-amber-500/25",
+      parallaxSpeed: 0.75,
     });
     inner.appendChild(header);
 
     const grid = C.el("div", "grid md:grid-cols-2 gap-8");
     grid.appendChild(
       C.HeroCard({
+        index: 0,
         name: "شرلوک هلمز",
         health: 16,
         move: 2,
@@ -137,6 +146,7 @@
     );
     grid.appendChild(
       C.HeroCard({
+        index: 1,
         name: "دراکولا",
         health: 13,
         move: 2,
@@ -158,13 +168,15 @@
       badge: "میدان و کارت",
       title: "نقشه و قوانین کارت",
       subtitle: "سیستم گرید، منطقه‌ها و انواع کارت را در سطح overview بشناسید؛ پیاده‌سازی دقیق از مستندات تفصیلی پیروی کند.",
-      parallaxClass: "bg-[radial-gradient(ellipse_at_bottom,rgba(34,197,94,0.08),transparent_55%)]",
+      parallaxClass: "bg-green-500/25",
+      parallaxSpeed: 0.7,
     });
     inner.appendChild(header);
 
     const grid = C.el("div", "grid lg:grid-cols-2 gap-6");
     grid.appendChild(
       C.TopicCard({
+        index: 0,
         icon: "fas fa-map",
         title: "نقشه Baskerville Manor",
         summary: "خانه‌ها با خط به هم متصل‌اند (مجاورت). رنگ‌ها Zone تعریف می‌کنند. گذرگاه مخفی یک واحد حرکت بین هر دو خانه علامت‌دار است.",
@@ -179,6 +191,7 @@
     );
     grid.appendChild(
       C.TopicCard({
+        index: 1,
         icon: "fas fa-clone",
         title: "انواع و زمان‌بندی کارت",
         summary: "چهار نوع اصلی: حمله، دفاع، چندمنظوره (Versatile)، نقشه (Scheme). مالکیت کارت: Hero، Sidekick یا Any.",
@@ -202,12 +215,13 @@
       badge: "نبرد",
       title: "حل نبرد (Combat)",
       subtitle: "جریان حمله از انتخاب هدف تا محاسبه آسیب — نسخه خلاصه برای طراحی ماژول Combat در C++.",
-      parallaxClass: "bg-[radial-gradient(ellipse_at_top,rgba(239,68,68,0.1),transparent_50%)]",
+      parallaxClass: "bg-red-500/30",
+      parallaxSpeed: 0.78,
     });
     inner.appendChild(header);
 
     const layout = C.el("div", "grid lg:grid-cols-5 gap-8 items-start");
-    const steps = C.el("div", "lg:col-span-3 glass-panel rounded-2xl p-6 md:p-8 border border-white/10 space-y-4");
+    const steps = C.el("div", "lg:col-span-3 glass-panel rounded-2xl p-6 md:p-8 border border-white/10 space-y-4", { "data-parallax-content": "0.14" });
     const stepData = [
       ["۱", "اعلام مبارز فعال و هدف معتبر", "نزدیک‌زن: مجاور · دورزن: مجاور یا همان Zone"],
       ["۲", "انتخاب کارت", "مهاجم: Attack/Versatile · مدافع: Defense/Versatile (اختیاری) · رو کردن همزمان"],
@@ -225,7 +239,7 @@
       steps.appendChild(row);
     });
 
-    const aside = C.el("div", "lg:col-span-2 space-y-4");
+    const aside = C.el("div", "lg:col-span-2 space-y-4", { "data-parallax-content": "0.22" });
     const formula = C.el("div", "rounded-2xl bg-gradient-to-br from-red-950/80 to-[#161a22] border border-red-500/30 p-6 text-center");
     formula.innerHTML = `
       <p class="text-xs text-red-300/80 mb-2 font-bold uppercase tracking-wider">فرمول پایه</p>
@@ -248,11 +262,12 @@
       badge: "تحویل",
       title: "نکات پایانی پروژه",
       subtitle: "خلاصه الزامات نمره‌دهی. فهرست کامل، هشدارها و جزئیات در صفحه نکات حیاتی قرار دارد.",
-      parallaxClass: "bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent_60%)]",
+      parallaxClass: "bg-blue-500/30",
+      parallaxSpeed: 0.65,
     });
     inner.appendChild(header);
 
-    const grid = C.el("div", "grid sm:grid-cols-2 gap-4 mb-8");
+    const grid = C.el("div", "grid sm:grid-cols-2 gap-4 mb-8", { "data-parallax-content": "0.1" });
     const notes = [
       { icon: "fas fa-cubes", title: "اصول OOP", text: "کپسوله‌سازی، انتزاع، وراثت و چندریختی در طراحی کلاس‌ها." },
       { icon: "fas fa-puzzle-piece", title: "ماژولار بودن", text: "جداسازی نقشه، دسته کارت، نوبت و نبرد برای نگهداری آسان." },
@@ -264,7 +279,7 @@
     notes.forEach((n) => grid.appendChild(C.NoteCard(n)));
     inner.appendChild(grid);
 
-    const warn = C.el("div", "rounded-2xl border border-rose-500/30 bg-rose-500/10 p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between");
+    const warn = C.el("div", "rounded-2xl border border-rose-500/30 bg-rose-500/10 p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between", { "data-parallax-content": "0.2" });
     warn.appendChild(
       C.el("p", "text-rose-200 text-sm leading-7 flex-1", {
         text: "الگوهای طراحی اجباری نیستند اما پیاده‌سازی صحیح کیفیت را بالا می‌برد. نسخه کامل الزامات، Design Patterns و هشدار تقلب در صفحه نکات حیاتی آمده است.",
