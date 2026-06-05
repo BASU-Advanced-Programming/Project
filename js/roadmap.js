@@ -493,18 +493,28 @@ document.addEventListener("DOMContentLoaded", () => {
     isAttacking = false;
     
     // Check if game over
-    if (draculaHealth <= 0) {
-      setTimeout(() => {
-        alert("🏆 شرلوک پیروز شد! 🏆");
-        // Reset health to original values
-        draculaHealth = 13;
-        sherlockHealth = 16;
-        document.getElementById("dracula-health-bar").style.width = "100%";
-        document.getElementById("dracula-health-value").textContent = "13";
-        document.getElementById("sherlock-health-bar").style.width = "100%";
-        document.getElementById("sherlock-health-value").textContent = "16";
-      }, 500);
-    }
+if (draculaHealth <= 0) {
+  setTimeout(() => {
+    // Show custom modal
+    const modal = document.getElementById("victory-modal");
+    modal.classList.remove("opacity-0", "invisible");
+    modal.classList.add("opacity-100", "visible");
+    
+    // Close modal when button clicked
+    document.getElementById("close-modal").onclick = () => {
+      modal.classList.remove("opacity-100", "visible");
+      modal.classList.add("opacity-0", "invisible");
+      
+      // Reset health
+      draculaHealth = 13;
+      sherlockHealth = 16;
+      document.getElementById("dracula-health-bar").style.width = "100%";
+      document.getElementById("dracula-health-value").textContent = "13";
+      document.getElementById("sherlock-health-bar").style.width = "100%";
+      document.getElementById("sherlock-health-value").textContent = "16";
+    };
+  }, 500);
+}
   }
 
   // Add click event to attack button
