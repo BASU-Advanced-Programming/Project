@@ -292,126 +292,178 @@
       </div>
     </header>
 
-
-
     <div
       class="relative max-w-[1100px] mx-auto mb-24 px-5 before:content-[''] before:absolute before:w-1 before:bg-gradient-to-b before:from-brand-pink before:via-brand-purple before:to-brand-cyan before:top-0 before:bottom-0 before:right-[30px] md:before:right-1/2 before:translate-x-1/2 before:shadow-[0_0_15px_rgba(112,0,255,0.5)] before:z-[1]"
     >
-    <!-- map -->
- <div
-  class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
-  id="maps"
->
-  <div
-    class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
-  ></div>
-
-  <div
-    class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-cyan/40 hover:shadow-[0_20px_50px_rgba(0,240,255,0.15)]"
-  >
-    <h2
-      class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
-    >
-      Maps 🗺️
-    </h2>
-    <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
-      در این بخش یاد می‌گیریم نقشه‌ی بازی چگونه طراحی میشود، ناحیه‌ها چه
-      کاربردی دارند و حرکت شخصیت‌ها چگونه انجام می‌شود دقت کنید فقط نقشه
-      دارای تلپورت را طراحی کنید.
-    </p>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 w-full mt-5">
-<a
-  href="pages/game/html/map.html"
-  class="block text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
->
-  📖 مطالعه بیشتر
-</a>
-      <button
-        id="open-map-btn"
-        class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+      <!-- map -->
+      <div
+        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        id="maps"
       >
-        🗺️ مشاهده نقشه تلپورت
-      </button>
+        <div
+          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+        ></div>
 
-      <button
-        id="open-resources-btn"
-        class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+        <div
+          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-cyan/40 hover:shadow-[0_20px_50px_rgba(0,240,255,0.15)]"
+        >
+          <h2
+            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+          >
+            Maps 🗺️
+          </h2>
+          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+            در این بخش یاد می‌گیریم نقشه‌ی بازی چگونه طراحی میشود، ناحیه‌ها چه
+            کاربردی دارند و حرکت شخصیت‌ها چگونه انجام می‌شود دقت کنید فقط نقشه
+            دارای تلپورت را طراحی کنید.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 w-full mt-5">
+            <a
+              href="pages/game/html/map.html"
+              class="block text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+            >
+              📖 مطالعه بیشتر
+            </a>
+            <button
+              id="open-map-btn"
+              class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+            >
+              🗺️ مشاهده نقشه تلپورت
+            </button>
+
+            <button
+              id="open-resources-btn"
+              class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+            >
+              🔗 منابع آموزشی
+            </button>
+          </div>
+
+          <div
+            id="map-modal"
+            class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+          >
+            <div
+              class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            >
+              <div
+                class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5"
+              >
+                <h3
+                  class="text-lg font-bold text-brand-cyan flex items-center gap-2"
+                >
+                  <span>🌀</span> راهنمای تصویری نقشه دارای تلپورت
+                </h3>
+                <button
+                  id="close-map-btn"
+                  class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none"
+                >
+                  &times;
+                </button>
+              </div>
+              <div class="p-4 bg-[#0f0f1e] flex items-center justify-center">
+                <div
+                  class="relative w-full rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-inner"
+                >
+                  <img
+                    src="images/board.jpeg"
+                    alt="Unmatched Teleport Map"
+                    class="w-full h-auto max-h-[70vh] object-contain block mx-auto"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="resources-modal"
+            class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+          >
+            <div
+              class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            >
+              <div
+                class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5"
+              >
+                <h3
+                  class="text-lg font-bold text-brand-pink flex items-center gap-2"
+                >
+                  <span>📚</span> لیست منابع و مستندات آموزشی
+                </h3>
+                <button
+                  id="close-resources-btn"
+                  class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none"
+                >
+                  &times;
+                </button>
+              </div>
+
+              <div class="p-5 bg-[#0f0f1e] flex flex-col gap-3">
+                <p class="text-brand-textMuted text-xs mb-1">
+                  یک منبع را برای مطالعه انتخاب کنید:
+                </p>
+
+                <a
+                  href="https://www.geeksforgeeks.org/dsa/graph-data-structure-and-algorithms/"
+                  class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]"
+                >
+                  <span class="text-[0.9rem] font-semibold"
+                    >📖 الگوریتم های گراف</span
+                  >
+                  <span class="text-brand-pink text-sm">←</span>
+                </a>
+
+                <a
+                  href="pages/concepts/html/moderncpp.html"
+                  class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-cyan/10 hover:border-brand-cyan/50 hover:translate-x-[-4px]"
+                >
+                  <span class="text-[0.9rem] font-semibold"
+                    >💻 مستندات مدرن ++C</span
+                  >
+                  <span class="text-brand-cyan text-sm">←</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="map-modal"
+        class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
       >
-        🔗 منابع آموزشی
-      </button>
-    </div>
-  </div>
-</div>
+        <div
+          class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+        >
+          <div
+            class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5"
+          >
+            <h3
+              class="text-lg font-bold text-brand-cyan flex items-center gap-2"
+            >
+              <span>🌀</span> نقشه دارای تلپورت
+            </h3>
+            <button
+              id="close-map-btn"
+              class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none"
+            >
+              &times;
+            </button>
+          </div>
 
-<div id="map-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
-      <h3 class="text-lg font-bold text-brand-cyan flex items-center gap-2">
-        <span>🌀</span> راهنمای تصویری نقشه دارای تلپورت
-      </h3>
-      <button id="close-map-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
-    </div>
-    <div class="p-4 bg-[#0f0f1e] flex items-center justify-center">
-      <div class="relative w-full rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-inner">
-        <img src="images/board.jpeg" alt="Unmatched Teleport Map" class="w-full h-auto max-h-[70vh] object-contain block mx-auto"/>
+          <div class="p-4 bg-[#0f0f1e] flex items-center justify-center">
+            <div
+              class="relative w-full rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-inner"
+            >
+              <img
+                src="images/board.jpeg"
+                alt="Unmatched Teleport Map"
+                class="w-full h-auto max-h-[70vh] object-contain block mx-auto"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<div id="resources-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-    
-    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
-      <h3 class="text-lg font-bold text-brand-pink flex items-center gap-2">
-        <span>📚</span> لیست منابع و مستندات آموزشی
-      </h3>
-      <button id="close-resources-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
-    </div>
-
-    <div class="p-5 bg-[#0f0f1e] flex flex-col gap-3">
-      <p class="text-brand-textMuted text-xs mb-1">یک منبع را برای مطالعه انتخاب کنید:</p>
-
-      <a href="https://www.geeksforgeeks.org/dsa/graph-data-structure-and-algorithms/" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
-        <span class="text-[0.9rem] font-semibold">📖 الگوریتم های گراف</span>
-        <span class="text-brand-pink text-sm">←</span>
-      </a>
-
-      <a href="pages/concepts/html/moderncpp.html" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-cyan/10 hover:border-brand-cyan/50 hover:translate-x-[-4px]">
-        <span class="text-[0.9rem] font-semibold">💻 مستندات مدرن ++C</span>
-        <span class="text-brand-cyan text-sm">←</span>
-      </a>
-
-
-    </div>
-
-  </div>
-</div>
-  </div>
-</div>
-
-<div id="map-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-    
-    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
-      <h3 class="text-lg font-bold text-brand-cyan flex items-center gap-2">
-        <span>🌀</span> نقشه دارای تلپورت
-      </h3>
-      <button id="close-map-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
-    </div>
-
-    <div class="p-4 bg-[#0f0f1e] flex items-center justify-center">
-      <div class="relative w-full rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-inner">
-        <img 
-          src="images/board.jpeg" 
-          alt="Unmatched Teleport Map" 
-          class="w-full h-auto max-h-[70vh] object-contain block mx-auto"
-        />
-      </div>
-    </div>
-
-  </div>
-</div>
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         id="characters"
