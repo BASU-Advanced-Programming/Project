@@ -329,3 +329,263 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// ==============================================
+// Combat System with Attack Animation
+// ==============================================
+document.addEventListener("DOMContentLoaded", () => {
+  const attackBtn = document.getElementById("attack-btn");
+  const sherlockCard = document.getElementById("sherlock-card");
+  const draculaCard = document.getElementById("dracula-card");
+  const attackMessage = document.getElementById("attack-message");
+  const bloodCanvas = document.getElementById("blood-effect");
+  let ctx = bloodCanvas ? bloodCanvas.getContext("2d") : null;
+  
+  // Health values - Updated: Dracula 13, Sherlock 16
+  let sherlockHealth = 16;
+  let draculaHealth = 13;
+  let isAttacking = false;
+
+  // Initialize canvas size
+  function initBloodCanvas() {
+    if (bloodCanvas) {
+      bloodCanvas.width = window.innerWidth;
+      bloodCanvas.height = window.innerHeight;
+    }
+  }
+  
+  window.addEventListener("resize", initBloodCanvas);
+  initBloodCanvas();
+
+  // Function to create blood splatter effect
+  function createBloodEffect(x, y) {
+    if (!ctx || !bloodCanvas) return;
+    
+    bloodCanvas.classList.remove("hidden");
+    ctx.clearRect(0, 0, bloodCanvas.width, bloodCanvas.height);
+    
+    const bloodDrops = [];
+    const dropCount = 30;
+    
+    for (let i = 0; i < dropCount; i++) {
+      bloodDrops.push({
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 15,
+        vy: (Math.random() - 0.5) * 15 - 5,
+        size: Math.random() * 8 + 3,
+        alpha: 0.8,
+        life: 1
+      });
+    }
+    
+    function animateBlood() {
+      let allDead = true;
+      ctx.clearRect(0, 0, bloodCanvas.width, bloodCanvas.height);
+      
+      for (let i = 0; i < bloodDrops.length; i++) {
+        const drop = bloodDrops[i];
+        if (drop.life > 0) {
+          allDead = false;
+          drop.x += drop.vx;
+          drop.y += drop.vy;
+          drop.vy += 0.5; // gravity
+          drop.life -= 0.02;
+          drop.alpha = drop.life * 0.8;
+          
+          ctx.save();
+          ctx.shadowBlur = 0;
+          ctx.globalAlpha = drop.alpha;
+          ctx.fillStyle = `rgba(255, ${Math.random() * 50}, ${Math.random() * 50}, ${drop.alpha})`;
+          ctx.beginPath();
+          ctx.arc(drop.x, drop.y, drop.size, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Add smaller splatter
+          ctx.fillStyle = `rgba(180, 0, 0, ${drop.alpha * 0.6})`;
+          ctx.beginPath();
+          ctx.arc(drop.x - 2, drop.y - 2, drop.size * 0.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+      
+      if (!allDead) {
+        requestAnimationFrame(animateBlood);
+      } else {
+        bloodCanvas.classList.add("hidden");
+        ctx.clearRect(0, 0, bloodCanvas.width, bloodCanvas.height);
+      }
+    }
+    
+    animateBlood();
+  }
+
+  // Attack animation function
+  async function performAttack() {
+    if (isAttacking) return;
+    isAttacking = true;
+    
+    // Get positions for blood effect
+    const draculaRect = draculaCard.getBoundingClientRect();
+    const bloodX = draculaRect.left + draculaRect.width / 2;
+    const bloodY = draculaRect.top + draculaRect.height / 2;
+    
+    // Show attack message
+    attackMessage.classList.remove("hidden");
+    
+    // Animate Sherlock card (move right)
+    sherlockCard.style.transform = "translateX(20px)";
+    sherlockCard.style.zIndex = "20";
+    
+    // Animate Dracula card (shake and flash red)
+    draculaCard.style.animation = "shakeEffect 0.5s ease-in-out";
+    draculaCard.style.filter = "brightness(1.5) drop-shadow(0 0 20px red)";
+    
+    // Create blood effect
+    createBloodEffect(bloodX, bloodY);
+    
+    // Reduce Dracula's health (damage between 2-5 for balanced gameplay with low health)
+    const damage = Math.floor(Math.random() * 4) + 2; // Random damage between 2-5
+    draculaHealth = Math.max(0, draculaHealth - damage);
+    
+    // Update health bars
+    const draculaHealthBar = document.getElementById("dracula-health-bar");
+    const draculaHealthValue = document.getElementById("dracula-health-value");
+    const draculaHealthPercent = (draculaHealth / 13) * 100;
+    draculaHealthBar.style.width = `${draculaHealthPercent}%`;
+    draculaHealthValue.textContent = draculaHealth;
+    
+    // Show damage number
+    const damageNumber = document.createElement("div");
+    damageNumber.textContent = `-${damage}`;
+    damageNumber.style.position = "fixed";
+    damageNumber.style.left = `${bloodX}px`;
+    damageNumber.style.top = `${bloodY - 30}px`;
+    damageNumber.style.color = "#ff3377";
+    damageNumber.style.fontSize = "24px";
+    damageNumber.style.fontWeight = "bold";
+    damageNumber.style.textShadow = "0 0 10px red";
+    damageNumber.style.zIndex = "201";
+    damageNumber.style.pointerEvents = "none";
+    damageNumber.style.animation = "floatUp 1s ease-out forwards";
+    document.body.appendChild(damageNumber);
+    
+    // Wait for animations
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Reset animations
+    sherlockCard.style.transform = "";
+    sherlockCard.style.zIndex = "";
+    draculaCard.style.animation = "";
+    draculaCard.style.filter = "";
+    
+    // Hide attack message after delay
+    setTimeout(() => {
+      attackMessage.classList.add("hidden");
+    }, 1000);
+    
+    // Remove damage number
+    setTimeout(() => {
+      if (damageNumber && damageNumber.remove) damageNumber.remove();
+    }, 1000);
+    
+    isAttacking = false;
+    
+    // Check if game over
+    if (draculaHealth <= 0) {
+      setTimeout(() => {
+        alert("🏆 شرلوک پیروز شد! 🏆");
+        // Reset health to original values
+        draculaHealth = 13;
+        sherlockHealth = 16;
+        document.getElementById("dracula-health-bar").style.width = "100%";
+        document.getElementById("dracula-health-value").textContent = "13";
+        document.getElementById("sherlock-health-bar").style.width = "100%";
+        document.getElementById("sherlock-health-value").textContent = "16";
+      }, 500);
+    }
+  }
+
+  // Add click event to attack button
+  if (attackBtn) {
+    attackBtn.addEventListener("click", performAttack);
+  }
+});
+
+// Add CSS animations to your stylesheet
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes shakeEffect {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+  
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+  }
+  
+  .combat-card {
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .combat-card:hover {
+    transform: scale(1.02);
+  }
+  
+  #attack-btn {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: none;
+    border: none;
+    font-size: 3rem;
+  }
+  
+  #attack-btn:active {
+    transform: scale(0.95);
+  }
+`;
+document.head.appendChild(style);
+
+// ==============================================
+// مدیریت پاپ‌آپ منابع سیستم مبارزه
+// ==============================================
+document.addEventListener("DOMContentLoaded", () => {
+  // مدیریت مودال منابع مبارزه
+  const combatResourcesModal = document.getElementById("combat-resources-modal");
+  const openCombatResourcesBtn = document.getElementById("open-combat-resources-btn");
+  const closeCombatResourcesBtn = document.getElementById("close-combat-resources-btn");
+
+  if (combatResourcesModal && openCombatResourcesBtn && closeCombatResourcesBtn) {
+    openCombatResourcesBtn.addEventListener("click", () => {
+      combatResourcesModal.classList.remove("opacity-0", "pointer-events-none");
+      const transformDiv = combatResourcesModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-95");
+        transformDiv.classList.add("scale-100");
+      }
+    });
+
+    const closeCombatResources = () => {
+      combatResourcesModal.classList.add("opacity-0", "pointer-events-none");
+      const transformDiv = combatResourcesModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-100");
+        transformDiv.classList.add("scale-95");
+      }
+    };
+
+    closeCombatResourcesBtn.addEventListener("click", closeCombatResources);
+    combatResourcesModal.addEventListener("click", (e) => {
+      if (e.target === combatResourcesModal) closeCombatResources();
+    });
+  }
+});

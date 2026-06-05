@@ -564,6 +564,17 @@
               >
               <span class="text-brand-pink text-sm">←</span>
             </a>
+
+
+            <a
+              href="https://www.the-unmatched.club/heroes"
+              class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]"
+            >
+              <span class="text-[0.9rem] font-semibold"
+                >سایت معرفی شخصیت های دیگر</span
+              >
+              <span class="text-brand-pink text-sm">←</span>
+            </a>
           </div>
         </div>
       </div>
@@ -731,75 +742,145 @@
     </div>
   </div>
 </div>
-      <div
-        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
-        id="combat"
-      >
-        <div
-          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
-        ></div>
+<div
+  class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+  id="combat"
+>
+  <div
+    class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+  ></div>
 
-        <div
-          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-pink/40 hover:shadow-[0_20px_50px_rgba(255,0,127,0.15)]"
-        >
-          <h2
-            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
-          >
-            ⚔️ مبارزه
-          </h2>
-          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
-            مهم‌ترین بخش بازی. فایترها از طرفین صفحه به سمت مرکز فشرده می‌شوند
-            تا پردازش نبرد آغاز شود:
-          </p>
+  <div
+    class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-pink/40 hover:shadow-[0_20px_50px_rgba(255,0,127,0.15)]"
+  >
+    <h2
+      class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+    >
+      ⚔️ مبارزه
+    </h2>
+    <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+      مهم‌ترین بخش بازی. فایترها از طرفین صفحه به سمت مرکز فشرده می‌شوند
+      تا پردازش نبرد آغاز شود. روی علامت ⚔️ کلیک کنید تا حمله را مشاهده کنید:
+    </p>
 
-          <div
-            class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 mb-8 relative overflow-hidden py-5"
-          >
-            <div
-              class="text-[1.4rem] font-extrabold py-2.5 px-5 rounded-xl text-center w-full md:w-[40%] bg-[#0099ff]/15 border border-[#0099ff] text-[#00f0ff] opacity-0 translate-x-[100px] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] [.is-visible_&]:opacity-100 [.is-visible_&]:translate-x-0"
-            >
-              Sherlock
-            </div>
-            <div class="text-3xl font-black animate-pulse-glow text-[#ff3377]">
-              ⚔️
-            </div>
-            <div
-              class="text-[1.4rem] font-extrabold py-2.5 px-5 rounded-xl text-center w-full md:w-[40%] bg-[#ff0044]/15 border border-[#ff0044] text-[#ff3377] opacity-0 -translate-x-[100px] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] [.is-visible_&]:opacity-100 [.is-visible_&]:translate-x-0"
-            >
-              Dracula
-            </div>
+    <!-- Interactive Combat Area -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 mb-8 relative overflow-visible py-5" id="combat-area">
+      
+      <!-- Sherlock Card (Left) -->
+      <div class="combat-card sherlock-card relative w-full md:w-[35%] transition-all duration-300" id="sherlock-card">
+        <div class="relative rounded-xl overflow-hidden border-2 border-[#0099ff] shadow-[0_0_20px_rgba(0,153,255,0.3)] bg-black/40 backdrop-blur-sm">
+          <img 
+            src="images/sherlockTran.png" 
+            alt="Sherlock Holmes" 
+            class="w-full h-auto object-contain p-4 bg-gradient-to-br from-[#0099ff]/10 to-transparent"
+          />
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#0099ff]/80 to-transparent p-3">
+            <p class="text-white text-sm font-bold text-center">شرلوک هولمز</p>
           </div>
-
-          <div
-            class="flex flex-col md:flex-row justify-around items-center gap-2.5 bg-black/40 p-4 rounded-xl border border-dashed border-white/10"
-          >
-            <div
-              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
-            >
-              Attack
-            </div>
-            <div class="text-[0.9rem] font-bold text-brand-gray">➔</div>
-            <div
-              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
-            >
-              Defense
-            </div>
-            <div class="text-[0.9rem] font-bold text-brand-gray">➔</div>
-            <div
-              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
-            >
-              Reveal
-            </div>
-            <div class="text-[0.9rem] font-bold text-brand-gray">➔</div>
-            <div
-              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
-            >
-              Resolve
-            </div>
+        </div>
+        <!-- Health Bar -->
+        <div class="mt-3">
+          <div class="flex justify-between text-xs text-brand-textMuted mb-1">
+            <span>❤️ سلامت</span>
+            <span id="sherlock-health-value">16</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+            <div id="sherlock-health-bar" class="bg-gradient-to-r from-[#0099ff] to-[#00f0ff] h-2 rounded-full transition-all duration-300" style="width: 100%"></div>
           </div>
         </div>
       </div>
 
+      <!-- Attack Button -->
+      <div class="relative z-10">
+        <button id="attack-btn" class="text-5xl md:text-6xl font-black animate-pulse-glow text-[#ff3377] cursor-pointer transition-all duration-200 hover:scale-125 hover:rotate-12 active:scale-95 bg-transparent border-none">
+          ⚔️
+        </button>
+      </div>
+
+      <!-- Dracula Card (Right) -->
+      <div class="combat-card dracula-card relative w-full md:w-[35%] transition-all duration-300" id="dracula-card">
+        <div class="relative rounded-xl overflow-hidden border-2 border-[#ff0044] shadow-[0_0_20px_rgba(255,0,68,0.3)] bg-black/40 backdrop-blur-sm">
+          <img 
+            src="images/tranDrac.png" 
+            alt="Dracula" 
+            class="w-full h-auto object-contain p-4 bg-gradient-to-br from-[#ff0044]/10 to-transparent"
+          />
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#ff0044]/80 to-transparent p-3">
+            <p class="text-white text-sm font-bold text-center">کنت دراکولا</p>
+          </div>
+        </div>
+        <!-- Health Bar -->
+        <div class="mt-3">
+          <div class="flex justify-between text-xs text-brand-textMuted mb-1">
+            <span>❤️ سلامت</span>
+            <span id="dracula-health-value">13</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+            <div id="dracula-health-bar" class="bg-gradient-to-r from-[#ff0044] to-[#ff3377] h-2 rounded-full transition-all duration-300" style="width: 100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blood Effect Canvas -->
+    <canvas id="blood-effect" class="fixed inset-0 pointer-events-none z-[200] hidden" style="width: 100%; height: 100%;"></canvas>
+
+    <!-- Attack Animation Message -->
+    <div id="attack-message" class="text-center mb-4 hidden">
+      <div class="inline-block bg-black/80 backdrop-blur-md border border-[#ff3377] rounded-lg px-4 py-2">
+        <p class="text-[#ff3377] font-bold animate-pulse">💥 حمله! 💥</p>
+      </div>
+    </div>
+
+    <!-- Two Buttons Section - Same style as Card section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 w-full mt-5">
+      <a
+        href="pages/game/html/combatSystem.html"
+        class="block text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-purple/20 hover:text-white hover:border-brand-purple"
+      >
+        📖 مطالعه بیشتر
+      </a>
+
+      <button
+        id="open-combat-resources-btn"
+        class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+      >
+        🔗 منابع آموزشی
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal for Combat Resources -->
+<div id="combat-resources-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-pink flex items-center gap-2">
+        <span>📚</span> منابع آموزشی سیستم مبارزه
+      </h3>
+      <button id="close-combat-resources-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+    <div class="p-5 bg-[#0f0f1e] flex flex-col gap-3">
+      <p class="text-brand-textMuted text-xs mb-1">comabt</p>
+      
+      <a href="pages/patterns/html/designpatterncategory.html" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">دیزاین پترن ها</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+      
+      <a href="https://www.youtube.com/results?search_query=game+combat+mechanics+tutorial" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">🎥 آموزش مکانیزم‌های نبرد</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+      
+      <a href="https://www.gamedeveloper.com/design/combat-design-best-practices" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">⚔️ بهترین روش‌های طراحی نبرد</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+    </div>
+  </div>
+</div>
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         id="scores"
