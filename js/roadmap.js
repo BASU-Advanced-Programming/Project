@@ -195,3 +195,29 @@ document.addEventListener("DOMContentLoaded", () => {
   closeResBtn.addEventListener("click", closeRes);
   resModal.addEventListener("click", (e) => { if (e.target === resModal) closeRes(); });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // المان‌های کنترل مودال شخصیت‌ها
+  const charModal = document.getElementById("char-images-modal");
+  const openCharBtn = document.getElementById("open-char-images-btn");
+  const closeCharBtn = document.getElementById("close-char-images-btn");
+
+  // باز کردن مودال گالری تعاملی
+  openCharBtn.addEventListener("click", () => {
+    charModal.classList.remove("opacity-0", "pointer-events-none");
+    charModal.querySelector(".transform").classList.remove("scale-95");
+    charModal.querySelector(".transform").classList.add("scale-100");
+  });
+
+  // بسته شدن مودال
+  const closeCharModal = () => {
+    charModal.classList.add("opacity-0", "pointer-events-none");
+    charModal.querySelector(".transform").classList.remove("scale-100");
+    charModal.querySelector(".transform").classList.add("scale-95");
+  };
+
+  closeCharBtn.addEventListener("click", closeCharModal);
+  charModal.addEventListener("click", (e) => { 
+    if (e.target === charModal) closeCharModal(); 
+  });
+});

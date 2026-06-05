@@ -352,7 +352,7 @@
                 <h3
                   class="text-lg font-bold text-brand-cyan flex items-center gap-2"
                 >
-                  <span>🌀</span> راهنمای تصویری نقشه دارای تلپورت
+                  <span>🌀</span>  نقشه دارای تلپورت
                 </h3>
                 <button
                   id="close-map-btn"
@@ -413,7 +413,7 @@
                   <span class="text-brand-pink text-sm">←</span>
                 </a>
 
-                <a
+                <!-- <a
                   href="pages/concepts/html/moderncpp.html"
                   class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-cyan/10 hover:border-brand-cyan/50 hover:translate-x-[-4px]"
                 >
@@ -421,7 +421,7 @@
                     >💻 مستندات مدرن ++C</span
                   >
                   <span class="text-brand-cyan text-sm">←</span>
-                </a>
+                </a> -->
               </div>
             </div>
           </div>
@@ -464,58 +464,72 @@
           </div>
         </div>
       </div>
-      <div
-        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
-        id="characters"
+
+<div
+  class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+  id="characters"
+>
+  <div
+    class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+  ></div>
+
+  <div
+    class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-purple/40 hover:shadow-[0_20px_50px_rgba(112,0,255,0.15)]"
+  >
+    <h2
+      class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+    >
+      🦇 شخصیت‌ها
+    </h2>
+    <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+      هر شخصیت دارای قدرت ویژه، سبک بازی و کارت‌های منحصر به فرد است. شما می‌توانید مستندات هر فایتر را مطالعه کرده یا تصاویر رسمی آن‌ها را بررسی کنید.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full mt-5">
+      <a
+        href="game/html/characterpage.html"
+        class="block text-[0.85rem] py-3.5 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-purple/20 hover:text-white hover:border-brand-purple"
       >
-        <div
-          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
-        ></div>
+              📖 مطالعه بیشتر
+      </a>
 
-        <div
-          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-purple/40 hover:shadow-[0_20px_50px_rgba(112,0,255,0.15)]"
-        >
-          <h2
-            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
-          >
-            🦇 شخصیت‌ها
-          </h2>
-          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
-            هر شخصیت دارای قدرت ویژه، سبک بازی و کارت‌های منحصر به فرد است.
-            فایترها از فایل‌های پیوست بارگذاری می‌شوند:
-          </p>
+      <button
+        id="open-char-images-btn"
+        class="text-[0.85rem] py-3.5 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-pink/15 hover:text-white hover:border-brand-pink"
+      >
+        🖼️ مشاهده شخصیت‌ها
+      </button>
+    </div>
+  </div>
+</div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
-            <div
-              class="bg-[#1e1e32]/80 rounded-2xl p-5 text-center border border-white/5 transition-all duration-400 hover:border-[#ff0044] hover:shadow-[0_0_20px_rgba(255,0,68,0.3)] hover:bg-[radial-gradient(circle_at_center,rgba(255,0,68,0.15)_0%,rgba(30,30,50,0.95)_70%)]"
-            >
-              <h3 class="text-xl md:text-2xl mb-2.5 font-bold">Dracula 🧛</h3>
-              <p class="text-[0.85rem] text-brand-textMuted">
-                دارای کارت‌های هجومی سنگین و مکانیزم اختصاصی مکیدن خون.
-              </p>
-              <a
-                href="game/html/dracula.html"
-                class="inline-block mt-4 text-white no-underline text-[0.8rem] bg-white/10 px-4 py-1.5 rounded-[15px] transition-colors duration-200 hover:bg-white/25"
-                >dracula.html</a
-              >
-            </div>
-            <div
-              class="bg-[#1e1e32]/80 rounded-2xl p-5 text-center border border-white/5 transition-all duration-400 hover:border-[#0099ff] hover:shadow-[0_0_20px_rgba(0,153,255,0.3)] hover:bg-[radial-gradient(circle_at_center,rgba(0,153,255,0.15)_0%,rgba(30,30,50,0.95)_70%)]"
-            >
-              <h3 class="text-xl md:text-2xl mb-2.5 font-bold">Sherlock 🔍</h3>
-              <p class="text-[0.85rem] text-brand-textMuted">
-                متکی بر لو دادن مکر حریف، خنثی‌سازی افکت‌ها و آنالیز دست دشمن.
-              </p>
-              <a
-                href="game/html/sherlock.html"
-                class="inline-block mt-4 text-white no-underline text-[0.8rem] bg-white/10 px-4 py-1.5 rounded-[15px] transition-colors duration-200 hover:bg-white/25"
-                >sherlock.html</a
-              >
-            </div>
-          </div>
-        </div>
+<div id="char-images-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-pink flex items-center gap-2">
+        <span>🧛‍♂️</span> گالری تصویر مبارزان افسانه‌ای
+      </h3>
+      <button id="close-char-images-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+
+    <div class="p-6 bg-[#0f0f1e] grid grid-cols-2 gap-4">
+      
+      <div class="group/img relative rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-lg transition duration-300 hover:border-brand-pink">
+        <img src="images/tranDrac.png" alt="Dracula" class="w-full h-auto max-h-[50vh] object-contain block mx-auto p-2 transition duration-300 group-hover/img:scale-105" />
+        <div class="absolute bottom-0 inset-x-0 bg-black/60 p-2 text-center text-xs font-bold text-white backdrop-blur-xs">کنت دراکولا</div>
       </div>
 
+      <div class="group/img relative rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-lg transition duration-300 hover:border-brand-cyan">
+        <img src="images/sherlockTran.png" alt="Sherlock" class="w-full h-auto max-h-[50vh] object-contain block mx-auto p-2 transition duration-300 group-hover/img:scale-105" />
+        <div class="absolute bottom-0 inset-x-0 bg-black/60 p-2 text-center text-xs font-bold text-white backdrop-blur-xs">شرلوک هولمز</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- cards -->
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         id="cards"
