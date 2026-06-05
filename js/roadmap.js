@@ -265,3 +265,67 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+// ==============================================
+// مدیریت پاپ‌آپ کارت‌ها (جزئیات و منابع)
+// ==============================================
+document.addEventListener("DOMContentLoaded", () => {
+  // مدیریت مودال جزئیات کارت‌ها
+  const cardDetailsModal = document.getElementById("card-details-modal");
+  const openCardDetailsBtn = document.getElementById("open-card-details-btn");
+  const closeCardDetailsBtn = document.getElementById("close-card-details-btn");
+
+  if (cardDetailsModal && openCardDetailsBtn && closeCardDetailsBtn) {
+    openCardDetailsBtn.addEventListener("click", () => {
+      cardDetailsModal.classList.remove("opacity-0", "pointer-events-none");
+      const transformDiv = cardDetailsModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-95");
+        transformDiv.classList.add("scale-100");
+      }
+    });
+
+    const closeCardDetails = () => {
+      cardDetailsModal.classList.add("opacity-0", "pointer-events-none");
+      const transformDiv = cardDetailsModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-100");
+        transformDiv.classList.add("scale-95");
+      }
+    };
+
+    closeCardDetailsBtn.addEventListener("click", closeCardDetails);
+    cardDetailsModal.addEventListener("click", (e) => {
+      if (e.target === cardDetailsModal) closeCardDetails();
+    });
+  }
+
+  // مدیریت مودال منابع کارت‌ها
+  const cardResourcesModal = document.getElementById("card-resources-modal");
+  const openCardResourcesBtn = document.getElementById("open-card-resources-btn");
+  const closeCardResourcesBtn = document.getElementById("close-card-resources-btn");
+
+  if (cardResourcesModal && openCardResourcesBtn && closeCardResourcesBtn) {
+    openCardResourcesBtn.addEventListener("click", () => {
+      cardResourcesModal.classList.remove("opacity-0", "pointer-events-none");
+      const transformDiv = cardResourcesModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-95");
+        transformDiv.classList.add("scale-100");
+      }
+    });
+
+    const closeCardResources = () => {
+      cardResourcesModal.classList.add("opacity-0", "pointer-events-none");
+      const transformDiv = cardResourcesModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-100");
+        transformDiv.classList.add("scale-95");
+      }
+    };
+
+    closeCardResourcesBtn.addEventListener("click", closeCardResources);
+    cardResourcesModal.addEventListener("click", (e) => {
+      if (e.target === cardResourcesModal) closeCardResources();
+    });
+  }
+});

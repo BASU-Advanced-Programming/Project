@@ -418,9 +418,8 @@
         </div>
       </div>
 
-      <!-- duplicate map-modal removed to keep code clean -->
 
-      <!--==CHARACTERS SECTION (with added Resources button & modal)==-->
+      <!--==CHARACTERS SECTION==-->
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         id="characters"
@@ -463,7 +462,7 @@
               id="open-char-resources-btn"
               class="text-[0.85rem] py-3.5 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
             >
-              🔗 منابع شخصیت‌ها
+              🔗 منابع آموزشی
             </button>
           </div>
         </div>
@@ -541,7 +540,7 @@
             <h3
               class="text-lg font-bold text-brand-pink flex items-center gap-2"
             >
-              <span>📚</span> منابع تخصصی شخصیت‌ها
+              <span>📚</span> منابع 
             </h3>
             <button
               id="close-char-resources-btn"
@@ -557,7 +556,7 @@
             </p>
 
             <a
-              href="https://www.geeksforgeeks.org/design-patterns-for-game-development/"
+              href="pages/patterns/html/designpatterncategory.html"
               class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]"
             >
               <span class="text-[0.9rem] font-semibold"
@@ -565,139 +564,173 @@
               >
               <span class="text-brand-pink text-sm">←</span>
             </a>
+          </div>
+        </div>
+      </div>
+<!-- cards -->
+<div
+  class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+  id="cards"
+>
+  <div
+    class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+  ></div>
 
-            <a
-              href="https://www.gamedeveloper.com/design/character-design-fundamentals-for-games"
-              class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]"
-            >
-              <span class="text-[0.9rem] font-semibold"
-                >✨ اصول طراحی شخصیت</span
-              >
-              <span class="text-brand-pink text-sm">←</span>
-            </a>
+  <div
+    class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-[#cc33ff]/40 hover:shadow-[0_20px_50px_rgba(204,51,255,0.15)]"
+  >
+    <h2
+      class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+    >
+      🃏 کارت‌ها
+    </h2>
+    <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+      مدیریت دست و انواع کارت‌ها. 
+    </p>
 
-            <a
-              href="https://www.youtube.com/results?search_query=unmatched+game+character+strategy"
-              class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]"
-            >
-              <span class="text-[0.9rem] font-semibold"
-                >🎥 ویدیوهای استراتژی شخصیت‌ها</span
-              >
-              <span class="text-brand-pink text-sm">←</span>
-            </a>
+    <!-- Interactive Cards Grid - 2 Cards with better mobile responsiveness -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8 perspective-1000">
+      
+      <!-- Card 1 -->
+      <div class="group/card aspect-[3/4] w-full perspective-[1000px] cursor-pointer">
+        <div class="relative w-full h-full text-center transition-transform duration-700 preserve-3d group-hover/card:[transform:rotateY(180deg)]">
+          <!-- Front of Card -->
+          <div class="absolute w-full h-full backface-hidden rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="images/draculaBackCard.webp" 
+              alt="Card Front 1" 
+              class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-2 md:p-3">
+              <p class="text-white text-xs md:text-sm font-bold text-center">کارت دراکولا</p>
+            </div>
+          </div>
+          <!-- Back of Card -->
+          <div class="absolute w-full h-full backface-hidden rounded-xl overflow-hidden shadow-2xl [transform:rotateY(180deg)]">
+            <img 
+              src="images/dracula/ambush.png" 
+              alt="Card Back 1" 
+              class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-purple-900/80 to-transparent p-2 md:p-3">
+              <!-- <p class="text-white text-xs text-center">طراحی شده برای نبردهای حرفه‌ای</p> -->
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- cards -->
-      <div
-        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
-        id="cards"
+      <!-- Card 2 -->
+      <div class="group/card aspect-[3/4] w-full perspective-[1000px] cursor-pointer">
+        <div class="relative w-full h-full text-center transition-transform duration-700 preserve-3d group-hover/card:[transform:rotateY(180deg)]">
+          <!-- Front of Card -->
+          <div class="absolute w-full h-full backface-hidden rounded-xl overflow-hidden shadow-2xl">
+            <img 
+              src="images/sherBackCard.webp" 
+              alt="Card Front 2" 
+              class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-2 md:p-3">
+              <p class="text-white text-xs md:text-sm font-bold text-center">کارت های شرلوک</p>
+            </div>
+          </div>
+          <!-- Back of Card -->
+          <div class="absolute w-full h-full backface-hidden rounded-xl overflow-hidden shadow-2xl [transform:rotateY(180deg)]">
+            <img 
+              src="images/holms/administer-aid.png" 
+              alt="Card Back 2" 
+              class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-purple-900/80 to-transparent p-2 md:p-3">
+              <!-- <p class="text-white text-xs text-center">رازهای پشت کارت را کشف کنید</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Two Buttons Section -->
+    <!-- Two Buttons - Same style as Map and Character sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 w-full mt-5">
+      <a
+        href="pages/game/html/cardTypes.html"
+        class="block text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-purple/20 hover:text-white hover:border-brand-purple"
       >
-        <div
-          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
-        ></div>
+        📖 مطالعه بیشتر
+      </a>
 
-        <div
-          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-[#cc33ff]/40 hover:shadow-[0_20px_50px_rgba(204,51,255,0.15)]"
-        >
-          <h2
-            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
-          >
-            🃏 کارت‌ها
-          </h2>
-          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
-            مدیریت دست و انواع کارت‌ها. ماوس خود را روی کارت‌ها حرکت دهید تا
-            افکت چرخش و جزییات پشت کارت فعال شود:
-          </p>
-
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 perspective-1000"
-          >
-            <div
-              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
-            >
-              <div
-                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
-              >
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#ff3333] text-[1.1rem] text-[#ff3333]"
-                >
-                  Attack ⚔️
-                </div>
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#cc0000] to-[#660000]"
-                >
-                  حملات سهمگین جهت کاهش مستقیم خط سلامتی.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
-            >
-              <div
-                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
-              >
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#33cc33] text-[1.1rem] text-[#33cc33]"
-                >
-                  Defense 🛡️
-                </div>
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#009900] to-[#004d00]"
-                >
-                  کاهش صدمات و ایجاد ضدحمله‌های ناگهانی.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
-            >
-              <div
-                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
-              >
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#ffcc00] text-[1.1rem] text-[#ffcc00]"
-                >
-                  Scheme ⚡
-                </div>
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#cc9900] to-[#594400]"
-                >
-                  نقشه‌های حیله‌گرانه بدون نیاز به فاز نبرد.
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
-            >
-              <div
-                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
-              >
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#cc33ff] text-[1.1rem] text-[#cc33ff]"
-                >
-                  Versatile 🔄
-                </div>
-                <div
-                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#9900cc] to-[#4d0066]"
-                >
-                  استفاده انعطاف‌پذیر در حمله و دفاع.
-                </div>
-              </div>
-            </div>
-          </div>
-          <a
-            href="game/html/cardTypes.html"
-            class="block w-full py-3 rounded-full text-base font-bold text-center no-underline transition-all duration-300 bg-gradient-to-tr from-brand-purple to-brand-pink text-white shadow-[0_5px_20px_rgba(255,0,127,0.4)] hover:scale-[1.02] hover:shadow-[0_8px_25px_rgba(255,0,127,0.6)]"
-            >ورود به بخش کارت‌ها</a
-          >
+      <button
+        id="open-card-resources-btn"
+        class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+      >
+        🔗 منابع آموزشی
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal for Card Details -->
+<div id="card-details-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-pink flex items-center gap-2">
+        <span>🃏</span> جزئیات کارت‌های بازی
+      </h3>
+      <button id="close-card-details-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+    <div class="p-6 bg-[#0f0f1e]">
+      <p class="text-brand-textMuted mb-4 text-center">توضیحات کامل درباره انواع کارت‌ها و نحوه استفاده از آن‌ها</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+          <h4 class="text-brand-cyan font-bold mb-2">⚔️ کارت‌های حمله</h4>
+          <p class="text-brand-textMuted text-sm">برای کاهش مستقیم سلامت حریف استفاده می‌شوند. قدرت هر کارت بین 2 تا 6 امتیاز متغیر است.</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+          <h4 class="text-[#33cc33] font-bold mb-2">🛡️ کارت‌های دفاع</h4>
+          <p class="text-brand-textMuted text-sm">از شما در برابر حملات حریف محافظت کرده و می‌توانند ضدحمله ایجاد کنند.</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+          <h4 class="text-[#ffcc00] font-bold mb-2">⚡ کارت‌های تاکتیکی</h4>
+          <p class="text-brand-textMuted text-sm">اثرات ویژه مانند کشیدن کارت اضافی، جابجایی در نقشه یا تغییر وضعیت بازی.</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+          <h4 class="text-[#cc33ff] font-bold mb-2">🔄 کارت‌های چندمنظوره</h4>
+          <p class="text-brand-textMuted text-sm">انعطاف‌پذیرترین کارت‌ها که بسته به شرایط می‌توانند حمله یا دفاع باشند.</p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<!-- Modal for Card Resources -->
+<div id="card-resources-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-cyan flex items-center gap-2">
+        <span>📚</span> منابع آموزشی کارت‌ها
+      </h3>
+      <button id="close-card-resources-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+    <div class="p-5 bg-[#0f0f1e] flex flex-col gap-3">
+      <p class="text-brand-textMuted text-xs mb-1">منابع مرتبط با طراحی کارت و مکانیزم‌های بازی:</p>
+      
+      <a href="https://www.geeksforgeeks.org/strategy-design-pattern/" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">🎯 الگوی طراحی استراتژی</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+      
+      <a href="https://www.youtube.com/results?search_query=card+game+mechanics+design" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">🎥 مکانیزم‌های طراحی کارت</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+      
+      <a href="https://www.gamedeveloper.com/design/card-game-balancing-tips" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">⚖️ نکات بالانس کارت‌ها</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+    </div>
+  </div>
+</div>
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         id="combat"
