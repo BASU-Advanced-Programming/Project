@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>نقشه راه پروژه بازی Unmatched</title>
+    <script src="../js/roadmap.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Vazirmatn", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                bg: "#020208",
+                cyan: "#00f0ff",
+                pink: "#ff007f",
+                purple: "#7000ff",
+                gray: "#8a8a9e",
+                textMuted: "#b4b4c6",
+              },
+            },
+            animation: {
+              "pulse-glow": "pulseGlow 1.5s infinite",
+            },
+            keyframes: {
+              pulseGlow: {
+                "0%, 100%": { transform: "scale(1)", opacity: "0.7" },
+                "50%": {
+                  transform: "scale(1.2)",
+                  opacity: "1",
+                  textShadow: "0 0 15px #ff007f",
+                },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* تنظیمات پایه که در Tailwind با کلاس زدن مکرر شلوغ می‌شود */
+      html {
+        scroll-behavior: smooth;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      /* دایره‌های SVG - به دلیل داینامیک بودن محیط ریسپانسیو در استایل تمیزتر است */
+      .progress-ring__circle {
+        transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .is-visible .circle-dmg {
+        stroke-dashoffset: 44;
+      }
+      .is-visible .circle-pos {
+        stroke-dashoffset: 77;
+      }
+      .is-visible .circle-obj {
+        stroke-dashoffset: 33;
+      }
+
+      @media (max-width: 900px) {
+        .is-visible .circle-dmg {
+          stroke-dashoffset: 56;
+        }
+        .is-visible .circle-pos {
+          stroke-dashoffset: 99;
+        }
+        .is-visible .circle-obj {
+          stroke-dashoffset: 42;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-brand-bg text-white overflow-x-hidden min-h-screen font-sans">
+    <div id="canvas-container" class="fixed inset-0 z-[-1] pointer-events-none">
+      <canvas id="starfield"></canvas>
+    </div>
+    <nav
+      class="fixed left-1/2 -translate-x-1/2 bottom-5 z-[100] group flex flex-row items-center gap-3 justify-center"
+    >
+      <div
+        class="w-12 h-12 shrink-0 rounded-full bg-[#0f0f1e]/90 border border-[#00f0ff]/50 shadow-[0_0_15px_rgba(0,240,255,0.3)] flex items-center justify-center cursor-pointer transition-all duration-300 group-hover:scale-110 group-hover:border-[#ff007f] group-hover:shadow-[0_0_15px_rgba(255,0,127,0.5)] md:hidden"
+      >
+        <svg
+          class="w-6 h-6 text-[#00f0ff] transition-transform duration-300 group-hover:rotate-45 group-hover:text-[#ff007f]"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+      </div>
+
+      <div
+        class="flex flex-row items-center gap-1.5 md:gap-2 bg-[#0f0f1e]/80 p-2 rounded-2xl border border-white/10 backdrop-blur-md transition-all duration-300 origin-center opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto md:opacity-100 md:scale-100 md:pointer-events-auto"
+      >
+        <a
+          href="#intro"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold active"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            ></path>
+          </svg>
+          <span class="hidden md:inline">مقدمه</span>
+        </a>
+
+        <a
+          href="#maps"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+            ></path>
+          </svg>
+          <span class="hidden md:inline">نقشه‌ها</span>
+        </a>
+
+        <a
+          href="#characters"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            ></path>
+          </svg>
+          <span class="hidden md:inline">شخصیت‌ها</span>
+        </a>
+
+        <a
+          href="#cards"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            ></path>
+          </svg>
+          <span class="hidden md:inline">کارت‌ها</span>
+        </a>
+
+        <a
+          href="#combat"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            ></path>
+          </svg>
+          <span class="hidden md:inline">مبارزه</span>
+        </a>
+
+        <a
+          href="#scores"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+            ></path>
+          </svg>
+          <span class="hidden md:inline">امتیازات</span>
+        </a>
+      </div>
+    </nav>
+
+    <div id="hero-sections"></div>
+
+    <header
+      id="intro"
+      class="h-screen flex flex-col justify-center items-center text-center p-5 relative overflow-hidden bg-transparent"
+    >
+      <div
+        class="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-cyan/10 rounded-full filter blur-[120px] animate-pulse pointer-events-none"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-brand-pink/10 rounded-full filter blur-[150px] animate-pulse [animation-delay:2s] pointer-events-none"
+      ></div>
+
+      <div class="relative z-10 flex flex-col items-center max-w-3xl mx-auto">
+        <span
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-brand-cyan text-xs md:text-sm font-semibold tracking-wide uppercase mb-6 backdrop-blur-sm shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+        >
+          <span class="w-2 h-2 rounded-full bg-brand-pink animate-ping"></span>
+          مسیر پیاده سازی
+        </span>
+
+        <h1
+          class="text-6xl md:text-[6.5rem] font-black uppercase tracking-[6px] bg-gradient-to-tr from-brand-pink via-brand-purple to-brand-cyan bg-clip-text text-transparent mb-6 drop-shadow-[0_0_30px_rgba(0,240,255,0.35)] select-none leading-none"
+        >
+          Unmatched
+        </h1>
+
+        <p
+          class="text-brand-textMuted text-lg md:text-2xl font-medium max-w-xl mb-12 leading-relaxed"
+        >
+          به دنیای دوئل‌های افسانه‌ای خوش آمدید؛این صفحه برای ترتیب خواندن و
+          پیاده سازی این پروژه است.
+        </p>
+
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-brand-purple to-brand-pink rounded-full blur opacity-70 group-hover:opacity-100 transition duration-300 group-hover:duration-200"
+          ></div>
+
+          <a
+            href="#maps"
+            class="relative inline-block px-10 py-4 rounded-full text-base font-bold no-underline cursor-pointer transition-all duration-300 text-center bg-[#0f0f1e] text-white border border-white/20 group-hover:bg-gradient-to-tr group-hover:from-brand-purple group-hover:to-brand-pink group-hover:border-transparent group-hover:scale-105"
+          >
+            شروع سفر
+          </a>
+        </div>
+      </div>
+    </header>
+
+
+
+    <div
+      class="relative max-w-[1100px] mx-auto mb-24 px-5 before:content-[''] before:absolute before:w-1 before:bg-gradient-to-b before:from-brand-pink before:via-brand-purple before:to-brand-cyan before:top-0 before:bottom-0 before:right-[30px] md:before:right-1/2 before:translate-x-1/2 before:shadow-[0_0_15px_rgba(112,0,255,0.5)] before:z-[1]"
+    >
+    <!-- map -->
+ <div
+  class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+  id="maps"
+>
+  <div
+    class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+  ></div>
+
+  <div
+    class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-cyan/40 hover:shadow-[0_20px_50px_rgba(0,240,255,0.15)]"
+  >
+    <h2
+      class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+    >
+      Maps 🗺️
+    </h2>
+    <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+      در این بخش یاد می‌گیریم نقشه‌ی بازی چگونه طراحی میشود، ناحیه‌ها چه
+      کاربردی دارند و حرکت شخصیت‌ها چگونه انجام می‌شود دقت کنید فقط نقشه
+      دارای تلپورت را طراحی کنید.
+    </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 w-full mt-5">
+<a
+  href="pages/game/html/map.html"
+  class="block text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+>
+  📖 مطالعه بیشتر
+</a>
+      <button
+        id="open-map-btn"
+        class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+      >
+        🗺️ مشاهده نقشه تلپورت
+      </button>
+
+      <button
+        id="open-resources-btn"
+        class="text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center hover:bg-brand-cyan/15 hover:text-white hover:border-brand-cyan"
+      >
+        🔗 منابع آموزشی
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="map-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-cyan flex items-center gap-2">
+        <span>🌀</span> راهنمای تصویری نقشه دارای تلپورت
+      </h3>
+      <button id="close-map-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+    <div class="p-4 bg-[#0f0f1e] flex items-center justify-center">
+      <div class="relative w-full rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-inner">
+        <img src="images/board.jpeg" alt="Unmatched Teleport Map" class="w-full h-auto max-h-[70vh] object-contain block mx-auto"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="resources-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-pink flex items-center gap-2">
+        <span>📚</span> لیست منابع و مستندات آموزشی
+      </h3>
+      <button id="close-resources-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+
+    <div class="p-5 bg-[#0f0f1e] flex flex-col gap-3">
+      <p class="text-brand-textMuted text-xs mb-1">یک منبع را برای مطالعه انتخاب کنید:</p>
+
+      <a href="https://www.geeksforgeeks.org/dsa/graph-data-structure-and-algorithms/" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-pink/10 hover:border-brand-pink/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">📖 الگوریتم های گراف</span>
+        <span class="text-brand-pink text-sm">←</span>
+      </a>
+
+      <a href="pages/concepts/html/moderncpp.html" class="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-white no-underline transition-all duration-200 hover:bg-brand-cyan/10 hover:border-brand-cyan/50 hover:translate-x-[-4px]">
+        <span class="text-[0.9rem] font-semibold">💻 مستندات مدرن ++C</span>
+        <span class="text-brand-cyan text-sm">←</span>
+      </a>
+
+
+    </div>
+
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="map-modal" class="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+  <div class="transform scale-95 transition-all duration-300 bg-[#121225] border border-white/10 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+    
+    <div class="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
+      <h3 class="text-lg font-bold text-brand-cyan flex items-center gap-2">
+        <span>🌀</span> نقشه دارای تلپورت
+      </h3>
+      <button id="close-map-btn" class="text-brand-textMuted hover:text-white text-2xl transition p-1 leading-none">&times;</button>
+    </div>
+
+    <div class="p-4 bg-[#0f0f1e] flex items-center justify-center">
+      <div class="relative w-full rounded-xl overflow-hidden border border-white/5 bg-slate-900 shadow-inner">
+        <img 
+          src="images/board.jpeg" 
+          alt="Unmatched Teleport Map" 
+          class="w-full h-auto max-h-[70vh] object-contain block mx-auto"
+        />
+      </div>
+    </div>
+
+  </div>
+</div>
+      <div
+        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        id="characters"
+      >
+        <div
+          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+        ></div>
+
+        <div
+          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-purple/40 hover:shadow-[0_20px_50px_rgba(112,0,255,0.15)]"
+        >
+          <h2
+            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+          >
+            🦇 شخصیت‌ها
+          </h2>
+          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+            هر شخصیت دارای قدرت ویژه، سبک بازی و کارت‌های منحصر به فرد است.
+            فایترها از فایل‌های پیوست بارگذاری می‌شوند:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
+            <div
+              class="bg-[#1e1e32]/80 rounded-2xl p-5 text-center border border-white/5 transition-all duration-400 hover:border-[#ff0044] hover:shadow-[0_0_20px_rgba(255,0,68,0.3)] hover:bg-[radial-gradient(circle_at_center,rgba(255,0,68,0.15)_0%,rgba(30,30,50,0.95)_70%)]"
+            >
+              <h3 class="text-xl md:text-2xl mb-2.5 font-bold">Dracula 🧛</h3>
+              <p class="text-[0.85rem] text-brand-textMuted">
+                دارای کارت‌های هجومی سنگین و مکانیزم اختصاصی مکیدن خون.
+              </p>
+              <a
+                href="game/html/dracula.html"
+                class="inline-block mt-4 text-white no-underline text-[0.8rem] bg-white/10 px-4 py-1.5 rounded-[15px] transition-colors duration-200 hover:bg-white/25"
+                >dracula.html</a
+              >
+            </div>
+            <div
+              class="bg-[#1e1e32]/80 rounded-2xl p-5 text-center border border-white/5 transition-all duration-400 hover:border-[#0099ff] hover:shadow-[0_0_20px_rgba(0,153,255,0.3)] hover:bg-[radial-gradient(circle_at_center,rgba(0,153,255,0.15)_0%,rgba(30,30,50,0.95)_70%)]"
+            >
+              <h3 class="text-xl md:text-2xl mb-2.5 font-bold">Sherlock 🔍</h3>
+              <p class="text-[0.85rem] text-brand-textMuted">
+                متکی بر لو دادن مکر حریف، خنثی‌سازی افکت‌ها و آنالیز دست دشمن.
+              </p>
+              <a
+                href="game/html/sherlock.html"
+                class="inline-block mt-4 text-white no-underline text-[0.8rem] bg-white/10 px-4 py-1.5 rounded-[15px] transition-colors duration-200 hover:bg-white/25"
+                >sherlock.html</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        id="cards"
+      >
+        <div
+          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+        ></div>
+
+        <div
+          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-[#cc33ff]/40 hover:shadow-[0_20px_50px_rgba(204,51,255,0.15)]"
+        >
+          <h2
+            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+          >
+            🃏 کارت‌ها
+          </h2>
+          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+            مدیریت دست و انواع کارت‌ها. ماوس خود را روی کارت‌ها حرکت دهید تا
+            افکت چرخش و جزییات پشت کارت فعال شود:
+          </p>
+
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 perspective-1000"
+          >
+            <div
+              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
+            >
+              <div
+                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
+              >
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#ff3333] text-[1.1rem] text-[#ff3333]"
+                >
+                  Attack ⚔️
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#cc0000] to-[#660000]"
+                >
+                  حملات سهمگین جهت کاهش مستقیم خط سلامتی.
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
+            >
+              <div
+                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
+              >
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#33cc33] text-[1.1rem] text-[#33cc33]"
+                >
+                  Defense 🛡️
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#009900] to-[#004d00]"
+                >
+                  کاهش صدمات و ایجاد ضدحمله‌های ناگهانی.
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
+            >
+              <div
+                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
+              >
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#ffcc00] text-[1.1rem] text-[#ffcc00]"
+                >
+                  Scheme ⚡
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#cc9900] to-[#594400]"
+                >
+                  نقشه‌های حیله‌گرانه بدون نیاز به فاز نبرد.
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group/card h-[150px] perspective-[1000px] cursor-pointer"
+            >
+              <div
+                class="relative w-full h-full text-center transition-transform duration-600 preserve-3d group-hover/card:[transform:rotateY(180deg)]"
+              >
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 bg-[#1a1a3a]/80 border border-[#cc33ff] text-[1.1rem] text-[#cc33ff]"
+                >
+                  Versatile 🔄
+                </div>
+                <div
+                  class="absolute w-full h-full backface-hidden rounded-xl flex flex-col justify-center items-center font-bold p-3 text-white text-[0.8rem] leading-relaxed [transform:rotateY(180deg)] bg-gradient-to-br from-[#9900cc] to-[#4d0066]"
+                >
+                  استفاده انعطاف‌پذیر در حمله و دفاع.
+                </div>
+              </div>
+            </div>
+          </div>
+          <a
+            href="game/html/cardTypes.html"
+            class="block w-full py-3 rounded-full text-base font-bold text-center no-underline transition-all duration-300 bg-gradient-to-tr from-brand-purple to-brand-pink text-white shadow-[0_5px_20px_rgba(255,0,127,0.4)] hover:scale-[1.02] hover:shadow-[0_8px_25px_rgba(255,0,127,0.6)]"
+            >ورود به بخش کارت‌ها</a
+          >
+        </div>
+      </div>
+
+      <div
+        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        id="combat"
+      >
+        <div
+          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+        ></div>
+
+        <div
+          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-pink/40 hover:shadow-[0_20px_50px_rgba(255,0,127,0.15)]"
+        >
+          <h2
+            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+          >
+            ⚔️ مبارزه
+          </h2>
+          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+            مهم‌ترین بخش بازی. فایترها از طرفین صفحه به سمت مرکز فشرده می‌شوند
+            تا پردازش نبرد آغاز شود:
+          </p>
+
+          <div
+            class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 mb-8 relative overflow-hidden py-5"
+          >
+            <div
+              class="text-[1.4rem] font-extrabold py-2.5 px-5 rounded-xl text-center w-full md:w-[40%] bg-[#0099ff]/15 border border-[#0099ff] text-[#00f0ff] opacity-0 translate-x-[100px] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] [.is-visible_&]:opacity-100 [.is-visible_&]:translate-x-0"
+            >
+              Sherlock
+            </div>
+            <div class="text-3xl font-black animate-pulse-glow text-[#ff3377]">
+              ⚔️
+            </div>
+            <div
+              class="text-[1.4rem] font-extrabold py-2.5 px-5 rounded-xl text-center w-full md:w-[40%] bg-[#ff0044]/15 border border-[#ff0044] text-[#ff3377] opacity-0 -translate-x-[100px] transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] [.is-visible_&]:opacity-100 [.is-visible_&]:translate-x-0"
+            >
+              Dracula
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col md:flex-row justify-around items-center gap-2.5 bg-black/40 p-4 rounded-xl border border-dashed border-white/10"
+          >
+            <div
+              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
+            >
+              Attack
+            </div>
+            <div class="text-[0.9rem] font-bold text-brand-gray">➔</div>
+            <div
+              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
+            >
+              Defense
+            </div>
+            <div class="text-[0.9rem] font-bold text-brand-gray">➔</div>
+            <div
+              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
+            >
+              Reveal
+            </div>
+            <div class="text-[0.9rem] font-bold text-brand-gray">➔</div>
+            <div
+              class="text-[0.9rem] font-bold text-brand-cyan drop-shadow-[0_0_10px_rgba(0,240,255,0.6)]"
+            >
+              Resolve
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        id="scores"
+      >
+        <div
+          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+        ></div>
+
+        <div
+          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-cyan/40 hover:shadow-[0_20px_50px_rgba(0,240,255,0.15)]"
+        >
+          <h2
+            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+          >
+            🏆 امتیازات
+          </h2>
+          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+            بررسی بلادرنگ وضعیت حیاتی قهرمانان، سیستم امتیازبندی و پایش شرط‌های
+            انتهای بازی:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+            <div
+              class="bg-white/[0.03] p-4 rounded-2xl border border-white/5 flex flex-col items-center"
+            >
+              <div
+                class="relative w-[100px] h-[100px] md:w-[80px] md:h-[80px] mb-2.5"
+              >
+                <svg
+                  class="-rotate-90 w-[100px] h-[100px] md:w-[80px] md:h-[80px]"
+                >
+                  <circle
+                    class="progress-ring__circle circle-dmg stroke-brand-pink fill-transparent stroke-[6] [stroke-dasharray:282.6] [stroke-dashoffset:282.6] md:[stroke-dasharray:219.8] md:[stroke-dashoffset:219.8]"
+                    r="35"
+                    cx="40"
+                    cy="40"
+                    transform="translate(10, 10) scale(1)"
+                  />
+                </svg>
+                <div
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.2rem] font-extrabold count-up"
+                  data-target="80"
+                >
+                  0
+                </div>
+              </div>
+              <span>Scoring</span>
+            </div>
+
+            <div
+              class="bg-white/[0.03] p-4 rounded-2xl border border-white/5 flex flex-col items-center"
+            >
+              <div
+                class="relative w-[100px] h-[100px] md:w-[80px] md:h-[80px] mb-2.5"
+              >
+                <svg
+                  class="-rotate-90 w-[100px] h-[100px] md:w-[80px] md:h-[80px]"
+                >
+                  <circle
+                    class="progress-ring__circle circle-pos stroke-brand-cyan fill-transparent stroke-[6] [stroke-dasharray:282.6] [stroke-dashoffset:282.6] md:[stroke-dasharray:219.8] md:[stroke-dashoffset:219.8]"
+                    r="35"
+                    cx="40"
+                    cy="40"
+                    transform="translate(10, 10)"
+                  />
+                </svg>
+                <div
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.2rem] font-extrabold count-up"
+                  data-target="65"
+                >
+                  0
+                </div>
+              </div>
+              <span>Points</span>
+            </div>
+
+            <div
+              class="bg-white/[0.03] p-4 rounded-2xl border border-white/5 flex flex-col items-center"
+            >
+              <div
+                class="relative w-[100px] h-[100px] md:w-[80px] md:h-[80px] mb-2.5"
+              >
+                <svg
+                  class="-rotate-90 w-[100px] h-[100px] md:w-[80px] md:h-[80px]"
+                >
+                  <circle
+                    class="progress-ring__circle circle-obj stroke-brand-purple fill-transparent stroke-[6] [stroke-dasharray:282.6] [stroke-dashoffset:282.6] md:[stroke-dasharray:219.8] md:[stroke-dashoffset:219.8]"
+                    r="35"
+                    cx="40"
+                    cy="40"
+                    transform="translate(10, 10)"
+                  />
+                </svg>
+                <div
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[1.2rem] font-extrabold count-up"
+                  data-target="85"
+                >
+                  0
+                </div>
+              </div>
+              <span>Objectives</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
