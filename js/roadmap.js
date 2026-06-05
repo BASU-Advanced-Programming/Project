@@ -197,17 +197,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  // المان‌های کنترل مودال شخصیت‌ها
+  // المان‌های کنترل مودال شخصیت‌ها (گالری تصاویر)
   const charModal = document.getElementById("char-images-modal");
   const openCharBtn = document.getElementById("open-char-images-btn");
   const closeCharBtn = document.getElementById("close-char-images-btn");
 
   // باز کردن مودال گالری تعاملی
-  openCharBtn.addEventListener("click", () => {
-    charModal.classList.remove("opacity-0", "pointer-events-none");
-    charModal.querySelector(".transform").classList.remove("scale-95");
-    charModal.querySelector(".transform").classList.add("scale-100");
-  });
+  if (openCharBtn) {
+    openCharBtn.addEventListener("click", () => {
+      charModal.classList.remove("opacity-0", "pointer-events-none");
+      charModal.querySelector(".transform").classList.remove("scale-95");
+      charModal.querySelector(".transform").classList.add("scale-100");
+    });
+  }
 
   // بسته شدن مودال
   const closeCharModal = () => {
@@ -216,8 +218,50 @@ document.addEventListener("DOMContentLoaded", () => {
     charModal.querySelector(".transform").classList.add("scale-95");
   };
 
-  closeCharBtn.addEventListener("click", closeCharModal);
-  charModal.addEventListener("click", (e) => { 
-    if (e.target === charModal) closeCharModal(); 
-  });
+  if (closeCharBtn) {
+    closeCharBtn.addEventListener("click", closeCharModal);
+  }
+  if (charModal) {
+    charModal.addEventListener("click", (e) => { 
+      if (e.target === charModal) closeCharModal(); 
+    });
+  }
+});
+
+// ==============================================
+// مدیریت پاپ‌آپ منابع شخصیت‌ها (جدید)
+// ==============================================
+document.addEventListener("DOMContentLoaded", () => {
+  // المان‌های مربوط به پاپ‌آپ منابع شخصیت‌ها
+  const charResourcesModal = document.getElementById("char-resources-modal");
+  const openCharResourcesBtn = document.getElementById("open-char-resources-btn");
+  const closeCharResourcesBtn = document.getElementById("close-char-resources-btn");
+
+  // بررسی وجود المان‌ها در صفحه
+  if (charResourcesModal && openCharResourcesBtn && closeCharResourcesBtn) {
+    // باز کردن پاپ‌آپ منابع شخصیت‌ها
+    openCharResourcesBtn.addEventListener("click", () => {
+      charResourcesModal.classList.remove("opacity-0", "pointer-events-none");
+      const transformDiv = charResourcesModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-95");
+        transformDiv.classList.add("scale-100");
+      }
+    });
+
+    // بستن پاپ‌آپ
+    const closeCharResources = () => {
+      charResourcesModal.classList.add("opacity-0", "pointer-events-none");
+      const transformDiv = charResourcesModal.querySelector(".transform");
+      if (transformDiv) {
+        transformDiv.classList.remove("scale-100");
+        transformDiv.classList.add("scale-95");
+      }
+    };
+
+    closeCharResourcesBtn.addEventListener("click", closeCharResources);
+    charResourcesModal.addEventListener("click", (e) => { 
+      if (e.target === charResourcesModal) closeCharResources(); 
+    });
+  }
 });
