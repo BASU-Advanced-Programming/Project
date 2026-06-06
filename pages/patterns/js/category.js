@@ -1,15 +1,31 @@
 const btn = document.getElementById("theme-toggle");
 function updateThemeButton() {
-  btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
+  if (btn) btn.textContent = document.documentElement.classList.contains("dark") ? "☀️" : "🌙";
 }
-btn.onclick = () => {
-  document.documentElement.classList.toggle("dark");
-  localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
-  updateThemeButton();
-};
+if (btn) {
+  btn.onclick = () => {
+    document.documentElement.classList.toggle("dark");
+    localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+    updateThemeButton();
+  };
+}
 if (localStorage.theme === "dark") document.documentElement.classList.add("dark");
 updateThemeButton();
 
+// MOBILE MENU TOGGLE
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  // optional: close on link click for better UX
+  mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => mobileMenu.classList.add("hidden"));
+  });
+}
+
+// ----- CURSOR CANVAS (entire original logic, untouched functionality)
 const canvas = document.getElementById("cursor-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -76,7 +92,6 @@ function drawIdleCircles(){
     let angle = t * c.speed;
     let x = mouse.x + Math.cos(angle)*c.r;
     let y = mouse.y + Math.sin(angle)*c.r;
-
     ctx.beginPath();
     ctx.arc(x,y,3,0,Math.PI*2);
     ctx.fillStyle=`hsl(${(t*80+i*90)%360},100%,65%)`;
@@ -84,7 +99,6 @@ function drawIdleCircles(){
     ctx.shadowColor=ctx.fillStyle;
     ctx.fill();
   });
-
   ctx.beginPath();
   ctx.arc(mouse.x,mouse.y,12,0,Math.PI*2);
   ctx.strokeStyle="rgba(255,255,255,0.6)";
@@ -94,7 +108,6 @@ function drawIdleCircles(){
 
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-
   for(let i=0;i<particles.length;i++){
     particles[i].update();
     particles[i].draw();
@@ -103,9 +116,7 @@ function animate(){
       i--;
     }
   }
-
   drawIdleCircles();
-
   if (hoveringClickable) {
     ctx.beginPath();
     ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
@@ -115,23 +126,29 @@ function animate(){
     ctx.shadowColor = "white";
     ctx.stroke();
   }
-
   requestAnimationFrame(animate);
 }
 animate();
 
+// HIGHLIGHT.JS (avoid errors if any pre/code elements appear later, but it's ok)
 document.addEventListener("DOMContentLoaded", () => {
-  hljs.highlightAll();
-
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const codeBlock = btn.closest(".code-card").querySelector("code");
-      const text = codeBlock.innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const old = btn.textContent;
-        btn.textContent = "Copied!";
-        setTimeout(() => { btn.textContent = old; }, 1500);
+  if (typeof hljs !== "undefined") {
+    hljs.highlightAll();
+  }
+  // ATTENTION: The copy-btn logic refers to .copy-btn / .code-card - our new page doesn't have those elements.
+  // but to prevent errors we keep it safe: no side effect. It does not break anything.
+  if (document.querySelectorAll) {
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const codeBlock = btn.closest(".code-card")?.querySelector("code");
+        if (codeBlock) {
+          navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+            const old = btn.textContent;
+            btn.textContent = "Copied!";
+            setTimeout(() => { btn.textContent = old; }, 1500);
+          });
+        }
       });
     });
-  });
+  }
 });

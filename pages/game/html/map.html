@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title> سیستم حرکت و نقشه</title>
-
-    <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -32,20 +31,16 @@
 
       @font-face {
   font-family: 'Vazir';
-  src: url('../../../fonts/Vazir.woff2') format('woff2'),
-       url('../../../fonts/Vazir.woff') format('woff'),
-       url('../../../fonts/Vazir.ttf') format('truetype');
+  src: url('../../../font/Vazir.ttf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Vazir';
-  src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
-       url('../../../fonts/Vazir-Bold.woff') format('woff'),
-       url('../../../fonts/Vazir-Bold.ttf') format('truetype');
-  font-weight: 700;
+  font-family: 'Cinzel';
+  src: url('../../../font/Cinzel-Regular.ttf');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -65,16 +60,8 @@ body {
 
 
 :root {
-  
   --accent-color: 59, 130, 246; 
 }
-
-
-/* For Dracula: 
-   :root { --accent-color: 220, 38, 38; } 
-   For Sherlock: 
-   :root { --accent-color: 234, 179, 8; } 
-*/
 
 .glass-card {
   background: rgba(15, 23, 42, 0.65);
@@ -127,7 +114,9 @@ html:not(.dark) body {
       h3 {
         font-family: "Cinzel", serif;
       }
-
+      .persian-title {
+        font-family: "Vazir";
+      }
       .glass-box {
         background: rgba(8, 18, 12, 0.72);
         border: 1px solid rgba(74, 222, 128, 0.12);
@@ -248,7 +237,7 @@ html:not(.dark) body {
          color: transparent;"
 >
   <i class="fas fa-chess-knight text-green-400"></i>
-  <span>قوانین UNMATCHED</span>
+  <span><span class="persian-title">قوانین</span> UNMATCHED</span>
 </h2>
 
     <!-- Controls -->
@@ -326,7 +315,7 @@ html:not(.dark) body {
         <section class="glass-box p-7">
           <div class="flex items-center justify-between mb-6">
             <h2
-              class="text-3xl font-bold text-green-300 flex items-center gap-3"
+              class="text-3xl font-bold text-green-300 flex items-center gap-3 persian-title"
             >
               <i class="fas fa-running"></i>
               سیستم حرکت
@@ -360,7 +349,7 @@ html:not(.dark) body {
         <section class="glass-box p-7">
           <div class="flex items-center justify-between mb-6">
             <h2
-              class="text-3xl font-bold text-green-300 flex items-center gap-3"
+              class="text-3xl font-bold text-green-300 flex items-center gap-3 persian-title"
             >
               <i class="fas fa-map-marked-alt"></i>
               نقشه بازی

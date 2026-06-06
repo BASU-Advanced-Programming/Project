@@ -4,11 +4,10 @@
 	    <meta charset="UTF-8" />
 	    <title>Unmatched – Sherlock Character</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	    <!-- Tailwind CSS CDN -->
-	    <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
+
+    	<script src="https://cdn.tailwindcss.com"></script>
 	    <script src="../js/sherlock.js" defer></script>
 	    <script>
-	      // Basic Tailwind config (optional)
 	      tailwind.config = {
 	        theme: {
 	          extend: {
@@ -29,20 +28,8 @@
 
 @font-face {
   font-family: 'Vazir';
-  src: url('../../../fonts/Vazir.woff2') format('woff2'),
-       url('../../../fonts/Vazir.woff') format('woff'),
-       url('../../../fonts/Vazir.ttf') format('truetype'); 
+  src: url('../../../font/Vazir.ttf'); 
   font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Vazir';
-  src: url('../../../fonts/Vazir-Bold.woff2') format('woff2'),
-       url('../../../fonts/Vazir-Bold.woff') format('woff'),
-       url('../../../fonts/Vazir-Bold.ttf') format('truetype');
-  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -57,13 +44,6 @@ body {
   :root {
     --accent-color: 202, 138, 4; 
   }
-
-
-/* For Dracula: 
-   :root { --accent-color: 220, 38, 38; } 
-   For Sherlock: 
-   :root { --accent-color: 234, 179, 8; } 
-*/
 
 .glass-card {
   background: rgba(15, 23, 42, 0.65);

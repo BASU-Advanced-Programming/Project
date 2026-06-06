@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('../../../font/Vazir.ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --blood-red: #8b0000;
+    --blood-bright: #ff003c;
+    --gothic-black: #030205;
+    
+    /* Sherlock Theme Variables */
+    --detective-blue: #0a1118;
+    --brass-gold: #c5a059;
+    --brass-glow: #e5c17d;
+}
+
+body {
+    background-color: var(--gothic-black);
+    color: #f3f4f6;
+    font-family: 'Vazir', sans-serif;
+}
+
+.gothic-title {
+    font-family: 'Cinzel', serif;
+}
+
+.sherlock-title {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Cinematic Layout Scroll Wrapper */
+.game-viewport {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+}
+.game-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.game-section {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+/* Ambient Mist Layer Effect */
+.fog-container {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background: url('https://res.cloudinary.com/dvw9w6v6r/image/upload/v1711200000/fog_overlay.png') repeat-x;
+    background-size: contain;
+    opacity: 0.15;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.fog-layer-1 {
+    animation: fogMove 45s linear infinite;
+    bottom: -10%;
+}
+
+.fog-layer-2 {
+    animation: fogMoveReverse 65s linear infinite;
+    bottom: -5%;
+    opacity: 0.10;
+}
+
+@keyframes fogMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes fogMoveReverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* Flying Bats Ambient Elements */
+.bat {
+    position: absolute;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="%231a0307"><path d="M32 20c-2-3-8-5-14-2-4 2-7 6-9 11 4-1 9 0 12 3-3 1-5 4-6 7 4-1 8 0 10 3-4 3-5 8-4 13 4-4 9-5 13-2-1-4-1-9 1-12 2 3 7 4 11 12 1-5 0-10-4-13 2-3 6-4 10-3-1-3-3-6-6-7 3-3 8-4 12-3-2-5-5-9-9-11-6-3-12-1-14 2z"/></svg>');
+    background-size: contain;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+}
+
+/* Advanced Custom HUD Progress Arc Details */
+.hud-metric-svg {
+    transform: rotate(-90deg);
+}
+
+.hud-metric-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.04);
+    stroke-width: 4;
+}
+
+.hud-metric-fill {
+    fill: none;
+    stroke: var(--blood-bright);
+    stroke-width: 4;
+    stroke-dasharray: 251.2;
+    stroke-dashoffset: 251.2;
+    transition: stroke-dashoffset 2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Sherlock Progress Arc custom color override */
+.sherlock-metric-fill {
+    stroke: var(--brass-gold);
+}
+
+/* Premium Ornamental Borders & Framings */
+.gothic-frame {
+    border: 1px solid rgba(139, 0, 0, 0.25);
+    background: linear-gradient(135deg, rgba(15, 8, 12, 0.95) 0%, rgba(5, 2, 6, 0.98) 100%);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.95), 0 20px 40px rgba(0,0,0,0.8);
+    position: relative;
+}
+
+.gothic-frame::before, .gothic-frame::after,
+.gothic-corner-bl, .gothic-corner-br {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--blood-red);
+    z-index: 10;
+}
+
+.gothic-frame::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.gothic-frame::after { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
+.gothic-corner-bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
+.gothic-corner-br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+/* Sherlock Dossier Board Frame Asset */
+.dossier-frame {
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    background: linear-gradient(135deg, rgba(10, 17, 24, 0.95) 0%, rgba(6, 10, 14, 0.98) 100%);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9), 0 25px 50px rgba(0,0,0,0.85);
+    position: relative;
+}
+.dossier-frame::before, .dossier-frame::after,
+.dossier-corner-bl, .dossier-corner-br {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--brass-gold);
+    z-index: 10;
+}
+.dossier-frame::before { top: 3px; left: 3px; border-right: 0; border-bottom: 0; }
+.dossier-frame::after { top: 3px; right: 3px; border-left: 0; border-bottom: 0; }
+.dossier-corner-bl { bottom: 3px; left: 3px; border-right: 0; border-top: 0; }
+.dossier-corner-br { bottom: 3px; right: 3px; border-left: 0; border-top: 0; }
+
+/* Custom Hardware Accelerated Cursor */
+.game-cursor {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--blood-bright);
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+.game-cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background-color: var(--blood-bright);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--blood-bright);
+}
+
+/* Cinematic Grid Panel Accents */
+.hud-scanner-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blood-bright), transparent);
+    position: absolute;
+    animation: scanEffect 6s linear infinite;
+    opacity: 0.3;
+    z-index: 20;
+}
+.sherlock-scanner-line {
+    background: linear-gradient(90deg, transparent, var(--brass-gold), transparent);
+}
+@keyframes scanEffect {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+/* Dynamic Mind Palace Constellation Line Overlay */
+.mind-link-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+}
+.mind-line {
+    stroke: var(--brass-gold);
+    stroke-width: 1.5;
+    stroke-dasharray: 8, 4;
+    animation: dashMove 30s linear infinite;
+    opacity: 0.4;
+}
+@keyframes dashMove {
+    to { stroke-dashoffset: -1000; }
+}
