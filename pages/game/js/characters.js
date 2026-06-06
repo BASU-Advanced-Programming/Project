@@ -18,7 +18,7 @@
         });
         item.addEventListener('mouseleave', () => {
           const targetColor = currentActiveSlideIndex === 1 ? '#c5a059' : '#ff003c';
-          gsap.to(cursor, { scale: 1, borderColor: targetColor, backgroundColor: transparent, duration: 0.2 });
+          gsap.to(cursor, { scale: 1, borderColor: targetColor, backgroundColor: "transparent", duration: 0.2 });
           gsap.to(cursorDot, { backgroundColor: targetColor, duration: 0.2 });
         });
       });
