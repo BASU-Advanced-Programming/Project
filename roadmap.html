@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;800;900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -84,6 +85,119 @@
           stroke-dashoffset: 42;
         }
       }
+
+
+.attack-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  z-index: 10;
+}
+.attack-box {
+  width: 220px;
+  height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  background: #111;
+  z-index: 10;
+}
+
+.attack-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top,
+    rgba(150, 0, 0, 0.5),
+    rgba(80, 0, 0, 0.7) 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+  transform: scale(1);
+  filter: blur(3px);
+}
+
+.attack-box:hover {
+  transform: scale(1.05);
+  border-color: darkred;
+  box-shadow: 0 0 20px 6px rgba(200, 0, 0, 0.7);
+}
+
+.attack-box:hover::before {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.attack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.25s;
+  z-index: 10;
+}
+
+.defense-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.defense-box {
+  width: 220px;
+  height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.defense-box {
+  position: relative;
+}
+
+
+.blood-effect {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.9);
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      rgba(180, 0, 0, 0.85) 0 18%,
+      transparent 19%
+    ),
+    radial-gradient(
+      circle at 65% 35%,
+      rgba(140, 0, 0, 0.8) 0 14%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at 45% 70%,
+      rgba(120, 0, 0, 0.75) 0 20%,
+      transparent 21%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(160, 0, 0, 0.7) 0 12%,
+      transparent 13%
+    );
+  filter: blur(0.4px) contrast(1.1);
+  mix-blend-mode: multiply;
+}
+
+.defense-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.25s;
+}
     </style>
   </head>
   <!--===BODY=== -->
@@ -268,9 +382,238 @@
         شروع سفر
       </a>
     </div>
+      <!-- HOW TO PLAY -->
+    <div
+      class="group timeline-item relative w-full py-10 opacity-0 translate-y-[60px]
+             transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)]
+             z-[2] pr-[60px] md:pr-[50px] md:mr-[50%]
+             [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+      id="how-to-play"
+    >
+      <div
+        class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-pink rounded-full
+               top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px]
+               z-[3] shadow-[0_0_10px_#ff007f]
+               transition-all duration-300
+               group-hover:scale-125"
+      ></div>
+    
+      <div
+        class="bg-[#141423]/70 backdrop-blur-md border border-white/10
+               rounded-3xl p-6 md:p-10
+               shadow-[0_20px_40px_rgba(0,0,0,0.6)]
+               transition-all duration-400 relative
+               hover:-translate-y-2 hover:border-brand-pink/40"
+      >
+        <h2
+          class="text-3xl md:text-4xl mb-4
+                 bg-gradient-to-l from-white to-brand-pink
+                 bg-clip-text text-transparent font-bold"
+        >
+          How To Play 🎮
+        </h2>
+    
+        <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+          قبل از شروع پیاده سازی، ابتدا قوانین اصلی بازی و روند انجام یک مسابقه
+          را به صورت تعاملی مشاهده کنید.
+        </p>
+    
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <button
+            id="open-howto-btn"
+            class="text-[0.85rem] py-3 rounded-lg bg-white/5
+                   text-brand-textMuted border border-white/10
+                   hover:bg-brand-pink/15 hover:text-white
+                   hover:border-brand-pink transition-all"
+          >
+            🎲 مشاهده آموزش بازی
+          </button>
+    
+          <a
+            href="pages/gameplay.html"
+            class="text-[0.85rem] py-3 rounded-lg bg-white/5
+                   text-brand-textMuted border border-white/10
+                   hover:bg-brand-cyan/15 hover:text-white
+                   hover:border-brand-cyan transition-all text-center"
+          >
+            📖 صفحه کامل آموزش
+          </a>
+        </div>
+      </div>
+    </div>
 
   </div>
 
+<div
+  id="howto-modal"
+  class="fixed inset-0 z-[150]
+         flex items-center justify-center
+         bg-black/85 backdrop-blur-md
+         opacity-0 pointer-events-none
+         transition-all duration-300"
+>
+  <div
+    class="bg-[#121225]
+           border border-white/10
+           w-[95%] max-w-7xl
+           max-h-[90vh]
+           overflow-y-auto
+           rounded-3xl p-6"
+  >
+
+    <button id="close-howto-btn">
+      ✕
+    </button>
+
+    <!-- HOW TO PLAY -->
+    <section id="how" class="px-[10%] py-[100px]">
+      <h2 data-i18n="how_to_play_section_header" class="reveal text-[36px] mb-10 text-center">
+        چطور بازی کنیم؟
+      </h2>
+
+      <div class="max-w-[900px] mx-auto flex flex-col gap-[25px]">
+        <!-- hero selection -->
+        <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+          <h3 data-i18n="how_to_play_first_section_box_header" >
+            1. مبارز خود را انتخاب کن!
+          </h3>
+                        <p data-i18n="how_to_play_first_section_box_text" class="text-slate-400 mb-8">
+                          به یاد داشته باشید ، بازیکن جوان تر اول انتخاب می کند:)
+                        </p>
+
+          <div id="hero-select">
+            <div class="flex justify-center gap-10 mt-[30px] flex-wrap">
+
+              <button
+                class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-sherlock"
+                data-front="images/sherChar.webp"
+                data-card="images/sherlockHerocard.png"
+              >
+                <canvas class="absolute inset-0 w-full h-full z-[3] pointer-events-none fx-canvas"></canvas>
+                <img src="images/sherChar.webp" class="relative z-[1] w-full h-full object-cover transition hero-img" />
+              </button>
+
+              <button
+                class="relative overflow-hidden w-[220px] h-[320px] rounded-[14px] cursor-pointer transition hover:brightness-110 hero-box hero-dracula"
+                data-front="images/draculaChar.jpeg"
+                data-card="images/dracHero.webp"
+              >
+                <canvas class="absolute inset-0 w-full h-full z-[3] pointer-events-none fx-canvas"></canvas>
+                <img src="images/draculaChar.jpeg" class="relative z-[1] w-full h-full object-cover transition hero-img" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- placement -->
+        <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+          <h3 data-i18n="how_to_play_second_section_box_header">
+            2. مبارز خود را در زمین قرار بده
+          </h3>
+              <p data-i18n="how_to_play_second_section_box_text" class="text-slate-400 mb-8">
+                بعد از انتخاب مبارز باید آن را در یکی از دو مکانی که در زیر نشان داده شده قرار دهی
+              </p>
+
+          <div class="mt-4 flex justify-center">
+            <div id="mapstart" data-max="13" class=" w-[500px] h-[320px] ">
+              <img src="images/herostartpos.png" alt="maps" class="block" />
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3. Understand Your Deck -->
+<div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+  <h3 data-i18n="how_to_play_third_section_box_header">3.  دسته کارت خود برای مبارزه را بساز</h3>
+  <p data-i18n="how_to_play_third_section_box_text" class="text-slate-400 mb-8">
+   ۵ کارت از ابتدا دسته کارت خودت بکش  
+  </p>
+
+  <div class="flex justify-center py-10 overflow-hidden">
+    
+    <div id="deck-fan" class="relative w-[150px] h-[210px] md:w-[220px] md:h-[320px]">
+
+      <!-- Card Images -->
+      <img src="images/holms/administer-aid.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-10 w-full h-full object-cover" />
+
+      <img src="images/holms/confirm-suspicion.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-20 w-full h-full object-cover" />
+
+      <img src="images/holms/counterpunch.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-30 w-full h-full object-cover" />
+
+      <img src="images/holms/education-never-ends.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-40 w-full h-full object-cover" />
+
+      <img src="images/holms/the-game-is-afoot.png"
+           class="fan-card absolute inset-0 rounded-[10px] md:rounded-[14px] shadow-2xl origin-bottom transition-all duration-500 ease-out z-[45] w-full h-full object-cover" />
+
+      <!-- Trigger / Back Card -->
+      <img id="deck-trigger"
+           src="images/sherBackCard.webp"
+           alt="Back Card"
+           class="absolute inset-0 cursor-pointer rounded-[10px] md:rounded-[14px] shadow-2xl z-50 transition-all duration-500 ease-out w-full h-full object-cover hover:brightness-110" />
+    </div>
+  </div>
+</div>
+
+<!-- 4. Take Actions -->
+<div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+  <h3 data-i18n="how_to_play_fourth_section_box_header">
+    4. حرکات زیرکانه خودتو انجام بده
+  </h3>
+  <p data-i18n="how_to_play_fourth_section_box_text" class="text-slate-400 mb-8">
+    در نوبت خودت باید 2 حرکت انجام بدی (به یاد داشته باش ممکنه لازم شه یه حرکتو دوبار انجام بدی)
+  </p>
+
+  <!-- Action buttons -->
+  <div class="flex justify-center gap-6 flex-wrap mb-8">
+    <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-cyan-500 transition" data-action="maneuver">
+      مانور
+    </button>
+
+
+    <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-red-500 transition" data-action="attack">
+      حمله
+    </button>
+
+    <button class="action-btn px-6 py-3 bg-slate-700 rounded-lg hover:bg-purple-500 transition" data-action="scheme">
+      رویداد
+    </button>
+  </div>
+
+  <!-- Explanation panel -->
+  <div data-i18n="how_to_play_section_fourth_box_explanation" id="action-display" class="max-w-[600px] mx-auto text-center text-slate-300">
+    برای مشاهده نحوه کارکرد بر روی دگمه های بالا بزنید
+  </div>
+</div>
+
+
+<!-- defeat -->
+        <div class="reveal bg-[#161a22] p-5 rounded-[8px] border border-[#222]">
+          <h3 data-i18n="how_to_play_fifth_section_box_header">
+            5. حریفت رو شکست بده
+          </h3>
+              <p data-i18n="how_to_play_fifth_section_box_text" class="text-slate-400 mb-8">
+                سلامتی مبارز حریفت رو به صفر برسون تا برنده بازی شی
+              </p>
+
+          <div class="mt-4">
+            <div id="draculaHealth" data-max="13" class="">
+              <img src="images/draculaHealth.png" alt="Dracula Health Dial" class="block" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+
+  </div>
+</div>
 </section>
     <div
       class="relative max-w-[1100px] mx-auto mb-24 px-5 before:content-[''] before:absolute before:w-1 before:bg-gradient-to-b before:from-brand-pink before:via-brand-purple before:to-brand-cyan before:top-0 before:bottom-0 before:right-[30px] md:before:right-1/2 before:translate-x-1/2 before:shadow-[0_0_15px_rgba(112,0,255,0.5)] before:z-[1]"
@@ -574,7 +917,8 @@
             🃏 کارت‌ها
           </h2>
           <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
-            مدیریت دست و انواع کارت‌ها.
+            مدیریت دست و انواع کارت‌ها اهمیت بسیاری در بازی دارد
+            .هر کارکتر یک دک ۳۰ کارتی دارد به تعداد کارت های در صفحه جزيیات کارکتر ها دقت کنید بعضی از کارت ها برای سادگی امتیازی یا به کل حذف شده
           </p>
 
           <!-- Interactive Cards Grid - 2 Cards with better mobile responsiveness -->
