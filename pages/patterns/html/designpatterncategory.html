@@ -3,378 +3,231 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Design Patterns Category</title>
+  <title>Core Design Patterns</title>
 
+  <!-- Tailwind + Fonts + Highlight.js -->
   <script src="https://c.vazirweb.ir/cdn/tailwind/3.4.10/tailwind.play.min.js"></script>
   <link rel="stylesheet" href="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/styles/github-dark.min.css">
   <script src="https://c.vazirweb.ir/cdn/highlight.js/11.11.1/highlight.min.js"></script>
-  <script src="../js/category.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    /* custom smooth & glassmorphism touches */
+    body {
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .floating-card {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .floating-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.25);
+    }
+    .btn-glow {
+      transition: all 0.2s;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+      transform: scale(1.02);
+    }
+    /* custom scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 
-
 <script>
-tailwind.config = { darkMode: "class" }
+  tailwind.config = { darkMode: "class" }
 </script>
 
 <body class="cursor-none bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 transition-colors selection:bg-indigo-300/40 dark:selection:bg-indigo-500/30">
 
-<canvas id="cursor-canvas" class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]"></canvas>
-<header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+  <!-- CUSTOM CURSOR CANVAS (preserved) -->
+  <canvas id="cursor-canvas" class="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]"></canvas>
 
-  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+  <!-- HEADER (same structure, dark mode toggle, mobile menu, same brand) -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
+        <i class="fa-solid fa-code"></i>
+        <span>Design Patterns</span>
+      </h1>
 
-    
+      <div class="flex items-center gap-4">
+        <nav class="hidden md:flex gap-6 font-semibold text-sm">
+          <a href="#featured" class="hover:text-indigo-500 transition">Featured Patterns</a>
+          <a href="#resources" class="hover:text-indigo-500 transition">Resources</a>
+        </nav>
+      </div>
 
-    <h1 class="text-xl md:text-2xl font-extrabold text-indigo-600 dark:text-indigo-300 flex items-center gap-3">
-      <i class="fa-solid fa-code"></i>
-      <span>Design Patterns Category</span>
-    </h1>
-
-        <div class="flex items-center gap-4">
-    <nav class="hidden md:flex gap-6 font-semibold text-sm">
-      <a href="#cerational" class="hover:text-indigo-500 transition">Creational</a>
-      <a href="#structure" class="hover:text-indigo-500 transition">Structural</a>
-      <a href="#behavior" class="hover:text-indigo-500 transition">Behavioral</a>
-    </nav>
-  </div>
-
-   
-      <button id="theme-toggle"
-        class="rounded-full border px-3 py-1.5 text-xs font-semibold
-               bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
-               border-indigo-300 dark:border-indigo-600
-               hover:scale-105 transition shadow-sm">
-        🌙
-      </button>
-
-      
-      <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-  </div>
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle"
+          class="rounded-full border px-3 py-1.5 text-xs font-semibold
+                 bg-indigo-100 text-indigo-700 dark:bg-slate-700 dark:text-slate-100
+                 border-indigo-300 dark:border-indigo-600
+                 hover:scale-105 transition shadow-sm">
+          🌙
+        </button>
+        <button id="menuBtn" class="md:hidden text-2xl text-indigo-600 dark:text-indigo-300">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu"
-    class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
-           bg-white/95 dark:bg-slate-800/95
-           border-t border-slate-200 dark:border-slate-700">
-      <a href="#cerational" class="hover:text-indigo-500 transition">Creational</a>
-      <a href="#structure" class="hover:text-indigo-500 transition">Structural</a>
-      <a href="#behavior" class="hover:text-indigo-500 transition">Behavioral</a>
-   
-  </div>
-
-</header>
-
-<main class="max-w-6xl mx-auto px-4 py-16 space-y-16">
-<!-- Design Patterns -->
-<section id="patterns" class="space-y-12">
-
-  <div class="text-center">
-    <h2 class="text-4xl font-bold text-indigo-600 dark:text-indigo-300">
-      C++ Design Patterns
-    </h2>
-    <p class="text-slate-600 dark:text-slate-300 mt-3 max-w-2xl mx-auto">
-      Design patterns are reusable solutions to common software design problems.
-      They are grouped into three categories: Creational, Structural, and Behavioral.
-    </p>
-  </div>
-
-  <!-- CREATIONAL -->
-  <div id="cerational">
-    <h3 class="text-2xl font-bold mb-6 text-emerald-600 dark:text-emerald-300">
-      Creational Patterns
-    </h3>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <a href="singleton.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-circle-dot text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Singleton</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Ensure a class has only one instance and provide global access.
-        </p>
-      </a>
-
-      <a href="factory.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-industry text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Factory Method</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Create objects without specifying their exact class.
-        </p>
-      </a>
-
-      <a href="abstract-factory.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-boxes-stacked text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Abstract Factory</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Produce families of related objects without specifying concrete classes.
-        </p>
-      </a>
-
-      <a href="builder.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-hammer text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Builder</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Construct complex objects step by step.
-        </p>
-      </a>
-
-      <a href="prototype.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-clone text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Prototype</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Create new objects by copying existing ones.
-        </p>
-      </a>
-
+    <!-- Mobile Menu (preserved) -->
+    <div id="mobileMenu"
+      class="hidden md:hidden px-6 pb-6 flex flex-col gap-4 font-semibold text-base
+             bg-white/95 dark:bg-slate-800/95
+             border-t border-slate-200 dark:border-slate-700">
+      <a href="#featured" class="hover:text-indigo-500 transition">Featured Patterns</a>
+      <a href="#resources" class="hover:text-indigo-500 transition">Resources</a>
     </div>
-  </div>
+  </header>
 
+  <main class="max-w-6xl mx-auto px-4 py-12 md:py-16 space-y-20">
 
-  <!-- STRUCTURAL -->
-  <div id="structure">
-    <h3 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-300">
-      Structural Patterns
-    </h3>
+    <!-- Hero intro section (refreshed, but still honoring pattern context) -->
+    <section class="text-center max-w-3xl mx-auto">
+      <h2 class="pb-4 text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
+        Master 4 Key Design Patterns
+      </h2>
+      <p class="text-slate-600 dark:text-slate-300 mt-5 text-lg">
+        Clean architecture starts here. <strong>Command · Observer · Singleton · Strategy</strong> — battle-tested C++ solutions for real-world software design.
+      </p>
+    </section>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- FEATURED SECTION: exactly 4 cards (Command, Observer, Singleton, Strategy) -->
+    <section id="featured">
+      <div class="text-left mb-8 flex items-center gap-2 border-l-4 border-indigo-500 pl-4">
+        <i class="fa-regular fa-star text-indigo-500"></i>
+        <h3 class="text-2xl md:text-3xl font-bold"> Focus patterns</h3>
+      </div>
 
-      <a href="adapter.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-plug text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Adapter</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Allow incompatible interfaces to work together.
-        </p>
-      </a>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- 1. COMMAND CARD -->
+        <div class="rounded-2xl bg-white dark:bg-slate-800/60 shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden floating-card flex flex-col h-full backdrop-blur-sm transition-all">
+          <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 flex items-center gap-3">
+            <i class="fa-solid fa-terminal text-2xl text-white"></i>
+            <h4 class="text-xl font-bold text-white tracking-tight">Command</h4>
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <p class="text-slate-700 dark:text-slate-200 text-sm leading-relaxed">
+              Encapsulate a request as an object, allowing parameterization, queuing, logging, and undoable operations. Decouples sender from receiver.
+            </p>
+            <div class="mt-4 text-xs font-mono bg-slate-100 dark:bg-slate-900/70 p-2 rounded-md text-slate-600 dark:text-slate-300">
+              <i class="fa-regular fa-file-code mr-1"></i> C++: `Command` interface + concrete commands
+            </div>
+            <div class="mt-6 flex justify-end">
+              <a href="command.html" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition shadow-md btn-glow">
+                Explore Command <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <a href="bridge.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-bridge text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Bridge</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Separate abstraction from implementation.
-        </p>
-      </a>
+        <!-- 2. OBSERVER CARD -->
+        <div class="rounded-2xl bg-white dark:bg-slate-800/60 shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden floating-card flex flex-col h-full">
+          <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4 flex items-center gap-3">
+            <i class="fa-solid fa-eye text-2xl text-white"></i>
+            <h4 class="text-xl font-bold text-white">Observer</h4>
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <p class="text-slate-700 dark:text-slate-200 text-sm leading-relaxed">
+              Define a one-to-many dependency so that when one object changes state, all dependents are notified automatically. Perfect for event-driven systems.
+            </p>
+            <div class="mt-4 text-xs font-mono bg-slate-100 dark:bg-slate-900/70 p-2 rounded-md text-slate-600 dark:text-slate-300">
+              <i class="fa-regular fa-bell mr-1"></i> Subject / Observer — loose coupling
+            </div>
+            <div class="mt-6 flex justify-end">
+              <a href="observer.html" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition shadow-md btn-glow">
+                Explore Observer <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <a href="composite.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-layer-group text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Composite</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Treat individual objects and groups uniformly.
-        </p>
-      </a>
+        <!-- 3. SINGLETON CARD -->
+        <div class="rounded-2xl bg-white dark:bg-slate-800/60 shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden floating-card flex flex-col h-full">
+          <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4 flex items-center gap-3">
+            <i class="fa-solid fa-circle-dot text-2xl text-white"></i>
+            <h4 class="text-xl font-bold text-white">Singleton</h4>
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <p class="text-slate-700 dark:text-slate-200 text-sm leading-relaxed">
+              Ensure a class has only one instance and provide a global point of access to it. Thread-safe variants, lazy initialization, resource control.
+            </p>
+            <div class="mt-4 text-xs font-mono bg-slate-100 dark:bg-slate-900/70 p-2 rounded-md text-slate-600 dark:text-slate-300">
+              <i class="fa-regular fa-diamond mr-1"></i> static instance & private constructor
+            </div>
+            <div class="mt-6 flex justify-end">
+              <a href="singleton.html" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold transition shadow-md btn-glow">
+                Explore Singleton <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <a href="decorator.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-paint-roller text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Decorator</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Add responsibilities dynamically to objects.
-        </p>
-      </a>
+        <!-- 4. STRATEGY CARD -->
+        <div class="rounded-2xl bg-white dark:bg-slate-800/60 shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden floating-card flex flex-col h-full">
+          <div class="bg-gradient-to-r from-cyan-500 to-blue-600 p-4 flex items-center gap-3">
+            <i class="fa-solid fa-chess-board text-2xl text-white"></i>
+            <h4 class="text-xl font-bold text-white">Strategy</h4>
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <p class="text-slate-700 dark:text-slate-200 text-sm leading-relaxed">
+              Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients.
+            </p>
+            <div class="mt-4 text-xs font-mono bg-slate-100 dark:bg-slate-900/70 p-2 rounded-md text-slate-600 dark:text-slate-300">
+              <i class="fa-regular fa-code-branch mr-1"></i> Composition over inheritance
+            </div>
+            <div class="mt-6 flex justify-end">
+              <a href="strategy.html" class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-semibold transition shadow-md btn-glow">
+                Explore Strategy <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <a href="facade.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-building text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Facade</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Provide a simplified interface to complex systems.
-        </p>
-      </a>
+    <!-- RESOURCES SECTION: external link to learn more about design patterns -->
+    <section id="resources" class="rounded-3xl bg-gradient-to-r from-indigo-50 to-slate-50 dark:from-slate-800/60 dark:to-slate-800/40 border border-indigo-200 dark:border-indigo-800/50 p-6 md:p-8 shadow-lg">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex-1 text-center md:text-left">
+          <div class="flex items-center gap-2 justify-center md:justify-start">
+            <i class="fa-solid fa-book-open text-indigo-600 dark:text-indigo-400 text-2xl"></i>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white">Expand your architecture knowledge</h3>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 mt-3 max-w-2xl">
+            Design patterns are timeless blueprints. If you want to dive deeper into <strong>Creational, Structural, and Behavioral patterns</strong> — including factory, facade, visitor, proxy, and more — this external resource provides in-depth guides, real-world examples, and community insights.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-3 bg-indigo-700 hover:bg-indigo-800 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg">
+              <i class="fa-solid fa-globe"></i> Visit Refactoring Guru
+              <i class="fa-solid fa-arrow-up-right-from-ml text-xs"></i>
+            </a>
+          </div>
+        </div>
+        <div class="hidden md:block text-6xl text-indigo-300 dark:text-indigo-700">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+      </div>
+    </section>
+  </main>
 
-      <a href="proxy.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-user-shield text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Proxy</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Provide a surrogate or placeholder for another object.
-        </p>
-      </a>
-
-      <a href="flyweight.html"
-  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-blue-500 to-cyan-600 text-white shadow-lg hover:scale-105 transition">
-  <i class="fa-solid fa-feather text-2xl mb-3"></i>
-  <h4 class="text-xl font-bold">Flyweight</h4>
-  <p class="text-sm mt-2 text-white/90">
-    Reduce memory usage by sharing common object data across many objects.
-  </p>
-</a>
-
-
+  <footer class="text-center text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-10 pb-6 mt-6">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <p>© Basu · Advanced Programming</p>
+      <div class="flex gap-4 text-indigo-500 dark:text-indigo-400 text-sm">
+        <i class="fa-brands fa-github"></i>
+        <i class="fa-regular fa-file-code"></i>
+      </div>
     </div>
-    
-  </div>
+  </footer>
 
-
-  <!-- BEHAVIORAL -->
-  <div id="behavior">
-    <h3 class="text-2xl font-bold mb-6 text-purple-600 dark:text-purple-300">
-      Behavioral Patterns
-    </h3>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <a href="observer.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-eye text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Observer</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Notify multiple objects when state changes.
-        </p>
-      </a>
-
-      <a href="strategy.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-chess text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Strategy</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Define interchangeable algorithms.
-        </p>
-      </a>
-
-      <a href="command.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-terminal text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Command</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Encapsulate a request as an object.
-        </p>
-      </a>
-
-      <a href="state.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-toggle-on text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">State</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Allow an object to change behavior when its state changes.
-        </p>
-      </a>
-
-      <a href="iterator.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-forward text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Iterator</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Access collection elements sequentially without exposing structure.
-        </p>
-      </a>
-
-      <a href="mediator.html"
-        class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-        <i class="fa-solid fa-handshake text-2xl mb-3"></i>
-        <h4 class="text-xl font-bold">Mediator</h4>
-        <p class="text-sm mt-2 text-white/90">
-          Reduce dependencies between objects by introducing a mediator.
-        </p>
-      </a>
-      <a href="memento.html"
-  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-  <i class="fa-solid fa-clock-rotate-left text-2xl mb-3"></i>
-  <h4 class="text-xl font-bold">Memento</h4>
-  <p class="text-sm mt-2 text-white/90">
-    Capture and restore an object's internal state without exposing its structure.
-  </p>
-</a>
-
-<a href="chain-of-responsibility.html"
-  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-  <i class="fa-solid fa-link text-2xl mb-3"></i>
-  <h4 class="text-xl font-bold">Chain of Responsibility</h4>
-  <p class="text-sm mt-2 text-white/90">
-    Pass a request along a chain of handlers until one processes it.
-  </p>
-</a>
-
-<a href="template-method.html"
-  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-  <i class="fa-solid fa-list-check text-2xl mb-3"></i>
-  <h4 class="text-xl font-bold">Template Method</h4>
-  <p class="text-sm mt-2 text-white/90">
-    Define the skeleton of an algorithm while allowing subclasses to override steps.
-  </p>
-</a>
-
-<a href="visitor.html"
-  class="floating-card group group rounded-2xl p-6 bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg hover:scale-105 transition">
-  <i class="fa-solid fa-route text-2xl mb-3"></i>
-  <h4 class="text-xl font-bold">Visitor</h4>
-  <p class="text-sm mt-2 text-white/90">
-    Add new operations to object structures without modifying the classes.
-  </p>
-</a>
-
-
-</div>
-</div>
-
-</section>
-<section class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
-
-  <a href="singleton.html">
-    <button
-      class="px-8 py-3 rounded-xl font-semibold
-             bg-cyan-500 hover:bg-cyan-400
-             text-slate-900 shadow-lg shadow-cyan-500/30
-             transition-all duration-300
-             hover:scale-105 active:scale-95">
-      Singleton Guide →
-    </button>
-  </a>
-
-  <a href="observer.html">
-    <button
-      class="px-8 py-3 rounded-xl font-semibold
-             bg-cyan-500 hover:bg-cyan-400
-             text-slate-900 shadow-lg shadow-cyan-500/30
-             transition-all duration-300
-             hover:scale-105 active:scale-95">
-      Observer Guide →
-    </button>
-  </a>
-
-  <a href="strategy.html">
-    <button
-      class="px-8 py-3 rounded-xl font-semibold
-             bg-cyan-500 hover:bg-cyan-400
-             text-slate-900 shadow-lg shadow-cyan-500/30
-             transition-all duration-300
-             hover:scale-105 active:scale-95">
-      Strategy Guide →
-    </button>
-  </a>
-
-  <a href="command.html">
-    <button
-      class="px-8 py-3 rounded-xl font-semibold
-             bg-cyan-500 hover:bg-cyan-400
-             text-slate-900 shadow-lg shadow-cyan-500/30
-             transition-all duration-300
-             hover:scale-105 active:scale-95">
-      Command Guide →
-    </button>
-  </a>
-
-</section>
-
-
-</main>
-
-
-
+  <script src="../js/category.js"></script>
 </body>
-  <footer class="text-center text-slate-400 pt-12 pb-6">
-    Basu-Advanced Programming
-</footer>
 </html>
