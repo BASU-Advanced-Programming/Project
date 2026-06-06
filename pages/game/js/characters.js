@@ -1,261 +1,246 @@
-document.addEventListener("DOMContentLoaded", () => {
-  initBloodRain();
-  initSlider();
-  initParallax();
-  initCustomCursor();
-  initDeck();
-  initCardModal();
-  initThemeToggle();
-  initMobileMenu();
-  initNavHighlight();
-});
+ // Custom Interactive Game Cursor Module (Desktop Only)
+    const cursor = document.querySelector('.game-cursor');
+    const cursorDot = document.querySelector('.game-cursor-dot');
+    let currentActiveSlideIndex = 0;
 
-/* ── Blood rain particles ── */
-function initBloodRain() {
-  const container = document.querySelector(".banner-section-main");
-  if (!container) return;
-
-  for (let i = 0; i < 60; i++) {
-    const drop = document.createElement("i");
-    drop.className = "blood-rain";
-    const left = Math.random() * 100;
-    const delay = Math.random() * 18;
-    const duration = 5 + Math.random() * 6;
-    const opacity = 0.25 + Math.random() * 0.35;
-
-    drop.style.cssText = `
-      left: ${left}%;
-      animation: blood-fall-${i} ${duration}s ${delay}s infinite;
-      opacity: ${opacity};
-    `;
-
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes blood-fall-${i} {
-        from { top: -${60 + Math.random() * 40}%; opacity: ${opacity}; }
-        to { top: 115%; opacity: 0; }
-      }
-    `;
-    document.head.appendChild(style);
-    container.appendChild(drop);
-  }
-}
-
-/* ── Slick slider + theme sync ── */
-function initSlider() {
-  if (typeof jQuery === "undefined" || !jQuery.fn.slick) return;
-
-  const $banner = jQuery(".banner-section-inner");
-  const $nav = jQuery(".controller-right-icons-inner");
-
-  $banner.on("init", () => {
-    tagSlideThemes();
-    applySlideTheme(0);
-  });
-
-  $banner.slick({
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: false,
-    fade: true,
-    speed: 500,
-    rtl: true,
-    asNavFor: ".controller-right-icons-inner",
-    touchThreshold: 100,
-  });
-
-  $nav.slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: ".banner-section-inner",
-    arrows: false,
-    dots: false,
-    focusOnSelect: true,
-    vertical: true,
-    verticalSwiping: true,
-    infinite: true,
-    rtl: true,
-    responsive: [
-      {
-        breakpoint: 900,
-        settings: {
-          vertical: false,
-          verticalSwiping: false,
-          slidesToShow: 3,
-        },
-      },
-    ],
-  });
-
-  $banner.on("afterChange", (_e, _slick, currentSlide) => {
-    applySlideTheme(currentSlide % 3);
-    jQuery(".banner-main-img .main-img").addClass("character-animation");
-    setTimeout(() => {
-      jQuery(".banner-main-img .main-img").removeClass("character-animation");
-    }, 1200);
-  });
-}
-
-function tagSlideThemes() {
-  jQuery(".banner-section-loop").each(function (i) {
-    const mod = (i % 3) + 1;
-    jQuery(this).addClass(
-      mod === 1 ? "banner-loop-one" : mod === 2 ? "banner-loop-second" : "banner-loop-third"
-    );
-  });
-}
-
-function applySlideTheme(index) {
-  document.body.classList.remove("theme-slide-1", "theme-slide-2", "theme-slide-3");
-  document.body.classList.add(`theme-slide-${(index % 3) + 1}`);
-}
-
-/* ── Parallax character images ── */
-function initParallax() {
-  if (typeof Parallax === "undefined") return;
-  document.querySelectorAll(".scene").forEach((el) => new Parallax(el));
-}
-
-/* ── GSAP custom cursor ── */
-function initCustomCursor() {
-  const cursor = document.querySelector(".cursor");
-  if (!cursor || typeof gsap === "undefined") return;
-
-  let mouseX = 0;
-  let mouseY = 0;
-
-  gsap.to({}, 0.016, {
-    repeat: -1,
-    onRepeat() {
-      gsap.set(cursor, { left: mouseX, top: mouseY });
-    },
-  });
-
-  window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  document.querySelectorAll(".cursor-scale").forEach((el) => {
-    el.addEventListener("mouseenter", () => {
-      cursor.classList.add(el.classList.contains("small") ? "grow-small" : "grow");
-    });
-    el.addEventListener("mouseleave", () => {
-      cursor.classList.remove("grow", "grow-small");
-    });
-  });
-}
-
-/* ── Deck spread ── */
-function initDeck() {
-  document.querySelectorAll(".deck-button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const deck = document.getElementById(btn.dataset.deck);
-      if (!deck) return;
-
-      const cards = deck.querySelectorAll(".deck-card");
-      const open = deck.classList.toggle("open");
-      const spread = 80;
-
-      cards.forEach((card, i) => {
-        const middle = (cards.length - 1) / 2;
-        const angle = (i - middle) * (spread / cards.length);
-        card.style.transform = open
-          ? `translateX(-50%) rotate(${angle}deg) translateY(40px)`
-          : `translateX(-50%) rotate(0deg)`;
+    if(window.innerWidth > 1024) {
+      document.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0 });
       });
-    });
-  });
 
-  document.querySelectorAll(".deck-card").forEach((card) => {
-    card.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const target = document.getElementById(card.dataset.card);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.querySelectorAll('a, button').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          const targetColor = currentActiveSlideIndex === 1 ? '#c5a059' : '#ff003c';
+          const targetBg = currentActiveSlideIndex === 1 ? 'rgba(197,160,89,0.05)' : 'rgba(255,0,60,0.05)';
+          gsap.to(cursor, { scale: 1.5, borderColor: targetColor, backgroundColor: targetBg, duration: 0.2 });
+          gsap.to(cursorDot, { backgroundColor: targetColor, duration: 0.2 });
+        });
+        item.addEventListener('mouseleave', () => {
+          const targetColor = currentActiveSlideIndex === 1 ? '#c5a059' : '#ff003c';
+          gsap.to(cursor, { scale: 1, borderColor: targetColor, backgroundColor: transparent, duration: 0.2 });
+          gsap.to(cursorDot, { backgroundColor: targetColor, duration: 0.2 });
+        });
+      });
+    }
+
+    // HTML5 Canvas Ambient Fluid Micro-Particles System (Handles both blood drops and London drizzle rain)
+    const canvas = document.getElementById('bloodParticleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
       }
-    });
-  });
-}
+      reset() {
+        this.x = Math.random() * canvas.width;
+        // Dracula uses floating up blood mist, Sherlock uses cinematic falling angled rain
+        if (currentActiveSlideIndex === 1) {
+          this.y = Math.random() * -canvas.height;
+          this.speedY = Math.random() * 5 + 7;
+          this.speedX = Math.random() * -1.5 - 0.5; // Angled falling rain
+          this.size = Math.random() * 1.5 + 0.5;
+          this.opacity = Math.random() * 0.25 + 0.15;
+        } else {
+          this.y = canvas.height + Math.random() * 100;
+          this.speedY = Math.random() * -1.2 - 0.4;
+          this.speedX = Math.random() * 0.4 - 0.2;
+          this.size = Math.random() * (window.innerWidth > 768 ? 3 : 2) + 1;
+          this.opacity = Math.random() * 0.5 + 0.2;
+        }
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        
+        if (currentActiveSlideIndex === 1) {
+          if (this.y > canvas.height + 10 || this.x < -10) this.reset();
+        } else {
+          if (this.y < -10) this.reset();
+        }
+      }
+      draw() {
+        if (currentActiveSlideIndex === 1) {
+          // Warm bronze/rain color profile for Sherlock
+          ctx.fillStyle = `rgba(197, 160, 89, ${this.opacity})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = `rgba(220, 0, 60, ${this.opacity})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
 
-/* ── Card image modal ── */
-function initCardModal() {
-  const modal = document.getElementById("cardModal");
-  const modalImg = document.getElementById("modalImage");
-  if (!modal || !modalImg) return;
+    function initParticles() {
+      particlesArray = [];
+      const density = window.innerWidth > 768 ? 18000 : 30000;
+      const numberOfParticles = Math.floor((canvas.width * canvas.height) / density);
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
 
-  document.querySelectorAll(".card-article .card-img").forEach((img) => {
-    img.addEventListener("click", () => {
-      modalImg.src = img.src;
-      modal.classList.add("open");
-    });
-  });
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    initParticles();
+    animateParticles();
 
-  modal.addEventListener("click", () => modal.classList.remove("open"));
-}
+    // Ambient Bats Instantiation Engine (Active only during Dracula section)
+    function spawnBat() {
+      if (currentActiveSlideIndex !== 0) return;
+      const bat = document.createElement('div');
+      bat.classList.add('bat');
+      const startY = Math.random() * (window.innerHeight * 0.5) + (window.innerHeight * 0.1);
+      const size = Math.random() * 15 + 12;
+      
+      bat.style.width = `${size}px`;
+      bat.style.height = `${size}px`;
+      bat.style.top = `${startY}px`;
+      bat.style.left = `-50px`;
+      
+      document.body.appendChild(bat);
 
+      gsap.to(bat, {
+        x: window.innerWidth + 100,
+        y: startY + (Math.random() * 160 - 80),
+        opacity: Math.random() * 0.4 + 0.2,
+        duration: Math.random() * 3 + 4,
+        ease: "power1.inOut",
+        onComplete: () => bat.remove()
+      });
+    }
+    setInterval(() => {
+      if(document.visibilityState === "visible") spawnBat();
+    }, 5000);
 
+    // GSAP Immersive Presentation Timeline Array
+    function triggerSlideAnimations(slideElement) {
+      const charContainer = slideElement.querySelector('.character-container');
+      const textGroups = slideElement.querySelectorAll('.hud-entrance-group');
+      const fillArcs = slideElement.querySelectorAll('.hud-metric-fill');
+      const moon = slideElement.querySelector('.blood-moon');
+      const lines = slideElement.querySelectorAll('.mind-line');
+      const clues = slideElement.querySelectorAll('.latent-clue');
 
-function spawnBloodSplash(originElement) {
-  const container = document.getElementById("blood-splatter-container");
-  if (!container) return;
+      const tl = gsap.timeline();
 
-  const rect = originElement.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  const count = 18 + Math.floor(Math.random() * 8);
+      if (moon) {
+        tl.fromTo(moon, { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 0.8, duration: 1.6, ease: "power2.out" }, 0);
+      }
 
-  for (let i = 0; i < count; i++) {
-    const drop = document.createElement("div");
-    drop.classList.add("blood-drop");
-    drop.style.left = centerX + "px";
-    drop.style.top = centerY + "px";
+      // Sherlock-specific layout animation hooks
+      if (lines.length > 0) {
+        tl.fromTo(lines, { strokeDashoffset: 500, opacity: 0 }, { strokeDashoffset: 0, opacity: 0.4, duration: 2, ease: "power1.out" }, 0);
+        tl.fromTo(clues, { y: -15, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power2.out" }, 0.5);
+      }
 
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 80 + Math.random() * 120;
-    drop.style.setProperty("--dx", Math.cos(angle) * distance + "px");
-    drop.style.setProperty("--dy", Math.sin(angle) * distance + "px");
+      tl.fromTo(charContainer, 
+        { y: 40, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }, 
+        0.2
+      );
 
-    container.appendChild(drop);
-    setTimeout(() => drop.remove(), 1000);
-  }
-}
+      tl.fromTo(textGroups, 
+        { x: window.innerWidth > 1024 ? 30 : 0, y: window.innerWidth > 1024 ? 0 : 20, opacity: 0 }, 
+        { x: 0, y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power2.out" }, 
+        0.4
+      );
 
-/* ── Mobile menu ── */
-function initMobileMenu() {
-  const menuBtn = document.getElementById("menuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  if (!menuBtn || !mobileMenu) return;
+      // Stat Circular Progress Meter Draw Line
+      fillArcs.forEach(arc => {
+        const value = arc.getAttribute('data-value');
+        const circumference = 2 * Math.PI * 40;
+        const offset = circumference - (value / 100) * circumference;
+        
+        gsap.fromTo(arc, 
+          { strokeDashoffset: circumference }, 
+          { strokeDashoffset: offset, duration: 1.5, ease: "power2.out" }
+        );
+      });
+    }
 
-  menuBtn.addEventListener("click", () => mobileMenu.classList.toggle("open"));
-  mobileMenu.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => mobileMenu.classList.remove("open"));
-  });
-}
+    // Navigation and Interaction Control Modules
+    const viewport = document.getElementById('viewportContainer');
+    const sections = document.querySelectorAll('.game-section');
+    const navDots = document.querySelectorAll('.hud-nav-dot');
+    const navLineTop = document.getElementById('nav-line-top');
+    const navLineBottom = document.getElementById('nav-line-bottom');
 
-/* ── Active nav on scroll ── */
-function initNavHighlight() {
-  const sections = ["components", "deck", "cards"];
-  const links = document.querySelectorAll(".header-menu a[data-section]");
+    function updateActiveNavigationIndicators(index) {
+      currentActiveSlideIndex = index;
+      
+      // Update global cursor skin configurations based on active context
+      const accentColor = index === 1 ? '#c5a059' : '#ff003c';
+      if(cursor && cursorDot) {
+        gsap.to(cursor, {borderColor: accentColor, duration: 0.4});
+        gsap.to(cursorDot, {backgroundColor: accentColor, boxShadow: `0 0 10px ${accentColor}`, duration: 0.4});
+      }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          links.forEach((link) => {
-            link.parentElement.classList.toggle("active", link.dataset.section === id);
-          });
+      // Update Nav Grid Accent Line Color maps
+      if(index === 1) {
+        navLineTop.className = "h-16 w-[1px] bg-gradient-to-b from-transparent to-amber-700/40";
+        navLineBottom.className = "h-16 w-[1px] bg-gradient-to-t from-transparent to-amber-700/40";
+      } else {
+        navLineTop.className = "h-16 w-[1px] bg-gradient-to-b from-transparent to-red-900/60";
+        navLineBottom.className = "h-16 w-[1px] bg-gradient-to-t from-transparent to-red-900/60";
+      }
+
+      navDots.forEach(dot => {
+        const dotIndex = parseInt(dot.getAttribute('data-slide'));
+        if (dotIndex === index) {
+          if (index === 1) {
+            dot.className = "hud-nav-dot w-3 h-3 rounded-none rotate-45 border border-amber-600 bg-amber-950/80 transition-all duration-300 scale-125 shadow-[0_0_10px_#c5a059]";
+          } else {
+            dot.className = "hud-nav-dot w-3 h-3 rounded-none rotate-45 border border-red-700 bg-red-950/80 transition-all duration-300 scale-125 shadow-[0_0_10px_#ff003c]";
+          }
+        } else {
+          dot.className = "hud-nav-dot w-3 h-3 rounded-none rotate-45 border border-zinc-700 bg-zinc-950/80 transition-all duration-300";
         }
       });
-    },
-    { threshold: 0.3 }
-  );
+    }
 
-  sections.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-}
+    function scrollToSlide(index) {
+      if (index < 0 || index >= sections.length) return;
+      sections[index].scrollIntoView({ behavior: 'smooth' });
+      updateActiveNavigationIndicators(index);
+      triggerSlideAnimations(sections[index]);
+    }
+
+    const observerOptions = {
+      root: viewport,
+      threshold: 0.5
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const targetIndex = Array.from(sections).indexOf(entry.target);
+          updateActiveNavigationIndicators(targetIndex);
+          triggerSlideAnimations(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    window.addEventListener('DOMContentLoaded', () => {
+      triggerSlideAnimations(sections[0]);
+    });
