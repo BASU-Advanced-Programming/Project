@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fa" dir="rtl" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>راهنمای پیاده‌سازی TUI | Unmatched</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              vazir: ["Vazirmatn", "sans-serif"],
+              mono: ["Vazirmatn", "monospace"]
+            }
+          }
+        }
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Vazirmatn", sans-serif;
+        background: radial-gradient(circle at top, #0a0a0f 0%, #030305 45%, #000000 100%);
+        color: #00ff9d;
+        overflow-x: hidden;
+      }
+
+      /* Terminal Cursor */
+      @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+      .cursor-blink::after { content: "█"; animation: blink 1s step-end infinite; margin-right: 8px; }
+
+      /* Scanline Overlay */
+      .scanline {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, transparent 0%, rgba(0, 255, 157, 0.03) 50%, transparent 100%);
+        pointer-events: none; z-index: 100; animation: scan 8s linear infinite;
+      }
+      @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+
+      .terminal-glass {
+        background: rgba(0, 15, 10, 0.8);
+        border: 1px solid rgba(0, 255, 157, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 20px rgba(0, 255, 157, 0.05);
+      }
+
+      .feature-card {
+        background: rgba(0, 255, 157, 0.03);
+        border: 1px solid rgba(0, 255, 157, 0.1);
+        transition: all 0.3s ease;
+      }
+      .feature-card:hover {
+        border-color: #00ff9d;
+        background: rgba(0, 255, 157, 0.07);
+        transform: scale(1.01);
+      }
+
+      /* Force LTR for code blocks */
+      pre, code, .ltr-text {
+        direction: ltr !important;
+        text-align: left !important;
+        font-family: "Fira Code", monospace !important;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen relative text-[#00ff9d]">
+    <div class="scanline"></div>
+
+    <header class="relative z-40 pt-6 px-4">
+      <div class="max-w-5xl mx-auto terminal-glass rounded-full px-6 py-3 flex justify-between items-center border-[#00ff9d]/30">
+        <div class="flex items-center gap-3">
+          <i class="fas fa-terminal text-[#00ff9d]"></i>
+          <span class="text-xs font-mono opacity-60">TUI_ENGINE_V1.0</span>
+        </div>
+        <a href="../index.html">
+            <button id="showModalBtn" class="text-xs md:text-sm bg-[#00ff9d]/10 hover:bg-[#00ff9d]/20 border border-[#00ff9d]/40 px-4 py-1.5 rounded-full transition-all">
+              <i class="fas fa-book-open ml-2"></i>بازگشت به صفحه اصلی
+            </button>
+        </a>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 max-w-5xl relative z-10 space-y-8">
+      <section class="text-center mb-12">
+        <div class="inline-block terminal-glass p-8 rounded-3xl border-[#00ff9d]/20 w-full">
+          <div class="flex items-center justify-center gap-2 mb-4 ltr-text">
+            <span class="text-[#00ff9d]/50">admin@unmatched:~$</span>
+            <span id="typewriter" class="text-[#00ff9d] cursor-blink">./unmatched</span>
+          </div>
+          <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">
+            راهنمای جامع پیاده‌سازی <span class="text-white">TUI</span>
+          </h1>
+          <p class="text-[#00ff9d]/60 font-mono text-sm">پروتکل طراحی رابط‌های مبتنی بر منو و ترمینال (Menu-Driven Apps)</p>
+        </div>
+      </section>
+
+      <section class="terminal-glass p-6 rounded-2xl">
+        <div class="flex items-center gap-3 mb-4 border-b border-[#00ff9d]/20 pb-3">
+          <i class="fas fa-question-circle text-xl"></i>
+          <h2 class="text-xl font-bold">واسط متنی کاربر (TUI) چیست؟</h2>
+        </div>
+        <p class="text-[#00ff9d]/80 text-sm leading-relaxed text-justify">
+          واسط متنی کاربر یا همان <span class="text-white font-bold">TUI (Terminal User Interface)</span>، نوعی از برنامه‌های تعاملی است که درون محیط خط فرمان (کنسول) اجرا می‌شود اما برخلاف ساختارهای خطی سنتی (CLI)، رفتاری مشابه برنامه‌های گرافیکی دارد. این سیستم‌ها <span class="text-white font-bold">مبتنی بر منو (Menu-Driven)</span> هستند؛ یعنی کاربر نیازی به تایپ مداوم دستورات ندارد و می‌تواند با استفاده از دکمه‌های جهت‌نما (Arrow Keys)، کلیدهای WASD یا کلیدهای عددی بین بخش‌ها، منوها و پنل‌های مختلف جابه‌جا شده و گزینه‌ها را انتخاب کند.
+        </p>
+      </section>
+
+      <section class="terminal-glass p-6 rounded-2xl">
+        <div class="flex items-center gap-3 mb-4 border-b border-[#00ff9d]/20 pb-3">
+          <i class="fas fa-list-check text-xl"></i>
+          <h2 class="text-xl font-bold">الزامات و بخش‌های اجباری در TUI پروژه</h2>
+        </div>
+        <p class="text-sm opacity-70 mb-4">سیستم تعاملی شما برای بازی Unmatched باید حتماً شامل بخش‌های ساختاریافته زیر باشد:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="feature-card p-4 rounded-xl">
+            <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
+              <i class="fas fa-compass"></i> ۱. منوی ناوبری اصلی (Main Menu)
+            </h3>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed">منوی شروع با قابلیت انتخاب گزینه‌ها (شروع بازی جدید، راهنما، تنظیمات و خروج) بدون نیاز به تایپ دستی.</p>
+          </div>
+          <div class="feature-card p-4 rounded-xl">
+            <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
+              <i class="fas fa-map-marked-alt"></i> ۲. رندر پویای نقشه (Dynamic ASCII Map)
+            </h3>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed">نمایش شبکه‌ای و گرافیکی نقشه بازی با کاراکترهای متنی و تغییر آنی موقعیت مبارزان پس از حرکت.</p>
+          </div>
+          <div class="feature-card p-4 rounded-xl">
+            <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
+              <i class="fas fa-heart-pulse"></i> ۳. پنل وضعیت و آمار (Status Dashboard)
+            </h3>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed">نمایش مقدار جان (HP)، تعداد کارت‌های موجود در دست و موقعیت فعلی هر قهرمان به صورت تفکیک‌شده.</p>
+          </div>
+          <div class="feature-card p-4 rounded-xl">
+            <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
+              <i class="fas fa-history"></i> ۴. باکس تاریخچه رویدادها (Action Log)
+            </h3>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed">یک بخش اختصاصی در پایین یا کنار صفحه جهت نمایش زنده گزارش‌ها (مثال: "مبارز A مقدار ۲ واحد آسیب به مبارز B وارد کرد").</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="terminal-glass p-6 rounded-2xl">
+        <div class="flex items-center gap-3 mb-4 border-b border-[#00ff9d]/20 pb-3">
+          <i class="fas fa-eye text-xl"></i>
+          <h2 class="text-xl font-bold">نمونه مفهومی و الهام‌بخش از طراحی TUI</h2>
+        </div>
+        <p class="text-sm opacity-70 mb-4">شما می‌توانید از ساختار و چیدمان تصویر زیر جهت ایده گرفتن برای توزیع پنل‌ها، منوها و فریم کادربندی ترمینال خود استفاده کنید:</p>
+        <div class="flex justify-center border border-[#00ff9d]/20 rounded-xl overflow-hidden bg-black/40 p-2">
+          <img src="../images/tui_example.jpg" alt="Terminal UI Layout Example" class="max-w-full h-auto rounded-lg opacity-85 grayscale contrast-125 hover:grayscale-0 transition-all duration-300" />
+        </div>
+        <div class="text-center mt-2 text-xs font-mono opacity-50">[تصویر بالا نمایی از چیدمان ماژولار منوها و اطلاعات در یک خط فرمان مدرن است]</div>
+      </section>
+
+      <section class="terminal-glass p-6 rounded-2xl">
+        <div class="flex items-center gap-3 mb-4 border-b border-[#00ff9d]/20 pb-3">
+          <i class="fas fa-code-branch text-xl"></i>
+          <h2 class="text-xl font-bold">ابزارها و کتابخانه‌های پیشنهادی در C++</h2>
+        </div>
+        <p class="text-sm opacity-70 mb-4">جهت توسعه این واسط متنی در زبان C++ می‌توانید از رویکردها و ابزارهای استاندارد زیر استفاده کنید:</p>
+        <div class="space-y-4">
+          <div class="bg-black/30 p-4 rounded-xl border border-[#00ff9d]/10">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-white text-sm">۱. FTXUI (Functional Terminal User Interface)</span>
+              <span class="text-[10px] bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/30 font-mono ltr-text">Modern C++</span>
+            </div>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed mb-1">یک کتابخانه فوق‌العاده مدرن، مبتنی بر کامپوننت و شیءگرا برای C++ که ساخت منوها، لایوت‌های افقی/عمودی و انیمیشن‌ها را بسیار ساده می‌کند و از ویژگی‌های واکنش‌گرا (Responsive) در ترمینال پشتیبانی می‌کند.</p>
+          </div>
+          <div class="bg-black/30 p-4 rounded-xl border border-[#00ff9d]/10">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-white text-sm">۲. ncurses / pdcurses</span>
+              <span class="text-[10px] bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/30 font-mono ltr-text">Classic Standard</span>
+            </div>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed mb-1">کتابخانه استاندارد، قدیمی و بسیار قدرتمند صنعت کامپیوتر برای کنترل مستقیم کاراکترها، مدیریت مکان‌نما (Cursor) و ساخت پنجره‌های متنی مجزا در لینوکس و ویندوز.</p>
+          </div>
+          <div class="bg-black/30 p-4 rounded-xl border border-[#00ff9d]/10">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-white text-sm">۳. پیاده‌سازی بومی (Custom ANSI Escape Codes)</span>
+              <span class="text-[10px] bg-[#00ff9d]/10 px-2 py-0.5 rounded border border-[#00ff9d]/30 font-mono ltr-text">Pure DIY</span>
+            </div>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed mb-1">اگر تمایلی به استفاده از کتابخانه‌های خارجی ندارید، می‌توانید با ارسال دستورات متنی استاندارد به خروجی کنسول، موتور رندر متنی اختصاصی خود را پیاده‌سازی کنید؛ برای نمونه دستور پاکسازی صفحه (clear) یا جابه‌جایی مکان‌نما به ابتدا.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center py-10 opacity-30 font-mono text-[10px] tracking-widest border-t border-[#00ff9d]/10 mt-10">
+      SYSTEM_STATUS: STABLE // ENCRYPTED_CONNECTION: TRUE
+    </footer>
+
+    <script>
+      const tw = document.getElementById('typewriter');
+      const text = tw.textContent;
+      tw.textContent = '';
+      let idx = 0;
+      function type() {
+        if(idx < text.length) {
+          tw.textContent += text.charAt(idx++);
+          setTimeout(type, 120);
+        }
+      }
+      window.onload = type;
+    </script>
+  </body>
+</html>
