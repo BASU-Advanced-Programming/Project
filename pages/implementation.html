@@ -122,10 +122,23 @@
               <i class="fas fa-compass"></i> ۱. منوی ناوبری اصلی (Main Menu)
             </h3>
             <p class="text-xs text-[#00ff9d]/70 leading-relaxed">منوی شروع با قابلیت انتخاب گزینه‌ها (شروع بازی جدید، راهنما، تنظیمات و خروج) بدون نیاز به تایپ دستی.</p>
+                <div class="flex flex-wrap gap-2">
+      <!-- Bubble items -->
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Play
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Help
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Exit
+      </div>
+   
+    </div>
           </div>
           <div class="feature-card p-4 rounded-xl">
             <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
-              <i class="fas fa-map-marked-alt"></i> ۲. رندر پویای نقشه (Dynamic ASCII Map)
+              <i class="fas fa-map-marked-alt"></i> ۲. نمایش نقشه
             </h3>
             <p class="text-xs text-[#00ff9d]/70 leading-relaxed">نمایش شبکه‌ای و گرافیکی نقشه بازی با کاراکترهای متنی و تغییر آنی موقعیت مبارزان پس از حرکت.</p>
           </div>
@@ -133,27 +146,59 @@
             <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
               <i class="fas fa-heart-pulse"></i> ۳. پنل وضعیت و آمار (Status Dashboard)
             </h3>
-            <p class="text-xs text-[#00ff9d]/70 leading-relaxed">نمایش مقدار جان (HP)، تعداد کارت‌های موجود در دست و موقعیت فعلی هر قهرمان به صورت تفکیک‌شده.</p>
+            <p class="text-xs text-[#00ff9d]/70 leading-relaxed" >نمایش مقدار جان (HP)، تعداد کارت‌های موجود در دست و موقعیت فعلی هر قهرمان به صورت تفکیک‌شده همچنین نمایش لاگ و توضیحات و ارور های ممکن به صورت واضح در کنار وضغیت کلی بازی.</p>
           </div>
-          <div class="feature-card p-4 rounded-xl">
-            <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
-              <i class="fas fa-history"></i> ۴. باکس تاریخچه رویدادها (Action Log)
-            </h3>
-            <p class="text-xs text-[#00ff9d]/70 leading-relaxed">یک بخش اختصاصی در پایین یا کنار صفحه جهت نمایش زنده گزارش‌ها (مثال: "مبارز A مقدار ۲ واحد آسیب به مبارز B وارد کرد").</p>
-          </div>
+   <div class="feature-card p-4 rounded-xl">
+  <h3 class="font-bold text-sm text-white mb-2 flex items-center gap-2">
+    <i class="fas fa-history"></i> ۴. منوی اقدامات
+  </h3>
+  <p class="text-xs text-[#00ff9d]/70 leading-relaxed mb-3">
+    به طور واضح اقدامات هر کارکتر مانند مانور، اتک و طرح باید نشان داده شود. همچنین عملیات دیگر مانند سوزاندن کارت، بازی کردن کارت یا هدف قرار دادن مبارز حریف
+  </p>
+
+  <!-- Nested Box: Attack Scheme with Bubbles -->
+  <div class="mt-3 p-3 rounded-lg bg-black/40 border border-[#00ff9d]/30">
+    <h4 class="text-xs font-bold text-[#00ff9d] mb-2 flex items-center gap-1">
+      <i class="fas fa-bullseye"></i> مثال
+    </h4>
+    <div class="flex flex-wrap gap-2">
+      <!-- Bubble items -->
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        manever
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Attack
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Scheme
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Discarding Cards
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Drawing Card
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Help
+      </div>
+      <div class="bg-[#00ff9d]/10 border border-[#00ff9d]/50 rounded-full px-3 py-1 text-xs text-white">
+        Back to main menu
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </section>
 
       <section class="terminal-glass p-6 rounded-2xl">
         <div class="flex items-center gap-3 mb-4 border-b border-[#00ff9d]/20 pb-3">
           <i class="fas fa-eye text-xl"></i>
-          <h2 class="text-xl font-bold">نمونه مفهومی و الهام‌بخش از طراحی TUI</h2>
+          <h2 class="text-xl font-bold">نمونه  طراحی TUI</h2>
         </div>
         <p class="text-sm opacity-70 mb-4">شما می‌توانید از ساختار و چیدمان تصویر زیر جهت ایده گرفتن برای توزیع پنل‌ها، منوها و فریم کادربندی ترمینال خود استفاده کنید:</p>
         <div class="flex justify-center border border-[#00ff9d]/20 rounded-xl overflow-hidden bg-black/40 p-2">
           <img src="../images/tui_example.jpg" alt="Terminal UI Layout Example" class="max-w-full h-auto rounded-lg opacity-85 grayscale contrast-125 hover:grayscale-0 transition-all duration-300" />
         </div>
-        <div class="text-center mt-2 text-xs font-mono opacity-50">[تصویر بالا نمایی از چیدمان ماژولار منوها و اطلاعات در یک خط فرمان مدرن است]</div>
       </section>
 
       <section class="terminal-glass p-6 rounded-2xl">
