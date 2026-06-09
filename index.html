@@ -338,6 +338,27 @@
         </a>
 
         <a
+          href="#tui"
+          class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
+        >
+          <svg
+            class="w-5 h-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 17l6-6-6-6M12 19h8"
+            />
+          </svg>
+          <span class="hidden md:inline">tui</span>
+        </a>
+
+        <a
           href="#scores"
           class="text-[#8a8a9e] no-underline text-[0.85rem] px-2.5 py-2 md:px-4 md:py-2.5 rounded-xl transition-all duration-300 flex items-center gap-2 whitespace-nowrap hover:text-[#00f0ff] hover:bg-[#00f0ff]/10 hover:font-bold hover:shadow-[0_0_10px_rgba(0,240,255,0.2)] [&.active]:text-[#00f0ff] [&.active]:bg-[#00f0ff]/10 [&.active]:font-bold"
         >
@@ -1166,6 +1187,7 @@
           </div>
         </div>
       </div>
+      <!-- combat card -->
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
         id="combat"
@@ -1364,13 +1386,49 @@
         </div>
       </div>
 
-      <!-- Scoring -->
+      <!-- Tui page -->
       <div
         class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-[50px] md:mr-[50%] [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
-        id="scores"
+        id="tui"
       >
         <div
           class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:-right-[12px] z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
+        ></div>
+
+        <div
+          class="bg-[#141423]/70 backdrop-blur-md border border-white/10 rounded-3xl p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.6)] transition-all duration-400 relative hover:-translate-y-2 hover:border-brand-cyan/40 hover:shadow-[0_20px_50px_rgba(0,240,255,0.15)]"
+        >
+          <h2
+            class="text-3xl md:text-4xl mb-4 bg-gradient-to-l from-white to-brand-gray bg-clip-text text-transparent font-bold"
+          >
+            💻 نحوه پیاده سازی
+          </h2>
+          <p class="text-brand-textMuted text-[1.1rem] leading-relaxed mb-6">
+           در فاز اول این پروژه از شما انتظار می رود که این بازی را به صورت TUI پیاده سازی کنید.
+           <br>
+           برای توضیحات بیشتر می توانید وارد لینک زیر شوید
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+            <div class="w-full">
+              <a
+                href="pages/implementation.html"
+                class="block w-full text-[0.85rem] py-3 px-1 rounded-lg bg-white/5 text-brand-textMuted border border-white/10 cursor-pointer transition-all duration-200 text-center no-underline hover:bg-brand-purple/20 hover:text-white hover:border-brand-purple"
+              >
+                📖 جزییات بیشتر
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Scoring -->
+      <div
+        class="group timeline-item relative w-full md:w-1/2 py-10 opacity-0 translate-y-[60px] transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)] z-[2] pr-[60px] md:pr-0 md:pl-[50px] mr-0 [&.is-visible]:opacity-100 [&.is-visible]:translate-y-0"
+        id="scores"
+      >
+        <div
+          class="absolute w-6 h-6 bg-brand-bg border-4 border-brand-cyan rounded-full top-1/2 -translate-y-1/2 right-[18px] md:right-[calc(100%-12px)] md:left-auto z-[3] shadow-[0_0_10px_#00f0ff] transition-all duration-300 group-hover:bg-brand-pink group-hover:border-brand-pink group-hover:shadow-[0_0_20px_#ff007f] group-hover:scale-125"
         ></div>
 
         <div
